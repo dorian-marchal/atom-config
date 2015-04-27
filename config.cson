@@ -1,0 +1,75 @@
+"*":
+  "exception-reporting":
+    userId: "3079f2c3-af1f-fc1b-e5c7-6add982dcebc"
+  welcome:
+    showOnStartup: false
+  core:
+    disabledPackages: [
+      "remember-session"
+      "save-session"
+      "markdown-lists"
+      "spell-check"
+      "tabs"
+      "tree-view"
+      "tabs"
+      "tree-view"
+      "tabs"
+      "tree-view"
+      "text-pastry"
+    ]
+    themes: [
+      "seti-ui"
+      "seti-monokai"
+    ]
+    excludeVcsIgnoredPaths: false
+    ignoredNames: [
+      "node_modules"
+    ]
+  editor:
+    invisibles: {}
+    showInvisibles: true
+    fontSize: 15
+    tabLength: 4
+    scrollPastEnd: true
+  minimap:
+    plugins:
+      "git-diff": true
+      "highlight-selected": true
+  "save-session":
+    dataSaveFolder: "/home/dorian/.atom/packages/save-session/projects"
+    windowX: 1985
+    windowY: 24
+    windowWidth: 1615
+    windowHeight: 1026
+    fullScreen: false
+    projects: [
+      "/media/data/www/phonegap-boilerplate-example"
+      "/media/data/www/phonegap-boilerplate-server-example"
+    ]
+  "remember-session":
+    x: 1986
+    y: 52
+    width: 1615
+    height: 1026
+  "markdown-writer":
+    fileExtension: ".markdown, .md"
+  "toggle-quotes": {}
+  "spell-check": {}
+  tabs:
+    showIcons: true
+  "tree-view":
+    hideVcsIgnoredFiles: false
+    hideIgnoredNames: false
+    showOnRightSide: false
+    sortFoldersBeforeFiles: true
+  pigments:
+    markerType: "dot"
+  "autocomplete-plus": {}
+  emmet: {}
+  "highlight-selected": {}
+  jshint:
+    supportLintingJsx: true
+  "project-manager": {}
+  "sublime-tabs": {}
+  "merge-conflicts": {}
+  "terminal-status": {}

@@ -1,0 +1,53 @@
+# Your keymap
+#
+# Atom keymaps work similarly to style sheets. Just as style sheets use
+# selectors to apply styles to elements, Atom keymaps use selectors to associate
+# keystrokes with events in specific contexts.
+#
+# You can create a new keybinding in this file by typing "key" and then hitting
+# tab.
+#
+# Here's an example taken from Atom's built-in keymap:
+#
+# 'atom-text-editor':
+#   'enter': 'editor:newline'
+#
+# 'atom-workspace':
+#   'ctrl-shift-p': 'core:move-up'
+#   'ctrl-p': 'core:move-down'
+#
+# You can find more information about keymaps in these guides:
+# * https://atom.io/docs/latest/using-atom-basic-customization#customizing-key-bindings
+# * https://atom.io/docs/latest/behind-atom-keymaps-in-depth
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it here:
+# https://github.com/bevry/cson#what-is-cson
+
+'atom-workspace atom-text-editor:not([mini])':
+  'alt-up': 'editor:move-line-up'
+  'alt-down': 'editor:move-line-down'
+  'ctrl-alt-down': 'editor:duplicate-lines'
+  'ctrl-d': 'editor:delete-line'
+  'ctrl-u': 'find-and-replace:select-next'
+  'alt-left': 'editor:move-to-first-character-of-line'
+  'alt-right': 'editor:move-to-end-of-line'
+  'alt-shift-left': 'editor:select-to-first-character-of-line'
+  'alt-shift-right': 'editor:select-to-end-of-line'
+  'ctrl-shift-c': 'editor:toggle-line-comments'
+  'ctrl-shift-l': 'editor:split-selections-into-lines'
+  'ctrl-shift-q': 'toggle-quotes:toggle'
+  'ctrl-shift-m': 'markdown-preview:toggle'
+  'ctrl-k ctrl-g': 'grammar-selector:show'
+  'ctrl-f12': 'terminal-status:toggle'
+
+ # Stop emmet from hijacking tab from snippets and autocomplete
+'atom-text-editor.autocomplete-active:not([mini])':
+  'tab': 'autocomplete-plus:confirm'
+
+ # Stop emmet from hijacking tab from snippet tab stops
+'atom-text-editor[data-grammar="text html basic"]:not([mini]), atom-text-editor[data-grammar~="jade"]:not([mini]), atom-text-editor[data-grammar~="css"]:not([mini]), atom-text-editor[data-grammar~="sass"]:not([mini])':
+  'tab': 'snippets:next-tab-stop'
+
+'.platform-win32 atom-text-editor, .platform-linux atom-text-editor':
+  'ctrl-u': 'unset!'

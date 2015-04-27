@@ -1,0 +1,42 @@
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed.
+ *
+ * If you are unfamiliar with LESS, you can read more about it here:
+ * http://www.lesscss.org
+ */
+
+.tree-view {
+}
+
+atom-pane:not(.active) {
+    opacity: 1;
+
+    atom-text-editor {
+      background-color: #1d1f21;
+    }
+}
+
+// style the background and foreground colors on the atom-text-editor-element
+// itself
+atom-text-editor {
+    // font-family: 'Inconsolata' !important; font-size: 17px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
+    // font-family: 'DejaVu Sans Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    font-family: 'Droid Sans Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    // font-family: 'Liberation Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+// To style other content in the text editor's shadow DOM, use the ::shadow
+// expression
+atom-text-editor::shadow {
+    .invisible-character {
+        opacity: 0;
+
+        &.hard-tab {
+            color: #FFF;
+            opacity: 0.6;
+        }
+    }
+}
