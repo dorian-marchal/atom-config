@@ -1,0 +1,225 @@
+{
+  "name": "livereload",
+  "main": "./lib/livereload",
+  "version": "0.2.0",
+  "description": "LiveReload plugin for Atom",
+  "activationEvents": [
+    "livereload:toggle"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taggon/livereload"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "contributors": [
+    {
+      "name": "Taegon Kim",
+      "email": "iam@taegon.kim"
+    }
+  ],
+  "dependencies": {
+    "livereload": "0.3.4"
+  },
+  "readme": "# LiveReload for Atom\n\nAn [Atom](https://atom.io/) package enables you to control built-in [LiveReload](http://livereload.com/) server.\n> LiveReload monitors changes in the file system. As soon as you save a file, it is preprocessed as needed, and the browser is refreshed.\n>\n> Even cooler, when you change a CSS file or an image, the browser is updated instantly without reloading the page.\n>\n> *from LiveReload official site*\n\n## Usage\n1. Select main menu `Packages > LiveReload > Toggle Server` to turn the server on. Or, you can click `Toggle LiveReload` in the context menu to do same thing.\n2. When the server started successfully, `LiveReload: PORT_NUMBER` text appears in the status bar(see the bottom right panel in the following screenshot).\n   ![LiveReload status text](https://cloud.githubusercontent.com/assets/212034/3565696/c50f01ce-0aca-11e4-991e-4cb8475364c4.png)\n3. Click it to get the url of `livereload.js` JavaScript file.\n4. Put the script into the bottom of documents you want to give power of live reloading.\n\n## Features\n* Reloads web pages when any file is saved.\n* Applies changes without reloading when any CSS or image changed.\n\n## License\nMIT\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/taggon/livereload/issues"
+  },
+  "homepage": "https://github.com/taggon/livereload",
+  "_id": "livereload@0.2.0",
+  "_shasum": "d1548cdd52fdb224b49f68564046dba1ee88f6a4",
+  "_resolved": "file:../d-115322-6127-8f5hl6/package.tgz",
+  "_from": "../d-115322-6127-8f5hl6/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "livereload",
+        "version": "0.3.4",
+        "path": "node_modules/livereload/lib/livereload.js"
+      },
+      {
+        "name": "opts",
+        "version": "1.2.2",
+        "path": "node_modules/livereload/node_modules/opts/js/opts.js"
+      },
+      {
+        "name": "websocket.io",
+        "version": "0.2.1",
+        "path": "node_modules/livereload/node_modules/websocket.io/lib/websocket.io.js"
+      },
+      {
+        "name": "debug",
+        "version": "2.1.3",
+        "path": "node_modules/livereload/node_modules/websocket.io/node_modules/debug/node.js"
+      },
+      {
+        "name": "ms",
+        "version": "0.7.0",
+        "path": "node_modules/livereload/node_modules/websocket.io/node_modules/debug/node_modules/ms/index.js"
+      },
+      {
+        "name": "ws",
+        "version": "0.4.20",
+        "path": "node_modules/livereload/node_modules/websocket.io/node_modules/ws/index.js"
+      },
+      {
+        "name": "commander",
+        "version": "0.6.1",
+        "path": "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/commander/index.js"
+      },
+      {
+        "name": "options",
+        "version": "0.0.6",
+        "path": "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/options/lib/options.js"
+      },
+      {
+        "name": "tinycolor",
+        "version": "0.0.1",
+        "path": "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/tinycolor/tinycolor.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/livereload-view.coffee",
+        "lib/livereload.coffee",
+        "node_modules/livereload/lib/command.coffee",
+        "node_modules/livereload/lib/livereload.coffee"
+      ],
+      ".js": [
+        "node_modules/livereload/bin/livereload.js",
+        "node_modules/livereload/ext/livereload.js",
+        "node_modules/livereload/lib/command.js",
+        "node_modules/livereload/lib/livereload.js",
+        "node_modules/livereload/node_modules/opts/examples/example1.js",
+        "node_modules/livereload/node_modules/opts/examples/example2.js",
+        "node_modules/livereload/node_modules/opts/examples/example3.js",
+        "node_modules/livereload/node_modules/opts/examples/example4.js",
+        "node_modules/livereload/node_modules/opts/js/opts.js",
+        "node_modules/livereload/node_modules/websocket.io/examples/echo/server.js",
+        "node_modules/livereload/node_modules/websocket.io/index.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/protocols/drafts.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/protocols/hybi.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/protocols/index.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/server.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/socket.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/util.js",
+        "node_modules/livereload/node_modules/websocket.io/lib/websocket.io.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/browser.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/debug.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/node.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/node_modules/ms/index.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/bench/parser.benchmark.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/bench/sender.benchmark.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/bench/speed.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/bench/util.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/fileapi/public/app.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/fileapi/public/uploader.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/fileapi/server.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/serverstats/server.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/serverstats-express_3/server.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/index.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/install.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/BufferPool.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/BufferUtil.fallback.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/BufferUtil.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/ErrorCodes.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/Receiver.hixie.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/Receiver.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/Sender.hixie.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/Sender.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/Validation.fallback.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/Validation.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/WebSocket.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib/WebSocketServer.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/commander/index.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/commander/lib/commander.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/options/lib/options.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/tinycolor/example.js",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/tinycolor/tinycolor.js"
+      ],
+      ".json": [
+        "node_modules/livereload/node_modules/opts/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/bower.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/component.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/node_modules/ms/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/debug/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/fileapi/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/serverstats/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/serverstats-express_3/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/commander/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/options/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/node_modules/tinycolor/package.json",
+        "node_modules/livereload/node_modules/websocket.io/node_modules/ws/package.json",
+        "node_modules/livereload/node_modules/websocket.io/package.json",
+        "node_modules/livereload/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "",
+          "spec"
+        ],
+        "dependencies": {
+          "livereload": "0.3.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/livereload/bin",
+          "node_modules/livereload/ext",
+          "node_modules/livereload/lib",
+          "node_modules/livereload",
+          "node_modules/livereload/test"
+        ],
+        "dependencies": {
+          "opts": ">= 1.2.0",
+          "websocket.io": ">= 0.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/livereload/node_modules/websocket.io/examples/echo",
+          "node_modules/livereload/node_modules/websocket.io",
+          "node_modules/livereload/node_modules/websocket.io/lib/protocols",
+          "node_modules/livereload/node_modules/websocket.io/lib",
+          "node_modules/livereload/node_modules/websocket.io/test"
+        ],
+        "dependencies": {
+          "debug": "*",
+          "ws": "0.4.20"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/livereload/node_modules/websocket.io/node_modules/debug"
+        ],
+        "dependencies": {
+          "ms": "0.7.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/bench",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/fileapi",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/fileapi/public",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/serverstats",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/examples/serverstats-express_3",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/lib",
+          "node_modules/livereload/node_modules/websocket.io/node_modules/ws/test"
+        ],
+        "dependencies": {
+          "commander": "~0.6.1",
+          "tinycolor": "0.x"
+        }
+      }
+    ]
+  }
+}

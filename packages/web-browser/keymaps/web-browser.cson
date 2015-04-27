@@ -1,0 +1,16 @@
+
+'atom-workspace':
+  'ctrl-alt-b': 'web-browser:toggle'
+
+'body':
+  'f12': 'unset!'
+
+'body atom-pane .item-views .browser-page webview':
+  'tab':       'native!'
+  'shift-tab': 'native!'
+  'f12': 'web-browser:toggle-dev'
+  
+'atom-text-editor':
+  'ctrl-h': 'web-browser:google-it'
+  'ctrl-alt-h': 'web-browser:devdocs-it'
+  
