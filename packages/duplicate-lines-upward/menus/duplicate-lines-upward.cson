@@ -1,0 +1,13 @@
+'menu': [
+  {
+    label: 'Edit'
+    submenu: [
+      {
+        label: 'Lines',
+        submenu: [
+          { label: 'Duplicate Lines Upward', command: 'duplicate-lines-upward:duplicate-lines-upward' }
+        ]
+      }
+    ]
+  }
+]
