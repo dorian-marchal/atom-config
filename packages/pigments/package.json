@@ -45,8 +45,8 @@
   "homepage": "https://github.com/abe33/atom-pigments",
   "_id": "pigments@0.1.4",
   "_shasum": "baf23933987bc378cb80cc76e28bbda43a84c8b2",
-  "_resolved": "file:../d-115324-8308-90zlxp/package.tgz",
-  "_from": "../d-115324-8308-90zlxp/package.tgz",
+  "_resolved": "file:../d-115327-13137-g4q8vz/package.tgz",
+  "_from": "../d-115327-13137-g4q8vz/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -212,7 +212,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.1",
+        "version": "2.6.2",
         "path": "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -817,6 +817,8 @@
         "node_modules/fuzzaldrin/lib/matcher.js",
         "node_modules/fuzzaldrin/lib/scorer.js",
         "node_modules/minimatch/minimatch.js",
+        "node_modules/minimatch/node_modules/lru-cache/bar.js",
+        "node_modules/minimatch/node_modules/lru-cache/foo.js",
         "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/minimatch/node_modules/sigmund/bench.js",
         "node_modules/minimatch/node_modules/sigmund/sigmund.js",
