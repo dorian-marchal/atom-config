@@ -24,6 +24,10 @@
     excludeVcsIgnoredPaths: false
     ignoredNames: [
       "node_modules"
+      "*.scssc"
+      ".git"
+      ".cordova"
+      "bower_components"
     ]
   editor:
     invisibles: {}
@@ -64,6 +68,10 @@
     sortFoldersBeforeFiles: true
   pigments:
     markerType: "dot"
+    extendAutocompleteToVariables: false
+    autocompleteScopes: [
+      "'disabled'"
+    ]
   "autocomplete-plus": {}
   emmet: {}
   "highlight-selected": {}
@@ -71,5 +79,3 @@
     supportLintingJsx: true
   "project-manager": {}
   "sublime-tabs": {}
-  "merge-conflicts": {}
-  "terminal-status": {}
