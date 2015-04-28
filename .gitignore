@@ -5,3 +5,4 @@ dev
 .node-gyp
 .apm
 projects.cson
+/packages/save-session/projects/*
