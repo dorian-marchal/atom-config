@@ -41,8 +41,8 @@
   "homepage": "https://github.com/sindresorhus/atom-jshint",
   "_id": "jshint@1.3.5",
   "_shasum": "1c66ebb25b961ddc20e97641431f065f0ad8446d",
-  "_resolved": "file:../d-115324-8292-ndq2gr/package.tgz",
-  "_from": "../d-115324-8292-ndq2gr/package.tgz",
+  "_resolved": "file:../d-115327-21510-itlm8x/package.tgz",
+  "_from": "../d-115327-21510-itlm8x/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -123,7 +123,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.1",
+        "version": "2.6.2",
         "path": "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -248,7 +248,7 @@
       },
       {
         "name": "lodash",
-        "version": "2.4.1",
+        "version": "2.4.2",
         "path": "node_modules/jshint-jsx/node_modules/lodash/dist/lodash.js"
       },
       {
@@ -293,7 +293,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.1",
+        "version": "2.6.2",
         "path": "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -875,6 +875,8 @@
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/inherits_browser.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/test.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/minimatch.js",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/bar.js",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/foo.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
@@ -1399,6 +1401,8 @@
         "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/inherits/inherits_browser.js",
         "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/inherits/test.js",
         "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/minimatch.js",
+        "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/bar.js",
+        "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/foo.js",
         "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
         "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
