@@ -1,0 +1,38 @@
+{
+  "name": "add-line-break",
+  "main": "./lib/add-line-break",
+  "version": "0.2.0",
+  "description": "Commands to add line break before/after a selection",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dorian-marchal/add-line-break"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {},
+  "readme": "# add-line-break package\n\nAdd two commands to add lines before and after a selected block.\nUseful to quickly format code (HTML, for example)\n\n![Example Gif](https://cloud.githubusercontent.com/assets/6225979/7402200/5ea68878-eeca-11e4-8bdd-83474cd4190a.gif)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/dorian-marchal/add-line-break/issues"
+  },
+  "homepage": "https://github.com/dorian-marchal/add-line-break",
+  "_id": "add-line-break@0.2.0",
+  "_shasum": "1fc1463f0b89771dd4d282c94fbc0939047083c4",
+  "_resolved": "file:../d-115330-18474-1opqsu6/package.tgz",
+  "_from": "../d-115330-18474-1opqsu6/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/add-line-break.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
