@@ -26,17 +26,25 @@
 # HTML
 '.text.html':
   'Underscore template':
-    'prefix': 'ù'
+    'prefix': '_'
     'body': '<% ${1} %>'
 
-  'Underscore template (if)':
-    'prefix': 'ùif'
-    'body': '<% if (${1}) { %>'
-
   'Underscore template (interpolation)':
-    'prefix': 'ù='
+    'prefix': '__'
     'body': '<%= ${1} %>'
 
+  'Underscore template (if)':
+    'prefix': '_if'
+    'body': '<% if (${1}) { %>'
+
+  'Underscore template (else if)':
+    'prefix': '_elsif'
+    'body': '<% } else if (${1}) { %>'
+
+  'Underscore template (else)':
+    'prefix': '_else'
+    'body': '<% } else { %>'
+
   'Underscore template (for in)':
-    'prefix': 'ùfor'
+    'prefix': '_for'
     'body': '<%= for (var i in ${1}) { %>'
