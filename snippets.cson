@@ -23,6 +23,11 @@
     'prefix': 'cl'
     'body': 'console.log(${1});'
 
+'.source.coffee':
+  'Console log':
+    'prefix': 'cl'
+    'body': 'console.log ${1}'
+
 # HTML
 '.text.html':
   'Underscore template':
