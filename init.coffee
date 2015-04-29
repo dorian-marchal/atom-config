@@ -18,6 +18,11 @@ atom.keymap.keyBindings = atom.keymap.keyBindings.filter((binding, i) ->
   ['ctrl-q'].indexOf(binding.keystrokes) == -1
 )
 
+# alert current scope
+atom.commands.add 'atom-text-editor', 'dorian:show-current-scope', (e) ->
+  alert atom.workspace.getActiveEditor().getGrammar().scopeName
+
+
 # prevent core:copy if and only if there's one selection in
 # the active editor (mini or not) and its length equals 0
 atom.commands.add 'atom-text-editor', 'core:copy', (e) ->
