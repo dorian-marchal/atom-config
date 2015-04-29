@@ -1,7 +1,7 @@
 {
   "name": "autocomplete-snippets",
   "main": "./lib/autocomplete-snippets",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Adds snippets to autocomplete+ suggestions",
   "repository": {
     "type": "git",
@@ -33,10 +33,10 @@
     "url": "https://github.com/atom-community/autocomplete-snippets/issues"
   },
   "homepage": "https://github.com/atom-community/autocomplete-snippets",
-  "_id": "autocomplete-snippets@1.2.0",
-  "_shasum": "d26b1c7b08077a70f0a5429b1c5d2a570aeb3a7c",
-  "_resolved": "file:../d-115322-4285-16nmefm/package.tgz",
-  "_from": "../d-115322-4285-16nmefm/package.tgz",
+  "_id": "autocomplete-snippets@1.3.0",
+  "_shasum": "7bde6dcd9dc44c7107f35a8ad4e1011b83160bb9",
+  "_resolved": "file:../d-115329-4939-1xs2cu6/package.tgz",
+  "_from": "../d-115329-4939-1xs2cu6/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

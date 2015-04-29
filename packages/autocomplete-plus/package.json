@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-plus",
-  "version": "2.12.0",
+  "version": "2.12.1",
   "main": "./lib/main",
   "description": "Display possible completions in the editor while typing",
   "repository": {
@@ -46,10 +46,10 @@
     "url": "https://github.com/atom-community/autocomplete-plus/issues"
   },
   "homepage": "https://github.com/atom-community/autocomplete-plus",
-  "_id": "autocomplete-plus@2.12.0",
-  "_shasum": "0ecd394b6dce041743d9b3c4571db0c9327de095",
-  "_resolved": "file:../d-115322-4220-hewmcn/package.tgz",
-  "_from": "../d-115322-4220-hewmcn/package.tgz",
+  "_id": "autocomplete-plus@2.12.1",
+  "_shasum": "c67363e22bb5c4dd44fe583d82c1c12ce81aa0f3",
+  "_resolved": "file:../d-115329-4923-aaoq6y/package.tgz",
+  "_from": "../d-115329-4923-aaoq6y/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -75,7 +75,7 @@
       },
       {
         "name": "grim",
-        "version": "1.2.2",
+        "version": "1.4.0",
         "path": "node_modules/grim/lib/grim.js"
       },
       {

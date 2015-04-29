@@ -192,6 +192,20 @@ describe 'Autocomplete Manager', ->
         runs ->
           expect(prefix).toBe '.'
 
+      it "calls with prefix after non \\b word break", ->
+        editor.insertText('=""')
+        editor.insertText(' ')
+        waitForAutocomplete()
+        runs ->
+          expect(prefix).toBe ' '
+
+      it "calls with prefix after non \\b word break", ->
+        editor.insertText('?')
+        editor.insertText(' ')
+        waitForAutocomplete()
+        runs ->
+          expect(prefix).toBe ' '
+
     describe "when the character entered is not at the cursor position", ->
       beforeEach ->
         editor.setText 'some text ok'
@@ -1194,9 +1208,9 @@ describe 'Autocomplete Manager', ->
         autocompleteManager = mainModule.autocompleteManager
 
       runs ->
-        advanceClock(autocompleteManager.providerManager.fuzzyProvider.deferBuildWordListInterval)
+        advanceClock(autocompleteManager.providerManager.defaultProvider.deferBuildWordListInterval)
 
-    describe 'when fuzzyProvider is disabled', ->
+    describe 'when the built-in provider is disabled', ->
       it 'should not show the suggestion list', ->
         atom.config.set('autocomplete-plus.enableBuiltinProvider', false)
         expect(editorView.querySelector('.autocomplete-plus')).not.toExist()
@@ -1231,6 +1245,7 @@ describe 'Autocomplete Manager', ->
 
       it 'shows the suggestion list on backspace if allowed', ->
         runs ->
+          atom.config.set('autocomplete-plus.backspaceTriggersAutocomplete', true)
           expect(editorView.querySelector('.autocomplete-plus')).not.toExist()
 
           editor.moveToBottom()
