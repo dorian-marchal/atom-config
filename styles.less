@@ -9,14 +9,27 @@
  */
 
 .tree-view {
+    font-size: 1.2em !important;
 }
 
-atom-pane:not(.active) {
-    opacity: 1;
+atom-pane {
 
-    atom-text-editor {
-      background-color: #1d1f21;
+    &:not(.active) {
+        opacity: 1;
+
+        atom-text-editor {
+          background-color: #1d1f21;
+        }
     }
+
+    .modified {
+
+        * {
+            color: #ffa81c !important;
+            border-color: #ffa81c !important;
+        }
+    }
+
 }
 
 // style the background and foreground colors on the atom-text-editor-element
@@ -26,7 +39,7 @@ atom-text-editor {
     // font-family: 'DejaVu Sans Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
     font-family: 'Droid Sans Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
     // font-family: 'Liberation Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
 // To style other content in the text editor's shadow DOM, use the ::shadow
 // expression
