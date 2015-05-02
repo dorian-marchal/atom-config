@@ -5,6 +5,10 @@ jsonFixture = require('./spec-helper').jsonFixture(__dirname, 'fixtures')
 describe 'ColorBuffer', ->
   [editor, colorBuffer, pigments, project] = []
 
+  sleep = (ms) ->
+    start = new Date
+    -> new Date - start >= ms
+
   editBuffer = (text, options={}) ->
     if options.start?
       if options.end?
@@ -18,6 +22,7 @@ describe 'ColorBuffer', ->
     editor.getBuffer().emitter.emit('did-stop-changing') unless options.noEvent
 
   beforeEach ->
+    atom.config.set 'pigments.delayBeforeScan', 0
     atom.config.set 'pigments.sourceNames', [
       '*.styl'
       '*.less'
@@ -80,6 +85,35 @@ describe 'ColorBuffer', ->
 
         it 'does not add the path to the project paths', ->
           expect('new-path.styl' in project.getPaths()).toBeFalsy()
+
+  # FIXME Using a 1s sleep seems to do nothing on Travis, it'll need
+  # a better solution.
+  xdescribe 'with rapid changes that triggers a rescan', ->
+    beforeEach ->
+      colorBuffer = project.colorBufferForEditor(editor)
+      waitsForPromise -> colorBuffer.variablesAvailable()
+
+      runs ->
+        spyOn(colorBuffer, 'updateColorMarkers').andCallThrough()
+        spyOn(colorBuffer, 'scanBufferForVariables').andCallThrough()
+
+        editor.moveToBottom()
+
+        editor.insertText('#fff\n')
+        editor.getBuffer().emitter.emit('did-stop-changing')
+
+      waitsFor -> colorBuffer.scanBufferForVariables.callCount > 0
+
+      runs ->
+        editor.insertText(' ')
+        editor.emitter.emit('did-change')
+        editor.getBuffer().emitter.emit('did-stop-changing')
+
+      waitsFor sleep(1000)
+
+    it 'terminates the currently running task', ->
+      expect(colorBuffer.updateColorMarkers.callCount).toEqual(1)
+
 
   describe 'when created without a previous state', ->
     beforeEach ->
@@ -258,6 +292,22 @@ describe 'ColorBuffer', ->
 
         it 'removes the previous editor markers', ->
           expect(editor.findMarkers(type: 'pigments-color').length).toEqual(3)
+
+      describe 'when new lines changes the markers range', ->
+        [colorsUpdateSpy] = []
+
+        beforeEach ->
+          waitsForPromise -> colorBuffer.variablesAvailable()
+
+          runs ->
+            colorsUpdateSpy = jasmine.createSpy('did-update-color-markers')
+            colorBuffer.onDidUpdateColorMarkers(colorsUpdateSpy)
+            editBuffer '#fff\n\n', start: [0,0], end: [0,0]
+            waitsFor -> colorsUpdateSpy.callCount > 0
+
+        it 'does not destroys the previous markers', ->
+          expect(colorsUpdateSpy.argsForCall[0][0].destroyed.length).toEqual(0)
+          expect(colorsUpdateSpy.argsForCall[0][0].created.length).toEqual(1)
 
       describe 'when a new color is added', ->
         [colorsUpdateSpy] = []

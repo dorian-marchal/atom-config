@@ -17,7 +17,21 @@ class ColorBuffer
     @variableMarkersByMarkerId = {}
 
     @subscriptions.add @editor.onDidDestroy => @destroy()
-    @subscriptions.add @editor.onDidStopChanging => @update()
+
+    @subscriptions.add @editor.onDidChange =>
+      @terminateRunningTask()
+      clearTimeout(@timeout) if @timeout?
+
+    @subscriptions.add @editor.onDidStopChanging =>
+      if @delayBeforeScan is 0
+        @update()
+      else
+        clearTimeout(@timeout) if @timeout?
+        @timeout = setTimeout =>
+          @update()
+          @timeout = null
+        , @delayBeforeScan
+
     @subscriptions.add @editor.onDidChangePath (path) =>
       @project.appendPath(path) if @isVariablesSource()
       @update()
@@ -26,6 +40,8 @@ class ColorBuffer
       resultsForBuffer = @project.getVariables().filter (r) =>
         r.path is @editor.getPath()
       @updateVariableMarkers(resultsForBuffer)
+
+    @subscriptions.add atom.config.observe 'pigments.delayBeforeScan', (@delayBeforeScan=0) =>
 
     @subscriptions.add atom.config.observe 'pigments.ignoredScopes', (@ignoredScopes=[]) =>
       @emitter.emit 'did-update-color-markers', {created: [], destroyed: []}
@@ -107,6 +123,7 @@ class ColorBuffer
         variables: results?.map (p) => new ProjectVariable(p, @project)
     .then (results) =>
       @updateColorMarkers(results)
+    .catch (reason) ->
 
   update: ->
     promise = if @isIgnored()
@@ -119,7 +136,11 @@ class ColorBuffer
     promise.then (results) =>
       @scanBufferForColors
         variables: results?.map (p) => new ProjectVariable(p, @project)
-    .then (results) => @updateColorMarkers(results)
+    .then (results) =>
+      @updateColorMarkers(results)
+    .catch (reason) ->
+
+  terminateRunningTask: -> @task?.terminate()
 
   destroy: ->
     @subscriptions.dispose()
@@ -209,7 +230,7 @@ class ColorBuffer
     markers.map (marker) => @variableMarkersByMarkerId[marker.id]
 
   scanBufferForVariables: ->
-    return if @destroyed
+    return Promise.reject("This ColorBuffer is already destroyed") if @destroyed
     results = []
     taskPath = require.resolve('./tasks/scan-buffer-variables-handler')
     editor = @editor
@@ -217,14 +238,16 @@ class ColorBuffer
     config =
       buffer: @editor.getText()
 
-    new Promise (resolve, reject) ->
-      task = Task.once(
+    new Promise (resolve, reject) =>
+      @task = Task.once(
         taskPath,
         config,
-        -> resolve(results)
+        =>
+          @task = null
+          resolve(results)
       )
 
-      task.on 'scan-buffer:variables-found', (variables) ->
+      @task.on 'scan-buffer:variables-found', (variables) ->
         results = results.concat variables.map (variable) ->
           variable.path = editor.getPath()
           variable.bufferRange = Range.fromObject [
@@ -317,14 +340,16 @@ class ColorBuffer
       buffer: @editor.getText()
       variables: variables.map (v) -> v.serialize()
 
-    new Promise (resolve, reject) ->
-      task = Task.once(
+    new Promise (resolve, reject) =>
+      @task = Task.once(
         taskPath,
         config,
-        -> resolve(results)
+        =>
+          @task = null
+          resolve(results)
       )
 
-      task.on 'scan-buffer:colors-found', (colors) ->
+      @task.on 'scan-buffer:colors-found', (colors) ->
         results = results.concat colors.map (res) ->
           res.color = new Color(res.color)
           res.bufferRange = Range.fromObject [
