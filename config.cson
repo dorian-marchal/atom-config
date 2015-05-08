@@ -8,12 +8,13 @@
       "remember-session"
       "save-session"
       "markdown-lists"
-      "spell-check"
       "text-pastry"
+      "recent-files-fuzzy-finder"
+      "metrics"
     ]
     themes: [
-      "seti-ui"
-      "seti-monokai"
+      "atom-dark-ui"
+      "monokai"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -22,11 +23,11 @@
       ".git"
       ".cordova"
       "bower_components"
+      "platforms"
     ]
   editor:
     invisibles: {}
     showInvisibles: true
-    fontSize: 15
     tabLength: 4
     scrollPastEnd: true
   minimap:
@@ -55,11 +56,6 @@
   "spell-check": {}
   tabs:
     showIcons: true
-  "tree-view":
-    hideVcsIgnoredFiles: false
-    hideIgnoredNames: false
-    showOnRightSide: false
-    sortFoldersBeforeFiles: true
   pigments:
     markerType: "dot"
     extendAutocompleteToVariables: false
@@ -73,3 +69,15 @@
     supportLintingJsx: true
   "project-manager": {}
   "sublime-tabs": {}
+  "file-icons": {}
+  "isotope-ui": {}
+  "tree-ignore":
+    enabled: false
+  "recent-files-fuzzy-finder": {}
+  zentabs:
+    maximumOpenedTabs: 8
+    neverCloseDirty: true
+    neverCloseUnsaved: true
+  "fuzzy-finder": {}
+  "terminal-status": {}
+  achievements: {}

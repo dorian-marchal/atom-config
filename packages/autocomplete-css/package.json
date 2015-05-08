@@ -29,8 +29,8 @@
   "homepage": "https://github.com/atom/autocomplete-css",
   "_id": "autocomplete-css@0.6.0",
   "_shasum": "9ea569525569fd7d4cb7212800a9f69e4f8846bc",
-  "_resolved": "file:../d-115326-9782-101swll/package.tgz",
-  "_from": "../d-115326-9782-101swll/package.tgz",
+  "_resolved": "file:../d-11546-5647-wohlg/package.tgz",
+  "_from": "../d-11546-5647-wohlg/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

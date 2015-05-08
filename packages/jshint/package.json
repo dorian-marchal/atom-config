@@ -1,6 +1,6 @@
 {
   "name": "jshint",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Validate JavaScript with JSHint. In realtime or on save. Supports JSX (React).",
   "license": "MIT",
   "repository": {
@@ -39,10 +39,10 @@
     "url": "https://github.com/sindresorhus/atom-jshint/issues"
   },
   "homepage": "https://github.com/sindresorhus/atom-jshint",
-  "_id": "jshint@1.3.5",
-  "_shasum": "1c66ebb25b961ddc20e97641431f065f0ad8446d",
-  "_resolved": "file:../d-115327-21510-itlm8x/package.tgz",
-  "_from": "../d-115327-21510-itlm8x/package.tgz",
+  "_id": "jshint@1.3.6",
+  "_shasum": "fb944ca30dee3c47f56c91ad4e1f3439cf0e3d90",
+  "_resolved": "file:../d-11547-5720-syq1sp/package.tgz",
+  "_from": "../d-11547-5720-syq1sp/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -218,7 +218,7 @@
       },
       {
         "name": "minimatch",
-        "version": "2.0.4",
+        "version": "2.0.7",
         "path": "node_modules/jshint/node_modules/minimatch/minimatch.js"
       },
       {
@@ -303,7 +303,7 @@
       },
       {
         "name": "once",
-        "version": "1.3.1",
+        "version": "1.3.2",
         "path": "node_modules/jshint-jsx/node_modules/react-tools/node_modules/commoner/node_modules/glob/node_modules/once/once.js"
       },
       {
@@ -403,7 +403,7 @@
       },
       {
         "name": "lodash",
-        "version": "3.7.0",
+        "version": "3.8.0",
         "path": "node_modules/lodash/index.js"
       },
       {
@@ -1830,10 +1830,12 @@
         "node_modules/lodash/array/uniq.js",
         "node_modules/lodash/array/unique.js",
         "node_modules/lodash/array/unzip.js",
+        "node_modules/lodash/array/unzipWith.js",
         "node_modules/lodash/array/without.js",
         "node_modules/lodash/array/xor.js",
         "node_modules/lodash/array/zip.js",
         "node_modules/lodash/array/zipObject.js",
+        "node_modules/lodash/array/zipWith.js",
         "node_modules/lodash/array.js",
         "node_modules/lodash/chain/chain.js",
         "node_modules/lodash/chain/commit.js",
@@ -2027,6 +2029,7 @@
         "node_modules/lodash/internal/createForIn.js",
         "node_modules/lodash/internal/createForOwn.js",
         "node_modules/lodash/internal/createHybridWrapper.js",
+        "node_modules/lodash/internal/createObjectMapper.js",
         "node_modules/lodash/internal/createPadDir.js",
         "node_modules/lodash/internal/createPadding.js",
         "node_modules/lodash/internal/createPartial.js",
@@ -2051,6 +2054,7 @@
         "node_modules/lodash/internal/initCloneByTag.js",
         "node_modules/lodash/internal/initCloneObject.js",
         "node_modules/lodash/internal/invokePath.js",
+        "node_modules/lodash/internal/isArrayLike.js",
         "node_modules/lodash/internal/isIndex.js",
         "node_modules/lodash/internal/isIterateeCall.js",
         "node_modules/lodash/internal/isKey.js",
@@ -2137,6 +2141,7 @@
         "node_modules/lodash/object/invert.js",
         "node_modules/lodash/object/keys.js",
         "node_modules/lodash/object/keysIn.js",
+        "node_modules/lodash/object/mapKeys.js",
         "node_modules/lodash/object/mapValues.js",
         "node_modules/lodash/object/merge.js",
         "node_modules/lodash/object/methods.js",

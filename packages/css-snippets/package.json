@@ -1,0 +1,46 @@
+{
+  "name": "css-snippets",
+  "main": "./lib/main",
+  "version": "0.8.0",
+  "description": "CSS, SCSS, Sass, and Less Snippets",
+  "keywords": [
+    "snippets",
+    "css",
+    "less",
+    "scss",
+    "sass"
+  ],
+  "activationCommands": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsandstrom/atom-css-snippets"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# CSS Snippets\n\n###### An Atom Package - [Atom.io](https://atom.io/packages/css-snippets) : [Github](https://github.com/dsandstrom/atom-css-snippets)\n\nShorthand [snippets](https://atom.io/packages/snippets) for CSS, SCSS, Sass, and Less.  \n\n### Whats Included?\nToo many to name, but you can see a [complete list](https://github.com/dsandstrom/atom-css-snippets/blob/master/snippets/css-snippets.cson) on Github.  Or, install the package and view the snippets with Settings View.  Basically, its snippets like `bg` for *background* and `ff` for *font-family*.\n\n### Notes\nIn Beta, there are probably important CSS rules that I missed or snippets not working correctly.  Issues and Pull Requests are welcome.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/dsandstrom/atom-css-snippets/issues"
+  },
+  "homepage": "https://github.com/dsandstrom/atom-css-snippets",
+  "_id": "css-snippets@0.8.0",
+  "_shasum": "4d975c07ad6abd561e61ca38e46dc58f5a372e74",
+  "_resolved": "file:../d-11545-6142-10r7cz8/package.tgz",
+  "_from": "../d-11545-6142-10r7cz8/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/main.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
