@@ -53,3 +53,9 @@
   'Underscore template (for in)':
     'prefix': '_for'
     'body': '<%= for (var i in ${1}) { %>'
+
+# Markdown
+'.source.gfm':
+  'Checkbox':
+    'prefix': '-'
+    'body': '- [ ] '
