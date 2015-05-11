@@ -1,7 +1,7 @@
 {
   "name": "minimap-highlight-selected",
   "main": "./lib/minimap-highlight-selected",
-  "version": "4.2.1",
+  "version": "4.2.3",
   "description": "A minimap binding for the highlight-selected package",
   "repository": {
     "type": "git",
@@ -29,10 +29,10 @@
     "url": "https://github.com/atom-minimap/minimap-highlight-selected/issues"
   },
   "homepage": "https://github.com/atom-minimap/minimap-highlight-selected",
-  "_id": "minimap-highlight-selected@4.2.1",
-  "_shasum": "eab2f9e694bccb40a257c9ac13e1991ee3bc2d95",
-  "_resolved": "file:../d-115320-8568-1bmmw59/package.tgz",
-  "_from": "../d-115320-8568-1bmmw59/package.tgz",
+  "_id": "minimap-highlight-selected@4.2.3",
+  "_shasum": "caef543b70d51e06bf21ce357e6a9e79db416785",
+  "_resolved": "file:../d-115411-29917-rktej8/package.tgz",
+  "_from": "../d-115411-29917-rktej8/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -43,17 +43,17 @@
       },
       {
         "name": "event-kit",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "path": "node_modules/event-kit/lib/event-kit.js"
       },
       {
         "name": "grim",
-        "version": "1.2.1",
+        "version": "1.4.0",
         "path": "node_modules/event-kit/node_modules/grim/lib/grim.js"
       },
       {
         "name": "coffeestack",
-        "version": "1.1.1",
+        "version": "1.1.2",
         "path": "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/index.js"
       },
       {
@@ -68,7 +68,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.7.0",
+        "version": "2.8.0",
         "path": "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -113,7 +113,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.6",
+        "version": "0.10.7",
         "path": "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -352,6 +352,11 @@
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function/valid-function.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/global.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/for-each.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/index.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/is.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate-object.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/_pack-ieee754.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/_unpack-ieee754.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh/implement.js",
@@ -506,6 +511,10 @@
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-callable.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-object.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-value.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like-object.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable-value.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/index.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-sticky.js",
         "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-unicode.js",
@@ -772,6 +781,7 @@
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function/#",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext",
+          "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/asinh",
@@ -847,6 +857,7 @@
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/error",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/function/#",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/function",
+          "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/iterable",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math/acosh",
           "node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math/asinh",

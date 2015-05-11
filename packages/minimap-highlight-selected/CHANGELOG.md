@@ -1,3 +1,18 @@
+<a name="v4.2.3"></a>
+# v4.2.3 (2015-05-11)
+
+## :bug: Bug Fixes
+
+- Prevent undefined from being returned in fake editor ([b078e0c1](https://github.com/atom-minimap/minimap-highlight-selected/commit/b078e0c1f555d331545ca2b4b99fa03100be8490))
+
+<a name="v4.2.2"></a>
+# v4.2.2 (2015-05-11)
+
+## :bug: Bug Fixes
+
+- Prevent error raised when disposing the view ([333e7d8b](https://github.com/atom-minimap/minimap-highlight-selected/commit/333e7d8bfedc0fcbe1eab42d7a35a529c1d8f03b), [richrace/highlight-selected#67](https://github.com/richrace/highlight-selected/issues/67))
+
+
 <a name="v4.2.1"></a>
 # v4.2.1 (2015-04-20)
 
