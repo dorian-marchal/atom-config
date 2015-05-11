@@ -11,6 +11,7 @@
       "text-pastry"
       "recent-files-fuzzy-finder"
       "metrics"
+      "welcome"
     ]
     themes: [
       "atom-dark-ui"
