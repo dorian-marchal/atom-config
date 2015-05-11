@@ -44,6 +44,7 @@
   'ctrl-up': 'add-line-break:add-line-break-after'
   'ctrl-down': 'add-line-break:add-line-break-before'
   'ctrl-k ctrl-s': 'dorian:show-current-scope'
+  'ctrl-k ctrl-w': 'editor:toggle-soft-wrap'
 
 
  # Stop emmet from hijacking tab from snippets and autocomplete
