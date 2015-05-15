@@ -1,7 +1,7 @@
 {
   "name": "docblockr",
   "main": "./lib/docblockr.js",
-  "version": "0.6.3",
+  "version": "0.7.1",
   "description": "A helper package for writing documentation",
   "repository": {
     "type": "git",
@@ -18,10 +18,10 @@
     "url": "https://github.com/nikhilkalige/docblockr/issues"
   },
   "homepage": "https://github.com/nikhilkalige/docblockr",
-  "_id": "docblockr@0.6.3",
-  "_shasum": "db3bb94ae4cf2c1a85bc71aa0638599b96a53903",
-  "_resolved": "file:../d-115326-9462-i8v6tp/package.tgz",
-  "_from": "../d-115326-9462-i8v6tp/package.tgz",
+  "_id": "docblockr@0.7.1",
+  "_shasum": "170927a3e5cd5b0e127b375456a6b07ca744d976",
+  "_resolved": "file:../d-115415-4052-1wx68z4/package.tgz",
+  "_from": "../d-115415-4052-1wx68z4/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
@@ -30,8 +30,18 @@
         "lib/docblockr-worker.js",
         "lib/docblockr.js",
         "lib/docsparser.js",
+        "lib/languages/actionscript.js",
+        "lib/languages/coffee.js",
+        "lib/languages/cpp.js",
+        "lib/languages/java.js",
+        "lib/languages/javascript.js",
+        "lib/languages/objc.js",
+        "lib/languages/php.js",
+        "lib/languages/rust.js",
+        "lib/languages/typescript.js",
         "lib/named-regex.js",
         "lib/test.js",
+        "lib/utils.js",
         "lib/xregexp.js"
       ],
       ".json": [

@@ -1,5 +1,4 @@
 {triggerAutocompletion, buildIMECompositionEvent, buildTextInputEvent} = require './spec-helper'
-_ = require 'underscore-plus'
 
 describe 'FuzzyProvider', ->
   [completionDelay, editorView, editor, mainModule, autocompleteManager] = []
@@ -7,6 +6,7 @@ describe 'FuzzyProvider', ->
   beforeEach ->
     # Set to live completion
     atom.config.set('autocomplete-plus.enableAutoActivation', true)
+    atom.config.set('autocomplete-plus.defaultProvider', 'Fuzzy')
 
     # Set the completion delay
     completionDelay = 100

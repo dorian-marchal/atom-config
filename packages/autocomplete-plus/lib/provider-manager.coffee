@@ -1,5 +1,5 @@
 {CompositeDisposable, Disposable} = require 'atom'
-_ = require 'underscore-plus'
+{isFunction, isString} = require('./type-helpers')
 semver = require 'semver'
 {Selector} = require 'selector-kit'
 stableSort = require 'stable'
@@ -54,7 +54,10 @@ class ProviderManager
         if providerMetadata.shouldDisableDefaultProvider(scopeChain)
           disableDefaultProvider = true
 
-    matchingProviders = _.without(matchingProviders, @defaultProvider) if disableDefaultProvider
+    if disableDefaultProvider
+      index = matchingProviders.indexOf(@defaultProvider)
+      matchingProviders.splice(index, 1) if index > -1
+
     matchingProviders = (provider for provider in matchingProviders when (provider.inclusionPriority ? 0) >= lowestIncludedPriority)
     stableSort matchingProviders, (providerA, providerB) =>
       difference = (providerB.suggestionPriority ? 1) - (providerA.suggestionPriority ? 1)
@@ -90,9 +93,9 @@ class ProviderManager
   isValidProvider: (provider, apiVersion) ->
     # TODO API: Check based on the apiVersion
     if semver.satisfies(apiVersion, '>=2.0.0')
-      provider? and _.isFunction(provider.getSuggestions) and _.isString(provider.selector) and !!provider.selector.length
+      provider? and isFunction(provider.getSuggestions) and isString(provider.selector) and !!provider.selector.length
     else
-      provider? and _.isFunction(provider.requestHandler) and _.isString(provider.selector) and !!provider.selector.length
+      provider? and isFunction(provider.requestHandler) and isString(provider.selector) and !!provider.selector.length
 
   metadataForProvider: (provider) =>
     for providerMetadata in @providers
@@ -131,7 +134,7 @@ class ProviderManager
           Autocomplete provider '#{provider.constructor.name}(#{provider.id})'
           contains an `id` property.
           An `id` attribute on your provider is no longer necessary.
-          See https://github.com/atom-community/autocomplete-plus/wiki/Provider-API
+          See https://github.com/atom/autocomplete-plus/wiki/Provider-API
         """
       if provider.requestHandler?
         grim ?= require 'grim'
@@ -139,7 +142,7 @@ class ProviderManager
           Autocomplete provider '#{provider.constructor.name}(#{provider.id})'
           contains a `requestHandler` property.
           `requestHandler` has been renamed to `getSuggestions`.
-          See https://github.com/atom-community/autocomplete-plus/wiki/Provider-API
+          See https://github.com/atom/autocomplete-plus/wiki/Provider-API
         """
       if provider.blacklist?
         grim ?= require 'grim'
@@ -147,7 +150,7 @@ class ProviderManager
           Autocomplete provider '#{provider.constructor.name}(#{provider.id})'
           contains a `blacklist` property.
           `blacklist` has been renamed to `disableForSelector`.
-          See https://github.com/atom-community/autocomplete-plus/wiki/Provider-API
+          See https://github.com/atom/autocomplete-plus/wiki/Provider-API
         """
 
     unless @isValidProvider(provider, apiVersion)

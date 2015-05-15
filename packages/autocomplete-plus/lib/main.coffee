@@ -25,7 +25,7 @@ module.exports =
       title: 'Keymap For Confirming A Suggestion'
       description: 'You should use the key(s) indicated here to confirm a suggestion from the suggestion list and have it inserted into the file.'
       type: 'string'
-      default: 'tab'
+      default: 'tab and enter'
       enum: ['tab', 'enter', 'tab and enter']
       order: 4
     fileBlacklist:
@@ -48,7 +48,7 @@ module.exports =
       title: 'Include Completions From All Buffers'
       description: 'For grammars with no registered provider(s), the default provider will include completions from all buffers, instead of just the buffer you are currently editing.'
       type: 'boolean'
-      default: false
+      default: true
       order: 7
     strictMatching:
       title: 'Use Strict Matching For Built-In Provider'
@@ -89,7 +89,7 @@ module.exports =
     defaultProvider:
       description: 'Using the Symbol provider is experimental. You must reload Atom to use a new provider after changing this option.'
       type: 'string'
-      default: 'Fuzzy'
+      default: 'Symbol'
       enum: ['Fuzzy', 'Symbol']
       order: 14
     suppressActivationForEditorClasses:

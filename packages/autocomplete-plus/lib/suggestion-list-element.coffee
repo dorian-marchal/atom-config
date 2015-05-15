@@ -1,6 +1,6 @@
 {CompositeDisposable} = require 'atom'
-_ = require 'underscore-plus'
 SnippetParser = require './snippet-parser'
+{isString} = require('./type-helpers')
 
 ItemTemplate = """
   <span class="icon-container"></span>
@@ -39,12 +39,14 @@ SnippetStartAndEnd = 3
 class SuggestionListElement extends HTMLElement
   maxItems: 200
   emptySnippetGroupRegex: /(\$\{\d+\:\})|(\$\{\d+\})|(\$\d+)/ig
+  nodePool: null
 
   createdCallback: ->
     @subscriptions = new CompositeDisposable
     @classList.add('popover-list', 'select-list', 'autocomplete-suggestion-list')
     @registerMouseHandling()
     @snippetParser = new SnippetParser
+    @nodePool = []
 
   attachedCallback: ->
     # TODO: Fix overlay decorator to in atom to apply class attribute correctly, then move this to overlay creation point.
@@ -91,7 +93,8 @@ class SuggestionListElement extends HTMLElement
     item if item.tagName is 'LI'
 
   updateDescription: (item) ->
-    item = item ? @visibleItems()[@selectedIndex]
+    item = item ? @model?.items?[@selectedIndex]
+    return unless item?
     if item.description? and item.description.length > 0
       @descriptionContainer.style.display = 'block'
       @descriptionContent.textContent = item.description
@@ -104,7 +107,11 @@ class SuggestionListElement extends HTMLElement
     else
       @descriptionContainer.style.display = 'none'
 
-  itemsChanged: -> @render()
+  itemsChanged: ->
+    if @model?.items?.length
+      @render()
+    else
+      @returnItemsToPool(0)
 
   render: ->
     @selectedIndex = 0
@@ -135,7 +142,6 @@ class SuggestionListElement extends HTMLElement
   setSelectedIndex: (index) ->
     @selectedIndex = index
     atom.views.updateDocument @renderSelectedItem.bind(this)
-    atom.views.readDocument @readUIPropsFromDOM.bind(this)
 
   visibleItems: ->
     @model?.items?.slice(0, @maxItems)
@@ -175,8 +181,14 @@ class SuggestionListElement extends HTMLElement
       if descLength > longestDesc
         longestDesc = descLength
         longestDescIndex = index
-    li.remove() while li = @ol.childNodes[items.length]
     @updateDescription(items[longestDescIndex])
+    @returnItemsToPool(items.length)
+
+  returnItemsToPool: (pivotIndex) ->
+    while @ol? and li = @ol.childNodes[pivotIndex]
+      li.remove()
+      @nodePool.push(li)
+    return
 
   descriptionLength: (item) ->
     count = 0
@@ -206,7 +218,7 @@ class SuggestionListElement extends HTMLElement
     wordContainer = @selectedLi?.querySelector('.word-container')
 
     @uiProps ?= {}
-    @uiProps.width = @offsetWidth
+    @uiProps.width = @offsetWidth + 1
     @uiProps.marginLeft = -(wordContainer?.offsetLeft ? 0)
     @uiProps.itemHeight ?= @selectedLi.offsetHeight
     @uiProps.paddingHeight ?= (parseInt(getComputedStyle(this)['padding-top']) + parseInt(getComputedStyle(this)['padding-bottom'])) ? 0
@@ -227,8 +239,11 @@ class SuggestionListElement extends HTMLElement
   renderItem: ({iconHTML, type, snippet, text, displayText, className, replacementPrefix, leftLabel, leftLabelHTML, rightLabel, rightLabelHTML}, index) ->
     li = @ol.childNodes[index]
     unless li
-      li = document.createElement('li')
-      li.innerHTML = ItemTemplate
+      if @nodePool.length > 0
+        li = @nodePool.pop()
+      else
+        li = document.createElement('li')
+        li.innerHTML = ItemTemplate
       li.dataset.index = index
       @ol.appendChild(li)
 
@@ -240,8 +255,8 @@ class SuggestionListElement extends HTMLElement
     typeIconContainer = li.querySelector('.icon-container')
     typeIconContainer.innerHTML = ''
 
-    sanitizedType = if _.isString(type) then type else ''
-    sanitizedIconHTML = if _.isString(iconHTML) then iconHTML else undefined
+    sanitizedType = if isString(type) then type else ''
+    sanitizedIconHTML = if isString(iconHTML) then iconHTML else undefined
     defaultLetterIconHTML = if sanitizedType then "<span class=\"icon-letter\">#{sanitizedType[0]}</span>" else ''
     defaultIconHTML = DefaultSuggestionTypeIconHTML[sanitizedType] ? defaultLetterIconHTML
     if (sanitizedIconHTML or defaultIconHTML) and iconHTML isnt false

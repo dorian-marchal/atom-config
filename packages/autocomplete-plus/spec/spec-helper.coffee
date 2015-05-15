@@ -3,8 +3,9 @@ completionDelay = 100
 beforeEach ->
   spyOn(atom.views, 'readDocument').andCallFake (fn) -> fn()
   spyOn(atom.views, 'updateDocument').andCallFake (fn) -> fn()
-  atom.config.set('autocomplete-plus.defaultProvider', 'Fuzzy')
+  atom.config.set('autocomplete-plus.defaultProvider', 'Symbol')
   atom.config.set('autocomplete-plus.suggestionListFollows', 'Word')
+  atom.config.set('autocomplete-plus.includeCompletionsFromAllBuffers', false)
 
 exports.triggerAutocompletion = (editor, moveCursor = true, char = 'f') ->
   if moveCursor

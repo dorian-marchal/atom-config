@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -43,10 +43,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments",
-  "_id": "pigments@0.2.0",
-  "_shasum": "47a15614d66a918b71b72b9745637ae18be45c4a",
-  "_resolved": "file:../d-11542-6143-6d8gs0/package.tgz",
-  "_from": "../d-11542-6143-6d8gs0/package.tgz",
+  "_id": "pigments@0.2.1",
+  "_shasum": "bda41b522b67a2da089e49c1860236157566a181",
+  "_resolved": "file:../d-115415-4114-e5fq5s/package.tgz",
+  "_from": "../d-115415-4114-e5fq5s/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -62,12 +62,12 @@
       },
       {
         "name": "event-kit",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "path": "node_modules/atom-utils/node_modules/event-kit/lib/event-kit.js"
       },
       {
         "name": "grim",
-        "version": "1.4.0",
+        "version": "1.4.1",
         "path": "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/lib/grim.js"
       },
       {
@@ -182,7 +182,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.7.1",
+        "version": "2.8.0",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -212,7 +212,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.2",
+        "version": "2.6.3",
         "path": "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -817,8 +817,6 @@
         "node_modules/fuzzaldrin/lib/matcher.js",
         "node_modules/fuzzaldrin/lib/scorer.js",
         "node_modules/minimatch/minimatch.js",
-        "node_modules/minimatch/node_modules/lru-cache/bar.js",
-        "node_modules/minimatch/node_modules/lru-cache/foo.js",
         "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/minimatch/node_modules/sigmund/bench.js",
         "node_modules/minimatch/node_modules/sigmund/sigmund.js",
