@@ -6,3 +6,4 @@ dev
 .apm
 projects.cson
 /packages/save-session/projects/*
+nohup.out
