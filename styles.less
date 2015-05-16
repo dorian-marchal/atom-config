@@ -30,6 +30,13 @@ atom-pane {
         }
     }
 
+    .indent-guide-active,
+    .indent-guide-improved,
+    .indent-guide-stack {
+        margin-left: -1px;
+        opacity: 0.1;
+        background-color: @syntax-indent-guide-color !important;
+    }
 }
 
 // style the background and foreground colors on the atom-text-editor-element
@@ -41,9 +48,11 @@ atom-text-editor {
     // font-family: 'Liberation Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
+
 // To style other content in the text editor's shadow DOM, use the ::shadow
 // expression
 atom-text-editor::shadow {
+
     .invisible-character {
         opacity: 0;
 

@@ -4,7 +4,7 @@ module.exports =
 
   # Duplicate the most recent cursor's current line upward.
   duplicateLinesUpward: ->
-    editor = atom.workspace.getActiveEditor()
+    editor = atom.workspace.getActiveTextEditor()
     if (!editor)
       return null
     editor.transact =>

@@ -33,6 +33,7 @@
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
+    fontSize: 18
   minimap:
     plugins:
       "git-diff": true

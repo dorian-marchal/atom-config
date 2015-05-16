@@ -1,3 +1,8 @@
+## 1.1.2
+### Bugfix
+
+*Followed API changes.
+
 ## 1.1.1
 ### Bugfix
 
