@@ -33,7 +33,7 @@
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
-    fontSize: 18
+    fontSize: 19
   minimap:
     plugins:
       "git-diff": true
@@ -99,4 +99,10 @@
   achievements:
     {}
   "travis-ci-status":
+    {}
+  docblockr:
+    extend_double_slash: false
+    align_tags: "no"
+    deep_indent: true
+  "merge-conflicts":
     {}

@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -37,16 +37,16 @@
       }
     }
   },
-  "readme": "[![Build Status](https://travis-ci.org/abe33/atom-pigments.svg?branch=master)](https://travis-ci.org/abe33/atom-pigments)\n\n![Pigments Logo](https://cdn.rawgit.com/abe33/atom-pigments/master/resources/pigments-logo.svg)\n\nA package to display colors in project and files.\n\n![Screenshot](https://github.com/abe33/atom-pigments/blob/master/resources/pigments.gif?raw=true)\n\n## Install\n\nUsing `apm`:\n\n```\napm install pigments\n```\n\nOr search for `pigments` in Atom settings view.\n\n## Show Project Palette\n\nYou can display the project's palette through the `Pigments: Show Palette` command from the command palette:\n\n![Screenshot](https://github.com/abe33/atom-pigments/blob/master/resources/palette.gif?raw=true)\n\n## Search Colors In Project\n\nYou can search for all colors in every source files using the `Pigments: Find Colors` command from the command palette:\n\n![Screenshot](https://github.com/abe33/atom-pigments/blob/master/resources/search.gif?raw=true)\n\n## Settings\n\n### Source Names\n\nAn array of glob patterns of the files to use as source for the project's variables and colors.\n\n* Key: `pigments.sourceNames`\n* Default: `'**/*.styl', '**/*.stylus', '**/*.less', '**/*.sass', '**/*.scss'`\n\n### Ignored Names\n\nAn array of glob patterns of the files to ignore as source files for the project's variables and colors.\n\n* Key: `pigments.ignoredNames`\n* Default: `[]`\n\n### Ignored Scopes\n\nAn array of regular expressions strings to match scopes to ignore when rendering colors in a text editor.\n\nFor instance, if you want to ignore colors in comments and strings in your source files, use the following value:\n\n```\n\\.comment, \\.string\n```\n\n* Key: `pigments.ignoredScopes`\n* Default: `[]`\n\n### Autocomplete Scopes\n\nThe autocomplete provider will only complete color names in editors whose scope is present in this list.\n\n* Key: `pigments.autocompleteScopes`\n* Default: `'.source.css', '.source.css.less', '.source.sass', '.source.css.scss', '.source.stylus'`\n\n### Extend Autocomplete To Variables\n\nWhen enabled, the autocomplete provider will also provides completion for non-color variables.\n\n* Key: `pigments.extendAutocompleteToVariables`\n* Default: `false`\n\n### Traverse Into Symlink Directories\n\nWhether to traverse symlinked directories to find source files or not.\n\n* Key: `pigments.traverseIntoSymlinkDirectories`\n* Default: `false`\n\n### Marker Type\n\nDefines the render mode of color markers. The possible values are:\n\n<table>\n  <tr>\n    <th>background</th>\n    <th>outline</th>\n    <th>underline</th>\n    <th>dot</th>\n  </tr>\n  <tr>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/background-renderer.png?raw=true'/>\n    </td>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/outline-renderer.png?raw=true'/>\n    </td>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/underline-renderer.png?raw=true'/>\n    </td>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/dot-renderer.png?raw=true'/>\n    </td>\n  </tr>\n</table>\n\n* Key: `pigments.markerType`\n* Default: `'background'`\n\n### Sort Palette Colors\n\n* Key: `pigments.sortPaletteColors`\n* Default: `'none'`\n\n### Group Palette Colors\n\n* Key: `pigments.groupPaletteColors`\n* Default: `'none'`\n\n### Merge Duplicates\n\n* Key: `pigments.mergeDuplicates`\n* Default: `false`\n",
+  "readme": "[![Build Status](https://travis-ci.org/abe33/atom-pigments.svg?branch=master)](https://travis-ci.org/abe33/atom-pigments)\n\n![Pigments Logo](https://cdn.rawgit.com/abe33/atom-pigments/master/resources/pigments-logo.svg)\n\nA package to display colors in project and files.\n\n![Screenshot](https://github.com/abe33/atom-pigments/blob/master/resources/pigments.gif?raw=true)\n\n## Install\n\nUsing `apm`:\n\n```\napm install pigments\n```\n\nOr search for `pigments` in Atom settings view.\n\n## Commands\n\n### Pigments: Show Palette\n\nYou can display the project's palette through the `Pigments: Show Palette` command from the command palette:\n\n![Screenshot](https://github.com/abe33/atom-pigments/blob/master/resources/palette.gif?raw=true)\n\n### Pigments: Find Colors\n\nYou can search for all colors in every source files using the `Pigments: Find Colors` command from the command palette:\n\n![Screenshot](https://github.com/abe33/atom-pigments/blob/master/resources/search.gif?raw=true)\n\n### Pigments: Reload\n\nThis command will force a reload of all variables in the project, this can be useful when the serialized state of the plugin contains invalid data and you want to get rid of them without having to touch to the content of the `.atom/storage` directory.\n\n## Settings\n\n### Source Names\n\nAn array of glob patterns of the files to use as source for the project's variables and colors.\n\n* Key: `pigments.sourceNames`\n* Default: `'**/*.styl', '**/*.stylus', '**/*.less', '**/*.sass', '**/*.scss'`\n\n### Ignored Names\n\nAn array of glob patterns of the files to ignore as source files for the project's variables and colors.\n\n* Key: `pigments.ignoredNames`\n* Default: `['node_modules/*']`\n\n### Ignored Scopes\n\nAn array of regular expressions strings to match scopes to ignore when rendering colors in a text editor.\n\nFor instance, if you want to ignore colors in comments and strings in your source files, use the following value:\n\n```\n\\.comment, \\.string\n```\n\n* Key: `pigments.ignoredScopes`\n* Default: `[]`\n\n### Autocomplete Scopes\n\nThe autocomplete provider will only complete color names in editors whose scope is present in this list.\n\n* Key: `pigments.autocompleteScopes`\n* Default: `'.source.css', '.source.css.less', '.source.sass', '.source.css.scss', '.source.stylus'`\n\n### Extend Autocomplete To Variables\n\nWhen enabled, the autocomplete provider will also provides completion for non-color variables.\n\n* Key: `pigments.extendAutocompleteToVariables`\n* Default: `false`\n\n### Traverse Into Symlink Directories\n\nWhether to traverse symlinked directories to find source files or not.\n\n* Key: `pigments.traverseIntoSymlinkDirectories`\n* Default: `false`\n\n### Marker Type\n\nDefines the render mode of color markers. The possible values are:\n\n<table>\n  <tr>\n    <th>background</th>\n    <th>outline</th>\n    <th>underline</th>\n    <th>dot</th>\n  </tr>\n  <tr>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/background-renderer.png?raw=true'/>\n    </td>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/outline-renderer.png?raw=true'/>\n    </td>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/underline-renderer.png?raw=true'/>\n    </td>\n    <td>\n      <img src='https://github.com/abe33/atom-pigments/blob/master/resources/dot-renderer.png?raw=true'/>\n    </td>\n  </tr>\n</table>\n\n* Key: `pigments.markerType`\n* Default: `'background'`\n\n### Sort Palette Colors\n\n* Key: `pigments.sortPaletteColors`\n* Default: `'none'`\n\n### Group Palette Colors\n\n* Key: `pigments.groupPaletteColors`\n* Default: `'none'`\n\n### Merge Duplicates\n\n* Key: `pigments.mergeDuplicates`\n* Default: `false`\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments",
-  "_id": "pigments@0.2.1",
-  "_shasum": "bda41b522b67a2da089e49c1860236157566a181",
-  "_resolved": "file:../d-115415-4114-e5fq5s/package.tgz",
-  "_from": "../d-115415-4114-e5fq5s/package.tgz",
+  "_id": "pigments@0.3.1",
+  "_shasum": "8125916b3f1e41a43355c75ffd8a69456ac12065",
+  "_resolved": "file:../d-115421-5546-ft8tvw/package.tgz",
+  "_from": "../d-115421-5546-ft8tvw/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -62,7 +62,7 @@
       },
       {
         "name": "event-kit",
-        "version": "1.1.1",
+        "version": "1.2.0",
         "path": "node_modules/atom-utils/node_modules/event-kit/lib/event-kit.js"
       },
       {
@@ -182,7 +182,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.8.0",
+        "version": "2.8.1",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -212,12 +212,12 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.3",
+        "version": "2.6.4",
         "path": "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
         "name": "sigmund",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "path": "node_modules/minimatch/node_modules/sigmund/sigmund.js"
       },
       {

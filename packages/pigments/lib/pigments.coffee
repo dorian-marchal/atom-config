@@ -21,14 +21,16 @@ module.exports =
         type: 'string'
     ignoredNames:
       type: 'array'
-      default: []
+      default: [
+        "node_modules/*"
+      ]
       description: "Glob patterns of files to ignore when scanning the project for variables."
       items:
         type: 'string'
     ignoredScopes:
       type: 'array'
       default: []
-      description: "Regular expressions of scopes in which colors are ignored. Note that regular expressions are strings."
+      description: "Regular expressions of scopes in which colors are ignored. For example, to ignore all colors in comments you can use `\\.comment`."
       items:
         type: 'string'
     autocompleteScopes:
@@ -78,6 +80,7 @@ module.exports =
     atom.commands.add 'atom-workspace',
       'pigments:find-colors': => @findColors()
       'pigments:show-palette': => @showPalette()
+      'pigments:reload': => @reloadProjectVariables()
 
     atom.workspace.addOpener (uriToOpen) =>
       url ||= require 'url'
@@ -126,3 +129,7 @@ module.exports =
       pane ||= atom.workspace.getActivePane()
 
       atom.workspace.openURIInPane(uri, pane, {})
+
+  reloadProjectVariables: ->
+    @project.initialize().then =>
+      @project.reloadVariablesForPaths(@project.getPaths())

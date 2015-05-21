@@ -102,6 +102,14 @@ describe 'ColorProject', ->
       it 'returns undefined', ->
         expect(project.getVariablesForPath("#{rootPath}/styles/variables.styl")).toBeUndefined()
 
+    describe '::getVariableByName', ->
+      it 'returns undefined', ->
+        expect(project.getVariableByName("foo")).toBeUndefined()
+
+    describe '::getVariableById', ->
+      it 'returns undefined', ->
+        expect(project.getVariableById(0)).toBeUndefined()
+
     describe '::getContext', ->
       it 'returns an empty context', ->
         expect(project.getContext()).toBeDefined()
@@ -146,6 +154,24 @@ describe 'ColorProject', ->
   ##    ##       ##     ## ######### ##     ## ##       ##     ##
   ##    ##       ##     ## ##     ## ##     ## ##       ##     ##
   ##    ########  #######  ##     ## ########  ######## ########
+
+  describe 'when the project has no variables source files', ->
+    beforeEach ->
+      atom.config.set 'pigments.sourceNames', ['*.sass']
+
+      [fixturesPath] = atom.project.getPaths()
+      rootPath = "#{fixturesPath}/project-no-sources"
+      atom.project.setPaths([rootPath])
+
+      project = new ColorProject({})
+
+      waitsForPromise -> project.initialize()
+
+    it 'initializes the paths with an empty array', ->
+      expect(project.getPaths()).toEqual([])
+
+    it 'initializes the variables with an empty array', ->
+      expect(project.getVariables()).toEqual([])
 
   describe 'when the variables have been loaded', ->
     beforeEach ->
