@@ -1,8 +1,15 @@
 {
   "name": "copy-filename",
   "main": "lib/copy-filename",
-  "version": "0.5.0",
+  "version": "1.0.1",
   "description": "Add a copy name option to the tree view and a command to copy filename of current file",
+  "keywords": [
+    "copy",
+    "filename",
+    "name",
+    "tree-view",
+    "treeview"
+  ],
   "license": "MIT",
   "private": true,
   "repository": {
@@ -14,30 +21,26 @@
     "url": "https://github.com/mariusrumpf/copy-filename/issues"
   },
   "engines": {
-    "atom": ">=0.170.0"
+    "atom": ">=0.183.0 <2.0.0"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "npm run lint",
+    "lint": "eslint ."
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-apm": "0.0.1",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-jscs": "^1.0.0"
+    "eslint": "^0.21.2"
   },
-  "readme": "# Copy filename\n\n[Atom package](https://atom.io/packages/copy-filename)\n\n> Add a copy name option to the tree view and a command to copy filename of current file\n\n![Demo Animation](https://cloud.githubusercontent.com/assets/2364426/3550119/8317320c-08d4-11e4-8590-85d68917c1f1.gif)\n\n![Screenshot 2](https://cloud.githubusercontent.com/assets/2364426/3539810/9a61c0a4-083d-11e4-9bcf-ebbed164d541.png)\n\n## Install\n```bash\n$ apm install copy-filename\n```\nOr Settings ➔ Packages ➔ Search for `copy-filename`\n\n## Shortcut\n| Keypress  | Command |\n| ------------- | ------------- |\n| ⌥⌃⇧F | Copy filename of current file  |\n\n## License\n\n[MIT](http://opensource.org/licenses/MIT) © [Marius Rumpf](http://mariusrumpf.de)\n",
+  "readme": "# Copy filename\n\n> Add a copy name option to the tree view and a command to copy filename of current file\n\n![Demo Animation](https://cloud.githubusercontent.com/assets/2364426/7766926/838267ce-006e-11e5-83bc-2c7df47fb361.gif)\n\n![Screenshot 2](https://cloud.githubusercontent.com/assets/2364426/3539810/9a61c0a4-083d-11e4-9bcf-ebbed164d541.png)\n\n[Atom package](https://atom.io/packages/copy-filename)\n\n## Install\nSettings ➔ Install (Package) ➔ Search for `copy-filename`\n\n_or_\n\n```bash\n$ apm install copy-filename\n```\n\n## Shortcut\n| Keypress  | Command |\n| ------------- | ------------- |\n| ⌥⌃⇧F | Copy filename of current file  |\n\n## License\n\n[MIT](http://opensource.org/licenses/MIT) © [Marius Rumpf](http://mariusrumpf.de)\n",
   "readmeFilename": "README.md",
-  "_id": "copy-filename@0.5.0",
-  "_shasum": "a4789f2a80f8a43e37a0db03c071fa9db6abc53b",
-  "_resolved": "file:../d-115328-13106-1kj2gpe/package.tgz",
-  "_from": "../d-115328-13106-1kj2gpe/package.tgz",
+  "_id": "copy-filename@1.0.1",
+  "_shasum": "c55e15f45a35a77b3ffde4cd4a0c29927df7d2a2",
+  "_resolved": "file:../d-115422-7589-1efk7k5/package.tgz",
+  "_from": "../d-115422-7589-1efk7k5/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
     "extensions": {
       ".js": [
-        "Gruntfile.js",
         "lib/copy-filename.js"
       ],
       ".json": [
