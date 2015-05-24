@@ -1,7 +1,7 @@
 {
   "name": "markdown-writer",
   "main": "./lib/main",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Make Atom a better Markdown editor and an easier static blogging tool.",
   "keywords": [
     "Markdown",
@@ -78,10 +78,10 @@
   "readme": "# Markdown-Writer for Atom\n\nMakes [Atom](https://atom.io/) a better Markdown editor with tons of features!\n\nWorks great with static blogging. Try it with [Jekyll](http://jekyllrb.com/), [Octopress](http://octopress.org/), [Hexo](http://hexo.io/) and any of your favorite static blog engines.\n\n![Insert Image](http://i.imgur.com/s9ekMns.gif)\n\nMore GIFs Here: [Create New Post](http://i.imgur.com/BwntxhB.gif), [Insert Reference Link](http://i.imgur.com/L67TqyF.gif), [Remove Reference Link](http://i.imgur.com/TglzeJV.gif).\n\n## Features\n\n- **Create new post** with front matters ([setup required][ca8870d7]).\n- **Create new draft** with front matters ([setup required][ca8870d7]).\n- **Publish draft** moves file to `_posts` directory, updates `date` and optionally renames the filename using `title` in front matter.\n- **Manage blog tags and categories in front matters** ([setup required][9be76601]).\n- **Continue markdown lists** when you press `enter`.\n- **Insert link** (`shift-cmd-k`) and **automatically link to the text next time** (My favorite feature from Windows Live Writer).\n  - Insert inline link.\n  - Insert reference link with title. _Use `-` in title field to create an empty title reference link._\n  - Remove link (and its reference) after URL is deleted.\n  - Search published posts by title.\n- **Insert image** (`shift-cmd-i`), auto-detect images' heights and widths, and optionally copy images to your site's images directory.\n- **Insert table** (`markdown-writer:insert-table`), and a shortcut to **jump to next table cell** (`cmd-j cmd-t`).\n- **Format table** (`markdown-writer:format-table`).\n- **Toggle text styles**:\n  - `code` (`cmd-'`)\n  - **bold** (`cmd-b`)\n  - _italic_ (`cmd-i`)\n  - ~~strikethrough~~ (`cmd-h`)\n  - `'''codeblock'''` (`shift-cmd-\"`)\n  - `<kbd>key</kbd>` (`cmd + k`)\n  - `- unordered list` (`shift-cmd-U`)\n  - `0. ordered list` (`shift-cmd-O`)\n  - `> blockquote` (`shift-cmd->`)\n  - `- [ ] task list` (`markdown-writer:toggle-task`)\n- **Toggle headings**: `ctrl-alt-[1-5]` to switch among `H1` to `H5`.\n- **Correct order list numbers** (`markdown-writer:correct-order-list-numbers`).\n- **Jumping commands**:\n  - Jump to previous heading (`cmd-j cmd-p`)\n  - Jump to next heading (`cmd-j cmd-n`)\n  - Jump to next table cell (`cmd-j cmd-t`)\n  - Jump to reference marker/definition (`cmd-j cmd-d`)\n- Support **project specific settings** ([view setup][1561ed4c]).\n- **Markdown cheat sheet** (`Markdown Writer: Open Cheat Sheet`).\n\n  [ca8870d7]: https://github.com/zhuochun/md-writer/wiki/Quick-Start \"Markdown-Writer Setup Guide\"\n  [9be76601]: https://github.com/zhuochun/md-writer/wiki/Settings-for-Front-Matters \"Setup Tags/Categories/Posts\"\n  [1561ed4c]: https://github.com/zhuochun/md-writer/wiki/Settings#project-specific-settings \"Project Specific Settings\"\n\nYou can find and trigger all features in:\n\n- Open Command Palette (`shift-cmd-P`), enter `Markdown Writer`\n- Or, go to menubar `Packages -> Markdown Writer`.\n\n## Installation\n\n- In Atom, go to Settings (`cmd-,`) -> Install -> Search `Markdown Writer`.\n- Or, run `apm install markdown-writer`.\n\n## Setup\n\nGo to Settings (`cmd-,`) -> Packages -> `markdown-writer` -> Settings.\n\n> If you do not see any settings (due to a [Atom's bug][3ecd2daa]), please activate Markdown-Writer using command (e.g. `Open Cheat Sheet`). Close and reopen the Settings page.\n\n[View setting explanations][7ddaeaf4] if you have any doubts.\n\n[3ecd2daa]: https://github.com/atom/settings-view/issues/356 \"Viewing a package's settings should activate it\"\n[7ddaeaf4]: https://github.com/zhuochun/md-writer/wiki/Settings \"Settings\"\n\nTo **manage tags/categories in front matter**, please [follow this setup](https://github.com/zhuochun/md-writer/wiki/Settings-for-Front-Matters).\n\n## Project\n\n- View [CHANGELOG][e45121fa] :notebook_with_decorative_cover:.\n- Bugs, suggestions & feature requests, [open an issue][e6ad7ed1] :octocat:.\n- License in [MIT][6a9a3773] :unlock:.\n- Authored by [Zhuochun][41ae693b] :sunny:.\n\n[e45121fa]: https://github.com/zhuochun/md-writer/blob/master/CHANGELOG.md\n[e6ad7ed1]: https://github.com/zhuochun/md-writer/issues\n[6a9a3773]: https://github.com/zhuochun/md-writer/blob/master/LICENSE.md\n[41ae693b]: https://github.com/zhuochun\n",
   "readmeFilename": "README.md",
   "homepage": "https://github.com/zhuochun/md-writer",
-  "_id": "markdown-writer@1.3.0",
-  "_shasum": "f03623f9ec470ff5af652f0c693be1467294db0c",
-  "_resolved": "file:../d-115415-4076-hqvyib/package.tgz",
-  "_from": "../d-115415-4076-hqvyib/package.tgz",
+  "_id": "markdown-writer@1.3.1",
+  "_shasum": "ef95ddbf3221df7225912120745c6f1b41a99650",
+  "_resolved": "file:../d-115423-3913-1m5nog6/package.tgz",
+  "_from": "../d-115423-3913-1m5nog6/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -187,7 +187,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.8.0",
+        "version": "2.8.1",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -232,7 +232,7 @@
       },
       {
         "name": "lodash",
-        "version": "3.8.0",
+        "version": "3.9.1",
         "path": "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/index.js"
       },
       {
@@ -1056,10 +1056,9 @@
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayEach.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayEachRight.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayEvery.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayExtremum.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayFilter.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayMap.js",
-        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayMax.js",
-        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayMin.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayReduce.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arrayReduceRight.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/arraySome.js",
@@ -1079,6 +1078,7 @@
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseEach.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseEachRight.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseEvery.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseExtremum.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseFill.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseFilter.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/baseFind.js",
@@ -1124,7 +1124,6 @@
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/bufferClone.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/cacheIndexOf.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/cachePush.js",
-        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/charAtCallback.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/charsLeftIndex.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/charsRightIndex.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/compareAscending.js",
@@ -1163,11 +1162,11 @@
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/equalObjects.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/escapeHtmlChar.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/escapeStringChar.js",
-        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/extremumBy.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getData.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getFuncName.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getLength.js",
-        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getSymbols.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getMatchData.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getNative.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/getView.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/indexOfNaN.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/initCloneArray.js",
@@ -1213,6 +1212,9 @@
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/internal/wrapperClone.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/clone.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/cloneDeep.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/eq.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/gt.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/gte.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/isArguments.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/isArray.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/isBoolean.js",
@@ -1234,6 +1236,8 @@
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/isString.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/isTypedArray.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/isUndefined.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/lt.js",
+        "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/lte.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/toArray.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang/toPlainObject.js",
         "node_modules/js-yaml/node_modules/argparse/node_modules/lodash/lang.js",

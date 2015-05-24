@@ -723,7 +723,7 @@ module.exports =
     };
 
     DocBlockrAtom.prototype.repeat = function(string, number) {
-      return Array(number + 1).join(string);
+      return Array(Math.max(0, number) + 1).join(string);
     };
 
     DocBlockrAtom.prototype.write = function(editor, str) {
@@ -810,7 +810,7 @@ module.exports =
           return new Parsers.CoffeeParser(settings);
       else if((source_lang === "actionscript") || (source_lang == 'haxe'))
           return new Parsers.ActionscriptParser(settings);
-      else if((source_lang === "c++") || (source_lang === 'c') || (source_lang === 'cuda-c++'))
+      else if((source_lang === "c++") || (source_lang === "cpp") || (source_lang === 'c') || (source_lang === 'cuda-c++'))
           return new Parsers.CppParser(settings);
       else if((source_lang === 'objc') || (source_lang === 'objc++'))
           return new Parsers.ObjCParser(settings);

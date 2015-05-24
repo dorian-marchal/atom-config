@@ -22,6 +22,30 @@
   'Console log':
     'prefix': 'cl'
     'body': 'console.log(${1});'
+  'litteral prototype':
+    'prefix': '.proto'
+    'body': '''
+    ${1:Function}.prototype = {
+
+      constructor: ${1:Function},
+      ${2}
+    };
+    '''
+
+
+# PHP
+'.source.php':
+  'Console log':
+    'prefix': 'get'
+    'body': '''
+      public function get${1}() {
+          return \$this->${1:$SELECTION};
+      }
+
+      public function set${1}(\$$1) {
+          \$this->$1 = \$$1;
+      }
+    '''
 
 '.source.coffee':
   'Console log':

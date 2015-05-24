@@ -15,7 +15,7 @@ describe "TravisCiStatus", ->
   describe "when the travis-ci-status:toggle event is triggered", ->
     beforeEach ->
       spyOn(atom.project, "getRepositories").andReturn([{
-        getOriginURL: ->
+        getConfigValue: (name) ->
           "git@github.com:test/test.git"
       }])
 
@@ -31,7 +31,7 @@ describe "TravisCiStatus", ->
   describe "can get the nwo if the project is a github repo", ->
     it "gets nwo of https repo ending in .git", ->
       spyOn(atom.project, "getRepositories").andReturn([{
-        getOriginURL: ->
+        getConfigValue: (name) ->
           "https://github.com/tombell/travis-ci-status.git"
       }])
 
@@ -40,7 +40,7 @@ describe "TravisCiStatus", ->
 
     it "gets nwo of https repo not ending in .git", ->
       spyOn(atom.project, "getRepositories").andReturn([{
-        getOriginURL: ->
+        getConfigValue: (name) ->
           "https://github.com/tombell/test-status"
       }])
 
@@ -49,7 +49,7 @@ describe "TravisCiStatus", ->
 
     it "gets nwo of ssh repo ending in .git", ->
       spyOn(atom.project, "getRepositories").andReturn([{
-        getOriginURL: ->
+        getConfigValue: (name) ->
           "git@github.com:tombell/travis-ci-status.git"
       }])
 
@@ -58,7 +58,7 @@ describe "TravisCiStatus", ->
 
     it "gets nwo of ssh repo not ending in .git", ->
       spyOn(atom.project, "getRepositories").andReturn([{
-        getOriginURL: ->
+        getConfigValue: (name) ->
           "git@github.com:tombell/test-status"
       }])
 

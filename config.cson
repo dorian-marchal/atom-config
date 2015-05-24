@@ -106,3 +106,5 @@
     deep_indent: true
   "merge-conflicts":
     {}
+  "markdown-preview":
+    useGitHubStyle: true

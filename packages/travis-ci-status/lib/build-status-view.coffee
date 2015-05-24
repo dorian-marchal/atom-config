@@ -69,7 +69,8 @@ class BuildStatusView extends View
 
     repos = atom.project.getRepositories()
     console.log "DEBUG:", repos
-    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginURL()))
+    name = atom.config.get('travis-ci-status.travisCiRemoteName')
+    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getConfigValue("remote.#{name}.url")))
     @repo = repo[0]
 
     $(@repo).on 'status-changed', (path, status) =>
