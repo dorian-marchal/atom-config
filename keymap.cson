@@ -43,7 +43,7 @@
   'ctrl-shift-f2': 'copy-filename:copy-open-file-filename'
   'ctrl-up': 'add-line-break:add-line-break-after'
   'ctrl-down': 'add-line-break:add-line-break-before'
-  'ctrl-k ctrl-s': 'dorian:show-current-scope'
+  'ctrl-k ctrl-s': 'editor:log-cursor-scope'
   'ctrl-k ctrl-w': 'editor:toggle-soft-wrap'
   'ctrl-f2': 'bookmarks:toggle-bookmark'
 

@@ -108,3 +108,6 @@
     {}
   "markdown-preview":
     useGitHubStyle: true
+  "color-picker":
+    preferredFormat: "HEX"
+    randomColor: false
