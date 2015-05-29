@@ -1,0 +1,37 @@
+{
+  "name": "pane-split-moves-tab",
+  "main": "./lib/pane-split-moves-tab",
+  "version": "0.0.1",
+  "description": "Pane:split moves tab to new pane",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olmokramer/atom-pane-split-moves-tab"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "readme": "# pane-split-moves-tab package\n\nPane:split commands moves the tab to the new pane, instead of copying.\n\n## Copyright & License\n\n&copy; Olmo Kramer, 2015 <br> [MIT License](LICENSE.md)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/olmokramer/atom-pane-split-moves-tab/issues"
+  },
+  "homepage": "https://github.com/olmokramer/atom-pane-split-moves-tab",
+  "_id": "pane-split-moves-tab@0.0.1",
+  "_shasum": "2c258d2f86ef77fa5535a01f8e55d2d0d06fa2a2",
+  "_resolved": "file:../d-115429-10228-16rabco/package.tgz",
+  "_from": "../d-115429-10228-16rabco/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/pane-split-moves-tab.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
