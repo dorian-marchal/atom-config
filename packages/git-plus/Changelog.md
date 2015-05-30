@@ -1,5 +1,10 @@
 ## Changelog
 
+### 5.0.3
+
+- Treeview and StatusBar should update after git commands
+- No longer opening blank file on `Git show` if given an invalid object
+
 ### 5.0.2
 
 - Fix typo of 'notifer' to 'notifier'
