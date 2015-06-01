@@ -1,14 +1,17 @@
 fs = require 'fs'
 path = require 'path'
+
+{SERIALIZE_VERSION, SERIALIZE_MARKERS_VERSION} = require '../lib/versions'
 ColorProject = require '../lib/color-project'
 ColorBuffer = require '../lib/color-buffer'
 ProjectVariable = require '../lib/project-variable'
 jsonFixture = require('./spec-helper').jsonFixture(__dirname, 'fixtures')
 require '../lib/register-elements'
+{click} = require './helpers/events'
 
 TOTAL_VARIABLES_IN_PROJECT = 12
 TOTAL_COLORS_VARIABLES_IN_PROJECT = 10
-SERIALIZE_VERSION = "1.0.1"
+
 
 describe 'ColorProject', ->
   [project, promise, rootPath, paths, eventSpy] = []
@@ -33,6 +36,7 @@ describe 'ColorProject', ->
         root: rootPath
         timestamp: new Date().toJSON()
         version: SERIALIZE_VERSION
+        markersVersion: SERIALIZE_MARKERS_VERSION
 
       json = jsonFixture 'base-project.json', data
       project = ColorProject.deserialize(json)
@@ -94,6 +98,7 @@ describe 'ColorProject', ->
           deserializer: 'ColorProject'
           timestamp: date
           version: SERIALIZE_VERSION
+          markersVersion: SERIALIZE_MARKERS_VERSION
           buffers: {}
           ignoredNames: ['vendor/*']
         })
@@ -186,6 +191,7 @@ describe 'ColorProject', ->
           ignoredNames: ['vendor/*']
           timestamp: date
           version: SERIALIZE_VERSION
+          markersVersion: SERIALIZE_MARKERS_VERSION
           paths: [
             "#{rootPath}/styles/buttons.styl"
             "#{rootPath}/styles/variables.styl"
@@ -447,6 +453,7 @@ describe 'ColorProject', ->
       params.variableMarkers ?= [1..12]
       params.colorMarkers ?= [13..24]
       params.version ?= SERIALIZE_VERSION
+      params.markersVersion ?= SERIALIZE_MARKERS_VERSION
 
       ColorProject.deserialize(jsonFixture(stateFixture, params))
 
@@ -470,6 +477,24 @@ describe 'ColorProject', ->
 
       it 'drops the whole serialized state and rescans all the project', ->
         expect(project.getVariables().length).toEqual(32)
+
+    describe 'with a markers version different that the current one', ->
+      beforeEach ->
+        project = createProject
+          stateFixture: "empty-project.json"
+          markersVersion: "0.0.0"
+
+        waitsForPromise -> project.initialize()
+
+      it 'keeps the project related data', ->
+        expect(project.ignoredNames).toEqual(['vendor/*'])
+        expect(project.getPaths()).toEqual([
+          "#{rootPath}/styles/buttons.styl",
+          "#{rootPath}/styles/variables.styl"
+        ])
+
+      it 'drops the variables and buffers data', ->
+        expect(project.getVariables().length).toEqual(TOTAL_VARIABLES_IN_PROJECT)
 
     describe 'with a timestamp older than the files last modification date', ->
       beforeEach ->
@@ -534,6 +559,118 @@ describe 'ColorProject', ->
 
       it 'invalidates the color buffer markers as soon as the dirty paths have been determined', ->
         expect(colorBuffer.updateVariableMarkers).toHaveBeenCalled()
+
+##     ######   ##     ##    ###    ########  ########
+##    ##    ##  ##     ##   ## ##   ##     ## ##     ##
+##    ##        ##     ##  ##   ##  ##     ## ##     ##
+##    ##   #### ##     ## ##     ## ########  ##     ##
+##    ##    ##  ##     ## ######### ##   ##   ##     ##
+##    ##    ##  ##     ## ##     ## ##    ##  ##     ##
+##     ######    #######  ##     ## ##     ## ########
+
+describe 'ColorProject', ->
+  describe 'with a number of files greater than the threshold', ->
+    [project, workspaceElement, promise, rootPath, popup, promiseSpy] = []
+
+    beforeEach ->
+
+      atom.config.set 'pigments.sourcesWarningThreshold', 5
+      atom.config.set 'pigments.sourceNames', ['*.sass']
+
+      [fixturesPath] = atom.project.getPaths()
+      rootPath = "#{fixturesPath}/project-out-of-bounds"
+      atom.project.setPaths([rootPath])
+
+      workspaceElement = atom.views.getView(atom.workspace)
+      workspaceElement.style.height = "600px"
+      jasmine.attachToDOM(workspaceElement)
+
+      project = new ColorProject({})
+
+    describe '::initialize', ->
+      beforeEach ->
+        promiseSpy = jasmine.createSpy('project.initialize')
+        promise = project.initialize()
+        promise.then(promiseSpy)
+
+        waitsFor ->
+          popup = workspaceElement.querySelector('pigments-sources-popup')
+
+      it 'pauses after the paths loading and asks the user for choice', ->
+        expect(promiseSpy).not.toHaveBeenCalled()
+
+      describe 'when the warning popup is opened', ->
+        describe 'clicking on the ignore warning button', ->
+          beforeEach ->
+            click(popup.ignoreButton)
+
+            waitsFor -> promiseSpy.callCount > 0
+
+          it 'ignores the warning and uses all the paths', ->
+            expect(project.getPaths().length).toEqual(6)
+
+          it 'closes the popup', ->
+            expect(popup.parentNode).toBeNull()
+
+        describe 'clicking on the drop paths button', ->
+          beforeEach ->
+            click(popup.dropPathsButton)
+
+            waitsFor -> promiseSpy.callCount > 0
+
+          it 'ignores the loaded paths and uses an empty array instead', ->
+            expect(project.getPaths().length).toEqual(0)
+
+          it 'closes the popup', ->
+            expect(popup.parentNode).toBeNull()
+
+        describe 'clicking on the add ignore rules button', ->
+          [list] = []
+
+          beforeEach ->
+            click(popup.addIgnoreRuleButton)
+
+            waitsFor -> list = popup.querySelector('.list-group:not(:empty)')
+
+          it 'opens a list containing all the paths', ->
+            expect(list.children.length).toEqual(6)
+
+          describe 'then clicking on the validate paths buttons', ->
+            beforeEach ->
+              click(popup.validatePathsButton)
+
+              waitsFor -> promiseSpy.callCount > 0
+
+            it 'resolve the promise with the active paths', ->
+              expect(promiseSpy.argsForCall[0][0].length).toEqual(6)
+
+            it 'closes the popup', ->
+              expect(popup.parentNode).toBeNull()
+
+          describe 'writing a rule in the mini editor', ->
+            beforeEach ->
+              popup.ignoreRulesEditor.insertText('*-5.sass, *-6.sass')
+              popup.ignoreRulesEditor.getBuffer().emitter.emit('did-stop-changing')
+
+            it 'updates the list to display which paths are ignored', ->
+              expect(popup.querySelectorAll('li.active').length).toEqual(4)
+
+            describe 'then clicking on the validate paths buttons', ->
+              beforeEach ->
+                click(popup.validatePathsButton)
+
+                waitsFor -> promiseSpy.callCount > 0
+
+              it 'resolve the promise with the active paths', ->
+                expect(promiseSpy.argsForCall[0][0].length).toEqual(4)
+
+          describe 'writing an invalid rule in the editor', ->
+            beforeEach ->
+              popup.ignoreRulesEditor.insertText(', +(')
+              popup.ignoreRulesEditor.getBuffer().emitter.emit('did-stop-changing')
+
+            it 'ignores the invalid rules', ->
+              expect(popup.querySelectorAll('li.active').length).toEqual(6)
 
 ##    ########  ######## ########    ###    ##     ## ##       ########
 ##    ##     ## ##       ##         ## ##   ##     ## ##          ##

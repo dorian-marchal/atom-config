@@ -1,3 +1,17 @@
+<a name="v0.9.2"></a>
+# v0.9.2 (2015-06-01)
+
+## :bug: Bug Fixes
+
+- Fix typo in method name ([da9dec45](https://github.com/atom-minimap/minimap/commit/da9dec4513d30ed4187fb1944c5abeb403b30b4b))
+
+<a name="v4.9.1"></a>
+# v4.9.1 (2015-06-01)
+
+## :bug: Bug Fixes
+
+- Fix hue-rotate filter not accounted when computing a token color ([53fa7062](https://github.com/atom-minimap/minimap/commit/53fa70628478f04e2e72aaa8bfa6627863114f9c), [#330](https://github.com/atom-minimap/minimap/issues/330))
+
 <a name="v4.9.0"></a>
 # v4.9.0 (2015-05-18)
 

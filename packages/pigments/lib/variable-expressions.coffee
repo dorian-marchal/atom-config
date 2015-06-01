@@ -8,9 +8,10 @@ registry.createExpression 'less', '^[ \\t]*(@[a-zA-Z0-9\\-_]+)\\s*:\\s*([^;\\n]+
 
 # It catches sequences like `@mixin foo($foo: 10)` and ignores them.
 registry.createExpression 'scss_params', '^[ \\t]*@(mixin|include|function)\\s+[a-zA-Z0-9\\-_]+\\s*\\([^\\)]+\\)', (match, solver) ->
+  [match] = match
   solver.endParsing(match.length - 1)
 
-registry.createExpression 'scss', '^[ \\t]*(\\$[a-zA-Z0-9\\-_]+):\\s*(.*?)(\\s*!default)?;'
+registry.createExpression 'scss', '^[ \\t]*(\\$[a-zA-Z0-9\\-_]+)\\s*:\\s*(.*?)(\\s*!default)?;'
 
 registry.createExpression 'sass', '^[ \\t]*(\\$[a-zA-Z0-9\\-_]+):\\s*([^\\{]*?)(\\s*!default)?$'
 

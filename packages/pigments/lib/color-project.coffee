@@ -1,6 +1,7 @@
 {Emitter, CompositeDisposable, Range} = require 'atom'
 minimatch = require 'minimatch'
 
+{SERIALIZE_VERSION, SERIALIZE_MARKERS_VERSION} = require './versions'
 ColorBuffer = require './color-buffer'
 ColorContext = require './color-context'
 ColorSearch = require './color-search'
@@ -9,15 +10,21 @@ PathsLoader = require './paths-loader'
 PathsScanner = require './paths-scanner'
 ProjectVariable = require './project-variable'
 ColorMarkerElement = require './color-marker-element'
-
-SERIALIZE_VERSION = "1.0.1"
+SourcesPopupElement = require './sources-popup-element'
 
 module.exports =
 class ColorProject
   atom.deserializers.add(this)
 
   @deserialize: (state) ->
+    markersVersion = SERIALIZE_VERSION
+    markersVersion += '-dev' if atom.inDevMode() and !atom.inSpecMode()
     state = {} if state?.version isnt SERIALIZE_VERSION
+
+    if state?.markersVersion isnt markersVersion
+      delete state.variables
+      delete state.buffers
+
     new ColorProject(state)
 
   constructor: (state={}) ->
@@ -35,6 +42,8 @@ class ColorProject
 
     @subscriptions.add atom.config.observe 'pigments.markerType', (type) ->
       ColorMarkerElement.setMarkerType(type) if type?
+
+    @subscriptions.add atom.config.observe 'pigments.sourcesWarningThreshold', (@sourcesWarningThreshold) =>
 
     @bufferStates = buffers ? {}
 
@@ -73,9 +82,9 @@ class ColorProject
 
   destroy: ->
     return if @destroyed
-
     @destroyed = true
 
+    PathsScanner.terminateRunningTask()
     buffer.destroy() for id,buffer of @colorBuffersByEditorId
 
     @colorBuffersByEditorId = null
@@ -84,11 +93,36 @@ class ColorProject
     destroyed = null
 
     @loadPaths().then (paths) =>
+      if paths.length >= @sourcesWarningThreshold
+        @openSourcesPopup(paths).then (ignoreRules) =>
+          @ignoredNames = (@ignoredNames ? []).concat(ignoreRules)
+          paths.filter (p) ->
+            return false for source in ignoreRules when minimatch(p, source, matchBase: true, dot: true)
+            return true
+      else
+        Promise.resolve(paths)
+    .then (paths) =>
+      # There was serialized paths, and the initialization discovered
+      # some new or dirty ones.
       if @paths? and paths.length > 0
         @paths.push path for path in paths when path not in @paths
-        paths
+
+        # There was also serialized variables, so we'll rescan only the
+        # dirty paths
+        if @variables?
+          paths
+        # There was no variables, so it's probably because the markers
+        # version changed, we'll rescan all the files
+        else
+          @paths
+      # There was no serialized paths, so there's no variables neither
       else unless @paths?
         @paths = paths
+      # Only the markers version changed, all the paths from the serialized
+      # state will be rescanned
+      else unless @variables?
+        @paths
+      # Nothing changed, there's no dirty paths to rescan
       else
         []
     .then (paths) =>
@@ -204,9 +238,17 @@ class ColorProject
   isIgnoredPath: (path) ->
     return false unless path
     path = atom.project.relativize(path)
-    ignoredNames = atom.config.get('pigments.ignoredNames') ? []
-    ignoredNames = ignoredNames.concat(@ignoredNames) if @ignoredNames?
+    ignoredNames = @getIgnoredNames()
     return true for ignore in ignoredNames when minimatch(path, ignore, matchBase: true, dot: true)
+
+  openSourcesPopup: (paths) ->
+    new Promise (resolve, reject) ->
+      popup = new SourcesPopupElement
+      popup.initialize({paths, resolve, reject})
+      workspaceElement = atom.views.getView(atom.workspace)
+      panelContainer = workspaceElement.querySelector('atom-panel-container.modal')
+
+      panelContainer.appendChild(popup)
 
   ##    ##     ##    ###    ########   ######
   ##    ##     ##   ## ##   ##     ## ##    ##
@@ -384,6 +426,7 @@ class ColorProject
       deserializer: 'ColorProject'
       timestamp: @getTimestamp()
       version: SERIALIZE_VERSION
+      markersVersion: SERIALIZE_MARKERS_VERSION
 
     data.ignoredNames = @ignoredNames if @ignoredNames?
     data.buffers = @serializeBuffers()

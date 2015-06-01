@@ -65,9 +65,6 @@
   pigments:
     markerType: "dot"
     extendAutocompleteToVariables: false
-    autocompleteScopes: [
-      "'disabled'"
-    ]
   "autocomplete-plus":
     {}
   emmet:

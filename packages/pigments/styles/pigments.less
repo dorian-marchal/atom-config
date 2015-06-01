@@ -80,6 +80,10 @@ pigments-color-marker {
     position: absolute;
     white-space: pre;
 
+    &.background {
+      border-radius: 2px;
+    }
+
     &.outline {
       background-image: url(atom://pigments/resources/transparent-background.png);
       margin-left: -2px;
@@ -198,6 +202,20 @@ pigments-color-results {
         }
       }
     }
+  }
+}
+
+//     ######   ##     ##    ###    ########  ########
+//    ##    ##  ##     ##   ## ##   ##     ## ##     ##
+//    ##        ##     ##  ##   ##  ##     ## ##     ##
+//    ##   #### ##     ## ##     ## ########  ##     ##
+//    ##    ##  ##     ## ######### ##   ##   ##     ##
+//    ##    ##  ##     ## ##     ## ##    ##  ##     ##
+//     ######    #######  ##     ## ##     ## ########
+
+pigments-sources-popup {
+  .inset-panel {
+    margin-bottom: 0.75em;
   }
 }
 
