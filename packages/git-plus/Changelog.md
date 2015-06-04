@@ -1,5 +1,10 @@
 ## Changelog
 
+### 5.0.4
+
+- Fix typo of 'notifer' to 'notifier'
+- Fix issue #139
+
 ### 5.0.3
 
 - Treeview and StatusBar should update after git commands

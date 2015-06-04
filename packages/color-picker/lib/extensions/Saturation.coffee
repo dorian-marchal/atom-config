@@ -41,13 +41,14 @@
 
                     return _el
                 # Utility functions
-                width: null
-                height: null
+                width: 0
+                height: 0
                 getWidth: -> return @width or @el.offsetWidth
                 getHeight: -> return @height or @el.offsetHeight
 
                 rect: null
-                getRect: -> return @rect or (@rect = @el.getClientRects()[0])
+                getRect: -> return @rect or @updateRect()
+                updateRect: -> @rect = @el.getClientRects()[0]
 
                 # Add a child on the Saturation element
                 add: (element) ->
@@ -58,9 +59,9 @@
         #  Update element rect when Color Picker opens
         # ---------------------------
             colorPicker.onOpen =>
-                return unless @element.rect = @element.el.getClientRects()[0]
-                @width = @element.rect.width
-                @height = @element.rect.height
+                return unless @element.updateRect() and _rect = @element.getRect()
+                @width = _rect.width
+                @height = _rect.height
 
         #  Create and draw canvas
         # ---------------------------
@@ -94,7 +95,7 @@
                     render: (smartColor) ->
                         _hslArray = ( do ->
                             unless smartColor
-                                return colorPicker.SmartColor.HEX '#ff0000'
+                                return colorPicker.SmartColor.HEX '#f00'
                             else return smartColor
                         ).toHSLArray()
 
@@ -165,7 +166,8 @@
                             _y = _rect.height * key
                         # Default to previous values
                         else
-                            @selection.x = _rect.width if typeof @selection.x isnt 'number'
+                            if (typeof @selection.x isnt 'number')
+                                @selection.x = _rect.width
                             _x = @selection.x
                             _y = @selection.y
 
@@ -183,7 +185,7 @@
                             @el.style.top = "#{ _position.y }px"
                         return Saturation.emitSelectionChanged()
 
-                    refreshSelection: (silent=false) -> @setSelection()
+                    refreshSelection: -> @setSelection()
                 @control.refreshSelection()
 
                 # If the Color Picker is fed a color, set it
@@ -195,7 +197,7 @@
                 Saturation.onSelectionChanged -> Saturation.emitColorChanged()
 
                 # Reset
-                colorPicker.onOpen => @control.refreshSelection true
+                colorPicker.onOpen => @control.refreshSelection()
                 colorPicker.onOpen => @control.isGrabbing = no
                 colorPicker.onClose => @control.isGrabbing = no
 

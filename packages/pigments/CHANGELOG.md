@@ -1,3 +1,36 @@
+<a name="v0.4.4"></a>
+# v0.4.4 (2015-06-03)
+
+## Bug Fixes
+
+- Fix markers horizontal scroll not in sync with editor tiles ([264450b5](https://github.com/abe33/atom-pigments/commit/264450b591c59481010ce927c643ad8ab3689c84))
+
+<a name="v0.4.3"></a>
+# v0.4.3 (2015-06-03)
+
+## Bug Fixes
+
+- Fix scroll still not in sync if there's no tiles when setting the model ([5d4b93a4](https://github.com/abe33/atom-pigments/commit/5d4b93a4a3a4a37317f0acf483195f99b3955dac), [#25](https://github.com/abe33/atom-pigments/issues/25))
+
+<a name="v0.4.2"></a>
+# v0.4.2 (2015-06-03)
+
+## Bug Fixes
+
+- Fix color markers not synced with editor scroll ([dded923d](https://github.com/abe33/atom-pigments/commit/dded923d103592fa2b4cf17d0d1f34ed22b90732), [#25](https://github.com/abe33/atom-pigments/issues/25))
+
+<a name="v0.4.1"></a>
+# v0.4.1 (2015-06-02)
+
+## Features
+
+- Add `vendor/*`, `spec/*` and `test/*` as default ignored names. ([96381ecf](https://github.com/abe33/atom-pigments/commit/96381ecf1c643300aa091c744149e28207e0c0bc))
+
+## Bug Fixes
+
+- Raise the threshold to avoid annoying user ([15b05c07](https://github.com/abe33/atom-pigments/commit/15b05c07885aaac2062c5c2b5aa40f892795bc9a))
+- Fix paths and variables not updated when the paths settings are changed ([8e259a8a](https://github.com/abe33/atom-pigments/commit/8e259a8a81f0aed8744ab381d6a44c6f3609f85c))
+
 <a name="v0.4.0"></a>
 # v0.4.0 (2015-06-01)
 

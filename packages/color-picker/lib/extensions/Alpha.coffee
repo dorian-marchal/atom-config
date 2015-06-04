@@ -41,11 +41,14 @@
 
                     return _el
                 # Utility functions
-                width: -> @el.offsetWidth
-                height: -> @el.offsetHeight
+                width: 0
+                height: 0
+                getWidth: -> return @width or @el.offsetWidth
+                getHeight: -> return @height or @el.offsetHeight
 
                 rect: null
-                getRect: -> return @rect or (@rect = @el.getClientRects()[0])
+                getRect: -> return @rect or @updateRect()
+                updateRect: -> @rect = @el.getClientRects()[0]
 
                 # Add a child on the Alpha element
                 add: (element) ->
@@ -55,8 +58,7 @@
 
         #  Update element rect position when Color Picker opens
         # ---------------------------
-            colorPicker.onOpen =>
-                @element.rect = @element.el.getClientRects()[0]
+            colorPicker.onOpen => @element.updateRect()
 
         #  Create and draw canvas
         # ---------------------------
@@ -65,8 +67,8 @@
                 Saturation = colorPicker.getExtension 'Saturation'
 
                 # Prepare some variables
-                _elementWidth = @element.width()
-                _elementHeight = @element.height()
+                _elementWidth = @element.getWidth()
+                _elementHeight = @element.getHeight()
 
                 # Create canvas element
                 @canvas =
@@ -83,11 +85,11 @@
 
                     # Render Alpha canvas
                     render: (smartColor) ->
-                        _rgb = do ->
+                        _rgb = ( do ->
                             unless smartColor
-                                return (colorPicker.SmartColor.HEX '#ff0000').toRGBArray()
-                            else return smartColor.toRGBArray()
-                        _rgbFragmentString = _rgb.join ', '
+                                return colorPicker.SmartColor.HEX '#f00'
+                            else return smartColor
+                        ).toRGBArray().join ', '
 
                         # Get context and clear it
                         _context = @getContext()
@@ -95,8 +97,8 @@
 
                         # Draw alpha channel
                         _gradient = _context.createLinearGradient 0, 0, 1, _elementHeight
-                        _gradient.addColorStop .01, "rgba(#{ _rgbFragmentString }, 1)"
-                        _gradient.addColorStop .99, "rgba(#{ _rgbFragmentString }, 0)"
+                        _gradient.addColorStop .01, "rgba(#{ _rgb }, 1)"
+                        _gradient.addColorStop .99, "rgba(#{ _rgb }, 0)"
 
                         _context.fillStyle = _gradient
                         _context.fillRect 0, 0, _elementWidth, _elementHeight

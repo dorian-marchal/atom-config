@@ -49,6 +49,7 @@
                     @element.setColor colorPicker.SmartColor.RGBAArray [0, 0, 0, 0]
 
                     # Reset picker on close, and clear the event
+                    # TODO handle this on the ColorPicker itself, maybe?
                     onClose = ->
                         colorPicker.canOpen = no
 
@@ -106,6 +107,8 @@
                     Editor.clearSelections()
                     Editor.setSelectedBufferRange @pointer.range
                     Editor.scrollToCursorPosition()
+
+                    colorPicker.close()
                 return
 
         #  Create Definition definition text element

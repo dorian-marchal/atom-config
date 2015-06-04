@@ -4,8 +4,8 @@
 
     module.exports = ->
         SmartColor: (require './modules/SmartColor')()
+        SmartVariable: (require './modules/SmartVariable')()
         Emitter: (require './modules/Emitter')()
-        Inspector: (require './modules/Inspector')()
 
         extensions: {}
         getExtension: (extensionName) -> @extensions[extensionName]
@@ -246,50 +246,6 @@
             @Emitter.on 'inputVariableColor', callback
 
     # -------------------------------------
-    #  Colors in string
-    # -------------------------------------
-        getColorsInString: (string) ->
-            View = this
-
-            _colors = []; for {type, regex} in (require './modules/ColorRegexes')
-                continue unless _matches = string.match regex
-
-                for _match in _matches then do (type, _match) =>
-                    return if (_index = string.indexOf _match) is -1
-
-                    _matchColor =
-                        match: _match
-                        type: type
-                        start: _index
-                        end: _index + _match.length
-
-                        # Set up a function to obtain a SmartColor from the match
-                        # TODO this is ugly. Is there a better way to do this?
-                        # Since ColorRegexes and SmartColor are separate modules,
-                        # I kinda can't uppercase type and _assume_ they will
-                        # be the same in the SmartColor function...
-                        getSmartColor: -> return switch type
-                            when 'rgb' then View.SmartColor.RGB _match
-                            when 'rgba' then View.SmartColor.RGBA _match
-                            when 'hsl' then View.SmartColor.HSL _match
-                            when 'hsla' then View.SmartColor.HSLA _match
-                            when 'hex' then View.SmartColor.HEX _match
-                            when 'hexa' then View.SmartColor.HEXA _match
-                            when 'vec3' then View.SmartColor.VEC _match
-                            when 'vec4' then View.SmartColor.VECA _match
-                            when 'hsv' then View.SmartColor.HSV _match
-                            when 'hsva' then View.SmartColor.HSVA _match
-                    _colors.push _matchColor
-
-                    # Remove the match from the line content string to
-                    # “mark it” as having been “spent”. Be careful to keep the
-                    # correct amount of characters in the string as this is
-                    # later used to see which match fits best, if any
-                    string = string.replace _match, (new Array (_match.length + 1)).join ' '
-                    return
-            return _colors
-
-    # -------------------------------------
     #  Open the Color Picker
     # -------------------------------------
         open: ->
@@ -310,16 +266,18 @@
             # Fail if the cursor isn't visible
             _visibleRowRange = Editor.getVisibleRowRange()
             _cursorRow = Cursor.getBufferRow()
-
             return if (_cursorRow < _visibleRowRange[0] - 1) or (_cursorRow > _visibleRowRange[1])
 
             # Try matching the contents of the current line to color regexes
             _lineContent = Cursor.getCurrentBufferLine()
-            _colorMatches = @getColorsInString _lineContent
+
+            _colorMatches = @SmartColor.find _lineContent
+            _variableMatches = @SmartVariable.find _lineContent, Editor.getPath()
+            _matches = _colorMatches.concat _variableMatches
 
             # Figure out which of the matches is the one the user wants
             _cursorColumn = Cursor.getBufferColumn()
-            _match = do -> for _match in _colorMatches
+            _match = do -> for _match in _matches
                 return _match if _match.start <= _cursorColumn and _match.end >= _cursorColumn
 
             # If we've got a match, we should select it
@@ -338,65 +296,40 @@
         #  Emit
         # ---------------------------
             if _match
-                # TODO: Fragile. Should be _match.isVariable() or something cool
-                if _match.type in ['variable:sass', 'variable:less']
-                    @emitInputVariable _match
-
-                    # TODO: Add loading animation
-                    # TODO: Don't find variables in files with non-fitting
-                    # extensions. For example, a Sass variable should only be
-                    # found if the extension is .sass or .scss
-
-                    # Find the variable definition
-                    getDefinition = (variable, type, pointer) =>
-                        return (@Inspector variable, type).then (definition) =>
-                            throw (new Error 'No definition') unless definition
-
-                            _colorMatch = (@getColorsInString definition.definition)[0]
-                            throw (new Error 'Definition not a color') unless _colorMatch
-
-                            # Save the original pointer
-                            pointer ?= definition.pointer
-
-                            # Look deeper and continue digging if the
-                            # definition is a variable
-                            if _colorMatch.type in ['variable:sass', 'variable:less']
-                                return getDefinition _colorMatch.match, _colorMatch.type, pointer
-                            _colorMatch.pointer = pointer
-
-                            # Return the definition if we found it
-                            return _colorMatch
-                    getDefinition _match.match, _match.type
-                        .then (color) =>
-                            @emitInputVariableColor color.getSmartColor(), color.pointer
+                # The match is a variable. Look up the definition
+                if _match.isVariable?
+                    _match.getDefinition()
+                        .then (definition) =>
+                            _smartColor = (@SmartColor.find definition.value)[0].getSmartColor()
+                            @emitInputVariableColor _smartColor, definition.pointer
                         .catch (error) =>
                             @emitInputVariableColor false
+                    @emitInputVariable _match
+                # The match is a color
                 else @emitInputColor _match.getSmartColor()
             # No match, but `randomColor` option is set
             else if atom.config.get 'color-picker.randomColor'
-                _randomColor = @SmartColor.RGB 'rgb(' + ([
+                _randomColor = @SmartColor.RGBArray [
                     ((Math.random() * 255) + .5) << 0
                     ((Math.random() * 255) + .5) << 0
-                    ((Math.random() * 255) + .5) << 0].join ', ') + ')'
+                    ((Math.random() * 255) + .5) << 0]
 
                 # Convert to `preferredColor`, and then emit it
                 _preferredFormat = atom.config.get 'color-picker.preferredFormat'
-
-                if _randomColor.type isnt _preferredFormat
-                    _convertedColor = _randomColor["to#{ _preferredFormat }"]()
-                    _randomColor = @SmartColor[_preferredFormat] _convertedColor
+                _convertedColor = _randomColor["to#{ _preferredFormat }"]()
+                _randomColor = @SmartColor[_preferredFormat](_convertedColor)
 
                 @emitInputColor _randomColor, false
             # No match, and it's the first open
             else if @isFirstOpen
-                _redColor = @SmartColor.RGB 'rgb(255, 0, 0)'
+                _redColor = @SmartColor.HEX '#f00'
 
                 # Convert to `preferredColor`, and then emit it
                 _preferredFormat = atom.config.get 'color-picker.preferredFormat'
 
-                if _redColor.type isnt _preferredFormat
+                if _redColor.format isnt _preferredFormat
                     _convertedColor = _redColor["to#{ _preferredFormat }"]()
-                    _redColor = @SmartColor[_preferredFormat] _convertedColor
+                    _redColor = @SmartColor[_preferredFormat](_convertedColor)
                 @isFirstOpen = no
 
                 @emitInputColor _redColor, false

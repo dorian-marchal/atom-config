@@ -83,8 +83,8 @@
                 Alpha.onColorChanged (smartColor) =>
                     @element.setColor do ->
                         if smartColor then return smartColor
-                        # Default to #ff0000 red
-                        else return colorPicker.SmartColor.HEX '#ff0000'
+                        # Default to #f00 red
+                        else return colorPicker.SmartColor.HEX '#f00'
                     return
                 return
 
@@ -118,7 +118,7 @@
                 # Set the text element to contain the Color data
                 setColor = (smartColor) =>
                     _preferredFormat = atom.config.get 'color-picker.preferredFormat'
-                    _format = _formatFormat or _inputColor?.type or _preferredFormat or 'RGB'
+                    _format = _formatFormat or _inputColor?.format or _preferredFormat or 'RGB'
 
                     # TODO: This is very fragile
                     _function = if smartColor.getAlpha() < 1
@@ -129,11 +129,13 @@
                     # show the inital value not to confuse the user, but only
                     # if the input color format is still the same
                     _outputColor = do ->
-                        if _inputColor and (_inputColor.type is _format or _inputColor.type is "#{ _format }A")
+                        if _inputColor and (_inputColor.format is _format or _inputColor.format is "#{ _format }A")
                             if smartColor.equals _inputColor
                                 return _inputColor.value
                         return _function.call smartColor
 
+                    # Finish here if the _outputColor is the same as the
+                    # current color
                     return unless _outputColor isnt @color
 
                     # Automatically replace color in editor if
@@ -154,8 +156,8 @@
                 Alpha.onColorChanged (smartColor) =>
                     setColor _currentColor = do ->
                         if smartColor then return smartColor
-                        # Default to #ff0000 red
-                        else return colorPicker.SmartColor.HEX '#ff0000'
+                        # Default to #f00 red
+                        else return colorPicker.SmartColor.HEX '#f00'
                     return
 
                 # When Format is changed, update color

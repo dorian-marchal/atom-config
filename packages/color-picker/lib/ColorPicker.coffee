@@ -53,7 +53,7 @@
                 description: 'If the Color Picker doesn\'t get an input color, it serves a completely random color.'
                 type: 'boolean'
                 default: true
-            # TODO Automatic Replace configuration: Replace color value on change
+            # Automatic Replace configuration: Replace color value on change
             automaticReplace:
                 title: 'Automatically Replace Color'
                 description: 'Replace selected color automatically on change. Works well with as-you-type CSS reloaders.'
@@ -63,7 +63,7 @@
             # TODO: Can we abbreviate something else?
             abbreviateValues:
                 title: 'Abbreviate Color Values'
-                description: 'If possible, abbreviate color values, like for example “0.3” to “.3” and “#ffffff” to “#fff”.'
+                description: 'If possible, abbreviate color values, like for example “0.3” to “.3”,  “#ffffff” to “#fff” and “rgb(0, 0, 0)” to “rgb(0,0,0)”.'
                 type: 'boolean'
                 default: false
             # Uppercase color value configuration: Uppercase for example HEX color values

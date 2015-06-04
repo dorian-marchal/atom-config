@@ -14,6 +14,24 @@ https://github.com/thomaslindstrom/color-picker
 - Add setting for uppercasing color values
 - Add setting for automatically updating the color value in editor on change
 
+### v2.0.1
+- Fix missing preview image
+
+### v2.0.2
+- Fix `keymap` deprecation
+- Improve editor scroll binding
+
+### v2.0.3
+- `Return` element was being unnecessarily rendered
+- Prevent sporadic `Format` element flicker
+- Better output abbreviation
+- Add Stylus variable support – *if they are preceded by `$`*
+- Stop mistakingly assuming color variables in unrelated files
+- *Behind the scenes* improvements
+
+### v2.0.4
+- Remove Atom Module Cache from `package.json`
+
 ## v1.7.0
 - Fix deprecations
 

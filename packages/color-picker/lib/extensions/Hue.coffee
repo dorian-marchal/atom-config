@@ -14,7 +14,7 @@
     #  Utility function to get the current hue
     # -------------------------------------
         getHue: ->
-            if @control and @element
+            if (@control and @control.selection) and @element
                 return @control.selection.y / @element.getHeight() * 360
             else return 0
 
@@ -49,13 +49,14 @@
 
                     return _el
                 # Utility functions
-                width: null
-                height: null
+                width: 0
+                height: 0
                 getWidth: -> return @width or @el.offsetWidth
                 getHeight: -> return @height or @el.offsetHeight
 
                 rect: null
-                getRect: -> return @rect or (@rect = @el.getClientRects()[0])
+                getRect: -> return @rect or @updateRect()
+                updateRect: -> @rect = @el.getClientRects()[0]
 
                 # Add a child on the Hue element
                 add: (element) ->
@@ -66,9 +67,9 @@
         #  Update element rect when Color Picker opens
         # ---------------------------
             colorPicker.onOpen =>
-                return unless @element.rect = @element.el.getClientRects()[0]
-                @width = @element.rect.width
-                @height = @element.rect.height
+                return unless @element.updateRect() and _rect = @element.getRect()
+                @width = _rect.width
+                @height = _rect.height
 
         #  Create and draw canvas
         # ---------------------------
@@ -80,7 +81,7 @@
                 _elementHeight = @element.getHeight()
 
                 # Red through all the main colors and back to red
-                _hexes = ['#FF0000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#FF00FF', '#FF0000']
+                _hexes = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00']
 
                 # Create canvas element
                 @canvas =
@@ -166,13 +167,13 @@
                 # If the Color Picker is fed a color, set it
                 colorPicker.onInputColor (smartColor) =>
                     _hue = smartColor.toHSVArray()[0]
-                    @control.setSelection null, ((@element.getHeight() / 360) * _hue), true
+                    @control.setSelection null, (@element.getHeight() / 360) * _hue
 
                 # When the selection changes, the color has changed
                 Hue.onSelectionChanged -> Hue.emitColorChanged()
 
                 # Reset
-                colorPicker.onOpen => @control.refreshSelection true
+                colorPicker.onOpen => @control.refreshSelection()
                 colorPicker.onOpen => @control.isGrabbing = no
                 colorPicker.onClose => @control.isGrabbing = no
 
