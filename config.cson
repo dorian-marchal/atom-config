@@ -14,10 +14,6 @@
       "welcome"
       "spell-check"
     ]
-    themes: [
-      "atom-dark-ui"
-      "monokai"
-    ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
       "node_modules"
@@ -26,6 +22,10 @@
       ".cordova"
       "bower_components"
       "platforms"
+    ]
+    themes: [
+      "atom-dark-ui"
+      "monokai"
     ]
   editor:
     invisibles:

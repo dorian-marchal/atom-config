@@ -1,7 +1,7 @@
 {
   "name": "markdown-scroll-sync",
   "main": "./lib/main",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "Auto-scroll markdown-preview tab to match markdown source",
   "repository": {
     "type": "git",
@@ -22,10 +22,10 @@
     "url": "https://github.com/mark-hahn/markdown-scroll-sync/issues"
   },
   "homepage": "https://github.com/mark-hahn/markdown-scroll-sync",
-  "_id": "markdown-scroll-sync@0.3.4",
-  "_shasum": "a9459a2b6cc4804043fe2492f89162fe94851c7d",
-  "_resolved": "file:../d-115421-5486-lw1uwt/package.tgz",
-  "_from": "../d-115421-5486-lw1uwt/package.tgz",
+  "_id": "markdown-scroll-sync@0.4.0",
+  "_shasum": "3bd75cbb62dccfcefb4d8d9e0a9711dff69361fd",
+  "_resolved": "file:../d-11554-15241-f5jz43/package.tgz",
+  "_from": "../d-11554-15241-f5jz43/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
