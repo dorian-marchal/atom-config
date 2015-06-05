@@ -14,16 +14,7 @@
 
 atom-pane {
 
-    &:not(.active) {
-        opacity: 1;
-
-        atom-text-editor {
-          background-color: #1d1f21;
-        }
-    }
-
     .modified {
-
         * {
             color: #ffa81c !important;
             border-color: #ffa81c !important;
@@ -54,15 +45,17 @@ atom-text-editor {
 atom-text-editor::shadow {
 
     .invisible-character {
-        color: transparent;
+        opacity: 0;
 
         &.hard-tab {
             color: #FFF;
             opacity: 0.6;
         }
-
         &.trailing-whitespace {
+            background-color: #39F;
+            color: #000;
             opacity: 1;
+            border-radius: 5px;
         }
     }
 
