@@ -1,7 +1,7 @@
 {
   "name": "file-watcher",
   "main": "./lib/init",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "Notifications when an open file has changed on disk and Atom has pending changes.",
   "repository": {
     "type": "git",
@@ -17,10 +17,10 @@
   },
   "readme": "# Atom file-watcher Package\n\nThis package watches open files for conflicts, then uses the Atom confirm feature to prompt to reload each file.\n\n## Installation\nEither use `apm`:\n```\n  apm install file-watcher\n```\n\nOr find the package in the Atom registry and install.\n",
   "homepage": "https://github.com/lwblackledge/file-watcher",
-  "_id": "file-watcher@0.2.1",
-  "_shasum": "39801cf3cdf10d51b901813138369e616256234b",
-  "_resolved": "file:../d-11549-18979-hl4tru/package.tgz",
-  "_from": "../d-11549-18979-hl4tru/package.tgz",
+  "_id": "file-watcher@0.3.1",
+  "_shasum": "9fa003a0960f9c960fdce362bba04583d7b7c280",
+  "_resolved": "file:../d-11555-3695-osm01c/package.tgz",
+  "_from": "../d-11555-3695-osm01c/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

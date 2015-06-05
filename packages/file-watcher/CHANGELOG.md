@@ -1,3 +1,10 @@
+## 0.3.1 - Add Compare Grammar support
+* Add grammar settings to the new buffer
+  * credit to [@kankaristo](https://github.com/lwblackledge/file-watcher/issues/1#issuecomment-109119005) for change
+
+## 0.3.0 - Add Compare
+* Allows users to compare the disk and memory version of the file
+
 ## 0.1.0 - Confirm implementation
 * Prompts for every file that has a conflict
 
