@@ -26,9 +26,8 @@
     'prefix': '.proto'
     'body': '''
     ${1:Function}.prototype = {
-
-      constructor: ${1:Function},
-      ${2}
+        constructor: ${1:Function},
+        ${2}
     };
     '''
 

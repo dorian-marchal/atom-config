@@ -1,5 +1,16 @@
 ## Changelog
 
+### 5.1.0
+
+- The Split Pane direction setting actually works now.
+  > Possible choices are [right up down left]. Defaults to right.
+
+### 5.0.7
+
+- Fix #199
+- Fix #198
+- Fix #197
+
 ### 5.0.4
 
 - Fix typo of 'notifer' to 'notifier'

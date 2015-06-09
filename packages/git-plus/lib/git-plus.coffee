@@ -46,10 +46,10 @@ module.exports =
       default: true
       description: 'Allow commands to open new panes'
     splitPane:
-      title: 'Split pane direction'
+      title: 'Split pane direction(up, right, down, or left)'
       type: 'string'
       default: 'right'
-      description: 'Where should new panes go?(right or left)'
+      description: 'Where should new panes go?(Defaults to right)'
     wordDiff:
       type: 'boolean'
       default: true
@@ -65,7 +65,7 @@ module.exports =
     messageTimeout:
       type: 'integer'
       default: 5
-      description: 'How long should success/error messages be shown?'  
+      description: 'How long should success/error messages be shown?'
 
   activate: (state) ->
     repos = atom.project.getRepositories().filter (r) -> r?
