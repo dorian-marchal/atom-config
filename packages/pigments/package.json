@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -43,10 +43,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments",
-  "_id": "pigments@0.4.5",
-  "_shasum": "c83b8ca076331784d175b86671e8f175229b7513",
-  "_resolved": "file:../d-11555-27837-nggrp/package.tgz",
-  "_from": "../d-11555-27837-nggrp/package.tgz",
+  "_id": "pigments@0.5.0",
+  "_shasum": "ce635cefa747adea03efc57d8fd960ce41993855",
+  "_resolved": "file:../d-115511-16357-1cy6uh0/package.tgz",
+  "_from": "../d-115511-16357-1cy6uh0/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -92,7 +92,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "path": "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {
@@ -319,6 +319,7 @@
         "lib/variable-marker.coffee",
         "lib/variable-parser.coffee",
         "lib/variable-scanner.coffee",
+        "lib/variables-collection.coffee",
         "lib/versions.coffee"
       ],
       ".js": [

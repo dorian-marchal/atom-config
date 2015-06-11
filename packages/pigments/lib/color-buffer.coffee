@@ -2,24 +2,23 @@
 ProjectVariable = require './project-variable'
 Color = require './color'
 ColorMarker = require './color-marker'
-VariableMarker = require './variable-marker'
+VariablesCollection = require './variables-collection'
 
 module.exports =
 class ColorBuffer
   constructor: (params={}) ->
-    {@editor, @project, variableMarkers, colorMarkers} = params
+    {@editor, @project, colorMarkers} = params
     {@id} = @editor
     @emitter = new Emitter
     @subscriptions = new CompositeDisposable
     @ignoredScopes=[]
 
     @colorMarkersByMarkerId = {}
-    @variableMarkersByMarkerId = {}
 
     @subscriptions.add @editor.onDidDestroy => @destroy()
 
     @subscriptions.add @editor.onDidChange =>
-      @terminateRunningTask()
+      @terminateRunningTask() if @initialized and @variableInitialized
       clearTimeout(@timeout) if @timeout?
 
     @subscriptions.add @editor.onDidStopChanging =>
@@ -37,17 +36,18 @@ class ColorBuffer
       @update()
 
     @subscriptions.add @project.onDidUpdateVariables =>
-      resultsForBuffer = @project.getVariables().filter (r) =>
-        r.path is @editor.getPath()
-      @updateVariableMarkers(resultsForBuffer)
+      @scanBufferForColors().then (results) => @updateColorMarkers(results)
 
     @subscriptions.add atom.config.observe 'pigments.delayBeforeScan', (@delayBeforeScan=0) =>
 
     @subscriptions.add atom.config.observe 'pigments.ignoredScopes', (@ignoredScopes=[]) =>
       @emitter.emit 'did-update-color-markers', {created: [], destroyed: []}
 
-    if variableMarkers? and colorMarkers?
-      @restoreMarkersState(variableMarkers, colorMarkers)
+    # Needed to clean the serialized markers from previous versions
+    @editor.findMarkers(type: 'pigments-variable').forEach (m) => m.destroy()
+
+    if colorMarkers?
+      @restoreMarkersState(colorMarkers)
       @cleanUnusedTextEditorMarkers()
 
     @initialize()
@@ -55,34 +55,24 @@ class ColorBuffer
   onDidUpdateColorMarkers: (callback) ->
     @emitter.on 'did-update-color-markers', callback
 
-  onDidUpdateVariableMarkers: (callback) ->
-    @emitter.on 'did-update-variable-markers', callback
-
   onDidDestroy: (callback) ->
     @emitter.on 'did-destroy', callback
 
   initialize: ->
-    return Promise.resolve() if @variableMarkers? and @colorMarkers?
+    return Promise.resolve() if @colorMarkers?
     return @initializePromise if @initializePromise?
+
+    @updateVariableRanges()
 
     @initializePromise = @scanBufferForColors().then (results) =>
       @colorMarkers = @createColorMarkers(results)
+      @initialized = true
 
     @variablesAvailable()
     @initializePromise
 
-  restoreMarkersState: (variableMarkers, colorMarkers) ->
-    @variableMarkers = variableMarkers
-    .filter (state) -> state?
-    .map (state) =>
-      bufferRange = Range.fromObject(state.bufferRange)
-      marker = @editor.getMarker(state.markerId) ? @editor.markBufferRange(bufferRange, {
-        type: 'pigments-variable'
-        invalidate: 'touch'
-      })
-      variable = @project.getVariableByName(state.variable)
-      variable.bufferRange ?= bufferRange
-      @variableMarkersByMarkerId[marker.id] = new VariableMarker {marker, variable}
+  restoreMarkersState: (colorMarkers) ->
+    @updateVariableRanges()
 
     @colorMarkers = colorMarkers
     .filter (state) -> state?
@@ -103,8 +93,6 @@ class ColorBuffer
   cleanUnusedTextEditorMarkers: ->
     @editor.findMarkers(type: 'pigments-color').forEach (m) =>
       m.destroy() unless @colorMarkersByMarkerId[m.id]?
-    @editor.findMarkers(type: 'pigments-variable').forEach (m) =>
-      m.destroy() unless @variableMarkersByMarkerId[m.id]?
 
   variablesAvailable: ->
     return @variablesPromise if @variablesPromise?
@@ -114,16 +102,14 @@ class ColorBuffer
       return if @destroyed
       return unless results?
 
-      resultsForBuffer = results.filter (r) => r.path is @editor.getPath()
-      @variableMarkers = @createVariableMarkers(resultsForBuffer)
-
       @scanBufferForVariables() if @isIgnored() and @isVariablesSource()
     .then (results) =>
-      @scanBufferForColors
-        variables: results?.map (p) => new ProjectVariable(p, @project)
+      @scanBufferForColors variables: results
     .then (results) =>
       @updateColorMarkers(results)
+      @variableInitialized = true
     .catch (reason) ->
+      console.log reason
 
   update: ->
     promise = if @isIgnored()
@@ -134,11 +120,11 @@ class ColorBuffer
       @project.reloadVariablesForPath(@editor.getPath())
 
     promise.then (results) =>
-      @scanBufferForColors
-        variables: results?.map (p) => new ProjectVariable(p, @project)
+      @scanBufferForColors variables: results
     .then (results) =>
       @updateColorMarkers(results)
     .catch (reason) ->
+      console.log reason
 
   terminateRunningTask: -> @task?.terminate()
 
@@ -146,7 +132,6 @@ class ColorBuffer
     @terminateRunningTask()
     @subscriptions.dispose()
     @emitter.emit 'did-destroy'
-    @variableMarkers?.forEach (marker) -> marker.destroy()
     @colorMarkers?.forEach (marker) -> marker.destroy()
     @destroyed = true
 
@@ -158,79 +143,21 @@ class ColorBuffer
 
   isDestroyed: -> @destroyed
 
-  ##    ##     ##    ###    ########
-  ##    ##     ##   ## ##   ##     ##
-  ##    ##     ##  ##   ##  ##     ##
-  ##    ##     ## ##     ## ########
-  ##     ##   ##  ######### ##   ##
-  ##      ## ##   ##     ## ##    ##
-  ##       ###    ##     ## ##     ##
-  ##
-  ##    ##     ##    ###    ########  ##    ## ######## ########   ######
-  ##    ###   ###   ## ##   ##     ## ##   ##  ##       ##     ## ##    ##
-  ##    #### ####  ##   ##  ##     ## ##  ##   ##       ##     ## ##
-  ##    ## ### ## ##     ## ########  #####    ######   ########   ######
-  ##    ##     ## ######### ##   ##   ##  ##   ##       ##   ##         ##
-  ##    ##     ## ##     ## ##    ##  ##   ##  ##       ##    ##  ##    ##
-  ##    ##     ## ##     ## ##     ## ##    ## ######## ##     ##  ######
+  ##    ##     ##    ###    ########   ######
+  ##    ##     ##   ## ##   ##     ## ##    ##
+  ##    ##     ##  ##   ##  ##     ## ##
+  ##    ##     ## ##     ## ########   ######
+  ##     ##   ##  ######### ##   ##         ##
+  ##      ## ##   ##     ## ##    ##  ##    ##
+  ##       ###    ##     ## ##     ##  ######
 
-  getVariableMarkers: -> @variableMarkers
-
-  getVariableMarkerByName: (name) ->
-    return unless @variableMarkers?
-    for marker in @variableMarkers
-      return marker if marker.variable.name is name
-
-  createVariableMarkers: (results) ->
-    return if @destroyed
-    results.map (result) =>
-      bufferRange = Range.fromObject [
-        @editor.getBuffer().positionForCharacterIndex(result.range[0])
-        @editor.getBuffer().positionForCharacterIndex(result.range[1])
+  updateVariableRanges: ->
+    variablesForBuffer = @project.getVariablesForPath(@editor.getPath())
+    variablesForBuffer.forEach (variable) =>
+      variable.bufferRange ?= Range.fromObject [
+        @editor.getBuffer().positionForCharacterIndex(variable.range[0])
+        @editor.getBuffer().positionForCharacterIndex(variable.range[1])
       ]
-      result.bufferRange ?= bufferRange
-      marker = @editor.markBufferRange(bufferRange, {
-        type: 'pigments-variable'
-        invalidate: 'touch'
-      })
-      @variableMarkersByMarkerId[marker.id] =
-      new VariableMarker {marker, variable: result}
-
-  updateVariableMarkers: (results) ->
-    newMarkers = []
-    toCreate = []
-    for result in results
-      if marker = @findVariableMarker(variable: result)
-        newMarkers.push(marker)
-      else
-        toCreate.push(result)
-
-    createdMarkers = @createVariableMarkers(toCreate)
-    newMarkers = newMarkers.concat(createdMarkers)
-
-    toDestroy = @variableMarkers?.filter((marker) -> marker not in newMarkers) ? []
-
-    toDestroy.forEach (marker) -> marker.destroy()
-
-    for id,marker of @variableMarkersByMarkerId when marker not in newMarkers
-      delete @variableMarkersByMarkerId[id]
-
-    @variableMarkers = newMarkers
-    @emitter.emit 'did-update-variable-markers', {
-      created: createdMarkers
-      destroyed: toDestroy
-    }
-
-    @scanBufferForColors().then (results) => @updateColorMarkers(results)
-
-  findVariableMarker: (properties={}) ->
-    for marker in @variableMarkers
-      return marker if marker.match(properties)
-
-  findVariableMarkers: (properties={}) ->
-    properties.type = 'pigments-variable'
-    markers = @editor.findMarkers(properties)
-    markers.map (marker) => @variableMarkersByMarkerId[marker.id]
 
   scanBufferForVariables: ->
     return Promise.reject("This ColorBuffer is already destroyed") if @destroyed
@@ -338,14 +265,21 @@ class ColorBuffer
     results = []
     taskPath = require.resolve('./tasks/scan-buffer-colors-handler')
     buffer = @editor.getBuffer()
+
+    if options.variables?
+      collection = new VariablesCollection()
+      collection.addMany(options.variables)
+      options.variables = collection
+
     variables = if @isVariablesSource()
-      (options.variables ? []).concat(@project.getVariables() ? [])
+      (options.variables?.getVariables() ? []).concat(@project.getVariables() ? [])
     else
-      options.variables ? []
+      options.variables?.getVariables() ? []
 
     config =
       buffer: @editor.getText()
-      variables: variables.map (v) -> v.serialize()
+      variables: variables
+      colorVariables: variables.filter (v) -> v.isColor
 
     new Promise (resolve, reject) =>
       @task = Task.once(
@@ -380,6 +314,6 @@ class ColorBuffer
     {
       @id
       path: @editor.getPath()
-      variableMarkers: @variableMarkers?.map (marker) -> marker.serialize()
-      colorMarkers: @colorMarkers?.map (marker) -> marker.serialize()
+      colorMarkers: @colorMarkers?.map (marker) ->
+        marker.serialize()
     }

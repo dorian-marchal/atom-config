@@ -109,7 +109,7 @@ describe 'ColorProject', ->
 
     describe '::getVariablesForPath', ->
       it 'returns undefined', ->
-        expect(project.getVariablesForPath("#{rootPath}/styles/variables.styl")).toBeUndefined()
+        expect(project.getVariablesForPath("#{rootPath}/styles/variables.styl")).toEqual([])
 
     describe '::getVariableByName', ->
       it 'returns undefined', ->
@@ -203,7 +203,7 @@ describe 'ColorProject', ->
           globalSourceNames: ['*.styl', '*.less']
           globalIgnoredNames: []
           buffers: {}
-          variables: project.getVariables().map (v) -> v.serialize()
+          variables: project.variables.serialize()
         })
 
     describe '::getVariablesForPath', ->
@@ -219,21 +219,6 @@ describe 'ColorProject', ->
         project.deleteVariablesForPath("#{rootPath}/styles/variables.styl")
 
         expect(project.getVariablesForPath("#{rootPath}/styles/variables.styl")).toEqual([])
-
-      it 'destroys the removed variables', ->
-        spyOn(ProjectVariable.prototype, 'destroy').andCallThrough()
-        project.deleteVariablesForPath("#{rootPath}/styles/variables.styl")
-
-        expect(ProjectVariable::destroy).toHaveBeenCalled()
-
-      it 'debounces the calls to reloadVariablesForPath to perform one scan', ->
-        waitsFor -> project.initialize()
-        runs ->
-          spyOn(project, 'reloadVariablesForPaths').andCallThrough()
-          project.deleteVariablesForPath("#{rootPath}/styles/variables.styl")
-
-        waitsFor -> project.reloadVariablesForPaths.callCount > 0
-        runs -> expect(project.reloadVariablesForPaths.callCount).toEqual(1)
 
     describe '::getContext', ->
       it 'returns a context with the project variables', ->
@@ -355,14 +340,13 @@ describe 'ColorProject', ->
       describe 'when a color is modified that does not affect other variables ranges', ->
         [variablesTextRanges] = []
         beforeEach ->
-          runs ->
-            variablesTextRanges = {}
-            colorBuffer.getVariableMarkers().forEach (marker) ->
-              variablesTextRanges[marker.variable.name] = marker.variable.range
+          variablesTextRanges = {}
+          project.getVariablesForPath(editor.getPath()).forEach (variable) ->
+            variablesTextRanges[variable.name] = variable.range
 
-            editor.setSelectedBufferRange([[1,7],[1,14]])
-            editor.insertText('#336')
-            editor.getBuffer().emitter.emit('did-stop-changing')
+          editor.setSelectedBufferRange([[1,7],[1,14]])
+          editor.insertText('#336')
+          editor.getBuffer().emitter.emit('did-stop-changing')
 
           waitsFor -> eventSpy.callCount > 0
 
@@ -371,9 +355,9 @@ describe 'ColorProject', ->
           expect(project.getVariables().length).toEqual(TOTAL_VARIABLES_IN_PROJECT)
 
         it 'uses the buffer ranges to detect which variables were really changed', ->
-          expect(eventSpy.argsForCall[0][0].destroyed.length).toEqual(1)
-          expect(eventSpy.argsForCall[0][0].created.length).toEqual(1)
-          expect(eventSpy.argsForCall[0][0].updated.length).toEqual(0)
+          expect(eventSpy.argsForCall[0][0].destroyed).toBeUndefined()
+          expect(eventSpy.argsForCall[0][0].created).toBeUndefined()
+          expect(eventSpy.argsForCall[0][0].updated.length).toEqual(1)
 
         it 'updates the text range of the other variables', ->
           project.getVariablesForPath("#{rootPath}/styles/variables.styl").forEach (variable) ->
@@ -385,32 +369,62 @@ describe 'ColorProject', ->
           expect(eventSpy).toHaveBeenCalled()
 
       describe 'when a text is inserted that affects other variables ranges', ->
-        [variablesTextRanges] = []
+        [variablesTextRanges, variablesBufferRanges] = []
         beforeEach ->
           runs ->
             variablesTextRanges = {}
-            colorBuffer.getVariableMarkers().forEach (marker) ->
-              variablesTextRanges[marker.variable.name] = marker.variable.range
+            variablesBufferRanges = {}
+            project.getVariablesForPath(editor.getPath()).forEach (variable) ->
+              variablesTextRanges[variable.name] = variable.range
+              variablesBufferRanges[variable.name] = variable.bufferRange
+
+            spyOn(project.variables, 'addMany').andCallThrough()
 
             editor.setSelectedBufferRange([[0,0],[0,0]])
             editor.insertText('\n\n')
             editor.getBuffer().emitter.emit('did-stop-changing')
 
-          waitsFor -> eventSpy.callCount > 0
+          waitsFor -> project.variables.addMany.callCount > 0
 
-        it 'uses the buffer ranges to detect which variables were really changed', ->
-          expect(eventSpy.argsForCall[0][0].destroyed.length).toEqual(0)
-          expect(eventSpy.argsForCall[0][0].created.length).toEqual(0)
-          expect(eventSpy.argsForCall[0][0].updated.length).toEqual(12)
+        it 'does not trigger a change event', ->
+          expect(eventSpy.callCount).toEqual(0)
 
         it 'updates the range of the updated variables', ->
-          range = eventSpy.argsForCall[0][0].updated[0].range
-          bufferRange = eventSpy.argsForCall[0][0].updated[0].bufferRange
+          project.getVariablesForPath("#{rootPath}/styles/variables.styl").forEach (variable) ->
+            if variable.name isnt 'colors.red'
+              expect(variable.range[0]).toEqual(variablesTextRanges[variable.name][0] + 2)
+              expect(variable.range[1]).toEqual(variablesTextRanges[variable.name][1] + 2)
+              expect(variable.bufferRange.isEqual(variablesBufferRanges[variable.name])).toBeFalsy()
 
-          expect(range[0]).not.toEqual(13)
-          expect(range[1]).not.toEqual(25)
+      describe 'when a color is removed', ->
+        [variablesTextRanges] = []
+        beforeEach ->
+          runs ->
+            variablesTextRanges = {}
+            project.getVariablesForPath(editor.getPath()).forEach (variable) ->
+              variablesTextRanges[variable.name] = variable.range
 
-          expect(bufferRange).not.toEqual([[1,2], [1,14]])
+            editor.setSelectedBufferRange([[1,0],[2,0]])
+            editor.insertText('')
+            editor.getBuffer().emitter.emit('did-stop-changing')
+
+          waitsFor -> eventSpy.callCount > 0
+
+        it 'reloads the variables with the buffer instead of the file', ->
+          expect(colorBuffer.scanBufferForVariables).toHaveBeenCalled()
+          expect(project.getVariables().length).toEqual(TOTAL_VARIABLES_IN_PROJECT - 1)
+
+        it 'uses the buffer ranges to detect which variables were really changed', ->
+          expect(eventSpy.argsForCall[0][0].destroyed.length).toEqual(1)
+          expect(eventSpy.argsForCall[0][0].created).toBeUndefined()
+          expect(eventSpy.argsForCall[0][0].updated).toBeUndefined()
+
+        it 'can no longer be found in the project variables', ->
+          expect(project.getVariables().some (v) -> v.name is 'colors.red').toBeFalsy()
+          expect(project.getColorVariables().some (v) -> v.name is 'colors.red').toBeFalsy()
+
+        it 'dispatches a did-update-variables event', ->
+          expect(eventSpy).toHaveBeenCalled()
 
     describe '::setIgnoredNames', ->
       describe 'with an empty array', ->
@@ -457,7 +471,7 @@ describe 'ColorProject', ->
 
         waitsFor -> project.getPaths().join(',') isnt originalPaths.join(',')
 
-      it 'updates the found using the new pattern', ->
+      it 'updates the variables using the new pattern', ->
         expect(project.getVariables().length).toEqual(0)
 
       describe 'so that new paths are found', ->
@@ -613,7 +627,6 @@ describe 'ColorProject', ->
 
       it 'restores the color buffer in its previous state', ->
         expect(colorBuffer).toBeDefined()
-        expect(colorBuffer.getVariableMarkers().length).toEqual(TOTAL_VARIABLES_IN_PROJECT)
         expect(colorBuffer.getColorMarkers().length).toEqual(TOTAL_COLORS_VARIABLES_IN_PROJECT)
 
       it 'does not wait for the project variables', ->
@@ -626,7 +639,7 @@ describe 'ColorProject', ->
           atom.workspace.open('variables.styl').then (o) -> editor = o
 
         runs ->
-          spyOn(ColorBuffer.prototype, 'updateVariableMarkers').andCallThrough()
+          spyOn(ColorBuffer.prototype, 'updateVariableRanges').andCallThrough()
           project = createProject
             timestamp: new Date(0).toJSON()
             stateFixture: "open-buffer-project.json"
@@ -634,10 +647,10 @@ describe 'ColorProject', ->
 
         runs -> colorBuffer = project.colorBuffersByEditorId[editor.id]
 
-        waitsFor -> colorBuffer.updateVariableMarkers.callCount > 0
+        waitsFor -> colorBuffer.updateVariableRanges.callCount > 0
 
       it 'invalidates the color buffer markers as soon as the dirty paths have been determined', ->
-        expect(colorBuffer.updateVariableMarkers).toHaveBeenCalled()
+        expect(colorBuffer.updateVariableRanges).toHaveBeenCalled()
 
 ##     ######   ##     ##    ###    ########  ########
 ##    ##    ##  ##     ##   ## ##   ##     ## ##     ##

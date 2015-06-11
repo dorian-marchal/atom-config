@@ -4,9 +4,12 @@ ColorExpression = require './color-expression'
 
 module.exports =
 class ColorContext
-  constructor: (@variables=[], @parser) ->
+  constructor: (@variables=[], @colorVariables=[], @parser) ->
     @vars = {}
+    @colorVars = {}
+
     @vars[v.name] = v for v in @variables
+    @colorVars[v.name] = v for v in @colorVariables
 
     unless @parser?
       ColorParser = require './color-parser'
@@ -14,11 +17,15 @@ class ColorContext
 
     @usedVariables = []
 
+  clone: -> new ColorContext(@variables, @colorVariables, @parser)
+
   containsVariable: (variableName) -> variableName in @getVariablesNames()
 
-  hasVariables: -> @variables.length > 0
+  hasColorVariables: -> @colorVariables.length > 0
 
   getVariables: -> @variables
+
+  getColorVariables: -> @colorVariables
 
   getVariablesNames: -> @varNames ?= Object.keys(@vars)
 
@@ -31,15 +38,18 @@ class ColorContext
     usedVariables
 
   readColorExpression: (value) ->
-    if @vars[value]?
+    if @colorVars[value]?
       @usedVariables.push(value)
-      @vars[value].value
+      @colorVars[value].value
     else
       value
 
-  readColor: (value) ->
-    result = @parser.parse(@readColorExpression(value), this)
-    result if result?.isValid()
+  readColor: (value, keepAllVariables=false) ->
+    result = @parser.parse(@readColorExpression(value), @clone())
+    if result?
+      if keepAllVariables or value not in @usedVariables
+        result.variables = result.variables.concat(@readUsedVariables())
+      return result
 
   readFloat: (value) ->
     res = parseFloat(value)
