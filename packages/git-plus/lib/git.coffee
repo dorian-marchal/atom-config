@@ -100,16 +100,6 @@ gitAdd = (repo, {file, stdout, stderr, exit}={}) ->
     stderr: stderr if stderr?
     exit: exit
 
-gitMerge = ({branchName, stdout, stderr, exit}={}) ->
-  exit ?= (code) ->
-    if code is 0
-      notifier.addSuccess 'Git merged branch #{branchName} successfully'
-  gitCmd
-    args: ['merge', branchName],
-    stdout: stdout if stdout?
-    stderr: stderr if stderr?
-    exit: exit
-
 gitResetHead = (repo) ->
   gitCmd
     args: ['reset', 'HEAD']
@@ -185,7 +175,11 @@ getRepoForCurrentFile = ->
     if directory?
       project.repositoryForDirectory(directory).then (repo) ->
         submodule = repo.repo.submoduleForPath(path)
-        if submodule? then resolve(submodule) else resolve(repo)
+        if submodule?
+          console.debug "Git-plus: submodule path is", submodule.getPath()
+          console.debug "Git-plus: submodule working directory is", submodule.getWorkingDirectory()
+          resolve(submodule)
+        else resolve(repo)
       .catch (e) ->
         reject(e)
     else

@@ -36,6 +36,7 @@ class ColorBuffer
       @update()
 
     @subscriptions.add @project.onDidUpdateVariables =>
+      return unless @variableInitialized
       @scanBufferForColors().then (results) => @updateColorMarkers(results)
 
     @subscriptions.add atom.config.observe 'pigments.delayBeforeScan', (@delayBeforeScan=0) =>
@@ -44,7 +45,7 @@ class ColorBuffer
       @emitter.emit 'did-update-color-markers', {created: [], destroyed: []}
 
     # Needed to clean the serialized markers from previous versions
-    @editor.findMarkers(type: 'pigments-variable').forEach (m) => m.destroy()
+    @editor.findMarkers(type: 'pigments-variable').forEach (m) -> m.destroy()
 
     if colorMarkers?
       @restoreMarkersState(colorMarkers)
@@ -68,7 +69,8 @@ class ColorBuffer
       @colorMarkers = @createColorMarkers(results)
       @initialized = true
 
-    @variablesAvailable()
+    @initializePromise.then => @variablesAvailable()
+
     @initializePromise
 
   restoreMarkersState: (colorMarkers) ->
@@ -112,6 +114,8 @@ class ColorBuffer
       console.log reason
 
   update: ->
+    @terminateRunningTask()
+
     promise = if @isIgnored()
       @scanBufferForVariables()
     else unless @isVariablesSource()
