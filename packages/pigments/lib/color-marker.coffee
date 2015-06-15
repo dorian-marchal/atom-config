@@ -1,4 +1,5 @@
 {CompositeDisposable} = require 'atom'
+{fill} = require './utils'
 
 module.exports =
 class ColorMarker
@@ -42,3 +43,16 @@ class ColorMarker
     }
     out.invalid = true unless @color.isValid()
     out
+
+  convertContentToHex: ->
+    hex = '#' + fill(@color.hex, 6)
+
+    @marker.displayBuffer.buffer.setTextInRange(@marker.getBufferRange(), hex)
+
+  convertContentToRGBA: ->
+    if @color.alpha is 1
+      rgba = "rgb(#{Math.round @color.red}, #{Math.round @color.green}, #{Math.round @color.blue})"
+    else
+      rgba = "rgba(#{Math.round @color.red}, #{Math.round @color.green}, #{Math.round @color.blue}, #{@color.alpha})"
+
+    @marker.displayBuffer.buffer.setTextInRange(@marker.getBufferRange(), rgba)

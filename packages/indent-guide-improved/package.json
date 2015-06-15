@@ -4,7 +4,7 @@
     "name": "Akihiro HARAI"
   },
   "main": "./lib/indent-guide-improved",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "This draws indent guide more correctly and understandably.",
   "repository": {
     "type": "git",
@@ -12,19 +12,24 @@
   },
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">=0.208.0"
   },
+  "keywords": [
+    "indentation",
+    "ruler",
+    "ui"
+  ],
   "dependencies": {},
-  "readme": "# indent-guide-improved package\n\nThis Atom Editor package draws indent guide more correctly and understandably.\n\n# Features\n\n* Active guide and stack guides are emphasized.\n* Guides break just before the trailing blank lines.\n\n![screenshot](https://raw.githubusercontent.com/harai/indent-guide-improved/master/doc/demo.gif)\n\n# Notice\n\n* Original \"Show Indent Guide\" feature is automatically switched off when this package is activated.\n",
+  "readme": "# indent-guide-improved package\n\nThis Atom Editor package draws indent guide more correctly and understandably.\n\n# Features\n\n* Active guide and stack guides are emphasized.\n* Guides break just before the trailing blank lines.\n\n![screenshot](https://raw.githubusercontent.com/harai/indent-guide-improved/master/doc/demo.gif)\n\n# Configuring\n\nYou can change the color of guides by adding styles to [your stylesheet](https://atom.io/docs/latest/customizing-atom), such as the following:\n\n```sass\n.indent-guide-improved {\n  background-color: gray;\n  &.indent-guide-stack {\n    background-color: cyan;\n    &.indent-guide-active {\n      background-color: blue;\n    }\n  }\n}\n```\n\n# Notice\n\n* Original \"Show Indent Guide\" feature is automatically switched off when this package is activated.\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/harai/indent-guide-improved/issues"
   },
   "homepage": "https://github.com/harai/indent-guide-improved",
-  "_id": "indent-guide-improved@1.2.0",
-  "_shasum": "2d506af09e68a97997b67eea0e45765fde8210cd",
-  "_resolved": "file:../d-115416-26931-ilkz8n/package.tgz",
-  "_from": "../d-115416-26931-ilkz8n/package.tgz",
+  "_id": "indent-guide-improved@1.3.0",
+  "_shasum": "34c607bcf07c2e0c1ac561230062d8d1dd27ed5f",
+  "_resolved": "file:../d-115515-10035-1tqrtfs/package.tgz",
+  "_from": "../d-115515-10035-1tqrtfs/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

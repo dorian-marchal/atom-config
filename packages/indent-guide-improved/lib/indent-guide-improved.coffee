@@ -7,13 +7,14 @@ RowMap = require './row-map.coffee'
 module.exports =
   activate: (state) ->
     # The original indent guides interfere with this package.
-    atom.config.set('editor.showIndentGuide', false);
+    atom.config.set('editor.showIndentGuide', false)
+
+    unless atom.config.get('editor.useShadowDOM')
+      msg = 'To use indent-guide-improved package, please check "Use Shadow DOM" in Settings.'
+      atom.notifications.addError(msg, {dismissable: true})
+      return
 
     updateGuide = (editor, editorElement) ->
-      underlayer = editorElement.querySelector(".underlayer")
-      if !underlayer?
-        return
-
       visibleScreenRange = editor.getVisibleRowRange()
       basePixelPos = editorElement.pixelPositionForScreenPosition(new Point(visibleScreenRange[0], 0)).top
       visibleRange = visibleScreenRange.map (row) ->
@@ -23,6 +24,8 @@ module.exports =
           null
         else
           editor.indentationForBufferRow(row)
+      scrollTop = editor.getScrollTop()
+      scrollLeft = editor.getScrollLeft()
       rowMap = new RowMap(editor.displayBuffer.rowMap.getRegions())
       guides = getGuides(
         visibleRange[0],
@@ -31,7 +34,7 @@ module.exports =
         editor.getCursorBufferPositions().map((point) -> point.row),
         getIndent)
       lineHeightPixel = editor.getLineHeightInPixels()
-      createElementsForGuides(underlayer, guides.map (g) ->
+      createElementsForGuides(editorElement, guides.map (g) ->
         (el) -> styleGuide(
           el,
           g.point.translate(new Point(visibleRange[0], 0)),
@@ -42,17 +45,19 @@ module.exports =
           rowMap,
           basePixelPos,
           lineHeightPixel,
-          visibleScreenRange[0]))
+          visibleScreenRange[0],
+          scrollTop,
+          scrollLeft))
 
     handleEvents = (editor, editorElement) ->
       subscriptions = new CompositeDisposable
       subscriptions.add editor.onDidChangeCursorPosition(=> updateGuide(editor, editorElement))
       subscriptions.add editor.onDidChangeScrollTop(=> updateGuide(editor, editorElement))
+      subscriptions.add editor.onDidChangeScrollLeft(=> updateGuide(editor, editorElement))
       subscriptions.add editor.onDidStopChanging(=> updateGuide(editor, editorElement))
       subscriptions.add editor.onDidDestroy ->
         subscriptions.dispose()
 
     atom.workspace.observeTextEditors (editor) ->
       editorElement = atom.views.getView(editor)
-      if editorElement.querySelector(".underlayer")?
-        handleEvents(editor, editorElement)
+      handleEvents(editor, editorElement)

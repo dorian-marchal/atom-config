@@ -88,12 +88,14 @@ describe 'ColorBuffer', ->
 
   # FIXME Using a 1s sleep seems to do nothing on Travis, it'll need
   # a better solution.
-  xdescribe 'with rapid changes that triggers a rescan', ->
+  describe 'with rapid changes that triggers a rescan', ->
     beforeEach ->
       colorBuffer = project.colorBufferForEditor(editor)
-      waitsForPromise -> colorBuffer.variablesAvailable()
+      waitsFor ->
+        colorBuffer.initialized and colorBuffer.variableInitialized
 
       runs ->
+        spyOn(colorBuffer, 'terminateRunningTask').andCallThrough()
         spyOn(colorBuffer, 'updateColorMarkers').andCallThrough()
         spyOn(colorBuffer, 'scanBufferForVariables').andCallThrough()
 
@@ -109,11 +111,8 @@ describe 'ColorBuffer', ->
         editor.emitter.emit('did-change')
         editor.getBuffer().emitter.emit('did-stop-changing')
 
-      waitsFor sleep(1000)
-
     it 'terminates the currently running task', ->
-      expect(colorBuffer.updateColorMarkers.callCount).toEqual(1)
-
+      expect(colorBuffer.terminateRunningTask).toHaveBeenCalled()
 
   describe 'when created without a previous state', ->
     beforeEach ->
@@ -135,6 +134,16 @@ describe 'ColorBuffer', ->
         editor.destroy()
 
         expect(project.colorBuffersByEditorId[editor.id]).toBeUndefined()
+
+    describe '::getColorMarkerAtBufferPosition', ->
+      describe 'when the buffer position is contained in a marker range', ->
+        it 'returns the corresponding color marker', ->
+          colorMarker = colorBuffer.getColorMarkerAtBufferPosition([2, 15])
+          expect(colorMarker).toEqual(colorBuffer.colorMarkers[1])
+
+      describe 'when the buffer position is not contained in a marker range', ->
+        it 'returns undefined', ->
+          expect(colorBuffer.getColorMarkerAtBufferPosition([1, 15])).toBeUndefined()
 
     ##    ##     ##    ###    ########   ######
     ##    ##     ##   ## ##   ##     ## ##    ##
@@ -205,7 +214,7 @@ describe 'ColorBuffer', ->
         beforeEach ->
           waitsForPromise -> colorBuffer.variablesAvailable()
 
-        xit 'returns the whole buffer data', ->
+        it 'returns the whole buffer data', ->
           expected = jsonFixture "four-variables-buffer.json", {
             id: editor.id
             root: atom.project.getPaths()[0]

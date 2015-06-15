@@ -27,6 +27,7 @@ ExpressionsRegistry = require './expressions-registry'
 ColorExpression = require './color-expression'
 SVGColors = require './svg-colors'
 Color = require './color'
+BlendModes = require './blend-modes'
 
 MAX_PER_COMPONENT =
   red: 255
@@ -49,6 +50,36 @@ mixColors = (color1, color2, amount=0.5) ->
   ]
 
   color
+
+contrast = (base, dark=new Color('black'), light=new Color('white'), threshold=0.43) ->
+  [light, dark] = [dark, light] if dark.luma > light.luma
+
+  if base.luma > threshold
+    dark
+  else
+    light
+
+blendMethod = (registry, name, method) ->
+  registry.createExpression name, strip("
+    #{name}#{ps}
+      (
+        #{notQuote}
+        #{comma}
+        #{notQuote}
+      )
+    #{pe}
+  "), (match, expression, context) ->
+    [_, expr] = match
+
+    [color1, color2] = split(expr)
+
+    baseColor1 = context.readColor(color1)
+    baseColor2 = context.readColor(color2)
+
+    return @invalid = true if isInvalid(baseColor1) or isInvalid(baseColor2)
+
+    {@rgba} = baseColor1.blend(baseColor2, method)
+
 
 readParam = (param, block) ->
   re = ///\$(\w+):\s*((-?#{float})|#{variables})///
@@ -365,6 +396,24 @@ module.exports = getRegistry: (context) ->
     @hsl = [h, s, clampInt(l + amount)]
     @alpha = baseColor.alpha
 
+  # fade(#ffffff, 0.5)
+  registry.createExpression 'fade', strip("
+    fade#{ps}
+      (#{notQuote})
+      #{comma}
+      (#{floatOrPercent}|#{variables})
+    #{pe}
+  "), (match, expression, context) ->
+    [_, subexpr, amount] = match
+
+    amount = context.readFloatOrPercent(amount)
+    baseColor = context.readColor(subexpr)
+
+    return @invalid = true if isInvalid(baseColor)
+
+    @rgb = baseColor.rgb
+    @alpha = amount
+
   # transparentize(#ffffff, 0.5)
   # transparentize(#ffffff, 50%)
   # fadeout(#ffffff, 0.5)
@@ -430,36 +479,29 @@ module.exports = getRegistry: (context) ->
   registry.createExpression 'mix', strip("
     mix#{ps}
       (
-        (#{notQuote})
+        #{notQuote}
         #{comma}
-        (#{notQuote})
+        #{notQuote}
         #{comma}
         (#{floatOrPercent}|#{variables})
-      |
-        (#{notQuote})
-        #{comma}
-        (#{notQuote})
       )
     #{pe}
   "), (match, expression, context) ->
-    [_, _, color1A, color2A, amount, _, _, color1B, color2B] = match
+    [_, expr] = match
 
-    if color1A?
-      color1 = color1A
-      color2 = color2A
+    [color1, color2, amount] = split(expr)
+
+    if amount?
       amount = context.readFloatOrPercent(amount)
     else
-      color1 = color1B
-      color2 = color2B
       amount = 0.5
-
 
     baseColor1 = context.readColor(color1)
     baseColor2 = context.readColor(color2)
 
     return @invalid = true if isInvalid(baseColor1) or isInvalid(baseColor2)
 
-    @rgba = mixColors(baseColor1, baseColor2, amount).rgba
+    {@rgba} = mixColors(baseColor1, baseColor2, amount)
 
   # tint(red, 50%)
   registry.createExpression 'tint', strip("
@@ -562,6 +604,82 @@ module.exports = getRegistry: (context) ->
     @rgb = [255 - r, 255 - g, 255 - b]
     @alpha = baseColor.alpha
 
+  # complement(green)
+  registry.createExpression 'complement', "complement#{ps}(#{notQuote})#{pe}", (match, expression, context) ->
+    [_, subexpr] = match
+
+    baseColor = context.readColor(subexpr)
+
+    return @invalid = true if isInvalid(baseColor)
+
+    [h,s,l] = baseColor.hsl
+
+    @hsl = [(h + 180) % 360, s, l]
+    @alpha = baseColor.alpha
+
+  # spin(green, 20)
+  registry.createExpression 'spin', strip("
+    spin#{ps}
+      (#{notQuote})
+      #{comma}
+      (-?#{int}|#{variables})
+    #{pe}
+  "), (match, expression, context) ->
+    [_, subexpr, angle] = match
+
+    baseColor = context.readColor(subexpr)
+    angle = context.readInt(angle)
+
+    return @invalid = true if isInvalid(baseColor)
+
+    [h,s,l] = baseColor.hsl
+
+    @hsl = [(360 + h + angle) % 360, s, l]
+    @alpha = baseColor.alpha
+
+  # contrast(#666666, #111111, #999999, threshold)
+  registry.createExpression 'contrast_n_arguments', strip("
+    contrast#{ps}
+      (
+        #{notQuote}
+        #{comma}
+        #{notQuote}
+      )
+    #{pe}
+  "), (match, expression, context) ->
+    [_, expr] = match
+
+    [base, dark, light, threshold] = split(expr)
+
+    baseColor = context.readColor(base)
+    dark = context.readColor(dark)
+    light = context.readColor(light)
+    threshold = context.readPercent(threshold) if threshold?
+
+    return @invalid = true if isInvalid(baseColor)
+    return @invalid = true if dark?.invalid
+    return @invalid = true if light?.invalid
+
+    res = contrast(baseColor, dark, light)
+
+    return @invalid = true if isInvalid(res)
+
+    {@rgb} = contrast(baseColor, dark, light, threshold)
+
+  # contrast(#666666)
+  registry.createExpression 'contrast_1_argument', strip("
+    contrast#{ps}
+      (#{notQuote})
+    #{pe}
+  "), (match, expression, context) ->
+    [_, subexpr] = match
+
+    baseColor = context.readColor(subexpr)
+
+    return @invalid = true if isInvalid(baseColor)
+
+    {@rgb} = contrast(baseColor)
+
   # color(green tint(50%))
   registry.createExpression 'css_color_function', "color#{ps}(#{notQuote})#{pe}", (match, expression, context) ->
     try
@@ -623,6 +741,59 @@ module.exports = getRegistry: (context) ->
         baseColor[name] = context.readFloat(value)
 
     @rgba = baseColor.rgba
+
+  # blend(rgba(#FFDE00,.42), 0x19C261)
+  registry.createExpression 'stylus_blend', strip("
+    blend#{ps}
+      (
+        #{notQuote}
+        #{comma}
+        #{notQuote}
+      )
+    #{pe}
+  "), (match, expression, context) ->
+    [_, expr] = match
+
+    [color1, color2] = split(expr)
+
+    baseColor1 = context.readColor(color1)
+    baseColor2 = context.readColor(color2)
+
+    return @invalid = true if isInvalid(baseColor1) or isInvalid(baseColor2)
+
+    @rgba = [
+      baseColor1.red * baseColor1.alpha + baseColor2.red * (1 - baseColor1.alpha)
+      baseColor1.green * baseColor1.alpha + baseColor2.green * (1 - baseColor1.alpha)
+      baseColor1.blue * baseColor1.alpha + baseColor2.blue * (1 - baseColor1.alpha)
+      baseColor1.alpha + baseColor2.alpha - baseColor1.alpha * baseColor2.alpha
+    ]
+
+  # multiply(#f00, #00F)
+  blendMethod registry, 'multiply', BlendModes.MULTIPLY
+
+  # screen(#f00, #00F)
+  blendMethod registry, 'screen', BlendModes.SCREEN
+
+  # overlay(#f00, #00F)
+  blendMethod registry, 'overlay', BlendModes.OVERLAY
+
+  # softlight(#f00, #00F)
+  blendMethod registry, 'softlight', BlendModes.SOFT_LIGHT
+
+  # hardlight(#f00, #00F)
+  blendMethod registry, 'hardlight', BlendModes.HARD_LIGHT
+
+  # difference(#f00, #00F)
+  blendMethod registry, 'difference', BlendModes.DIFFERENCE
+
+  # exclusion(#f00, #00F)
+  blendMethod registry, 'exclusion', BlendModes.EXCLUSION
+
+  # average(#f00, #00F)
+  blendMethod registry, 'average', BlendModes.AVERAGE
+
+  # negation(#f00, #00F)
+  blendMethod registry, 'negation', BlendModes.NEGATION
 
   if context?.hasColorVariables()
     paletteRegexpString = createVariableRegExpString(context.getColorVariables())

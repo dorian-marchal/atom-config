@@ -1,5 +1,4 @@
 {Emitter, CompositeDisposable, Task, Range} = require 'atom'
-ProjectVariable = require './project-variable'
 Color = require './color'
 ColorMarker = require './color-marker'
 VariablesCollection = require './variables-collection'
@@ -8,7 +7,7 @@ module.exports =
 class ColorBuffer
   constructor: (params={}) ->
     {@editor, @project, colorMarkers} = params
-    {@id} = @editor
+    {@id, @displayBuffer} = @editor
     @emitter = new Emitter
     @subscriptions = new CompositeDisposable
     @ignoredScopes=[]
@@ -210,6 +209,16 @@ class ColorBuffer
 
   getValidColorMarkers: -> @getColorMarkers().filter (m) -> m.color.isValid()
 
+  getColorMarkerAtBufferPosition: (bufferPosition) ->
+    markers = @editor.findMarkers({
+      type: 'pigments-color'
+      containsBufferPosition: bufferPosition
+    })
+
+    for marker in markers
+      if @colorMarkersByMarkerId[marker.id]?
+        return @colorMarkersByMarkerId[marker.id]
+
   createColorMarkers: (results) ->
     return if @destroyed
     results.map (result) =>
@@ -259,6 +268,25 @@ class ColorBuffer
     markers.map (marker) =>
       @colorMarkersByMarkerId[marker.id]
     .filter (marker) -> marker?
+
+  colorMarkerForMouseEvent: (event) ->
+    position = @screenPositionForMouseEvent(event)
+    bufferPosition = @displayBuffer.bufferPositionForScreenPosition(position)
+
+    @getColorMarkerAtBufferPosition(bufferPosition)
+
+  screenPositionForMouseEvent: (event) ->
+    pixelPosition = @pixelPositionForMouseEvent(event)
+    @editor.screenPositionForPixelPosition(pixelPosition)
+
+  pixelPositionForMouseEvent: (event) ->
+    {clientX, clientY} = event
+
+    editorElement = atom.views.getView(@editor)
+    {top, left} = editorElement.querySelector('::shadow .lines').getBoundingClientRect()
+    top = clientY - top + @editor.getScrollTop()
+    left = clientX - left + @editor.getScrollLeft()
+    {top, left}
 
   findValidColorMarkers: (properties) ->
     @findColorMarkers(properties).filter (marker) =>

@@ -4,7 +4,6 @@ path = require 'path'
 {SERIALIZE_VERSION, SERIALIZE_MARKERS_VERSION} = require '../lib/versions'
 ColorProject = require '../lib/color-project'
 ColorBuffer = require '../lib/color-buffer'
-ProjectVariable = require '../lib/project-variable'
 jsonFixture = require('./spec-helper').jsonFixture(__dirname, 'fixtures')
 require '../lib/register-elements'
 {click} = require './helpers/events'
@@ -169,7 +168,7 @@ describe 'ColorProject', ->
       atom.config.set 'pigments.sourceNames', ['*.sass']
 
       [fixturesPath] = atom.project.getPaths()
-      rootPath = "#{fixturesPath}/project-no-sources"
+      rootPath = "#{fixturesPath}-no-sources"
       atom.project.setPaths([rootPath])
 
       project = new ColorProject({})
@@ -181,6 +180,22 @@ describe 'ColorProject', ->
 
     it 'initializes the variables with an empty array', ->
       expect(project.getVariables()).toEqual([])
+
+  describe 'when the project has looping variable definition', ->
+    beforeEach ->
+      atom.config.set 'pigments.sourceNames', ['*.sass']
+
+      [fixturesPath] = atom.project.getPaths()
+      rootPath = "#{fixturesPath}-with-recursion"
+      atom.project.setPaths([rootPath])
+
+      project = new ColorProject({})
+
+      waitsForPromise -> project.initialize()
+
+    it 'ignores the looping definition', ->
+      expect(project.getVariables().length).toEqual(4)
+      expect(project.getColorVariables().length).toEqual(4)
 
   describe 'when the variables have been loaded', ->
     beforeEach ->

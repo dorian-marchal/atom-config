@@ -359,8 +359,8 @@ describe 'ColorParser', ->
     '$r': '-45deg'
   }).asColor(136, 17, 106, 0.5)
 
-  itParses('mix(red, blue)').asColor(127, 0, 127)
-  itParses('mix(red, blue, 25%)').asColor(63, 0, 191)
+  itParses('mix(rgb(255,0,0), blue)').asColor(127, 0, 127)
+  itParses('mix(red, rgb(0,0,255), 25%)').asColor(63, 0, 191)
   itParses('mix($a, $b, $r)').asInvalid()
   itParses('mix($a, $b, $r)').withContext({
     '$a': asColor 'hsv($h, $s, $v)'
@@ -458,3 +458,141 @@ describe 'ColorParser', ->
     '$c': asColor 'rgb(200, 150, 170)'
     '$d': asColor 'rgba($c, 1)'
   }).asColor(200, 90, 230)
+
+  itParses('spin(#F00, 120)').asColor(0, 255, 0)
+  itParses('spin(#F00, -120)').asColor(0, 0, 255)
+  itParses('spin(@c, @a)').withContext({
+    '@c': asColor '#F00'
+    '@a': '120'
+  }).asColor(0, 255, 0)
+  itParses('spin(@c, @a)').withContext({
+    '@a': '120'
+  }).asInvalid()
+  itParses('spin(@c, @a)').withContext({
+    '@a': '120'
+  }).asInvalid()
+  itParses('spin(@c, @a,)').asUndefined()
+
+  itParses('fade(#F00, 0.5)').asColor(255, 0, 0, 0.5)
+  itParses('fade(#F00, 50%)').asColor(255, 0, 0, 0.5)
+  itParses('fade(@c, @a)').withContext({
+    '@c': asColor '#F00'
+    '@a': '0.5'
+  }).asColor(255, 0, 0, 0.5)
+  itParses('fade(@c, @a)').withContext({
+    '@a': '0.5'
+  }).asInvalid()
+  itParses('fade(@c, @a)').withContext({
+    '@a': '0.5'
+  }).asInvalid()
+  itParses('fade(@c, @a,)').asUndefined()
+
+  itParses('contrast(#bbbbbb)').asColor(0,0,0)
+  itParses('contrast(#333333)').asColor(255,255,255)
+  itParses('contrast(#bbbbbb, rgb(20,20,20))').asColor(20,20,20)
+  itParses('contrast(#333333, rgb(20,20,20), rgb(140,140,140))').asColor(140,140,140)
+  itParses('contrast(#666666, rgb(20,20,20), rgb(140,140,140), 13%)').asColor(140,140,140)
+
+  itParses('contrast(@base)').withContext({
+    '@base': asColor '#bbbbbb'
+  }).asColor(0,0,0)
+  itParses('contrast(@base)').withContext({
+    '@base': asColor '#333333'
+  }).asColor(255,255,255)
+  itParses('contrast(@base, @dark)').withContext({
+    '@base': asColor '#bbbbbb'
+    '@dark': asColor 'rgb(20,20,20)'
+  }).asColor(20,20,20)
+  itParses('contrast(@base, @dark, @light)').withContext({
+    '@base': asColor '#333333'
+    '@dark': asColor 'rgb(20,20,20)'
+    '@light': asColor 'rgb(140,140,140)'
+  }).asColor(140,140,140)
+  itParses('contrast(@base, @dark, @light, @threshold)').withContext({
+    '@base': asColor '#666666'
+    '@dark': asColor 'rgb(20,20,20)'
+    '@light': asColor 'rgb(140,140,140)'
+    '@threshold': '13%'
+  }).asColor(140,140,140)
+
+  itParses('contrast(@base)').asInvalid()
+  itParses('contrast(@base)').asInvalid()
+  itParses('contrast(@base, @dark)').asInvalid()
+  itParses('contrast(@base, @dark, @light)').asInvalid()
+  itParses('contrast(@base, @dark, @light, @threshold)').asInvalid()
+
+  itParses('multiply(#ff6600, 0x666666)').asColor('#662900')
+  itParses('multiply(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#662900')
+  itParses('multiply(@base, @modifier)').asInvalid()
+
+  itParses('screen(#ff6600, 0x666666)').asColor('#ffa366')
+  itParses('screen(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#ffa366')
+  itParses('screen(@base, @modifier)').asInvalid()
+
+  itParses('overlay(#ff6600, 0x666666)').asColor('#ff5200')
+  itParses('overlay(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#ff5200')
+  itParses('overlay(@base, @modifier)').asInvalid()
+
+  itParses('softlight(#ff6600, 0x666666)').asColor('#ff5a00')
+  itParses('softlight(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#ff5a00')
+  itParses('softlight(@base, @modifier)').asInvalid()
+
+  itParses('hardlight(#ff6600, 0x666666)').asColor('#cc5200')
+  itParses('hardlight(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#cc5200')
+  itParses('hardlight(@base, @modifier)').asInvalid()
+
+  itParses('difference(#ff6600, 0x666666)').asColor('#990066')
+  itParses('difference(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#990066')
+  itParses('difference(@base, @modifier)').asInvalid()
+
+  itParses('exclusion(#ff6600, 0x666666)').asColor('#997a66')
+  itParses('exclusion(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#997a66')
+  itParses('exclusion(@base, @modifier)').asInvalid()
+
+  itParses('average(#ff6600, 0x666666)').asColor('#b36633')
+  itParses('average(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#b36633')
+  itParses('average(@base, @modifier)').asInvalid()
+
+  itParses('negation(#ff6600, 0x666666)').asColor('#99cc66')
+  itParses('negation(@base, @modifier)').withContext({
+    '@base': asColor '#ff6600'
+    '@modifier': asColor '#666666'
+  }).asColor('#99cc66')
+  itParses('negation(@base, @modifier)').asInvalid()
+
+  itParses('blend(rgba(#FFDE00,.42), 0x19C261)').asColor('#7ace38')
+  itParses('blend(@top, @bottom)').withContext({
+    '@top': asColor 'rgba(#FFDE00,.42)'
+    '@bottom': asColor '0x19C261'
+  }).asColor('#7ace38')
+  itParses('blend(@top, @bottom)').asInvalid()
+
+  itParses('complement(red)').asColor('#00ffff')
+  itParses('complement(@base)').withContext({
+    '@base': asColor 'red'
+  }).asColor('#00ffff')
+  itParses('complement(@base)').asInvalid()

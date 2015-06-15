@@ -28,8 +28,7 @@
       "monokai"
     ]
   editor:
-    invisibles:
-      {}
+    invisibles: {}
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
@@ -56,53 +55,38 @@
     height: 1026
   "markdown-writer":
     fileExtension: ".markdown, .md"
-  "toggle-quotes":
-    {}
-  "spell-check":
-    {}
+  "toggle-quotes": {}
+  "spell-check": {}
   tabs:
     showIcons: true
   pigments:
     markerType: "dot"
     extendAutocompleteToVariables: false
-  "autocomplete-plus":
-    {}
-  emmet:
-    {}
-  "highlight-selected":
-    {}
+  "autocomplete-plus": {}
+  emmet: {}
+  "highlight-selected": {}
   jshint:
     supportLintingJsx: true
-  "project-manager":
-    {}
-  "sublime-tabs":
-    {}
-  "file-icons":
-    {}
-  "isotope-ui":
-    {}
+  "project-manager": {}
+  "sublime-tabs": {}
+  "file-icons": {}
+  "isotope-ui": {}
   "tree-ignore":
     enabled: false
-  "recent-files-fuzzy-finder":
-    {}
+  "recent-files-fuzzy-finder": {}
   zentabs:
     maximumOpenedTabs: 8
     neverCloseDirty: true
     neverCloseUnsaved: true
-  "fuzzy-finder":
-    {}
-  "terminal-status":
-    {}
-  achievements:
-    {}
-  "travis-ci-status":
-    {}
+  "fuzzy-finder": {}
+  "terminal-status": {}
+  achievements: {}
+  "travis-ci-status": {}
   docblockr:
     extend_double_slash: false
     align_tags: "no"
     deep_indent: true
-  "merge-conflicts":
-    {}
+  "merge-conflicts": {}
   "markdown-preview":
     useGitHubStyle: true
   "color-picker":
