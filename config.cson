@@ -57,8 +57,7 @@
     fileExtension: ".markdown, .md"
   "toggle-quotes": {}
   "spell-check": {}
-  tabs:
-    usePreviewTabs: true
+  tabs: {}
   pigments:
     markerType: "dot"
     extendAutocompleteToVariables: false
