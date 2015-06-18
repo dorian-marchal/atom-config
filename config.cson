@@ -58,7 +58,7 @@
   "toggle-quotes": {}
   "spell-check": {}
   tabs:
-    showIcons: true
+    usePreviewTabs: true
   pigments:
     markerType: "dot"
     extendAutocompleteToVariables: false
