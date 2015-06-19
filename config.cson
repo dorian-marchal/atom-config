@@ -91,3 +91,8 @@
   "color-picker":
     preferredFormat: "HEX"
     randomColor: false
+  "linter-php": {}
+  linter:
+    clearOnChange: true
+    statusBar: "Show all errors"
+    lintOnChangeInterval: 0
