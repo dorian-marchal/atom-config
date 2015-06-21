@@ -1,3 +1,19 @@
+<a name="v0.8.0"></a>
+# v0.8.0 (2015-06-19)
+
+## Features
+
+- Implement CSS hexa 4 and 8 digit notations ([5fb21fb3](https://github.com/abe33/atom-pigments/commit/5fb21fb3d0f8399fb0b702fa4e687a3757bc59d4), [#36](https://github.com/abe33/atom-pigments/issues/36))
+- Add `rebeccapurple` as named color ([0169c0b9](https://github.com/abe33/atom-pigments/commit/0169c0b93200c519cb6816e6e88b3f62686bcb48), [#37](https://github.com/abe33/atom-pigments/issues/37))
+
+<a name="v0.7.4"></a>
+# v0.7.4 (2015-06-19)
+
+## Bug Fixes
+
+- Fix positionning of dot markers ([6bb32743](https://github.com/abe33/atom-pigments/commit/6bb32743a101f9bf49580c5cf548111009be5502), [#35](https://github.com/abe33/atom-pigments/issues/35))
+- Fix attaching a color buffer element to an editor without shadow root ([a3dff949](https://github.com/abe33/atom-pigments/commit/a3dff949b1574a6f055e8b714bc4d69eaad7f07a), [#34](https://github.com/abe33/atom-pigments/issues/34))
+
 <a name="v0.7.3"></a>
 # v0.7.3 (2015-06-18)
 
