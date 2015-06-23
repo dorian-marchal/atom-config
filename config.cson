@@ -13,6 +13,7 @@
       "metrics"
       "welcome"
       "spell-check"
+      "jshint"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
