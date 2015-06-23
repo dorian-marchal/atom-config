@@ -63,6 +63,13 @@ atom-text-editor::shadow {
     {
         background-color: rgba(0, 0, 0, 0.1) !important;
     }
+}
 
+// GFM specific
+atom-text-editor[data-grammar="source gfm"]::shadow {
 
+    .trailing-whitespace {
+        background-color: #fff !important;
+        opacity: 0.2 !important;
+    }
 }
