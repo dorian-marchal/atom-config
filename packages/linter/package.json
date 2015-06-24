@@ -4,7 +4,7 @@
   "author": {
     "name": "AtomLinter"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Base Linter with Cow Powers",
   "repository": {
     "type": "git",
@@ -46,10 +46,10 @@
     "url": "https://github.com/AtomLinter/Linter/issues"
   },
   "homepage": "https://github.com/AtomLinter/Linter",
-  "_id": "linter@1.0.1",
-  "_shasum": "9fa7698fa62781e425655e47e3ac91d8d441b48e",
-  "_resolved": "file:../d-115523-5852-rr1wfo/package.tgz",
-  "_from": "../d-115523-5852-rr1wfo/package.tgz",
+  "_id": "linter@1.0.2",
+  "_shasum": "6620a4d3cc4c8d650108c9d31b92591d60198476",
+  "_resolved": "file:../d-115524-9232-1tnyak3/package.tgz",
+  "_from": "../d-115524-9232-1tnyak3/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -84,6 +84,7 @@
         "package.json"
       ],
       ".coffee": [
+        "lib/commands.coffee",
         "lib/editor-linter.coffee",
         "lib/helpers.coffee",
         "lib/legacy.coffee",
@@ -115,7 +116,8 @@
         "paths": [
           "",
           "lib",
-          "lib/views"
+          "lib/views",
+          "spec"
         ],
         "dependencies": {
           "temp": "^0.8.3",

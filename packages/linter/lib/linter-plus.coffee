@@ -3,12 +3,14 @@ Path = require 'path'
 LinterViews = require './linter-views'
 EditorLinter = require './editor-linter'
 Helpers = require './helpers'
+Commands = require './commands'
 
 class Linter
   constructor: ->
     # Public Stuff
     @lintOnFly = true # A default art value, to be immediately replaced by the observe config below
     @views = new LinterViews this # Used by editor-linter to trigger views.render
+    @commands = new Commands this
 
     # Private Stuff
     @_subscriptions = new CompositeDisposable
@@ -19,6 +21,8 @@ class Linter
 
     @_subscriptions.add atom.config.observe 'linter.showErrorInline', (showBubble) =>
       @views.setShowBubble(showBubble)
+    @_subscriptions.add atom.config.observe 'linter.showErrorPanel', (showPanel) =>
+      @views.setShowPanel(showPanel)
     @_subscriptions.add atom.config.observe 'linter.lintOnFly', (value) =>
       @lintOnFly = value
     @_subscriptions.add atom.workspace.onDidChangeActivePaneItem (editor) =>
@@ -26,12 +30,13 @@ class Linter
       try
         @getEditorLinter(editor)?.lint(false)
         @views.render()
+
       catch error
         atom.notifications.addError error.message, {detail: error.stack, dismissable: true}
     @_subscriptions.add atom.workspace.observeTextEditors (editor) =>
       currentEditorLinter = new EditorLinter @, editor
       @_editorLinters.set editor, currentEditorLinter
-      @_emitter.emit 'linters-observe', currentEditorLinter
+      @_emitter.emit 'observe-editor-linters', currentEditorLinter
       currentEditorLinter.lint false
       editor.onDidDestroy =>
         currentEditorLinter.destroy()
@@ -84,12 +89,13 @@ class Linter
 
   observeEditorLinters: (callback) ->
     @eachEditorLinter callback
-    @_emitter.on 'linters-observe', callback
+    @_emitter.on 'observe-editor-linters', callback
 
   deactivate: ->
     @_subscriptions.dispose()
     @eachEditorLinter (linter) ->
       linter.destroy()
     @views.destroy()
+    @commands.destroy()
 
 module.exports = Linter
