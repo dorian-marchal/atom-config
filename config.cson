@@ -97,3 +97,4 @@
     clearOnChange: true
     statusBar: "Show all errors"
     lintOnChangeInterval: 0
+  "xml-formatter": {}
