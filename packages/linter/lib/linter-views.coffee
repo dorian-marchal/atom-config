@@ -69,11 +69,12 @@ class LinterViews
     activeEditor = atom.workspace.getActiveTextEditor()
     return unless activeEditor?.getPath?()
     point = point || activeEditor.getCursorBufferPosition()
-    try @_messages.forEach (message)=>
+    try @_messages.forEach (message) =>
       return unless message.currentFile
       return unless message.range?.containsPoint? point
-      @_bubble = activeEditor.decorateMarker(
-        activeEditor.markBufferRange(message.range, {invalidate: 'never'}),
+      @_bubble = activeEditor.markBufferRange(message.range, {invalidate: 'never'})
+      activeEditor.decorateMarker(
+        @_bubble
         {
           type: 'overlay',
           position: 'tail',

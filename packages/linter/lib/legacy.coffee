@@ -1,5 +1,19 @@
 fs = require('fs')
+path = require('path')
 temp = require('temp')
+
+promiseWrap = (obj, methodName) ->
+  return (args...) ->
+    return new Promise((resolve, reject) ->
+      obj[methodName](args..., (err, result) ->
+        return reject(err) if err
+        resolve(result)
+      )
+    )
+
+mkdir = promiseWrap(temp, 'mkdir')
+writeFile = promiseWrap(fs, 'writeFile')
+unlink = promiseWrap(fs, 'unlink')
 
 typeMap =
   info: 'Trace'
@@ -13,7 +27,7 @@ transform = (filePath, textEditor, results) ->
     msg =  {
       # If the type is non-standard just pass along whatever it was
       type: typeMap[level] ? level
-      html: message
+      text: message
       filePath: filePath
       range: [
         [ startLine, startCol],
@@ -23,6 +37,8 @@ transform = (filePath, textEditor, results) ->
 
     return msg
   )
+
+
 
 module.exports = (ClassicLinter) ->
 
@@ -44,24 +60,29 @@ module.exports = (ClassicLinter) ->
         linter = new ClassicLinter(textEditor)
         editorMap.set(textEditor, linter)
 
+      lintFile = (filename) ->
+        dfd = Promise.defer()
+        linter.lintFile(filename, dfd.resolve)
+        return dfd.promise
+
       filePath = textEditor.getPath()
 
       tmpOptions = {
         prefix: 'AtomLinter'
         suffix: textEditor.getGrammar().scopeName
       }
-      return new Promise((resolve, reject) ->
-        temp.open(tmpOptions, (err, info) ->
-          return reject(err) if err
 
-          fs.write(info.fd, textEditor.getText())
-          fs.close(info.fd, (err) ->
-            return reject(err) if err
-            linter.lintFile(info.path, (results) ->
-              fs.unlink(info.path)
+      return mkdir('AtomLinter').then((tmpDir) ->
+        tmpFile = path.join(tmpDir, path.basename(filePath))
 
-              resolve(transform(filePath, textEditor, results))
-            )
+        writeFile(tmpFile, textEditor.getText()).then(->
+          lintFile(tmpFile).then((results) ->
+
+            # If either of these fail it'll just leave temporary files. No
+            # need to reject the promise over it
+            unlink(tmpFile).then(-> fs.rmdir(tmpDir))
+
+            return transform(filePath, textEditor, results)
           )
         )
       )

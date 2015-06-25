@@ -1,3 +1,16 @@
+# Upcoming
+
+# 1.0.4
+
+* Fix a critical bug introduced by 1.0.3
+
+# 1.0.3
+
+* Treat legacy messages as text instead of html
+* Fix a bug causing linter messages to briefly disappear and reappear
+* Fix memory leak (Markers weren't getting cleaned up)
+* Use the same filename as the source when generating a temporary file (Fixes #585)
+
 # 1.0.2
 
 * Lint requests are now ignored until the file is saved
