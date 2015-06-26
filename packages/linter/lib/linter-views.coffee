@@ -48,6 +48,20 @@ class LinterViews
   setShowBubble: (showBubble) ->
     @_showBubble = showBubble
 
+  setBubbleOpaque: ->
+    bubble = document.getElementById('linter-inline')
+    if bubble
+      bubble.classList.remove 'transparent'
+    document.removeEventListener 'keyup', @setBubbleOpaque
+    window.removeEventListener 'blur', @setBubbleOpaque
+
+  setBubbleTransparent: ->
+    bubble = document.getElementById('linter-inline')
+    if bubble
+      bubble.classList.add 'transparent'
+      document.addEventListener 'keyup', @setBubbleOpaque
+      window.addEventListener 'blur', @setBubbleOpaque
+
   # This message is called in editor-linter.coffee
   render: ->
     counts = {project: 0, file: 0}
@@ -60,6 +74,9 @@ class LinterViews
     @_bottomTabFile.count = counts.file
     @_bottomTabProject.count = counts.project
     @_bottomStatus.count = counts.project
+    hasActiveEditor = typeof atom.workspace.getActiveTextEditor() isnt 'undefined'
+    @_bottomTabFile.visibility = hasActiveEditor
+    @_bottomTabProject.visibility = hasActiveEditor
 
   # consumed in editor-linter, _renderPanel
   updateBubble: (point) ->
@@ -67,12 +84,12 @@ class LinterViews
     return unless @_showBubble
     return unless @_messages.size
     activeEditor = atom.workspace.getActiveTextEditor()
-    return unless activeEditor?.getPath?()
+    return unless activeEditor?.getPath()
     point = point || activeEditor.getCursorBufferPosition()
     try @_messages.forEach (message) =>
       return unless message.currentFile
-      return unless message.range?.containsPoint? point
-      @_bubble = activeEditor.markBufferRange(message.range, {invalidate: 'never'})
+      return unless message.range?.containsPoint point
+      @_bubble = activeEditor.markBufferRange([point, point], {invalidate: 'never'})
       activeEditor.decorateMarker(
         @_bubble
         {
@@ -124,6 +141,9 @@ class LinterViews
       @_bottomTabProject.active = Tab is 'project'
       @_bottomTabFile.active = Tab is 'file'
       @_renderPanel()
+    else
+      @_bottomTabProject.active = no
+      @_bottomTabFile.active = no
 
   _removeBubble: ->
     return unless @_bubble
@@ -170,12 +190,13 @@ class LinterViews
   # This method is called in render, and classifies the messages according to scope
   _extractMessages: (Gen, counts) ->
     isProject = @_scope is 'project'
-    activeFile = atom.workspace.getActiveTextEditor()?.getPath?()
+    activeEditor = atom.workspace.getActiveTextEditor()
+    activeFile = activeEditor?.getPath()
     Gen.forEach (Entry) =>
       # Entry === Array<Messages>
       Entry.forEach (message) =>
         # If there's no file prop on message and the panel scope is file then count is as current
-        if (not message.filePath and not isProject) or message.filePath is activeFile
+        if activeEditor and ((not message.filePath and not isProject) or message.filePath is activeFile)
           counts.file++
           counts.project++
           message.currentFile = true

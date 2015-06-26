@@ -1,4 +1,15 @@
-# Upcoming
+# 1.0.6
+
+* Hide Status Bar buttons when Active Pane is not an editor
+
+# 1.0.5
+
+* Fix message render for non TextEditor panes (Fixes #610)
+* Make the bubble follow cursor
+* Show a nicer error if linter binary doesn't exist (Fixes #612)
+* Add set-bubble-transparent command to set the bubble transparent until the key is released (Fixes #608)
+* Deselect bottom tab when error panel is hidden
+* Add linter:lint command (Fixes #624)
 
 # 1.0.4
 
