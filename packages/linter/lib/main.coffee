@@ -8,14 +8,40 @@ module.exports =
       type: 'boolean'
       default: true
     showErrorPanel:
-      title: "Show Error Panel at the bottom"
+      title: 'Show Error Panel at the bottom'
       type: 'boolean'
       default: true
+    showErrorTabLine:
+      title: 'Show line tab in error panel'
+      type: 'boolean'
+      default: false
+    showErrorTabFile:
+      title: 'Show file tab in error panel'
+      type: 'boolean'
+      default: true
+    showErrorTabProject:
+      title: 'Show project tab in error panel'
+      type: 'boolean'
+      default: true
+    defaultErrorTab:
+      type: 'string'
+      default: 'File'
+      enum: ['Line', 'File', 'Project']
     showErrorInline:
-      title: "Show Inline Tooltips"
-      descriptions: "Show inline tooltips for errors"
+      title: 'Show Inline Tooltips'
+      descriptions: 'Show inline tooltips for errors'
       type: 'boolean'
       default: true
+    underlineIssues:
+      title: 'Underline Issues'
+      type: 'boolean'
+      default: true
+    statusIconPosition:
+      title: 'Position of Status Icon on Bottom Bar'
+      description: 'Requires a reload/restart to update'
+      enum: ['Left', 'Right']
+      type: 'string'
+      default: 'Left'
 
   activate: ->
     LinterPlus = require('./linter-plus.coffee')
@@ -43,7 +69,7 @@ module.exports =
     @instance.views.attachBottom(statusBar)
 
   provideLinter: ->
-    @Linter
+    @instance
 
   deactivate: ->
     @instance?.deactivate()
