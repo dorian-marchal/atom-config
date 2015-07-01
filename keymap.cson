@@ -46,6 +46,7 @@
   'ctrl-k ctrl-s': 'editor:log-cursor-scope'
   'ctrl-k ctrl-w': 'editor:toggle-soft-wrap'
   'ctrl-f2': 'bookmarks:toggle-bookmark'
+  'ctrl-e': 'emmet:expand-abbreviation'
 
 'body':
   'ctrl-q': 'unset!'
