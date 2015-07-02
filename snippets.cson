@@ -37,7 +37,7 @@
 
 # PHP
 '.source.php':
-  'Console log':
+  'Getter/Setter':
     'prefix': 'get'
     'body': '''
       public function get${1}() {
@@ -79,6 +79,10 @@
   'Underscore template (for in)':
     'prefix': '_for'
     'body': '<%= for (var i in ${1}) { %>'
+
+  'PHP short echo':
+    'prefix': '='
+    'body': '<?= ${1} ?>'
 
 # Markdown
 '.source.gfm':
