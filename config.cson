@@ -98,3 +98,5 @@
     statusBar: "Show all errors"
     lintOnChangeInterval: 0
   "xml-formatter": {}
+  "atom-beautify":
+    _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
