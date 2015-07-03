@@ -84,6 +84,18 @@
     'prefix': '='
     'body': '<?= ${1} ?>'
 
+  'PHP endif':
+    'prefix': 'endif'
+    'body': '<?php endif; ?>'
+
+  'PHP endforeach':
+    'prefix': 'endforeach'
+    'body': '<?php endforeach; ?>'
+    
+  'Bootstrap glyphicon':
+    'prefix': 'glyphicon'
+    'body': '<span class="glyphicon glyphicon-${1}" aria-hidden="true"></span>'
+
 # Markdown
 '.source.gfm':
   'Checkbox':
