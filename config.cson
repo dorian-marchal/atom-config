@@ -33,7 +33,7 @@
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
-    fontSize: 21
+    fontSize: 22
   minimap:
     plugins:
       "git-diff": true
@@ -102,3 +102,4 @@
     _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
   "linter-jshint":
     jshintExecutablePath: "/usr/local/bin/jshint"
+  "todo-show": {}

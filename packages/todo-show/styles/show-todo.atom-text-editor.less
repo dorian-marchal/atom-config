@@ -1,0 +1,42 @@
+@import "ui-variables";
+
+.show-todo-preview {
+  background-color: @base-background-color;
+  color: @text-color;
+  overflow: scroll;
+  padding: 10px;
+
+  .regex {
+    color: @text-color-subtle;
+    font-size: 70%;
+  }
+
+  a {
+    color: @text-color-info;
+  }
+
+  h1 {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+
+    td {
+      padding: 10px 6px;
+      overflow-wrap: break-word;
+
+      &:nth-child(2n) {
+        width: 33%;
+      }
+    }
+
+    tr {
+      &:nth-child(2n + 1) {
+        background-color: lighten(@base-background-color, 5%);
+      }
+    }
+  }
+}
