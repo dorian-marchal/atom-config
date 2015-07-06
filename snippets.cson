@@ -49,6 +49,14 @@
       }
     '''
 
+  'CakePHP Shell out':
+    'prefix': 'out'
+    'body': '\$this->out(${1});'
+
+  'CakePHP Shell error':
+    'prefix': 'error'
+    'body': '\$this->error(${1});'
+
 '.source.coffee':
   'Console log':
     'prefix': 'cl'
@@ -91,7 +99,7 @@
   'PHP endforeach':
     'prefix': 'endforeach'
     'body': '<?php endforeach; ?>'
-    
+
   'Bootstrap glyphicon':
     'prefix': 'glyphicon'
     'body': '<span class="glyphicon glyphicon-${1}" aria-hidden="true"></span>'

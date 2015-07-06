@@ -1,7 +1,12 @@
+## 1.5.0
+
+* Remove default keymaps, refer to [wiki](https://github.com/zhuochun/md-writer/wiki/Settings-for-Keymaps).
+* Add command `markdown-writer:create-default-keymaps`
+
 ## 1.4.0
 
 * Fix cursor position after empty codeblock insertion
-* Fix `Tab` behaviour with range selections
+* Fix `Tab` behavior with range selections
 * Modified some default setting values
 * Updated cheatsheet
 
@@ -59,7 +64,7 @@
 
 ## 0.10.2
 
-* Fix package's atom engine SemVer
+* Fix package's atom engine version
 * Fix tag RegExp escape
 
 ## 0.10.1
