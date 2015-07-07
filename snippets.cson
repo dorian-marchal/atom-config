@@ -48,6 +48,9 @@
           \$this->$1 = \$$1;
       }
     '''
+  'coalescy':
+    'prefix': 'coalescy'
+    'body': 'coalescy(${1})'
 
   'CakePHP Shell out':
     'prefix': 'out'
