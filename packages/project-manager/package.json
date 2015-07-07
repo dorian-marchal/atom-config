@@ -1,7 +1,7 @@
 {
   "name": "project-manager",
   "main": "./lib/project-manager",
-  "version": "1.15.10",
+  "version": "1.15.11",
   "description": "Project Manager for easy access and switching between projects in Atom.",
   "repository": {
     "type": "git",
@@ -29,10 +29,10 @@
     "url": "https://github.com/danielbrodin/atom-project-manager/issues"
   },
   "homepage": "https://github.com/danielbrodin/atom-project-manager",
-  "_id": "project-manager@1.15.10",
-  "_shasum": "5d8a01cff9a0d28e368bdcb3b3d6fd54c26181db",
-  "_resolved": "file:../d-11555-17166-89mbwp/package.tgz",
-  "_from": "../d-11555-17166-89mbwp/package.tgz",
+  "_id": "project-manager@1.15.11",
+  "_shasum": "76787a054e8bdbf449092dfdc25adc7794364c0a",
+  "_resolved": "file:../d-11567-20494-xc0q0q/package.tgz",
+  "_from": "../d-11567-20494-xc0q0q/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -98,7 +98,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {
@@ -148,12 +148,12 @@
       },
       {
         "name": "season",
-        "version": "5.2.0",
+        "version": "5.3.0",
         "path": "node_modules/season/lib/cson.js"
       },
       {
         "name": "cson-parser",
-        "version": "1.1.0",
+        "version": "1.0.9",
         "path": "node_modules/season/node_modules/cson-parser/lib/cson-parser.js"
       },
       {
@@ -206,7 +206,8 @@
       ".coffee": [
         "lib/project-manager-add-view.coffee",
         "lib/project-manager-view.coffee",
-        "lib/project-manager.coffee"
+        "lib/project-manager.coffee",
+        "lib/settings.coffee"
       ],
       ".js": [
         "node_modules/atom-space-pen-views/lib/main.js",
@@ -1172,7 +1173,7 @@
           "node_modules/season"
         ],
         "dependencies": {
-          "cson-parser": "^1.0.6",
+          "cson-parser": "1.0.9",
           "fs-plus": "2.x",
           "optimist": "~0.4.0"
         }

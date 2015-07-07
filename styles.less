@@ -44,8 +44,24 @@ atom-text-editor {
 // expression
 atom-text-editor::shadow {
 
+    .indent-guide {
+        position: relative;
+        box-shadow: none;
+
+        &::after {
+            content: '';
+            position: absolute;
+                top: 0;
+                left: -0px;
+            height: 100%;
+            width: 1px;
+            box-shadow: -1px 0 0 0 #FFF;
+            opacity: 0.1;
+        }
+    }
+
     .invisible-character {
-        opacity: 0;
+        color: transparent;
 
         &.hard-tab {
             color: #FFF;
