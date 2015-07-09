@@ -12,21 +12,17 @@ module.exports =
       type: 'boolean'
       default: true
     showErrorTabLine:
-      title: 'Show line tab in error panel'
+      title: 'Show Line tab in Bottom Panel'
       type: 'boolean'
       default: false
     showErrorTabFile:
-      title: 'Show file tab in error panel'
+      title: 'Show File tab in Bottom Panel'
       type: 'boolean'
       default: true
     showErrorTabProject:
-      title: 'Show project tab in error panel'
+      title: 'Show Project tab in Bottom Panel'
       type: 'boolean'
       default: true
-    defaultErrorTab:
-      type: 'string'
-      default: 'File'
-      enum: ['Line', 'File', 'Project']
     showErrorInline:
       title: 'Show Inline Tooltips'
       descriptions: 'Show inline tooltips for errors'
@@ -42,17 +38,37 @@ module.exports =
       enum: ['Left', 'Right']
       type: 'string'
       default: 'Left'
+    ignoredMessageTypes:
+      title: "Ignored message Types"
+      type: 'array'
+      default: []
+      items:
+        type: 'string'
 
-  activate: ->
+  activate: (state) ->
     LinterPlus = require('./linter-plus.coffee')
-    @instance = new LinterPlus()
+    @instance = new LinterPlus state
 
     legacy = require('./legacy.coffee')
+    {deprecate} = require('grim')
     for atomPackage in atom.packages.getLoadedPackages()
       if atomPackage.metadata['linter-package'] is true
         implementation = atomPackage.metadata['linter-implementation'] ? atomPackage.name
-        linter = legacy(require("#{atomPackage.path}/lib/#{implementation}"))
-        @consumeLinter(linter)
+        deprecate('AtomLinter v0.X.Y API has been deprecated.
+          Please refer to the Linter docs to update and the latest API:
+          https://github.com/AtomLinter/Linter/wiki/Migrating-to-the-new-API', {
+          packageName: atomPackage.name
+        })
+        try
+          linter = legacy(require("#{atomPackage.path}/lib/#{implementation}"))
+          @consumeLinter(linter)
+        catch error
+          atom.notifications.addError "
+            Failed to activate '#{atomPackage.metadata['name']}' package",
+            {detail: error.message + "\n" + error.stack, dismissable: true}
+
+  serialize: ->
+    @instance.serialize()
 
   consumeLinter: (linters) ->
     unless linters instanceof Array

@@ -52,6 +52,10 @@
     'prefix': 'coalescy'
     'body': 'coalescy(${1})'
 
+  'val':
+    'prefix': 'val'
+    'body': 'val(\$${1}, ${2})'
+
   'CakePHP Shell out':
     'prefix': 'out'
     'body': '\$this->out(${1});'

@@ -1,3 +1,26 @@
+# 1.2.3
+
+* Fix a bug where panel won't be hidden even with no errors.
+
+# 1.2.2
+
+* Fix a bug where count wont be updated on render.
+
+# 1.2.1
+
+* Fix a bug with legacy Linter API
+
+# 1.2.0
+
+* Fix a bug when Error Panel won't collapse even when there's no errors with File as Active Tab
+* Speed Improvements
+* Remove the "Default Error Tab" config option in favor of storing the currently selected tab in the package state.
+* Fix a bug where require time errors of legacy API providers would be shown as linter errors
+* Tweak the status line item positioning
+* Add Helpers which aid the creation of Command Line Linters.
+* Add `linter:togglePanel` command to toggle bottom panel
+* Add `linter.ignoredMessageTypes` config to ignore certain message types
+
 # 1.1.0
 
 * Add support for collapsible messages

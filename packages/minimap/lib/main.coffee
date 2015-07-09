@@ -103,7 +103,9 @@ class Main
     @subscriptionsOfCommands = new CompositeDisposable
     @subscriptionsOfCommands.add atom.commands.add 'atom-workspace',
       'minimap:toggle': => @toggle()
-      'minimap:generate-plugin': => @generatePlugin()
+      'minimap:generate-coffee-plugin': => @generatePlugin('coffee')
+      'minimap:generate-javascript-plugin': => @generatePlugin('javascript')
+      'minimap:generate-babel-plugin': => @generatePlugin('babel')
 
     # Other Subscriptions
     @subscriptions = new CompositeDisposable
@@ -153,9 +155,10 @@ class Main
       @initSubscriptions()
 
   # Opens the plugin generation view.
-  generatePlugin: ->
+  generatePlugin: (template) ->
     MinimapPluginGeneratorElement ?= require './minimap-plugin-generator-element'
     view = new MinimapPluginGeneratorElement()
+    view.template = template
     view.attach()
 
   # Calls the `callback` when the minimap package have been activated.
