@@ -111,6 +111,10 @@
     'prefix': 'glyphicon'
     'body': '<span class="glyphicon glyphicon-${1}" aria-hidden="true"></span>'
 
+  'pr html':
+    'prefix': 'pr'
+    'body': '<?php pr(${1}) ?>'
+
 # Markdown
 '.source.gfm':
   'Checkbox':
