@@ -105,3 +105,4 @@
     jshintExecutablePath: "/usr/local/bin/jshint"
     disableWhenNoJshintrcFileInPath: true
   "todo-show": {}
+  "linter-jscs": {}

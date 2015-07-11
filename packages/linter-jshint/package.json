@@ -1,19 +1,24 @@
 {
   "name": "linter-jshint",
-  "main": "./lib/init",
-  "linter-package": true,
-  "version": "0.1.7",
+  "main": "./lib/main",
+  "version": "1.0.4",
   "description": "Linter plugin for JavaScript, using jshint",
   "repository": {
     "type": "git",
     "url": "https://github.com/AtomLinter/linter-jshint.git"
   },
   "license": "MIT",
-  "engines": {
-    "atom": ">0.50.0"
-  },
   "dependencies": {
-    "jshint": "^2.8"
+    "atom-linter": "^1.0.0",
+    "jshint": "^2.8",
+    "jshint-json": "^1.0.0"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
   },
   "readme": "linter-jshint\n=========================\n\nThis linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [jshint](http://www.jshint.com/docs/). It will be used with files that have the `.js` file extension.\n\n## Installation\nLinter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).\n\n### Plugin installation\n```\n$ apm install linter-jshint\n```\n\n## Settings\nYou can configure linter-jshint by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):\n```\n'linter-jshint':\n  'jshintExecutablePath': null #jshint path. run 'which jshint' to find the path\n```\n\n## Contributing\nIf you would like to contribute enhancements or fixes, please do the following:\n\n1. Fork the plugin repository.\n1. Hack on a separate topic branch created from the latest `master`.\n1. Commit and push the topic branch.\n1. Make a pull request.\n1. welcome to the club\n\nPlease note that modifications should follow these coding guidelines:\n\n- Indent is 2 spaces.\n- Code should pass coffeelint linter.\n- Vertical whitespace helps readability, don’t be afraid to use it.\n\nThank you for helping out!\n\n## Donation\n[![Share the love!](https://chewbacco-stuff.s3.amazonaws.com/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXUYS4ARNHCN8)\n",
   "readmeFilename": "README.md",
@@ -21,13 +26,18 @@
     "url": "https://github.com/AtomLinter/linter-jshint/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jshint",
-  "_id": "linter-jshint@0.1.7",
-  "_shasum": "0779adfea8c75da9bfc8e0051da4b87dd4b90cc2",
-  "_resolved": "file:../d-115526-9621-1nplnou/package.tgz",
-  "_from": "../d-115526-9621-1nplnou/package.tgz",
+  "_id": "linter-jshint@1.0.4",
+  "_shasum": "2599e307ff92bb2740e42926b0804bd8edbab036",
+  "_resolved": "file:../d-115611-9864-18me6o9/package.tgz",
+  "_from": "../d-115611-9864-18me6o9/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
+      {
+        "name": "xregexp",
+        "version": "2.0.0",
+        "path": "node_modules/atom-linter/node_modules/xregexp/xregexp-all.js"
+      },
       {
         "name": "jshint",
         "version": "2.8.0",
@@ -55,7 +65,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.4",
+        "version": "2.6.5",
         "path": "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -177,15 +187,69 @@
         "name": "strip-json-comments",
         "version": "1.0.2",
         "path": "node_modules/jshint/node_modules/strip-json-comments/strip-json-comments.js"
+      },
+      {
+        "name": "jshint-json",
+        "version": "1.0.0",
+        "path": "node_modules/jshint-json/index.js"
       }
     ],
     "extensions": {
       ".coffee": [
-        "lib/init.coffee",
-        "lib/linter-jshint.coffee",
+        "lib/main.coffee",
+        "node_modules/atom-linter/lib/helpers.coffee",
         "node_modules/jshint/node_modules/cli/examples/static.coffee"
       ],
+      ".json": [
+        "node_modules/atom-linter/node_modules/xregexp/package.json",
+        "node_modules/atom-linter/package.json",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/package.json",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/package.json",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/package.json",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/package.json",
+        "node_modules/jshint/node_modules/cli/node_modules/glob/package.json",
+        "node_modules/jshint/node_modules/cli/package.json",
+        "node_modules/jshint/node_modules/console-browserify/.testem.json",
+        "node_modules/jshint/node_modules/console-browserify/node_modules/date-now/.testem.json",
+        "node_modules/jshint/node_modules/console-browserify/node_modules/date-now/package.json",
+        "node_modules/jshint/node_modules/console-browserify/package.json",
+        "node_modules/jshint/node_modules/exit/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domelementtype/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domhandler/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/domelementtype/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/decode.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/entities.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/legacy.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/xml.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/decode.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/entities.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/legacy.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/xml.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/core-util-is/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/inherits/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/isarray/component.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/isarray/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/string_decoder/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/package.json",
+        "node_modules/jshint/node_modules/htmlparser2/package.json",
+        "node_modules/jshint/node_modules/lodash/package.json",
+        "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
+        "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
+        "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/package.json",
+        "node_modules/jshint/node_modules/minimatch/package.json",
+        "node_modules/jshint/node_modules/shelljs/.documentup.json",
+        "node_modules/jshint/node_modules/shelljs/package.json",
+        "node_modules/jshint/node_modules/strip-json-comments/package.json",
+        "node_modules/jshint/package.json",
+        "node_modules/jshint-json/package.json",
+        "package.json"
+      ],
       ".js": [
+        "node_modules/atom-linter/node_modules/xregexp/xregexp-all.js",
         "node_modules/jshint/data/ascii-identifier-data.js",
         "node_modules/jshint/data/non-ascii-identifier-part-only.js",
         "node_modules/jshint/data/non-ascii-identifier-start.js",
@@ -718,52 +782,9 @@
         "node_modules/jshint/src/reporters/unix.js",
         "node_modules/jshint/src/state.js",
         "node_modules/jshint/src/style.js",
-        "node_modules/jshint/src/vars.js"
-      ],
-      ".json": [
-        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/package.json",
-        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/package.json",
-        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/package.json",
-        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/package.json",
-        "node_modules/jshint/node_modules/cli/node_modules/glob/package.json",
-        "node_modules/jshint/node_modules/cli/package.json",
-        "node_modules/jshint/node_modules/console-browserify/.testem.json",
-        "node_modules/jshint/node_modules/console-browserify/node_modules/date-now/.testem.json",
-        "node_modules/jshint/node_modules/console-browserify/node_modules/date-now/package.json",
-        "node_modules/jshint/node_modules/console-browserify/package.json",
-        "node_modules/jshint/node_modules/exit/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domelementtype/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domhandler/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/domelementtype/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/decode.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/entities.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/legacy.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/maps/xml.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/node_modules/entities/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/node_modules/dom-serializer/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/domutils/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/decode.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/entities.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/legacy.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/maps/xml.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/entities/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/core-util-is/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/inherits/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/isarray/component.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/isarray/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/node_modules/string_decoder/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/node_modules/readable-stream/package.json",
-        "node_modules/jshint/node_modules/htmlparser2/package.json",
-        "node_modules/jshint/node_modules/lodash/package.json",
-        "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
-        "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
-        "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/package.json",
-        "node_modules/jshint/node_modules/minimatch/package.json",
-        "node_modules/jshint/node_modules/shelljs/.documentup.json",
-        "node_modules/jshint/node_modules/shelljs/package.json",
-        "node_modules/jshint/node_modules/strip-json-comments/package.json",
-        "node_modules/jshint/package.json",
-        "package.json"
+        "node_modules/jshint/src/vars.js",
+        "node_modules/jshint-json/index.js",
+        "node_modules/jshint-json/json.js"
       ]
     },
     "folders": [
@@ -773,7 +794,9 @@
           ""
         ],
         "dependencies": {
-          "jshint": "^2.8"
+          "atom-linter": "^1.0.0",
+          "jshint": "^2.8",
+          "jshint-json": "^1.0.0"
         }
       },
       {

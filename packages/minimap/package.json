@@ -1,7 +1,7 @@
 {
   "name": "minimap",
   "main": "./lib/main",
-  "version": "4.11.0",
+  "version": "4.11.2",
   "private": true,
   "description": "A preview of the full source code.",
   "author": {
@@ -49,10 +49,10 @@
     "url": "https://github.com/atom-minimap/minimap/issues"
   },
   "homepage": "https://github.com/atom-minimap/minimap",
-  "_id": "minimap@4.11.0",
-  "_shasum": "c60448da314690182d29971a9996a455698585a0",
-  "_resolved": "file:../d-11569-7348-1g2mc1p/package.tgz",
-  "_from": "../d-11569-7348-1g2mc1p/package.tgz",
+  "_id": "minimap@4.11.2",
+  "_shasum": "8021b559efd5c9b0c959cdd338bf195801771538",
+  "_resolved": "file:../d-115611-9876-81heam/package.tgz",
+  "_from": "../d-115611-9876-81heam/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -98,7 +98,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.1",
+        "version": "1.0.0",
         "path": "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {

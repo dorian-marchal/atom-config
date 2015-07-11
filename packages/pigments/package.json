@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -43,10 +43,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments",
-  "_id": "pigments@0.8.3",
-  "_shasum": "d819bc48b5afe087b389137fb3f4c96614b965c8",
-  "_resolved": "file:../d-11569-7360-hly7h3/package.tgz",
-  "_from": "../d-11569-7360-hly7h3/package.tgz",
+  "_id": "pigments@0.8.4",
+  "_shasum": "90f3c9561cd9f091b3f9131d207f915717116fb1",
+  "_resolved": "file:../d-115611-9888-1esyj00/package.tgz",
+  "_from": "../d-115611-9888-1esyj00/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -92,7 +92,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.1",
+        "version": "1.0.0",
         "path": "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {

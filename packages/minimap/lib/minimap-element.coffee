@@ -44,9 +44,8 @@ class MinimapElement extends HTMLElement
       'minimap.displayMinimapOnLeft': (displayMinimapOnLeft) =>
         swapPosition = @minimap? and displayMinimapOnLeft isnt @displayMinimapOnLeft
         @displayMinimapOnLeft = displayMinimapOnLeft
-        @classList.toggle('left', displayMinimapOnLeft and @absoluteMode)
 
-        @swapMinimapPosition() if swapPosition
+        @swapMinimapPosition()
 
       'minimap.minimapScrollIndicator': (@minimapScrollIndicator) =>
         if @minimapScrollIndicator and not @scrollIndicator?
@@ -76,7 +75,6 @@ class MinimapElement extends HTMLElement
 
       'minimap.absoluteMode': (@absoluteMode) =>
         @classList.toggle('absolute', @absoluteMode)
-        @classList.toggle('left', @displayMinimapOnLeft and @absoluteMode)
 
   # Internal: DOM callback invoked when a new {MinimapElement} is attached
   # to the DOM.
@@ -118,18 +116,18 @@ class MinimapElement extends HTMLElement
   # `displayMinimapOnLeft` setting.
   attach: ->
     return if @attached
+    @getTextEditorElementRoot().appendChild(this)
     @swapMinimapPosition()
     @attached = true
 
   # Attaches the {MinimapElement} to the left of the target {TextEditorElement}.
   attachToLeft: ->
-    root = @getTextEditorElementRoot()
-    root.insertBefore(this, root.children[0])
+    @classList.add('left')
 
   # Attaches the {MinimapElement} to the right of the target
   # {TextEditorElement}.
   attachToRight: ->
-    @getTextEditorElementRoot().appendChild(this)
+    @classList.remove('left')
 
   # Swaps the {MinimapElement} position based on the value of the
   # `displayMinimapOnLeft` setting.
@@ -149,6 +147,7 @@ class MinimapElement extends HTMLElement
   destroy: ->
     @subscriptions.dispose()
     @detach()
+    @minimap = null
 
   #     ######   #######  ##    ## ######## ######## ##    ## ########
   #    ##    ## ##     ## ###   ##    ##    ##       ###   ##    ##
@@ -326,7 +325,7 @@ class MinimapElement extends HTMLElement
 
   # Internal: Performs the actual {MinimapElement} update.
   update: ->
-    return unless @attached and @isVisible() and not @minimap.isDestroyed()
+    return unless @attached and @isVisible() and @minimap?
 
     if @adjustToSoftWrap and @marginRight?
       @style.marginRight = @marginRight + 'px'
@@ -516,7 +515,7 @@ class MinimapElement extends HTMLElement
   startDrag: ({which, pageY}) ->
     # if which is 2
     #   @middleMousePressedOverCanvas({pageY})
-    return if @minimap.isDestroyed()
+    return unless @minimap
     return if which isnt 1 and which isnt 2
     {top} = @visibleArea.getBoundingClientRect()
     {top: offsetTop} = @getBoundingClientRect()
@@ -546,7 +545,7 @@ class MinimapElement extends HTMLElement
   #           offsetTop - The {MinimapElement} offset at the moment of the
   #                       drag start.
   drag: (e, initial) ->
-    return if @minimap.isDestroyed()
+    return unless @minimap
     return if e.which isnt 1 and e.which isnt 2
     y = e.pageY - initial.offsetTop - initial.dragOffset
 
@@ -563,7 +562,7 @@ class MinimapElement extends HTMLElement
   #           offsetTop - The {MinimapElement} offset at the moment of the
   #                       drag start.
   endDrag: (e, initial) ->
-    return if @minimap.isDestroyed()
+    return unless @minimap
     @dragSubscription.dispose()
 
   #     ######   ######   ######
