@@ -1,7 +1,7 @@
 {
   "name": "linter-jshint",
   "main": "./lib/main",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Linter plugin for JavaScript, using jshint",
   "repository": {
     "type": "git",
@@ -26,10 +26,10 @@
     "url": "https://github.com/AtomLinter/linter-jshint/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jshint",
-  "_id": "linter-jshint@1.0.4",
-  "_shasum": "2599e307ff92bb2740e42926b0804bd8edbab036",
-  "_resolved": "file:../d-115611-9864-18me6o9/package.tgz",
-  "_from": "../d-115611-9864-18me6o9/package.tgz",
+  "_id": "linter-jshint@1.0.5",
+  "_shasum": "5659c4594162cf5a57e4d31bc5179d8608e86a88",
+  "_resolved": "file:../d-115613-3807-1bjuqjl/package.tgz",
+  "_from": "../d-115613-3807-1bjuqjl/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

@@ -33,7 +33,7 @@
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
-    fontSize: 24
+    fontSize: 25
     showIndentGuide: true
   minimap:
     plugins:
@@ -105,4 +105,11 @@
     jshintExecutablePath: "/usr/local/bin/jshint"
     disableWhenNoJshintrcFileInPath: true
   "todo-show": {}
-  "linter-jscs": {}
+  "linter-jscs":
+    onlyConfig: true
+    preset: "google"
+    verbose: true
+  "git-plus": {}
+".js.regexp.source":
+  editor:
+    preferredLineLength: 80
