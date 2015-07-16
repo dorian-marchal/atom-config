@@ -1,3 +1,9 @@
+# Upcoming
+
+* Fixed a marker leak with bubbles, which would make editor slower over time.
+* Remove an oudated config (`statusIconPosition`).
+* Invalidate Range when a range is removed from buffer.
+
 # 1.2.3
 
 * Fix a bug where panel won't be hidden even with no errors.

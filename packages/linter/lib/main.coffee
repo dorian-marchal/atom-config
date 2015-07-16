@@ -32,12 +32,6 @@ module.exports =
       title: 'Underline Issues'
       type: 'boolean'
       default: true
-    statusIconPosition:
-      title: 'Position of Status Icon on Bottom Bar'
-      description: 'Requires a reload/restart to update'
-      enum: ['Left', 'Right']
-      type: 'string'
-      default: 'Left'
     ignoredMessageTypes:
       title: "Ignored message Types"
       type: 'array'
@@ -56,7 +50,7 @@ module.exports =
         implementation = atomPackage.metadata['linter-implementation'] ? atomPackage.name
         deprecate('AtomLinter v0.X.Y API has been deprecated.
           Please refer to the Linter docs to update and the latest API:
-          https://github.com/AtomLinter/Linter/wiki/Migrating-to-the-new-API', {
+          https://github.com/atom-community/linter/wiki/Migrating-to-the-new-API', {
           packageName: atomPackage.name
         })
         try

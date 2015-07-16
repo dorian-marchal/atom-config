@@ -57,13 +57,11 @@ class LinterViews
     point = point || activeEditor.getCursorBufferPosition()
     for message in @messagesLine
       continue unless message.range?.containsPoint point
-      @bubble = activeEditor.decorateMarker(
-        activeEditor.markBufferRange([point, point], {invalidate: 'never'})
-        {
-          type: 'overlay',
-          position: 'tail',
-          item: @renderBubbleContent(message)
-        }
+      @bubble = activeEditor.markBufferRange([point, point], {invalidate: 'inside'})
+      activeEditor.decorateMarker(@bubble,
+        type: 'overlay',
+        position: 'tail',
+        item: @renderBubbleContent(message)
       )
       break
 
@@ -100,7 +98,7 @@ class LinterViews
     return unless activeEditor
     @messages.forEach (message) =>
       return unless message.currentFile
-      @markers.push marker = activeEditor.markBufferRange message.range, {invalidate: 'never'}
+      @markers.push marker = activeEditor.markBufferRange message.range, {invalidate: 'inside'}
       activeEditor.decorateMarker(
         marker, type: 'line-number', class: "linter-highlight #{message.class}"
       )

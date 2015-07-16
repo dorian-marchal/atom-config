@@ -33,7 +33,6 @@
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
-    fontSize: 25
     showIndentGuide: true
   minimap:
     plugins:
@@ -97,7 +96,8 @@
   linter:
     clearOnChange: true
     statusBar: "Show all errors"
-    lintOnChangeInterval: 0
+    showErrorPanel: false
+    lintOnChangeInterval: 500
   "xml-formatter": {}
   "atom-beautify":
     _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
@@ -110,6 +110,7 @@
     preset: "google"
     verbose: true
   "git-plus": {}
+  "tree-view": {}
 ".js.regexp.source":
   editor:
     preferredLineLength: 80
