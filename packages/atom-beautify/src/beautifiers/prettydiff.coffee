@@ -33,6 +33,7 @@ module.exports = class PrettyDiff extends Beautifier
     EJS: true
     HTML: true
     XML: true
+    SVG: true
     Spacebars: true
     JSX: true
     JavaScript: true
@@ -62,11 +63,11 @@ module.exports = class PrettyDiff extends Beautifier
           lang = "ejs"
         when "ERB"
           lang = "html_ruby"
-        when "Handlebars", "Mustache", "Spacebars"
+        when "Handlebars", "Mustache", "Spacebars", "Swig"
           lang = "handlebars"
-        when "SGML", "Swig"
+        when "SGML"
           lang = "markup"
-        when "XML", "Visualforce"
+        when "XML", "Visualforce", "SVG"
           lang = "xml"
         when "HTML"
           lang = "html"
