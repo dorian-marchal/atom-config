@@ -46,6 +46,9 @@ class ColorBufferElement extends HTMLElement
       @updateScroll()
       @updateMarkers()
 
+    @subscriptions.add @editor.onDidChange =>
+      @usedMarkers.forEach (marker) -> marker.checkScreenRange()
+
     @subscriptions.add @editor.onDidAddCursor =>
       @requestSelectionUpdate()
     @subscriptions.add @editor.onDidRemoveCursor =>
@@ -65,6 +68,9 @@ class ColorBufferElement extends HTMLElement
       @editorConfigChanged()
 
     @subscriptions.add atom.config.observe 'editor.lineHeight', =>
+      @editorConfigChanged()
+
+    @subscriptions.add atom.styles.onDidAddStyleElement =>
       @editorConfigChanged()
 
     @subscriptions.add @editorElement.onDidAttach => @attach()
@@ -87,6 +93,7 @@ class ColorBufferElement extends HTMLElement
     @detach()
     @subscriptions.dispose()
     @releaseAllMarkerViews()
+    @colorModel = null
 
   getEditorRoot: -> @editorElement.shadowRoot ? @editorElement
 

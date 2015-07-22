@@ -40,7 +40,6 @@ class ColorProject
     {@ignoredNames, @paths, variables, timestamp, buffers} = state
     @emitter = new Emitter
     @subscriptions = new CompositeDisposable
-    @variablesSubscriptionsById = {}
     @colorBuffersByEditorId = {}
 
     if variables?
@@ -62,6 +61,9 @@ class ColorProject
 
     @subscriptions.add atom.config.observe 'pigments.sourcesWarningThreshold', (@sourcesWarningThreshold) =>
 
+    @subscriptions.add atom.config.observe 'pigments.ignoreVcsIgnoredPaths', =>
+      @loadPathsAndVariables()
+
     @bufferStates = buffers ? {}
 
     @timestamp = new Date(Date.parse(timestamp)) if timestamp?
@@ -71,6 +73,9 @@ class ColorProject
 
   onDidInitialize: (callback) ->
     @emitter.on 'did-initialize', callback
+
+  onDidDestroy: (callback) ->
+    @emitter.on 'did-destroy', callback
 
   onDidUpdateVariables: (callback) ->
     @emitter.on 'did-update-variables', callback
@@ -102,9 +107,15 @@ class ColorProject
     @destroyed = true
 
     PathsScanner.terminateRunningTask()
-    buffer.destroy() for id,buffer of @colorBuffersByEditorId
 
+    buffer.destroy() for id,buffer of @colorBuffersByEditorId
     @colorBuffersByEditorId = null
+
+    @subscriptions.dispose()
+    @subscriptions = null
+
+    @emitter.emit 'did-destroy', this
+    @emitter.dispose()
 
   loadPathsAndVariables: ->
     destroyed = null
@@ -215,7 +226,7 @@ class ColorProject
         paths: atom.project.getPaths()
         traverseIntoSymlinkDirectories: atom.config.get 'pigments.traverseIntoSymlinkDirectories'
         sourceNames: atom.config.get('pigments.sourceNames') ? []
-        ignoreVcsIgnores: atom.config.get('core.excludeVcsIgnoredPaths')
+        ignoreVcsIgnores: atom.config.get('pigments.ignoreVcsIgnoredPaths')
       }
       PathsLoader.startTask config, (results) -> resolve(results)
 
@@ -332,7 +343,7 @@ class ColorProject
 
       @loadVariablesForPaths(paths)
     .then (results) =>
-      @variables.updateCollection(results)
+      @variables.updateCollection(results, paths)
 
   scanPathsForVariables: (paths, callback) ->
     if paths.length is 1 and colorBuffer = @colorBufferForPath(paths[0])

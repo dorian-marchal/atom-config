@@ -2,7 +2,7 @@
   "name": "linter-jscs",
   "main": "./lib/init",
   "linter-package": true,
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Linter plugin for JavaScript, using JSCS",
   "activationCommands": {},
   "repository": {
@@ -23,10 +23,10 @@
     "url": "https://github.com/AtomLinter/linter-jscs/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jscs",
-  "_id": "linter-jscs@1.12.0",
-  "_shasum": "73dd158d4e68b9c670e80799cb7401d3009ce90c",
-  "_resolved": "file:../d-115610-6262-49s3fv/package.tgz",
-  "_from": "../d-115610-6262-49s3fv/package.tgz",
+  "_id": "linter-jscs@1.13.0",
+  "_shasum": "a6faffdee55fbcb4d3bc0ac9ca67f704ea8dd23d",
+  "_resolved": "file:../d-115622-4990-1f3eqt3/package.tgz",
+  "_from": "../d-115622-4990-1f3eqt3/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -122,7 +122,7 @@
       },
       {
         "name": "glob",
-        "version": "5.0.13",
+        "version": "5.0.14",
         "path": "node_modules/jscs/node_modules/glob/glob.js"
       },
       {
@@ -212,7 +212,7 @@
       },
       {
         "name": "minimatch",
-        "version": "2.0.8",
+        "version": "2.0.9",
         "path": "node_modules/jscs/node_modules/minimatch/minimatch.js"
       },
       {
@@ -297,38 +297,8 @@
       },
       {
         "name": "rimraf",
-        "version": "2.4.1",
+        "version": "2.4.2",
         "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/rimraf.js"
-      },
-      {
-        "name": "glob",
-        "version": "4.5.3",
-        "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/glob.js"
-      },
-      {
-        "name": "inflight",
-        "version": "1.0.4",
-        "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/inflight.js"
-      },
-      {
-        "name": "wrappy",
-        "version": "1.0.1",
-        "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/node_modules/wrappy/wrappy.js"
-      },
-      {
-        "name": "inherits",
-        "version": "2.0.1",
-        "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inherits/inherits.js"
-      },
-      {
-        "name": "once",
-        "version": "1.3.2",
-        "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/once.js"
-      },
-      {
-        "name": "wrappy",
-        "version": "1.0.1",
-        "path": "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js"
       },
       {
         "name": "winston",
@@ -487,12 +457,6 @@
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/mkdirp/node_modules/minimist/package.json",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/mkdirp/package.json",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/ncp/package.json",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/package.json",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inherits/package.json",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/package.json",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/package.json",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/package.json",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/package.json",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/package.json",
         "node_modules/jscs/node_modules/prompt/node_modules/winston/node_modules/async/component.json",
@@ -804,17 +768,6 @@
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/mkdirp/node_modules/minimist/index.js",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/ncp/lib/ncp.js",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/bin.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/common.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/glob.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/inflight.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/node_modules/wrappy/wrappy.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight/test.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inherits/inherits.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inherits/inherits_browser.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inherits/test.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/once.js",
-        "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/sync.js",
         "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/rimraf.js",
         "node_modules/jscs/node_modules/prompt/node_modules/winston/examples/couchdb.js",
         "node_modules/jscs/node_modules/prompt/node_modules/winston/examples/custom-levels.js",
@@ -1534,36 +1487,7 @@
           "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf"
         ],
         "dependencies": {
-          "glob": "^4.4.2"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob"
-        ],
-        "dependencies": {
-          "inflight": "^1.0.4",
-          "inherits": "2",
-          "minimatch": "^2.0.1",
-          "once": "^1.3.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/inflight"
-        ],
-        "dependencies": {
-          "once": "^1.3.0",
-          "wrappy": "1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once",
-          "node_modules/jscs/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/test"
-        ],
-        "dependencies": {
-          "wrappy": "1"
+          "glob": "^5.0.14"
         }
       },
       {
