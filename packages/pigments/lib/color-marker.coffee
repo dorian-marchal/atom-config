@@ -3,24 +3,30 @@
 
 module.exports =
 class ColorMarker
-  constructor: ({@marker, @color, @text, @invalid}) ->
+  constructor: ({@marker, @color, @text, @invalid, @colorBuffer}) ->
+    @id = @marker.id
     @subscriptions = new CompositeDisposable
-    @subscriptions.add @marker.onDidDestroy => @destroyed()
+    @subscriptions.add @marker.onDidDestroy => @markerWasDestroyed()
     @subscriptions.add @marker.onDidChange =>
-      @destroy() unless @marker.isValid()
+      if @marker.isValid()
+        @checkMarkerScope()
+      else
+        @destroy()
+
+    @checkMarkerScope()
 
   destroy: ->
-    return if @wasDestroyed
+    return if @destroyed
     @marker.destroy()
 
-  destroyed: ->
-    return if @wasDestroyed
+  markerWasDestroyed: ->
+    return if @destroyed
     @subscriptions.dispose()
-    {@marker, @color, @text} = {}
-    @wasDestroyed = true
+    {@marker, @color, @text, @colorBuffer} = {}
+    @destroyed = true
 
   match: (properties) ->
-    return false if @wasDestroyed
+    return false if @destroyed
 
     bool = true
 
@@ -33,7 +39,7 @@ class ColorMarker
     bool
 
   serialize: ->
-    return if @wasDestroyed
+    return if @destroyed
     out = {
       markerId: String(@marker.id)
       bufferRange: @marker.getBufferRange().serialize()
@@ -43,6 +49,26 @@ class ColorMarker
     }
     out.invalid = true unless @color.isValid()
     out
+
+  checkMarkerScope: (forceEvaluation=false) ->
+    return if @destroyed or !@colorBuffer?
+    range = @marker.getBufferRange()
+
+    try
+      scope = @marker.displayBuffer.scopeDescriptorForBufferPosition(range.start)
+      scopeChain = scope.getScopeChain()
+
+      return if not scopeChain or (!forceEvaluation and scopeChain is @lastScopeChain)
+
+      @ignored = @colorBuffer.ignoredScopes.some (scopeRegExp) ->
+        scopeChain.match(scopeRegExp)
+
+
+      @lastScopeChain = scopeChain
+    catch e
+      console.error e
+
+  isIgnored: -> @ignored
 
   convertContentToHex: ->
     hex = '#' + fill(@color.hex, 6)

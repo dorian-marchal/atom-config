@@ -1,3 +1,15 @@
+# v2.0.1 - 28/07/2015
+### Bug fixes
+* Error with `esnext` option
+* Bug with `package.json` and `.jscsrc` config not correctly loaded
+
+# v2.0.0 - 28/07/2015
+### Features
+* Rewrite to ES6 ([#71](https://github.com/AtomLinter/linter-jscs/pull/71))
+* Support `atom-linter` 1.0 API ([#71](https://github.com/AtomLinter/linter-jscs/pull/71))
+* Support `jscs` 2.0.0
+* Support `esnext` option (babel)
+
 # v1.13.0 - 21/07/2015
 ### Features
 * Add `node-style` preset ([#68](https://github.com/AtomLinter/linter-jscs/pull/68))

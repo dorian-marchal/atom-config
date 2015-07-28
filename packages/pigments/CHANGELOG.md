@@ -1,3 +1,24 @@
+<a name="v0.9.2"></a>
+# v0.9.2 (2015-07-27)
+
+## Bug Fixes
+
+- Prevent error raised when checking a destroyed marker ([e5d6512f](https://github.com/abe33/atom-pigments/commit/e5d6512fb5e958bcc0afacd093d7bebfbd492989))
+- Fix marker ignored state not reevaluated when ignored scopes changed ([0c148db3](https://github.com/abe33/atom-pigments/commit/0c148db378150baaf9b05ea97c6f2844c07f9cf3))
+
+## Performances
+
+- Use asynchronous markers creation to avoid locking the UI ([4775788f](https://github.com/abe33/atom-pigments/commit/4775788f5cb8e24b52376560298bc44304917ae3) [#58](https://github.com/abe33/atom-pigments/issues/58))
+- Store the ignored state into the marker for speedup ([ca922bac](https://github.com/abe33/atom-pigments/commit/ca922bac9cc93fbf87cad3652e82f757110bbab0))
+
+<a name="v0.9.1"></a>
+# v0.9.1 (2015-07-27)
+
+## Bug Fixes
+
+- Add missing `native-key-bindings` class on palette and results elements ([340d8117](https://github.com/abe33/atom-pigments/commit/340d81178bde5a69b015a0631301f383ed979ac1), [#60](https://github.com/abe33/atom-pigments/issues/60))
+- Fix infinite loop when splitting a match with a `)` ([eb7baad1](https://github.com/abe33/atom-pigments/commit/eb7baad120c9a1ed0f08c3c24a78ee36b2eb78b9), [#61](https://github.com/abe33/atom-pigments/issues/61))
+
 <a name="v0.9.0"></a>
 # v0.9.0 (2015-07-21)
 

@@ -1,3 +1,4 @@
+config = require "./config"
 utils = require "./utils"
 
 HEADING_REGEX   = /// ^\# {1,6} \ + .+$ ///g
@@ -206,16 +207,13 @@ class Commands
     range = @_findMinSelectedBufferRange(lines, editor.getSelectedBufferRange())
     return unless range
 
-    values = @_parseTable(lines)
-    table = @_createTable(values)
+    { rows, options } = @_parseTable(lines)
+    table = @_createTable(rows, options)
 
     editor.setTextInBufferRange(range, table)
 
-  _indexOfFirstNonEmptyLine: (lines) ->
-    for line, i in lines
-      return i if line.trim().length > 0
-    return -1 # not found
-
+  # FIXME when at the end of file, without the extra end of line
+  # the buffer range selected is not correct
   _findMinSelectedBufferRange: (lines, {start, end}) ->
     head = @_indexOfFirstNonEmptyLine(lines)
     tail = @_indexOfFirstNonEmptyLine(lines[..].reverse())
@@ -226,44 +224,71 @@ class Commands
       [end.row - tail, lines[lines.length - 1 - tail].length]
     ]
 
-  _parseTable: (lines) ->
-    table = []
-    maxes = []
+  _indexOfFirstNonEmptyLine: (lines) ->
+    for line, i in lines
+      return i if line.trim().length > 0
+    return -1 # not found
 
+  _parseTable: (lines) ->
+    rows = []
+
+    numOfColumns = 0
+    extraPipes = config.get("tableExtraPipes")
+    columnWidths = []
+    alignments = []
+
+    # parse table separator
+    for line in lines
+      continue unless utils.isTableSeparator(line)
+
+      separator = utils.parseTableSeparator(line)
+
+      numOfColumns = separator.columns.length
+      extraPipes = extraPipes || separator.extraPipes
+      columnWidths = separator.columnWidths
+      alignments = separator.alignments
+
+    # parse table content
     for line in lines
       continue if line.trim() == ""
       continue if utils.isTableSeparator(line)
 
-      columns = line.split("|").map (col) -> col.trim()
-      table.push(columns)
-
-      for col, j in columns
-        if maxes[j]?
-          maxes[j] = col.length if col.length > maxes[j]
+      row = utils.parseTableRow(line)
+      rows.push(row.columns)
+      numOfColumns = Math.max(numOfColumns, row.columns.length)
+      for columnWidth, i in row.columnWidths
+        if !extraPipes && (i == 0 || i == numOfColumns - 1)
+          columnWidth += 1
         else
-          maxes[j] = col.length
+          columnWidth += 2
 
-    return table: table, maxes: maxes
+        columnWidths[i] = Math.max(columnWidths[i] || 0, columnWidth)
 
-  _createTable: ({table, maxes}) ->
-    result = []
+    return {
+      rows: rows
+      options: {
+        numOfColumns: numOfColumns
+        extraPipes: extraPipes
+        columnWidths: columnWidths
+        alignment: config.get("tableAlignment")
+        alignments: alignments
+      }
+    }
+
+  _createTable: (rows, options) ->
+    table = []
 
     # table head
-    result.push @_createTableRow(table[0], maxes, " | ")
-    # table head separators
-    result.push maxes.map((n) -> '-'.repeat(n)).join("-|-")
+    table.push(utils.createTableRow(rows[0], options))
+    # table separator
+    table.push(utils.createTableSeparator(options))
     # table body
-    result.push @_createTableRow(vals, maxes, " | ") for vals in table[1..]
+    table.push(utils.createTableRow(row, options)) for row in rows[1..]
 
-    return result.join("\n")
-
-  _createTableRow: (vals, widths, separator) ->
-    vals.map((val, i) -> "#{val}#{' '.repeat(widths[i] - val.length)}")
-        .join(separator)
-        .trimRight() # remove trailing spaces
+    table.join("\n")
 
   openCheatSheet: ->
-    cheatsheet = require("path").join(@_getPackageDirPath(), "CHEATSHEET.md")
+    cheatsheet = utils.getPackagePath("CHEATSHEET.md")
 
     atom.workspace.open "markdown-preview://#{encodeURI(cheatsheet)}",
       split: 'right', searchAllPanes: true
@@ -272,22 +297,18 @@ class Commands
     fs = require("fs-plus")
     path = require("path")
 
-    sampleKeymapFile = path.join(@_getPackageDirPath(), "keymaps", @_getSampleKeymapFilename())
+    sampleKeymapFile = utils.getPackagePath("keymaps", @_sampleKeymapFile())
     sampleKeymap = fs.readFileSync(sampleKeymapFile)
 
     userKeymapFile = path.join(atom.getConfigDirPath(), "keymap.cson")
     fs.appendFile userKeymapFile, sampleKeymap, (err) ->
       atom.workspace.open(userKeymapFile) unless err
 
-  _getSampleKeymapFilename: ->
-    filename = {
+  _sampleKeymapFile: ->
+    {
       "darwin": "sample-osx.cson",
       "linux" : "sample-linux.cson",
       "win32" : "sample-win32.cson"
-    }[process.platform]
-
-    filename || "sample-osx.cson"
-
-  _getPackageDirPath: -> atom.packages.resolvePackagePath("markdown-writer")
+    }[process.platform] || "sample-osx.cson"
 
 module.exports = new Commands()

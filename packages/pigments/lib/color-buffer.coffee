@@ -15,6 +15,8 @@ class ColorBuffer
     @colorMarkersByMarkerId = {}
 
     @subscriptions.add @editor.onDidDestroy => @destroy()
+    @subscriptions.add @editor.displayBuffer.onDidTokenize =>
+      @getColorMarkers()?.forEach (marker) -> marker.checkMarkerScope()
 
     @subscriptions.add @editor.onDidChange =>
       @terminateRunningTask() if @initialized and @variableInitialized
@@ -40,7 +42,12 @@ class ColorBuffer
 
     @subscriptions.add atom.config.observe 'pigments.delayBeforeScan', (@delayBeforeScan=0) =>
 
-    @subscriptions.add atom.config.observe 'pigments.ignoredScopes', (@ignoredScopes=[]) =>
+    @subscriptions.add atom.config.observe 'pigments.ignoredScopes', (ignoredScopes=[]) =>
+      @ignoredScopes = ignoredScopes.map (scope) ->
+        try new RegExp(scope)
+      .filter (re) -> re?
+
+      @getColorMarkers()?.forEach (marker) -> marker.checkMarkerScope(true)
       @emitter.emit 'did-update-color-markers', {created: [], destroyed: []}
 
     # Needed to clean the serialized markers from previous versions
@@ -65,7 +72,9 @@ class ColorBuffer
     @updateVariableRanges()
 
     @initializePromise = @scanBufferForColors().then (results) =>
-      @colorMarkers = @createColorMarkers(results)
+      @createColorMarkers(results)
+    .then (results) =>
+      @colorMarkers = results
       @initialized = true
 
     @initializePromise.then => @variablesAvailable()
@@ -89,6 +98,7 @@ class ColorBuffer
         marker
         color
         text: state.text
+        colorBuffer: this
       }
 
   cleanUnusedTextEditorMarkers: ->
@@ -108,6 +118,7 @@ class ColorBuffer
       @scanBufferForColors variables: results
     .then (results) =>
       @updateColorMarkers(results)
+    .then =>
       @variableInitialized = true
     .catch (reason) ->
       console.log reason
@@ -223,42 +234,84 @@ class ColorBuffer
         return @colorMarkersByMarkerId[marker.id]
 
   createColorMarkers: (results) ->
-    return if @destroyed
-    results.map (result) =>
-      marker = @editor.markBufferRange(result.bufferRange, {
-        type: 'pigments-color'
-        invalidate: 'touch'
-      })
-      @colorMarkersByMarkerId[marker.id] =
-      new ColorMarker {marker, color: result.color, text: result.match}
+    return Promise.resolve([]) if @destroyed
 
-  updateColorMarkers: (results) ->
+    new Promise (resolve, reject) =>
+      newResults = []
+
+      processResults = =>
+        startDate = new Date
+
+        while results.length
+          result = results.shift()
+
+          marker = @editor.markBufferRange(result.bufferRange, {
+            type: 'pigments-color'
+            invalidate: 'touch'
+          })
+          newResults.push @colorMarkersByMarkerId[marker.id] = new ColorMarker {
+            marker
+            color: result.color
+            text: result.match
+            colorBuffer: this
+          }
+
+          if new Date() - startDate > 10
+            requestAnimationFrame(processResults)
+            return
+
+        resolve(newResults)
+
+      processResults()
+
+  findExistingMarkers: (results) ->
     newMarkers = []
     toCreate = []
-    for result in results
-      if marker = @findColorMarker(result)
-        newMarkers.push(marker)
+
+    new Promise (resolve, reject) =>
+      processResults = =>
+        startDate = new Date
+
+        while results.length
+          result = results.shift()
+
+          if marker = @findColorMarker(result)
+            newMarkers.push(marker)
+          else
+            toCreate.push(result)
+
+          if new Date() - startDate > 10
+            requestAnimationFrame(processResults)
+            return
+
+        resolve({newMarkers, toCreate})
+
+      processResults()
+
+  updateColorMarkers: (results) ->
+    newMarkers = null
+    createdMarkers = null
+
+    @findExistingMarkers(results).then ({newMarkers: markers, toCreate}) =>
+      newMarkers = markers
+      @createColorMarkers(toCreate)
+    .then (results) =>
+      createdMarkers = results
+      newMarkers = newMarkers.concat(results)
+
+      if @colorMarkers?
+        toDestroy = @colorMarkers.filter (marker) -> marker not in newMarkers
+        toDestroy.forEach (marker) =>
+          delete @colorMarkersByMarkerId[marker.id]
+          marker.destroy()
       else
-        toCreate.push(result)
+        toDestroy = []
 
-    createdMarkers = @createColorMarkers(toCreate)
-    newMarkers = newMarkers.concat(createdMarkers)
-
-    if @colorMarkers?
-      toDestroy = @colorMarkers.filter (marker) -> marker not in newMarkers
-      toDestroy.forEach (marker) -> marker.destroy()
-
-      for id,marker of @colorMarkersByMarkerId when marker not in newMarkers
-        delete @colorMarkersByMarkerId[id]
-
-    else
-      toDestroy = []
-
-    @colorMarkers = newMarkers
-    @emitter.emit 'did-update-color-markers', {
-      created: createdMarkers
-      destroyed: toDestroy
-    }
+      @colorMarkers = newMarkers
+      @emitter.emit 'did-update-color-markers', {
+        created: createdMarkers
+        destroyed: toDestroy
+      }
 
   findColorMarker: (properties={}) ->
     return unless @colorMarkers?
@@ -294,7 +347,7 @@ class ColorBuffer
 
   findValidColorMarkers: (properties) ->
     @findColorMarkers(properties).filter (marker) =>
-      marker?.color?.isValid() and not @markerScopeIsIgnored(marker)
+      marker? and marker.color?.isValid() and not marker?.isIgnored()
 
   scanBufferForColors: (options={}) ->
     return Promise.reject("This ColorBuffer is already destroyed") if @destroyed
@@ -334,20 +387,6 @@ class ColorBuffer
             buffer.positionForCharacterIndex(res.range[1])
           ]
           res
-
-  markerScopeIsIgnored: (marker) ->
-    range = marker.marker.getBufferRange()
-    try
-      scope = @editor.displayBuffer.scopeDescriptorForBufferPosition(range.start)
-      scopeChain = scope.getScopeChain()
-
-      @ignoredScopes.some (scopeRegExp) ->
-        try
-          scopeChain.match(new RegExp(scopeRegExp))
-        catch
-          return false
-    catch e
-      console.warn "Unable to find a scope at the given buffer position", @editor
 
   serialize: ->
     {

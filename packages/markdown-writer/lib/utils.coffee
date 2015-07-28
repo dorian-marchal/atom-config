@@ -2,6 +2,7 @@
 os = require "os"
 path = require "path"
 yaml = require "js-yaml"
+wcswidth = require "wcwidth"
 
 # ==================================================
 # General Utils
@@ -16,6 +17,10 @@ regexpEscape = (str) ->
 
 dasherize = (str) ->
   str.trim().toLowerCase().replace(/[^-\w\s]|_/g, "").replace(/\s+/g,"-")
+
+getPackagePath = (segments...) ->
+  segments.unshift(atom.packages.resolvePackagePath("markdown-writer"))
+  path.join.apply(null, segments)
 
 # ==================================================
 # Template
@@ -236,15 +241,134 @@ parseReferenceDefinition = (input, editor) ->
 # Table
 #
 
-TABLE_LINE_SEPARATOR_REGEX = ///
-  ^ \|?             # starts with an optional |
-  (\s*:?-+:?\s*\|)+ # one or more table cell
-  (\s*:?-+:?\s*)    # last table cell
-  \|? $             # ends with an optional |
-  ///
+TABLE_SEPARATOR_REGEX = /// ^
+  (\|)?                # starts with an optional |
+  (
+   (?:\s*:?-+:?\s*\|)+ # one or more table cell
+   (?:\s*:?-+:?\s*)    # last table cell
+  )
+  (\|)?                # ends with an optional |
+  $ ///
+
+TABLE_ONE_COLUMN_SEPARATOR_REGEX = /// ^ (\|)(\s*:?-+:?\s*)(\|) $ ///
 
 isTableSeparator = (line) ->
-  TABLE_LINE_SEPARATOR_REGEX.test(line)
+  TABLE_SEPARATOR_REGEX.test(line) ||
+  TABLE_ONE_COLUMN_SEPARATOR_REGEX.test(line)
+
+parseTableSeparator = (line) ->
+  matches = TABLE_SEPARATOR_REGEX.exec(line) ||
+    TABLE_ONE_COLUMN_SEPARATOR_REGEX.exec(line)
+  columns = matches[2].split("|").map (col) -> col.trim()
+
+  return {
+    separator: true
+    extraPipes: !!(matches[1] || matches[matches.length - 1])
+    columns: columns
+    columnWidths: columns.map (col) -> col.length
+    alignments: columns.map (col) ->
+      head = col[0] == ":"
+      tail = col[col.length - 1] == ":"
+
+      if head && tail
+        "center"
+      else if head
+        "left"
+      else if tail
+        "right"
+      else "empty"
+  }
+
+TABLE_ROW_REGEX = /// ^
+  (\|)?                # starts with an optional |
+  (.+?\|.+?)           # any content with at least 2 columns
+  (\|)?                # ends with an optional |
+  $ ///
+
+TABLE_ONE_COLUMN_ROW_REGEX = /// ^ (\|)([^\|]+?)(\|) $ ///
+
+isTableRow = (line) ->
+  TABLE_ROW_REGEX.test(line) || TABLE_ONE_COLUMN_ROW_REGEX.test(line)
+
+parseTableRow = (line) ->
+  return parseTableSeparator(line) if isTableSeparator(line)
+
+  matches = TABLE_ROW_REGEX.exec(line) || TABLE_ONE_COLUMN_ROW_REGEX.exec(line)
+  columns = matches[2].split("|").map (col) -> col.trim()
+
+  return {
+    separator: false
+    extraPipes: !!(matches[1] || matches[matches.length - 1])
+    columns: columns
+    columnWidths: columns.map (col) -> wcswidth(col)
+  }
+
+# defaults:
+#   numOfColumns: 3
+#   columnWidth: 3
+#   columnWidths: []
+#   extraPipes: true
+#   alignment: "left" | "right" | "center" | "empty"
+#   alignments: []
+createTableSeparator = (options) ->
+  options.columnWidths ?= []
+  options.alignments ?= []
+
+  row = []
+  for i in [0..options.numOfColumns - 1]
+    columnWidth = options.columnWidths[i] || options.columnWidth
+
+    switch options.alignments[i] || options.alignment
+      when "center"
+        row.push(":" + "-".repeat(columnWidth - 2) + ":")
+      when "left"
+        row.push(":" + "-".repeat(columnWidth - 1))
+      when "right"
+        row.push("-".repeat(columnWidth - 1) + ":")
+      else
+        row.push("-".repeat(columnWidth))
+
+  row = row.join("|")
+  if options.extraPipes then "|#{row}|" else row
+
+# columns: [values]
+# defaults:
+#   numOfColumns: 3
+#   columnWidth: 3
+#   columnWidths: []
+#   extraPipes: true
+#   alignment: "left" | "right" | "center" | "empty"
+#   alignments: []
+createTableRow = (columns, options) ->
+  options.columnWidths ?= []
+  options.alignments ?= []
+
+  row = []
+  for i in [0..options.numOfColumns - 1]
+    columnWidth = options.columnWidths[i] || options.columnWidth
+
+    if !options.extraPipes && (i == 0 || i == options.numOfColumns - 1)
+      columnWidth -= 1
+    else
+      columnWidth -= 2
+
+    if !columns[i]
+      row.push(" ".repeat(columnWidth))
+      continue
+
+    len = columnWidth - wcswidth(columns[i])
+    switch options.alignments[i] || options.alignment
+      when "center"
+        row.push(" ".repeat(len / 2) + columns[i] + " ".repeat((len + 1) / 2))
+      when "left"
+        row.push(columns[i] + " ".repeat(len))
+      when "right"
+        row.push(" ".repeat(len) + columns[i])
+      else
+        row.push(columns[i] + " ".repeat(len))
+
+  row = row.join(" | ")
+  if options.extraPipes then "| #{row} |" else row
 
 # ==================================================
 # URL
@@ -313,6 +437,7 @@ module.exports =
   getJSON: getJSON
   regexpEscape: regexpEscape
   dasherize: dasherize
+  getPackagePath: getPackagePath
 
   dirTemplate: dirTemplate
   template: template
@@ -341,7 +466,13 @@ module.exports =
   isReferenceDefinition: isReferenceDefinition
   parseReferenceDefinition: parseReferenceDefinition
 
-  isUrl: isUrl
   isTableSeparator: isTableSeparator
+  parseTableSeparator: parseTableSeparator
+  createTableSeparator: createTableSeparator
+  isTableRow: isTableRow
+  parseTableRow: parseTableRow
+  createTableRow: createTableRow
+
+  isUrl: isUrl
 
   getTextBufferRange: getTextBufferRange
