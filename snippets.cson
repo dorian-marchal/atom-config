@@ -64,6 +64,10 @@
     'prefix': 'error'
     'body': '\$this->error(${1});'
 
+  'Kint d':
+    'prefix': 'd'
+    'body': 'd($1);'
+
 '.source.coffee':
   'Console log':
     'prefix': 'cl'
@@ -97,6 +101,10 @@
 
   'PHP short echo':
     'prefix': '='
+    'body': '<?= ${1} ?>'
+
+  'PHP short echo 2':
+    'prefix': ' ='
     'body': '<?= ${1} ?>'
 
   'PHP endif':

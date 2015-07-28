@@ -15,7 +15,6 @@
       "jshint"
       "indent-guide-improved"
     ]
-    excludeVcsIgnoredPaths: false
     ignoredNames: [
       "node_modules"
       "*.scssc"
@@ -28,6 +27,7 @@
       "atom-dark-ui"
       "monokai"
     ]
+    excludeVcsIgnoredPaths: false
   editor:
     invisibles: {}
     showInvisibles: true
@@ -56,6 +56,10 @@
     height: 1026
   "markdown-writer":
     fileExtension: ".markdown, .md"
+    urlForPosts: '''
+            
+      'enter': 'markdown-writer:insert-new-line'
+    '''
   "toggle-quotes": {}
   "spell-check": {}
   tabs: {}
@@ -111,6 +115,7 @@
     verbose: true
   "git-plus": {}
   "tree-view": {}
+  "php-getters-setters": {}
 ".js.regexp.source":
   editor:
     preferredLineLength: 80
