@@ -4,6 +4,7 @@ import JSCS from 'jscs';
 import { Range } from 'atom';
 import { findFile } from 'atom-linter';
 import { readFileSync } from 'fs';
+import stripJSONComments from 'strip-json-comments';
 
 export default class LinterJSCS {
 
@@ -88,7 +89,21 @@ export default class LinterJSCS {
 
         const filePath = editor.getPath();
         const configFiles = ['.jscsrc', '.jscs.json', 'package.json'];
-        const config = findFile(filePath, configFiles);
+
+        // Search for project config file
+        let config = findFile(filePath, configFiles);
+
+        // Reset config if `jscsConfig` is not found in `package.json`
+        if (config && config.indexOf('package.json') > -1) {
+          const { jscsConfig } = require(config);
+          if (!jscsConfig) config = null;
+        }
+
+        // Search for home config file
+        if (!config) {
+          const homeDir = require('user-home');
+          if (homeDir) config = findFile(homeDir, configFiles);
+        }
 
         // Options passed to `jscs` from package configuration
         const options = { esnext: this.esnext, preset: this.preset };
@@ -96,7 +111,7 @@ export default class LinterJSCS {
         if (config) {
           try {
             const rawConfig = readFileSync(config, { encoding: 'utf8' });
-            let parsedConfig = JSON.parse(rawConfig);
+            let parsedConfig = JSON.parse(stripJSONComments(rawConfig));
 
             if (config.indexOf('package.json') > -1) {
               if (parsedConfig.jscsConfig) {
@@ -107,11 +122,16 @@ export default class LinterJSCS {
             }
 
             this.jscs.configure(parsedConfig);
-          } catch (e) {
-            console.warn('Error while loading jscs config file');
-            console.warn(e);
+          } catch (error) {
+            // Warn user only once
+            if (!this.warnLocalConfig) {
+              console.warn('[linter-jscs] No config found, or error while loading it.');
+              console.warn(error.stack);
+              this.warnLocalConfig = true;
+            }
 
-            this.isMissingConfig = true;
+            // Reset config to null
+            config = null;
             this.jscs.configure(options);
           }
         } else {
@@ -120,11 +140,11 @@ export default class LinterJSCS {
 
         // We don't have a config file present in project directory
         // let's return an empty array of errors
-        if (this.isMissingConfig && this.onlyConfig) return [];
+        if (!config && this.onlyConfig) return [];
 
         const text = editor.getText();
         const errors = this.jscs
-          .checkString(text, path)
+          .checkString(text, filePath)
           .getErrorList();
 
         return errors.map(({ rule, message, line, column }) => {

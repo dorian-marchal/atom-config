@@ -1,7 +1,7 @@
 {
   "name": "git-plus",
   "main": "./lib/git-plus",
-  "version": "5.2.2",
+  "version": "5.2.4",
   "description": "Do git things without the terminal",
   "keywords": [
     "git"
@@ -67,10 +67,10 @@
     "url": "https://github.com/akonwi/git-plus/issues"
   },
   "homepage": "https://github.com/akonwi/git-plus",
-  "_id": "git-plus@5.2.2",
-  "_shasum": "c4bd98b15a1d467f55f1e2123e878f9b828d5053",
-  "_resolved": "file:../d-115528-5827-g7afej/package.tgz",
-  "_from": "../d-115528-5827-g7afej/package.tgz",
+  "_id": "git-plus@5.2.4",
+  "_shasum": "11b9c68ceb617a6b79e5ac6741e2d238f906da52",
+  "_resolved": "file:../d-11575-4642-193r3f8/package.tgz",
+  "_from": "../d-11575-4642-193r3f8/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -116,7 +116,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.1",
+        "version": "1.0.0",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {

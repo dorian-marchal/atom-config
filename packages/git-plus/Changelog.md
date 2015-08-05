@@ -1,5 +1,13 @@
 ## Changelog
 
+### 5.2.4
+- Fix #243
+- Fix #42
+- Add 'push' command to context menu
+
+### 5.2.3
+- Make git-diff highlighting non-greedy. Thanks to @Victorystick
+
 ### 5.2.2
 
 - fix 'Git log current file'

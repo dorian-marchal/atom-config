@@ -10,16 +10,13 @@ class LinterViews
     @state = @linter.state
     @subscriptions = new CompositeDisposable
     @messages = []
-    @messagesLine = []
-    @markers = []
+    @markers = new Map()
     @panel = new BottomPanel().prepare()
     @bottomContainer = new BottomContainer().prepare(@linter.state)
     @bottomBar = null
     @bubble = null
+    @count = File: 0, Line: 0, Project: 0
 
-    @subscriptions.add atom.config.observe('linter.ignoredMessageTypes', (ignoredMessageTypes) =>
-      @ignoredMessageTypes = ignoredMessageTypes
-    )
     @subscriptions.add atom.config.observe('linter.underlineIssues', (underlineIssues) =>
       @underlineIssues = underlineIssues
     )
@@ -33,30 +30,53 @@ class LinterViews
       isTextEditor = paneItem?.getPath?
       @bottomContainer.setVisibility(isTextEditor)
       @panel.panelVisibility = atom.config.get('linter.showErrorPanel') and isTextEditor
-    @subscriptions.add @linter.onDidChangeMessages =>
-      @render()
+      @render({added: [], removed: [], messages: @linter.messages.publicMessages})
     @subscriptions.add @bottomContainer.onDidChangeTab =>
       @renderPanelMessages()
+    @subscriptions.add @bottomContainer.onShouldTogglePanel =>
+      @panel.panelVisibility = !@panel.panelVisibility
+      atom.config.set('linter.showErrorPanel', @panel.panelVisibility)
 
-  render: ->
-    @messages = @linter.messages.getAllMessages()
-    if @ignoredMessageTypes.length
-      @messages = @messages.filter (message) => @ignoredMessageTypes.indexOf(message.type) is -1
-    @updateLineMessages()
+  render: ({added, removed, messages}) ->
+    @messages = @classifyMessages(messages)
     @renderPanelMessages()
-    @renderPanelMarkers()
+    @renderPanelMarkers({added, removed})
     @renderBubble()
     @renderCount()
 
-  renderBubble: (point) ->
+  renderLineMessages: (render = false) ->
+    @classifyMessagesByLine(@messages)
+    if render
+      @renderCount()
+      @renderPanelMessages()
+
+  classifyMessages: (messages) ->
+    filePath = atom.workspace.getActiveTextEditor()?.getPath()
+    @count.File = 0
+    @count.Project = 0
+    for key, message of messages
+      if message.currentFile = (filePath and message.filePath is filePath)
+        @count.File++
+      @count.Project++
+    return @classifyMessagesByLine(messages)
+
+  classifyMessagesByLine: (messages) ->
+    row = atom.workspace.getActiveTextEditor()?.getCursorBufferPosition().row
+    @count.Line = 0
+    for key, message of messages
+      if message.currentLine = (message.currentFile and message.range and message.range.intersectsRow(row))
+        @count.Line++
+    return messages
+
+  renderBubble: ->
     @removeBubble()
-    return unless @messagesLine.length
     return unless @showBubble
     activeEditor = atom.workspace.getActiveTextEditor()
     return unless activeEditor?.getPath?()
-    point = point || activeEditor.getCursorBufferPosition()
-    for message in @messagesLine
-      continue unless message.range?.containsPoint point
+    point = activeEditor.getCursorBufferPosition()
+    for message in @messages
+      continue unless message.currentLine
+      continue unless message.range.containsPoint point
       @bubble = activeEditor.markBufferRange([point, point], {invalidate: 'inside'})
       activeEditor.decorateMarker(@bubble,
         type: 'overlay',
@@ -74,13 +94,7 @@ class LinterViews
     bubble
 
   renderCount: ->
-    if @ignoredMessageTypes.length
-      count = File: 0, Project: @messages.length
-      @messages.forEach (message) -> count.File++ if message.currentFile
-    else
-      count = @linter.messages.getCount()
-    count.Line = @messagesLine.length
-    @bottomContainer.setCount(count)
+    @bottomContainer.setCount(@count)
 
   renderPanelMessages: ->
     messages = null
@@ -89,16 +103,16 @@ class LinterViews
     else if @state.scope is 'File'
       messages = @messages.filter (message) -> message.currentFile
     else if @state.scope is 'Line'
-      messages = @messagesLine
+      messages = @messages.filter (message) -> message.currentLine
     @panel.updateMessages messages, @state.scope is 'Project'
 
-  renderPanelMarkers: ->
-    @removeMarkers()
+  renderPanelMarkers: ({added, removed}) ->
+    @removeMarkers(removed)
     activeEditor = atom.workspace.getActiveTextEditor()
     return unless activeEditor
-    @messages.forEach (message) =>
+    added.forEach (message) =>
       return unless message.currentFile
-      @markers.push marker = activeEditor.markBufferRange message.range, {invalidate: 'inside'}
+      @markers.set(message.key, marker = activeEditor.markBufferRange message.range, {invalidate: 'inside'})
       activeEditor.decorateMarker(
         marker, type: 'line-number', class: "linter-highlight #{message.class}"
       )
@@ -106,22 +120,17 @@ class LinterViews
         marker, type: 'highlight', class: "linter-highlight #{message.class}"
       )
 
-  updateLineMessages: (render = false) ->
-    @messagesLine = @linter.messages.getActiveFileMessagesForActiveRow()
-    if @ignoredMessageTypes.length
-      @messagesLine = @messagesLine.filter (message) => @ignoredMessageTypes.indexOf(message.type) is -1
-    if render
-      @renderCount()
-      @renderPanelMessages()
-
   attachBottom: (statusBar) ->
     @bottomBar = statusBar.addLeftTile
       item: @bottomContainer,
       priority: -100
 
-  removeMarkers: ->
-    @markers.forEach (marker) -> try marker.destroy()
-    @markers = []
+  removeMarkers: (messages = @messages) ->
+    messages.forEach((message) =>
+      marker = @markers.get(message.key)
+      try marker.destroy()
+      @markers.delete(message.key)
+    )
 
   removeBubble: ->
     @bubble?.destroy()

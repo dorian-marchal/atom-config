@@ -1,6 +1,7 @@
 'use strict';
 
 class BottomStatus extends HTMLElement{
+
   createdCallback() {
     this.classList.add('inline-block')
     this.classList.add('linter-highlight')
@@ -11,11 +12,17 @@ class BottomStatus extends HTMLElement{
 
     this.count = 0
 
-    this.addEventListener('click', function(){
+    this.addEventListener('click', function() {
       atom.commands.dispatch(atom.views.getView(atom.workspace), 'linter:next-error')
     })
   }
+
+  get count(){
+    return this._count
+  }
+
   set count(Value) {
+    this._count = Value
     if (Value) {
       this.classList.remove('status-success')
       this.iconSpan.classList.remove('icon-check')
