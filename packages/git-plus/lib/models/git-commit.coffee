@@ -1,6 +1,6 @@
 {CompositeDisposable} = require 'atom'
 fs = require 'fs-plus'
-Path = require 'path'
+Path = require 'flavored-path'
 os = require 'os'
 
 git = require '../git'
@@ -9,12 +9,6 @@ GitPush = require './git-push'
 
 module.exports =
 class GitCommit
-  # Public: Helper method to set the commentchar to be used in
-  #   the commit message
-  setCommentChar: (char) ->
-    if char is '' then char = '#'
-    @commentchar = char
-
   # Public: Helper method to return the current working directory.
   #
   # Returns: The cwd as a String.
@@ -28,7 +22,7 @@ class GitCommit
   # Public: Helper method to join @dir() and filename to use it with fs.
   #
   # Returns: The full path to our COMMIT_EDITMSG file as {String}
-  filePath: -> Path.join(@dir(), 'COMMIT_EDITMSG')
+  filePath: -> Path.join(@repo.getPath(), 'COMMIT_EDITMSG')
 
   constructor: (@repo, {@amend, @andPush}={}) ->
     @currentPane = atom.workspace.getActivePane()
@@ -39,12 +33,12 @@ class GitCommit
     @isAmending = @amend.length > 0
 
     # Load the commentchar from git config, defaults to '#'
+    @commentchar = '#'
     git.cmd
       args: ['config', '--get', 'core.commentchar'],
       stdout: (data) =>
-        @setCommentChar data.trim()
-      stderr: =>
-        @setCommentChar '#'
+        if data.trim() isnt ''
+          @commentchar = data.trim()
 
     git.stagedFiles @repo, (files) =>
       if @amend isnt '' or files.length >= 1
@@ -64,13 +58,22 @@ class GitCommit
     # format the status to be ignored in the commit message
     status = status.replace(/\s*\(.*\)\n/g, "\n")
     status = status.trim().replace(/\n/g, "\n#{@commentchar} ")
-    fs.writeFileSync @filePath(),
-      """#{@amend}
-      #{@commentchar} Please enter the commit message for your changes. Lines starting
-      #{@commentchar} with '#{@commentchar}' will be ignored, and an empty message aborts the commit.
-      #{@commentchar}
-      #{@commentchar} #{status}"""
-    @showFile()
+
+    @getTemplate().then (template) =>
+      fs.writeFileSync @filePath(),
+        """#{ if @amend.length > 0 then @amend else template}
+        #{@commentchar} Please enter the commit message for your changes. Lines starting
+        #{@commentchar} with '#{@commentchar}' will be ignored, and an empty message aborts the commit.
+        #{@commentchar}
+        #{@commentchar} #{status}"""
+      @showFile()
+
+  getTemplate: ->
+    new Promise (resolve, reject) ->
+      git.cmd
+        args: ['config', '--get', 'commit.template']
+        stdout: (data) =>
+          resolve (if data.trim() isnt '' then fs.readFileSync(Path.get(data.trim())) else '')
 
   # Public: Helper method to open the commit message file and to subscribe the
   #         'saved' and `destroyed` events of the underlaying text-buffer.
@@ -145,7 +148,7 @@ class GitCommit
     git.cmd
       args: ['reset', 'ORIG_HEAD'],
       stdout: ->
-        notifier.addError "#{err+': '}Commit amend aborted!"
+        notifier.addError "#{err}: Commit amend aborted!"
       stderr: ->
         notifier.addError 'ERROR! Undoing the amend failed! Please fix your repository manually!'
       exit: =>
