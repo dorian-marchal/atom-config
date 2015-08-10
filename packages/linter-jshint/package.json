@@ -1,7 +1,7 @@
 {
   "name": "linter-jshint",
   "main": "./lib/main",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Linter plugin for JavaScript, using jshint",
   "repository": {
     "type": "git",
@@ -26,10 +26,10 @@
     "url": "https://github.com/AtomLinter/linter-jshint/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jshint",
-  "_id": "linter-jshint@1.1.4",
-  "_shasum": "9544f5c705db64a1d50a66c9b946227cf12b19ba",
-  "_resolved": "file:../d-115623-11170-3os8w3/package.tgz",
-  "_from": "../d-115623-11170-3os8w3/package.tgz",
+  "_id": "linter-jshint@1.1.5",
+  "_shasum": "88b05c931774a18913de317b9c969df38b91eff4",
+  "_resolved": "file:../d-115710-11433-r9406l/package.tgz",
+  "_from": "../d-115710-11433-r9406l/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -185,7 +185,7 @@
       },
       {
         "name": "strip-json-comments",
-        "version": "1.0.2",
+        "version": "1.0.4",
         "path": "node_modules/jshint/node_modules/strip-json-comments/strip-json-comments.js"
       },
       {
