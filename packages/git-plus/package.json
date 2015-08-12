@@ -1,7 +1,7 @@
 {
   "name": "git-plus",
   "main": "./lib/git-plus",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "description": "Do git things without the terminal",
   "keywords": [
     "git"
@@ -68,16 +68,16 @@
     "url": "https://github.com/akonwi/git-plus/issues"
   },
   "homepage": "https://github.com/akonwi/git-plus",
-  "_id": "git-plus@5.3.3",
-  "_shasum": "c8583d6a08bf036d0a86c49a7800eeea98ff3b0a",
-  "_resolved": "file:../d-115710-11417-1w0ynl1/package.tgz",
-  "_from": "../d-115710-11417-1w0ynl1/package.tgz",
+  "_id": "git-plus@5.3.4",
+  "_shasum": "63e63d0e54e9466e89f12d565b43025262a68a3f",
+  "_resolved": "file:../d-115712-6527-1hnli28/package.tgz",
+  "_from": "../d-115712-6527-1hnli28/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "atom-space-pen-views",
-        "version": "2.0.5",
+        "version": "2.1.0",
         "path": "node_modules/atom-space-pen-views/lib/main.js"
       },
       {
