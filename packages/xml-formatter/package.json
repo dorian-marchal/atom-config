@@ -1,7 +1,7 @@
 {
   "name": "xml-formatter",
   "main": "./lib/xml-formatter",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "XML Formatter",
   "activationCommands": {
     "atom-workspace": [
@@ -23,13 +23,13 @@
     "url": "https://github.com/neyestrabelli/xml-formatter/issues"
   },
   "homepage": "https://github.com/neyestrabelli/xml-formatter",
-  "_id": "xml-formatter@0.9.0",
+  "_id": "xml-formatter@0.9.1",
   "dist": {
     "shasum": "b65dc3311cf57655cfd43ec33470f453a7577c8a"
   },
-  "_resolved": "file:../d-115523-886-1jiew1/package.tgz",
-  "_from": "../d-115523-886-1jiew1/package.tgz",
-  "_shasum": "5f39c2398fb86d8face7cdcc11fc898decbe68d5",
+  "_resolved": "file:../d-115714-3914-1fxa0jb/package.tgz",
+  "_from": "../d-115714-3914-1fxa0jb/package.tgz",
+  "_shasum": "94eee8091e64ca9183752eee85bff9d20e36a27e",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

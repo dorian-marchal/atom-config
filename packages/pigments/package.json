@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.9.3",
+  "version": "0.11.0",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -22,7 +22,6 @@
     "css-color-function": "0.1.x",
     "minimatch": "0.3.x",
     "delegato": "^1.0.0",
-    "fuzzaldrin": "2.x",
     "atom-utils": ">=0.5.0"
   },
   "devDependencies": {
@@ -46,10 +45,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments",
-  "_id": "pigments@0.9.3",
-  "_shasum": "45023732b976ffb1ceef182a3929f3081c53e0a9",
-  "_resolved": "file:../d-11575-4692-pj7dtk/package.tgz",
-  "_from": "../d-11575-4692-pj7dtk/package.tgz",
+  "_id": "pigments@0.11.0",
+  "_shasum": "e90d3928917a35d960436032686e983ccfd4ad71",
+  "_resolved": "file:../d-115714-3781-xehe8s/package.tgz",
+  "_from": "../d-115714-3781-xehe8s/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -204,11 +203,6 @@
         "path": "node_modules/fs-plus/node_modules/rimraf/rimraf.js"
       },
       {
-        "name": "fuzzaldrin",
-        "version": "2.1.0",
-        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
-      },
-      {
         "name": "minimatch",
         "version": "0.3.0",
         "path": "node_modules/minimatch/minimatch.js"
@@ -270,7 +264,6 @@
         "node_modules/fs-plus/node_modules/mkdirp/package.json",
         "node_modules/fs-plus/node_modules/rimraf/package.json",
         "node_modules/fs-plus/package.json",
-        "node_modules/fuzzaldrin/package.json",
         "node_modules/minimatch/node_modules/lru-cache/package.json",
         "node_modules/minimatch/node_modules/sigmund/package.json",
         "node_modules/minimatch/package.json",
@@ -818,10 +811,6 @@
         "node_modules/fs-plus/node_modules/mkdirp/index.js",
         "node_modules/fs-plus/node_modules/rimraf/bin.js",
         "node_modules/fs-plus/node_modules/rimraf/rimraf.js",
-        "node_modules/fuzzaldrin/lib/filter.js",
-        "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
-        "node_modules/fuzzaldrin/lib/matcher.js",
-        "node_modules/fuzzaldrin/lib/scorer.js",
         "node_modules/minimatch/minimatch.js",
         "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/minimatch/node_modules/sigmund/bench.js",
@@ -850,7 +839,6 @@
           "css-color-function": "0.1.x",
           "minimatch": "0.3.x",
           "delegato": "^1.0.0",
-          "fuzzaldrin": "2.x",
           "atom-utils": ">=0.5.0"
         }
       },

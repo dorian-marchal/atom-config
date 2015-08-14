@@ -48,7 +48,9 @@ class ColorBufferElement extends HTMLElement
       @updateMarkers()
 
     @subscriptions.add @editor.onDidChange =>
-      @usedMarkers.forEach (marker) -> marker.checkScreenRange()
+      @usedMarkers.forEach (marker) ->
+        marker.colorMarker.invalidateScreenRangeCache()
+        marker.checkScreenRange()
 
     @subscriptions.add @editor.onDidAddCursor =>
       @requestSelectionUpdate()
@@ -79,6 +81,7 @@ class ColorBufferElement extends HTMLElement
 
   attach: ->
     return if @parentNode?
+    return unless @editorElement?
     @getEditorRoot().querySelector('.lines')?.appendChild(this)
 
   detach: ->
