@@ -59,5 +59,9 @@
 'atom-text-editor[data-grammar="text html basic"]:not([mini]), atom-text-editor[data-grammar~="jade"]:not([mini]), atom-text-editor[data-grammar~="css"]:not([mini]), atom-text-editor[data-grammar~="sass"]:not([mini])':
   'tab': 'snippets:next-tab-stop'
 
+# Fucking emmet !
+'atom-text-editor:not([mini])':
+  'ctrl-,': 'unset!'
+
 '.platform-win32 atom-text-editor, .platform-linux atom-text-editor':
   'ctrl-u': 'unset!'
