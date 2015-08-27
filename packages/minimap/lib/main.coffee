@@ -221,6 +221,11 @@ class Main
   onDidDeactivatePlugin: (callback) ->
     @emitter.on 'did-deactivate-plugin', callback
 
+  # Returns the {Minimap} class.
+  #
+  # Returns a {Function}.
+  minimapClass: -> Minimap ?= require './minimap'
+
   # Returns the {Minimap} object associated to the
   # passed-in `TextEditorElement`.
   #
@@ -252,6 +257,20 @@ class Main
         editorSubscription.dispose()
 
     minimap
+
+  # Returns a new stand-alone {Minimap} for the passed-in `TextEditor`.
+  #
+  # editorView - An `Editor` instance
+  #
+  # Returns a {Minimap}.
+  standAloneMinimapForEditor: (textEditor) ->
+    return unless textEditor?
+
+    Minimap ?= require './minimap'
+    new Minimap({
+      textEditor: atom.workspace.getActiveTextEditor()
+      standAlone: true
+    })
 
   # Returns the {Minimap} of the active `TextEditor`.
   #

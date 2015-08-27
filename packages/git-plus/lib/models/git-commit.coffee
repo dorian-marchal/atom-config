@@ -24,7 +24,7 @@ class GitCommit
   # Returns: The full path to our COMMIT_EDITMSG file as {String}
   filePath: -> Path.join(@repo.getPath(), 'COMMIT_EDITMSG')
 
-  constructor: (@repo, {@amend, @andPush}={}) ->
+  constructor: (@repo, {@amend, @andPush, @stageChanges}={}) ->
     @currentPane = atom.workspace.getActivePane()
     @disposables = new CompositeDisposable
 
@@ -40,6 +40,14 @@ class GitCommit
         if data.trim() isnt ''
           @commentchar = data.trim()
 
+    if @stageChanges
+      git.add @repo,
+        update: true,
+        exit: (code) => @getStagedFiles()
+    else
+      @getStagedFiles()
+
+  getStagedFiles: ->
     git.stagedFiles @repo, (files) =>
       if @amend isnt '' or files.length >= 1
         git.cmd
@@ -134,10 +142,14 @@ class GitCommit
 
   destroyCommitEditor: ->
     @cleanup()
-    atom.workspace.getTextEditors().some (editor) ->
-      if editor.getURI().includes 'COMMIT_EDITMSG'
-        editor.destroy()
-        return true
+    atom.workspace.getPanes().some (pane) ->
+      pane.getItems().some (paneItem) ->
+        if paneItem?.getURI?()?.includes 'COMMIT_EDITMSG'
+          if pane.getItems().length is 1
+            pane.destroy()
+          else
+            paneItem.destroy()
+          return true
 
   # Public: Undo the amend
   #

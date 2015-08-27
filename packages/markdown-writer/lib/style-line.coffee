@@ -3,9 +3,6 @@ utils = require "./utils"
 
 module.exports =
 class StyleLine
-  editor: null
-  style: null
-
   # @style config could contains:
   #
   # - before (required)
@@ -36,7 +33,7 @@ class StyleLine
         # when selection contains multiple rows, apply style to each row
         rows  = selection.getBufferRowRange()
         for row in [rows[0]..rows[1]]
-          selection.cursor.setBufferPosition([row,0])
+          selection.cursor.setBufferPosition([row, 0])
           selection.selectToEndOfLine()
 
           if line = selection.getText()

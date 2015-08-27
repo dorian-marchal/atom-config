@@ -1,6 +1,6 @@
 {
   "name": "atom-bootstrap3",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "description": "Bootstrap 3 Support with snippets and autocompletion. Supports Glyphicons and Fontawesome",
   "activationCommands": {
     "atom-bootstrap3": "toggle"
@@ -20,10 +20,10 @@
     "url": "https://github.com/webBoxio/atom-bootstrap3/issues"
   },
   "homepage": "https://github.com/webBoxio/atom-bootstrap3",
-  "_id": "atom-bootstrap3@1.2.9",
-  "_shasum": "0af90c9519b0210bb1c15e66543b8ece4c889875",
-  "_resolved": "file:../d-115714-3899-1xig8ep/package.tgz",
-  "_from": "../d-115714-3899-1xig8ep/package.tgz",
+  "_id": "atom-bootstrap3@1.2.10",
+  "_shasum": "90ffedb8d4d247df3cb34e1dd863873f93e8dae0",
+  "_resolved": "file:../d-115727-6373-1ipi8ju/package.tgz",
+  "_from": "../d-115727-6373-1ipi8ju/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
