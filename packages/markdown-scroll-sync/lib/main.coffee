@@ -16,10 +16,12 @@ class MarkdownScrlSync
       {$}          = require 'space-pen'
       SubAtom      = require 'sub-atom'
       @subs        = new SubAtom
-      
+
       if not (prvwPkg = atom.packages.getLoadedPackage 'markdown-preview')
-        console.log 'markdown-scroll-sync: markdown-preview package not found'
-        return
+        if not  (prvwPkg = atom.packages.getLoadedPackage 'markdown-preview-plus')
+          console.log 'markdown-scroll-sync: markdown preview packages not found'
+          return
+
       viewPath = pathUtil.join prvwPkg.path, 'lib/markdown-preview-view'
       MarkdownPreviewView  = require viewPath
       
@@ -55,7 +57,7 @@ class MarkdownScrlSync
         
       topRow = Math.min()
       botRow = Math.max()
-      $lines.find('.line').each (idx, ele) =>
+      $lines.find('.line[data-screen-row]').each (idx, ele) =>
         row = $(ele).attr 'data-screen-row'
         topRow = Math.min topRow, row
         botRow = Math.max botRow, row
