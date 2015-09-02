@@ -1,8 +1,7 @@
-{CompositeDisposable} = require 'atom'
-fs = require 'fs'
-Settings = null
-ProjectsListView = null
-ProjectsAddView = null
+Projects = null
+Project = null
+SaveDialog = null
+DB = null
 
 module.exports =
   config:
@@ -31,114 +30,47 @@ module.exports =
         'group'
       ]
 
-  filepath: null
-  subscriptions: null
+  projects: null
+  project: null
+  projectsListView: null
 
   activate: (state) ->
-    @subscriptions = new CompositeDisposable
-    @handleEvents()
+    atom.commands.add 'atom-workspace',
+      'project-manager:list-projects': =>
+        @createProjectListView().toggle()
 
-    fs.exists @file(), (exists) =>
-      unless exists
-        fs.writeFile @file(), '{}', (error) ->
-          if error
-            atom.notifications?.addError "Project Manager", options =
-              details: "Could not create #{@file()}"
-      else
-        @subscribeToProjectsFile()
-        @loadCurrentProject()
+      'project-manager:save-project': ->
+        SaveDialog ?= require './save-dialog'
+        saveDialog = new SaveDialog()
+        saveDialog.attach()
 
-    atom.config.observe 'project-manager.environmentSpecificProjects',
-      (newValue, obj = {}) =>
-        previous = if obj.previous? then obj.previous else newValue
-        unless newValue is previous
-          @updateFile()
-          @subscribeToProjectsFile()
-
-  handleEvents: (state) ->
-    @subscriptions.add atom.commands.add 'atom-workspace',
-      'project-manager:toggle': =>
-        ProjectsListView ?= require './project-manager-view'
-        projectsListView = new ProjectsListView()
-        projectsListView.toggle(@)
-
-      'project-manager:save-project': =>
-        ProjectsAddView ?= require './project-manager-add-view'
-        projectsAddView = new ProjectsAddView()
-        projectsAddView.toggle(@)
-
-      'project-manager:edit-projects': =>
-        atom.workspace.open @file()
+      'project-manager:edit-projects': ->
+        DB ?= require './db'
+        db = new DB()
+        atom.workspace.open db.file()
 
       'project-manager:reload-project-settings': =>
-        @loadCurrentProject()
+        @loadProject()
 
-  file: (update = false) ->
-    @filepath = null if update
+    atom.project.onDidChangePaths @updatePaths
 
-    unless @filepath?
-      filename = 'projects.cson'
-      filedir = atom.getConfigDirPath()
+    @loadProject()
 
-      if atom.config.get('project-manager.environmentSpecificProjects')
-        os = require 'os'
-        hostname = os.hostname().split('.').shift().toLowerCase()
-        filename = "projects.#{hostname}.cson"
+  loadProject: =>
+    Projects ?= require './projects'
+    @projects = new Projects()
+    @projects.getCurrent (project) =>
+      if project
+        @project = project
+        @project.load()
 
-      @filepath = "#{filedir}/#{filename}"
-    @filepath
+  updatePaths: =>
+    paths = atom.project.getPaths()
+    if @project and paths.length
+      @project.set('paths', paths)
 
-  updateFile: ->
-    fs.exists @file(true), (exists) =>
-      unless exists
-        fs.writeFile @file(), '{}', (error) ->
-          if error
-            atom.notifications?.addError "Project Manager", options =
-              details: "Could not create #{@file()}"
-
-  subscribeToProjectsFile: ->
-    @fileWatcher.close() if @fileWatcher?
-    @fileWatcher = fs.watch @file(), (event, filename) =>
-      @loadCurrentProject()
-
-  loadCurrentProject: (done) ->
-    CSON = require 'season'
-    _ = require 'underscore-plus'
-    CSON.readFile @file(), (error, data) =>
-      unless error
-        project = @getCurrentProject(data)
-        if project
-          if project.template? and data[project.template]?
-            project = _.deepExtend(project, data[project.template])
-          Settings ?= require './settings'
-          Settings.enable(project.settings) if project.settings?
-      done?()
-
-  getCurrentProject: (projects) ->
-    for title, project of projects
-      continue if not project.paths?
-      for path in project.paths
-        if path in atom.project.getPaths()
-          return project
-    return false
-
-  addProject: (project) ->
-    CSON = require 'season'
-    projects = CSON.readFileSync(@file()) || {}
-    projects[project.title] = project
-    successMessage = "#{project.title} has been added"
-    errorMessage = "#{project.title} could not be saved to #{@file()}"
-
-    CSON.writeFile @file(), projects, (err) ->
-      unless err
-        atom.notifications?.addSuccess successMessage
-      else
-        atom.notifications?.addError errorMessage
-
-  openProject: (project) ->
-    atom.open options =
-      pathsToOpen: project.paths
-      devMode: project.devMode
-
-  deactivate: ->
-    @subscriptions.dispose()
+  createProjectListView: ->
+    unless @projectListView?
+      ProjectsListView = require './projects-list-view'
+      @projectsListView = new ProjectsListView()
+    @projectsListView

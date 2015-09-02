@@ -1,3 +1,45 @@
+<a name="v0.13.2"></a>
+# v0.13.2 (2015-09-01)
+
+## Bug Fixes
+
+- Fix callback binding in search results ([447fe35b](https://github.com/abe33/atom-pigments/commit/447fe35b45cc9bcf249df46f93bfea68aded4d68))
+
+## Other
+
+- Bump markers version ([9d15495a](https://github.com/abe33/atom-pigments/commit/9d15495a2607f39695dc7430b7863052f2a88a32))
+
+<a name="v0.13.1"></a>
+# v0.13.1 (2015-09-01)
+
+## Bug Fixes
+
+- Fix backslash escaping preventing to open files on windows ([0874de30](https://github.com/abe33/atom-pigments/commit/0874de30e26297aa5ee58221c4de19c0f18c1cf7), [#68](https://github.com/abe33/atom-pigments/issues/68))
+- Fix error raised when a change force a range check on a destroyed marker ([dfcb055d](https://github.com/abe33/atom-pigments/commit/dfcb055d9d0ad417b3bee53a5e7dfadf0586b023), [#74](https://github.com/abe33/atom-pigments/issues/74))
+- Fix error raised when there's no screen line for a marker ([f187e6c8](https://github.com/abe33/atom-pigments/commit/f187e6c88d5d3626187f1da081c7b20e172d1594), [#73](https://github.com/abe33/atom-pigments/issues/73))
+- Fix find view font not following find-and-replace style ([9db9ff28](https://github.com/abe33/atom-pigments/commit/9db9ff283772d7681bb0bfd1bf4433fe83226e01), [#78](https://github.com/abe33/atom-pigments/issues/78))
+- Fix marker classes not properly removed when type change ([3b2b6dd2](https://github.com/abe33/atom-pigments/commit/3b2b6dd29a36ad5b0092212cf29aef0805d6ba14), [#80](https://github.com/abe33/atom-pigments/issues/80))
+- Fix palette using flawed javascript sort ([df242f8f](https://github.com/abe33/atom-pigments/commit/df242f8ff03e4a0f917d968f7a38c556778f9fbe))
+
+<a name="v0.13.0"></a>
+# v0.13.0 (2015-08-31)
+
+## Features
+
+- Implement project settings to ignore global config ([f9d3d168](https://github.com/abe33/atom-pigments/commit/f9d3d168840a7ade4626c0b9c7ad120271225b14))
+- Implement project level support of extended search names ([d5aacf13](https://github.com/abe33/atom-pigments/commit/d5aacf132d7d0336a75dd3a7d4d659a1ef991cb0))
+- Implement falling back to defaults whenever a value is invalid ([135b9564](https://github.com/abe33/atom-pigments/commit/135b9564985f54cad89e722f60634ad13efcc477))
+- Implement sorting paths when building the evaluation context ([91570135](https://github.com/abe33/atom-pigments/commit/915701350a9b49ad730fd7c70b4fc9830b9b84dc), [#79](https://github.com/abe33/atom-pigments/issues/79))  <br>The variables are sorted based on a reference path and end up as below:
+  - variables from the other root paths
+  - variables from the same root path
+  - variables from the same path
+- Implement watching for themes changes when includeThemes is set ([643f3aa6](https://github.com/abe33/atom-pigments/commit/643f3aa6390066bff28d7a273a389d39ea6d1fe9))
+- Add regular expression highlighting in corresponding text editor ([daaa176e](https://github.com/abe33/atom-pigments/commit/daaa176e75c9acfa10a469c2b67da4a3db1b5908))
+
+## Bug Fixes
+
+- Fix ignored scopes not honored on buffer initialization ([a681ebfa](https://github.com/abe33/atom-pigments/commit/a681ebfa381bc54eade1163e9937d5a1f63b8aa3), [#57](https://github.com/abe33/atom-pigments/issues/57))
+
 <a name="v0.12.0"></a>
 # v0.12.0 (2015-08-28)
 

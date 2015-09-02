@@ -1,28 +1,12 @@
-'Test01':
-  'title': 'Test01'
-  'paths': [
-    '/Users/'
+testproject1:
+  title: "Test project 1"
+  group: "Test"
+  paths: [
+    "/Users/project-1"
   ]
-  'settings':
-    'tree-view':
-      'showOnRightSide': true
-    'fuzzy-finder':
-      'ignoredNames': [
-        'test1'
-        'test2'
-        'test3'
-      ]
-'Test02':
-  'title': 'Test02'
-  'paths': [
-    '/Users/'
+testproject2:
+  title: "Test project 2"
+  group: "Test"
+  paths: [
+    "/Users/project-2"
   ]
-  'settings':
-    '*':
-      editor:
-        tabLength: 2
-        preferredLineLength: 80
-    '.source.coffee':
-      editor:
-        tabLength: 4
-        preferredLineLength: 100
