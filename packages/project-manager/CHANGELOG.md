@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.5.1
+- Fixes a bug that would not update a project if the key had changed manually in the `projects.cson`. Not a 100% fix, but will hopefully work for now until a prettier one is around :)
+- Added a notification with a link to a fix for when the `projects.cson` file can't be watched.
+
+## 2.5.0
+- Updated READ ME to be a bit more clear
+- Added cleaning of package commands on deactivation.
+
+## 2.4.0
+Now automatically updates a project and its settings if it's the active project when it has been updated in the `projects.cson` file
+
 ## 2.3.0
 Added services to let other packages get access to the saved projects. Look through the API section of the read me and let me know if you have any questions or you find any bugs with it.
 

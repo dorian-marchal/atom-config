@@ -1,34 +1,28 @@
 {Emitter} = require 'atom'
 CSON = require 'season'
 fs = require 'fs'
+path = require 'path'
 _ = require 'underscore-plus'
 
 module.exports =
 class DB
   filepath: null
-  searchValue: null
-  searchKey: null
 
-  constructor: (searchValue, searchKey) ->
-    @searchValue = searchValue
-    @searchKey = searchKey
+  constructor: (@searchKey, @searchValue) ->
     @emitter = new Emitter
 
     fs.exists @file(), (exists) =>
       unless exists
         @writeFile({})
-        # fs.writeFile @file(), '{}', (error) ->
-        #   if error
-        #     atom.notifications?.addError "Project Manager", options =
-        #       details: "Could not create the file for storing projects"
       else
         @subscribeToProjectsFile()
 
+  setSearchQuery: (@searchKey, @searchValue) ->
+
   # FIND
   # TODO: Add support for @searchValue array
-  find: (callback, filter=true) =>
+  find: (callback) =>
 
-    # CSON.readFile @file(), (error, results) =>
     @readFile (results) =>
       found = false
       projects = []
@@ -40,12 +34,9 @@ class DB
           result = _.deepExtend(result, results[result.template])
         projects.push(result)
 
-      if filter and @searchKey and @searchValue
+      if @searchKey and @searchValue
         for key, project of projects
-          if typeof project[@searchKey] is 'object'
-            if @searchValue in project[@searchKey]
-              found = project
-          else if project[@searchKey] is @searchValue
+          if _.isEqual project[@searchKey], @searchValue
             found = project
       else
         found = projects
@@ -54,7 +45,7 @@ class DB
 
   add: (props, callback) ->
     @readFile (projects) =>
-      id = props.title.replace(/\s+/g, '').toLowerCase()
+      id = @generateID(props.title)
       projects[id] = props
 
       @writeFile projects, () ->
@@ -97,8 +88,19 @@ class DB
 
   subscribeToProjectsFile: =>
     @fileWatcher.close() if @fileWatcher?
-    @fileWatcher = fs.watch @file(), (event, filename) =>
-      @emitter.emit 'db-updated'
+
+    try
+      @fileWatcher = fs.watch @file(), (event, filename) =>
+        @emitter.emit 'db-updated'
+    catch error
+      watchErrorUrl = 'https://github.com/atom/atom/blob/master/docs/build-instructions/linux.md#typeerror-unable-to-watch-path'
+      atom.notifications?.addError """
+        <b>Project Manager</b><br>
+        Could not watch for changes to `#{path.basename(@file())}`.
+        Make sure you have permissions to `#{@file()}`. On linux there
+        can be problems with watch sizes. See <a href='#{watchErrorUrl}'>
+        this document</a> for more info.""",
+        dismissable: true
 
   updateFile: ->
     fs.exists @file(true), (exists) =>
@@ -107,6 +109,9 @@ class DB
           if error
             atom.notifications?.addError "Project Manager", options =
               details: "Could not create the file for storing projects"
+
+  generateID: (string) ->
+    string.replace(/\s+/g, '').toLowerCase()
 
   file: (update=false) ->
     @filepath = null if update

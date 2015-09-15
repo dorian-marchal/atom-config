@@ -1,6 +1,5 @@
 'use babel';
 
-import JSCS from 'jscs';
 import { Range } from 'atom';
 import { findFile } from 'atom-linter';
 import { readFileSync } from 'fs';
@@ -14,7 +13,7 @@ export default class LinterJSCS {
       description: 'Preset option is ignored if a config file is found for the linter.',
       type: 'string',
       default: 'airbnb',
-      enum: ['airbnb', 'crockford', 'google', 'grunt', 'jquery', 'mdcs', 'node-style-guide', 'wikimedia', 'yandex']
+      enum: ['airbnb', 'crockford', 'google', 'grunt', 'jquery', 'mdcs', 'node-style-guide', 'wikimedia', 'wordpress', 'yandex']
     },
     esnext: {
       description: 'Attempts to parse your code as ES6+, JSX, and Flow using the babel-jscs package as the parser.',
@@ -62,6 +61,9 @@ export default class LinterJSCS {
   }
 
   static activate() {
+    // Install dependencies using atom-package-deps
+    require("atom-package-deps").install("linter-jscs");
+
     this.observer = atom.workspace.observeTextEditors((editor) => {
       editor.getBuffer().onWillSave(() => {
         if (this.fixOnSave) {
@@ -81,6 +83,8 @@ export default class LinterJSCS {
       scope: 'file',
       lintOnFly: true,
       lint: (editor) => {
+        const JSCS = require('jscs');
+
         // We need re-initialize JSCS before every lint
         // or it will looses the errors, didn't trace the error
         // must be something with new 2.0.0 JSCS

@@ -1,7 +1,7 @@
 {
   "name": "travis-ci-status",
   "main": "./lib/travis-ci-status",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Add Travis CI status of the project to the Atom status bar. ",
   "repository": {
     "type": "git",
@@ -40,10 +40,10 @@
     "url": "https://github.com/tombell/travis-ci-status/issues"
   },
   "homepage": "https://github.com/tombell/travis-ci-status#readme",
-  "_id": "travis-ci-status@0.17.0",
-  "_shasum": "efc625c1e31c3e8ed7eadbbdfde72af53316bb7c",
-  "_resolved": "file:../d-115731-10049-260xqi/package.tgz",
-  "_from": "../d-115731-10049-260xqi/package.tgz",
+  "_id": "travis-ci-status@0.18.0",
+  "_shasum": "7581d0116c9c6e7ece2019151a0dac35f2fdf292",
+  "_resolved": "file:../d-115815-13887-1mycyko/package.tgz",
+  "_from": "../d-115815-13887-1mycyko/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

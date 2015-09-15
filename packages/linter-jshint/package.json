@@ -1,15 +1,15 @@
 {
   "name": "linter-jshint",
   "main": "./lib/main",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Linter plugin for JavaScript, using jshint",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AtomLinter/linter-jshint.git"
+    "url": "git+https://github.com/AtomLinter/linter-jshint.git"
   },
   "license": "MIT",
   "dependencies": {
-    "atom-linter": "^2.0.0",
+    "atom-linter": "^3.2.0",
     "jshint": "^2.8",
     "jshint-json": "^1.0.0"
   },
@@ -25,14 +25,24 @@
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-jshint/issues"
   },
-  "homepage": "https://github.com/AtomLinter/linter-jshint",
-  "_id": "linter-jshint@1.1.5",
-  "_shasum": "88b05c931774a18913de317b9c969df38b91eff4",
-  "_resolved": "file:../d-115710-11433-r9406l/package.tgz",
-  "_from": "../d-115710-11433-r9406l/package.tgz",
+  "homepage": "https://github.com/AtomLinter/linter-jshint#readme",
+  "_id": "linter-jshint@1.2.0",
+  "_shasum": "137255442c143facc9be6f4b568c26144a960a6e",
+  "_resolved": "file:../d-115815-13855-1757vcm/package.tgz",
+  "_from": "../d-115815-13855-1757vcm/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
+      {
+        "name": "tmp",
+        "version": "0.0.27",
+        "path": "node_modules/atom-linter/node_modules/tmp/lib/tmp.js"
+      },
+      {
+        "name": "os-tmpdir",
+        "version": "1.0.1",
+        "path": "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js"
+      },
       {
         "name": "xregexp",
         "version": "2.0.0",
@@ -65,7 +75,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.5",
+        "version": "2.7.0",
         "path": "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -197,6 +207,8 @@
     "extensions": {
       ".json": [
         "coffeelint.json",
+        "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/package.json",
+        "node_modules/atom-linter/node_modules/tmp/package.json",
         "node_modules/atom-linter/node_modules/xregexp/package.json",
         "node_modules/atom-linter/package.json",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/package.json",
@@ -250,6 +262,8 @@
         "node_modules/jshint/node_modules/cli/examples/static.coffee"
       ],
       ".js": [
+        "node_modules/atom-linter/node_modules/tmp/lib/tmp.js",
+        "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js",
         "node_modules/atom-linter/node_modules/xregexp/xregexp-all.js",
         "node_modules/jshint/data/ascii-identifier-data.js",
         "node_modules/jshint/data/non-ascii-identifier-part-only.js",
@@ -795,9 +809,31 @@
           "lib"
         ],
         "dependencies": {
-          "atom-linter": "^2.0.0",
+          "atom-linter": "^3.2.0",
           "jshint": "^2.8",
           "jshint-json": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-linter/lib",
+          "node_modules/atom-linter",
+          "node_modules/atom-linter/spec/fixtures",
+          "node_modules/atom-linter/spec"
+        ],
+        "dependencies": {
+          "xregexp": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-linter/node_modules/tmp/lib",
+          "node_modules/atom-linter/node_modules/tmp",
+          "node_modules/atom-linter/node_modules/tmp/test",
+          "node_modules/atom-linter/node_modules/tmp/test/symlinkme"
+        ],
+        "dependencies": {
+          "os-tmpdir": "~1.0.0"
         }
       },
       {

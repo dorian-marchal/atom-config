@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.13.2",
+  "version": "0.15.0",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -50,10 +50,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments#readme",
-  "_id": "pigments@0.13.2",
-  "_shasum": "b1111607f5207f3e51f4dd245317802aee375615",
-  "_resolved": "file:../d-11582-5649-srhuez/package.tgz",
-  "_from": "../d-11582-5649-srhuez/package.tgz",
+  "_id": "pigments@0.15.0",
+  "_shasum": "8535c1fc4ec7020bbabbb9c062440d2ae5abb1f1",
+  "_resolved": "file:../d-115815-13873-j3eb03/package.tgz",
+  "_from": "../d-115815-13873-j3eb03/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -189,7 +189,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.5",
+        "version": "2.7.0",
         "path": "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
