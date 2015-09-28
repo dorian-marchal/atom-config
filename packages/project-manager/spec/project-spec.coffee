@@ -80,11 +80,9 @@ describe "Project", ->
       expect(project.props.title).toBe ''
       project.set('title', 'test')
       expect(project.props.title).toBe 'test'
-      expect(project.propsToSave).toContain 'title'
 
       project.unset('title')
       expect(project.props.title).toBe ''
-      expect(project.propsToSave).not.toContain 'title'
 
 
   describe "::save", ->
@@ -100,6 +98,14 @@ describe "Project", ->
 
     it "does not save if not valid", ->
       expect(project.save()).toBe false
+
+    it "only saves settings that isn't default", ->
+      props = {
+        title: 'Test'
+        paths: ['/Users/test']
+      }
+      project = new Project(props)
+      expect(project.getPropsToSave()).toEqual props
 
     it "saves project if _id isn't set", ->
       project.set('title', 'Test')

@@ -11,14 +11,23 @@ getJSON = (uri, succeed, error) ->
   $.getJSON(uri).done(succeed).fail(error)
 
 regexpEscape = (str) ->
-  str && str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+  return "" unless str
+  str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
 dasherize = (str) ->
+  return "" unless str
   str.trim().toLowerCase().replace(/[^-\w\s]|_/g, "").replace(/\s+/g, "-")
 
 getPackagePath = (segments...) ->
   segments.unshift(atom.packages.resolvePackagePath("markdown-writer"))
   path.join.apply(null, segments)
+
+# ==================================================
+# General View Helpers
+#
+
+setTabIndex = (elems) ->
+  elem[0].tabIndex = i + 1 for elem, i in elems
 
 # ==================================================
 # Template
@@ -80,12 +89,10 @@ SLUG_REGEX = ///
   ///
 
 getTitleSlug = (str) ->
-  str = path.basename(str, path.extname(str))
+  return "" unless str
 
-  if matches = SLUG_REGEX.exec(str)
-    matches[2]
-  else
-    str
+  str = path.basename(str, path.extname(str))
+  if matches = SLUG_REGEX.exec(str) then matches[2] else str
 
 # ==================================================
 # Image HTML Tag
@@ -210,8 +217,8 @@ parseReferenceDefinition = (input, editor) ->
 TABLE_SEPARATOR_REGEX = /// ^
   (\|)?                # starts with an optional |
   (
-   (?:\s*:?-+:?\s*\|)+ # one or more table cell
-   (?:\s*:?-+:?\s*)    # last table cell
+   (?:\s*(?:-+|:-*:|:-*|-*:)\s*\|)+ # one or more table cell
+   (?:\s*(?:-+|:-*:|:-*|-*:)\s*)    # last table cell
   )
   (\|)?                # ends with an optional |
   $ ///
@@ -242,7 +249,8 @@ parseTableSeparator = (line) ->
         "left"
       else if tail
         "right"
-      else "empty"
+      else
+        "empty"
   }
 
 TABLE_ROW_REGEX = /// ^
@@ -284,6 +292,12 @@ createTableSeparator = (options) ->
   for i in [0..options.numOfColumns - 1]
     columnWidth = options.columnWidths[i] || options.columnWidth
 
+    # empty spaces will be inserted when join pipes, so need to compensate here
+    if !options.extraPipes && (i == 0 || i == options.numOfColumns - 1)
+      columnWidth += 1
+    else
+      columnWidth += 2
+
     switch options.alignments[i] || options.alignment
       when "center"
         row.push(":" + "-".repeat(columnWidth - 2) + ":")
@@ -313,16 +327,13 @@ createTableRow = (columns, options) ->
   for i in [0..options.numOfColumns - 1]
     columnWidth = options.columnWidths[i] || options.columnWidth
 
-    if !options.extraPipes && (i == 0 || i == options.numOfColumns - 1)
-      columnWidth -= 1
-    else
-      columnWidth -= 2
-
     if !columns[i]
       row.push(" ".repeat(columnWidth))
       continue
 
     len = columnWidth - wcswidth(columns[i])
+    throw new Error("Column width #{columnWidth} - wcswidth('#{columns[i]}') cannot be #{len}") if len < 0
+
     switch options.alignments[i] || options.alignment
       when "center"
         row.push(" ".repeat(len / 2) + columns[i] + " ".repeat((len + 1) / 2))
@@ -404,6 +415,8 @@ module.exports =
   regexpEscape: regexpEscape
   dasherize: dasherize
   getPackagePath: getPackagePath
+
+  setTabIndex: setTabIndex
 
   dirTemplate: dirTemplate
   template: template

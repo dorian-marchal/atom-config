@@ -1,7 +1,7 @@
 {
   "name": "minimap",
   "main": "./lib/main",
-  "version": "4.13.3",
+  "version": "4.13.4",
   "private": true,
   "description": "A preview of the full source code.",
   "author": {
@@ -53,10 +53,10 @@
     "url": "https://github.com/atom-minimap/minimap/issues"
   },
   "homepage": "https://github.com/atom-minimap/minimap#readme",
-  "_id": "minimap@4.13.3",
-  "_shasum": "e0f81c929293dcd64ae8e97a9b7cb8f02492eea2",
-  "_resolved": "file:../d-115815-13863-1slr65l/package.tgz",
-  "_from": "../d-115815-13863-1slr65l/package.tgz",
+  "_id": "minimap@4.13.4",
+  "_shasum": "7c9a3066113df135a367a94b658f13343c426ba8",
+  "_resolved": "file:../d-115828-14180-w2xgk0/package.tgz",
+  "_from": "../d-115828-14180-w2xgk0/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

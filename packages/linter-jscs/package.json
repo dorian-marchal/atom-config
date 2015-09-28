@@ -1,6 +1,6 @@
 {
   "name": "linter-jscs",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "main": "index.js",
   "description": "Linter plugin for JavaScript, using JSCS",
   "repository": {
@@ -14,9 +14,7 @@
   "dependencies": {
     "atom-linter": "^3.0.0",
     "atom-package-deps": "^2.0.2",
-    "jscs": "^2.0.0",
-    "strip-json-comments": "^1.0.2",
-    "user-home": "^2.0.0"
+    "jscs": "^2.0.0"
   },
   "package-deps": [
     "linter"
@@ -34,16 +32,16 @@
     "url": "https://github.com/AtomLinter/linter-jscs/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jscs#readme",
-  "_id": "linter-jscs@2.0.5",
-  "_shasum": "d97da31687ff115e2193a45876269000600c6cb6",
-  "_resolved": "file:../d-115815-13848-1m5qcxg/package.tgz",
-  "_from": "../d-115815-13848-1m5qcxg/package.tgz",
+  "_id": "linter-jscs@3.0.0",
+  "_shasum": "a8b2f2c7c36db47bbc52ac6da5d37f70ad615224",
+  "_resolved": "file:../d-115828-14149-qxqcuh/package.tgz",
+  "_from": "../d-115828-14149-qxqcuh/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "tmp",
-        "version": "0.0.27",
+        "version": "0.0.28",
         "path": "node_modules/atom-linter/node_modules/tmp/lib/tmp.js"
       },
       {
@@ -58,7 +56,7 @@
       },
       {
         "name": "atom-package-deps",
-        "version": "2.1.2",
+        "version": "2.1.3",
         "path": "node_modules/atom-package-deps/lib/main.js"
       },
       {
@@ -68,7 +66,7 @@
       },
       {
         "name": "babel-core",
-        "version": "5.8.24",
+        "version": "5.8.25",
         "path": "node_modules/jscs/node_modules/babel-core/index.js"
       },
       {
@@ -158,7 +156,7 @@
       },
       {
         "name": "bluebird",
-        "version": "2.10.0",
+        "version": "2.10.1",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/bluebird/js/main/bluebird.js"
       },
       {
@@ -168,7 +166,7 @@
       },
       {
         "name": "core-js",
-        "version": "1.1.4",
+        "version": "1.2.0",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/core-js/index.js"
       },
       {
@@ -368,7 +366,7 @@
       },
       {
         "name": "iconv-lite",
-        "version": "0.4.11",
+        "version": "0.4.12",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/commoner/node_modules/iconv-lite/lib/index.js"
       },
       {
@@ -473,23 +471,33 @@
       },
       {
         "name": "regexpu",
-        "version": "1.2.0",
+        "version": "1.3.0",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/regexpu.js"
       },
       {
+        "name": "esprima",
+        "version": "2.6.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/esprima.js"
+      },
+      {
         "name": "recast",
-        "version": "0.10.32",
+        "version": "0.10.33",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/main.js"
       },
       {
         "name": "ast-types",
-        "version": "0.8.11",
+        "version": "0.8.12",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/ast-types/main.js"
       },
       {
         "name": "esprima-fb",
         "version": "15001.1001.0-dev-harmony-fb",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/esprima.js"
+      },
+      {
+        "name": "source-map",
+        "version": "0.5.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/source-map.js"
       },
       {
         "name": "regenerate",
@@ -658,7 +666,7 @@
       },
       {
         "name": "glob",
-        "version": "5.0.14",
+        "version": "5.0.15",
         "path": "node_modules/jscs/node_modules/glob/glob.js"
       },
       {
@@ -773,7 +781,7 @@
       },
       {
         "name": "brace-expansion",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "path": "node_modules/jscs/node_modules/minimatch/node_modules/brace-expansion/index.js"
       },
       {
@@ -905,6 +913,11 @@
         "name": "resolve",
         "version": "1.1.6",
         "path": "node_modules/jscs/node_modules/resolve/index.js"
+      },
+      {
+        "name": "strip-json-comments",
+        "version": "1.0.4",
+        "path": "node_modules/jscs/node_modules/strip-json-comments/strip-json-comments.js"
       },
       {
         "name": "to-double-quotes",
@@ -1095,26 +1108,12 @@
         "name": "lodash",
         "version": "3.10.1",
         "path": "node_modules/jscs/node_modules/xmlbuilder/node_modules/lodash/index.js"
-      },
-      {
-        "name": "strip-json-comments",
-        "version": "1.0.4",
-        "path": "node_modules/strip-json-comments/strip-json-comments.js"
-      },
-      {
-        "name": "user-home",
-        "version": "2.0.0",
-        "path": "node_modules/user-home/index.js"
-      },
-      {
-        "name": "os-homedir",
-        "version": "1.0.1",
-        "path": "node_modules/user-home/node_modules/os-homedir/index.js"
       }
     ],
     "extensions": {
       ".js": [
         "index.js",
+        "node_modules/atom-linter/node_modules/tmp/Gruntfile.js",
         "node_modules/atom-linter/node_modules/tmp/lib/tmp.js",
         "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js",
         "node_modules/atom-linter/node_modules/xregexp/xregexp-all.js",
@@ -1935,9 +1934,12 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/js/index.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.a-function.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.an-object.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.array-copy-within.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.array-fill.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.array-includes.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.array-methods.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.assign.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.buffer.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.classof.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.cof.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.collection-strong.js",
@@ -1951,6 +1953,7 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.dom-create.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.enum-keys.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.expm1.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.fails-is-regexp.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.fails.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.fix-re-wks.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.flags.js",
@@ -1963,8 +1966,10 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.invoke.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.iobject.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.is-array-iter.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.is-array.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.is-integer.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.is-object.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.is-regexp.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.iter-call.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.iter-create.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.iter-define.js",
@@ -2107,6 +2112,8 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.string.starts-with.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.string.trim.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.symbol.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.typed-arrays.array-buffer.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.typed-arrays.data-view.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.weak-map.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es6.weak-set.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/es7.array.includes.js",
@@ -2132,9 +2139,12 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/web/timers.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.a-function.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.an-object.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.array-copy-within.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.array-fill.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.array-includes.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.array-methods.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.assign.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.buffer.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.classof.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.cof.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.collection-strong.js",
@@ -2148,6 +2158,7 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.dom-create.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.enum-keys.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.expm1.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.fails-is-regexp.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.fails.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.fix-re-wks.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.flags.js",
@@ -2160,8 +2171,10 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.invoke.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.iobject.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.is-array-iter.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.is-array.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.is-integer.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.is-object.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.is-regexp.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.iter-call.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.iter-create.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.iter-define.js",
@@ -2304,6 +2317,8 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.string.starts-with.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.string.trim.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.symbol.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.typed-arrays.array-buffer.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.typed-arrays.data-view.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.weak-map.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es6.weak-set.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/es7.array.includes.js",
@@ -2959,6 +2974,9 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/runtime-module.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/runtime.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/data/character-class-escape-sets.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/bin/esparse.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/bin/esvalidate.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/esprima.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/lib/comments.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/lib/fast-path.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/lib/lines.js",
@@ -2989,6 +3007,17 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/bin/esparse.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/bin/esvalidate.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/esprima.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/array-set.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/base64-vlq.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/base64.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/binary-search.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/mapping-list.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/quick-sort.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/source-map-consumer.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/source-map-generator.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/source-node.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/util.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/source-map.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regenerate/regenerate.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regenerate/x.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regjsgen/regjsgen.js",
@@ -3671,6 +3700,8 @@
         "node_modules/jscs/node_modules/resolve/lib/core.js",
         "node_modules/jscs/node_modules/resolve/lib/node-modules-paths.js",
         "node_modules/jscs/node_modules/resolve/lib/sync.js",
+        "node_modules/jscs/node_modules/strip-json-comments/cli.js",
+        "node_modules/jscs/node_modules/strip-json-comments/strip-json-comments.js",
         "node_modules/jscs/node_modules/to-double-quotes/cli.js",
         "node_modules/jscs/node_modules/to-double-quotes/index.js",
         "node_modules/jscs/node_modules/to-double-quotes/node_modules/get-stdin/index.js",
@@ -4160,11 +4191,7 @@
         "node_modules/jscs/node_modules/xmlbuilder/node_modules/lodash/utility.js",
         "node_modules/jscs/patterns/L.js",
         "node_modules/jscs/patterns/Ll.js",
-        "node_modules/jscs/patterns/Lu.js",
-        "node_modules/strip-json-comments/cli.js",
-        "node_modules/strip-json-comments/strip-json-comments.js",
-        "node_modules/user-home/index.js",
-        "node_modules/user-home/node_modules/os-homedir/index.js"
+        "node_modules/jscs/patterns/Lu.js"
       ],
       ".coffee": [
         "node_modules/atom-linter/lib/helpers.coffee",
@@ -4279,8 +4306,10 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/through/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/data/iu-mappings.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/ast-types/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regenerate/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regjsgen/package.json",
@@ -4376,6 +4405,7 @@
         "node_modules/jscs/node_modules/reserved-words/package.json",
         "node_modules/jscs/node_modules/resolve/lib/core.json",
         "node_modules/jscs/node_modules/resolve/package.json",
+        "node_modules/jscs/node_modules/strip-json-comments/package.json",
         "node_modules/jscs/node_modules/to-double-quotes/node_modules/get-stdin/package.json",
         "node_modules/jscs/node_modules/to-double-quotes/node_modules/meow/node_modules/camelcase-keys/node_modules/camelcase/package.json",
         "node_modules/jscs/node_modules/to-double-quotes/node_modules/meow/node_modules/camelcase-keys/node_modules/map-obj/package.json",
@@ -4429,9 +4459,6 @@
         "node_modules/jscs/presets/wikimedia.json",
         "node_modules/jscs/presets/wordpress.json",
         "node_modules/jscs/presets/yandex.json",
-        "node_modules/strip-json-comments/package.json",
-        "node_modules/user-home/node_modules/os-homedir/package.json",
-        "node_modules/user-home/package.json",
         "package.json"
       ]
     },
@@ -4443,9 +4470,7 @@
         "dependencies": {
           "atom-linter": "^3.0.0",
           "atom-package-deps": "^2.0.2",
-          "jscs": "^2.0.0",
-          "strip-json-comments": "^1.0.2",
-          "user-home": "^2.0.0"
+          "jscs": "^2.0.0"
         }
       },
       {
@@ -4461,13 +4486,13 @@
       },
       {
         "paths": [
-          "node_modules/atom-linter/node_modules/tmp/lib",
           "node_modules/atom-linter/node_modules/tmp",
+          "node_modules/atom-linter/node_modules/tmp/lib",
           "node_modules/atom-linter/node_modules/tmp/test",
           "node_modules/atom-linter/node_modules/tmp/test/symlinkme"
         ],
         "dependencies": {
-          "os-tmpdir": "~1.0.0"
+          "os-tmpdir": "~1.0.1"
         }
       },
       {
@@ -4819,7 +4844,8 @@
           "node_modules/jscs/node_modules/babel-core/node_modules/regexpu"
         ],
         "dependencies": {
-          "recast": "^0.10.6",
+          "esprima": "^2.6.0",
+          "recast": "^0.10.10",
           "regenerate": "^1.2.1",
           "regjsgen": "^0.2.0",
           "regjsparser": "^0.1.4"
@@ -4832,9 +4858,9 @@
         ],
         "dependencies": {
           "esprima-fb": "~15001.1001.0-dev-harmony-fb",
-          "source-map": "~0.4.4",
+          "source-map": "~0.5.0",
           "private": "~0.1.5",
-          "ast-types": "0.8.11"
+          "ast-types": "0.8.12"
         }
       },
       {
@@ -4957,7 +4983,7 @@
         "dependencies": {
           "inflight": "^1.0.4",
           "inherits": "2",
-          "minimatch": "^2.0.1",
+          "minimatch": "2 || 3",
           "once": "^1.3.0",
           "path-is-absolute": "^1.0.0"
         }
@@ -5055,8 +5081,7 @@
       },
       {
         "paths": [
-          "node_modules/jscs/node_modules/minimatch/node_modules/brace-expansion",
-          "node_modules/jscs/node_modules/minimatch/node_modules/brace-expansion/test"
+          "node_modules/jscs/node_modules/minimatch/node_modules/brace-expansion"
         ],
         "dependencies": {
           "balanced-match": "^0.2.0",
@@ -5315,14 +5340,6 @@
         ],
         "dependencies": {
           "lodash": "^3.5.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/user-home"
-        ],
-        "dependencies": {
-          "os-homedir": "^1.0.0"
         }
       }
     ]
