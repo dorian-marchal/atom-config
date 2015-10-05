@@ -47,6 +47,7 @@
   'ctrl-k ctrl-w': 'editor:toggle-soft-wrap'
   'ctrl-f2': 'bookmarks:toggle-bookmark'
   'ctrl-e': 'emmet:expand-abbreviation'
+  'ctrl-b': 'blame:toggle'
 
 'body':
   'ctrl-q': 'unset!'
@@ -65,3 +66,10 @@
 
 '.platform-win32 atom-text-editor, .platform-linux atom-text-editor':
   'ctrl-u': 'unset!'
+
+# Ctags go to declaration
+'.platform-linux atom-text-editor':
+  'ctrl-alt-down': 'unset!'
+  'ctrl-shift-down': 'atom-ctags:go-to-declaration'
+  'ctrl-alt-up': 'unset!'
+  'ctrl-shift-up': 'atom-ctags:return-from-declaration'

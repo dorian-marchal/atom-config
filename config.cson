@@ -14,6 +14,8 @@
       "spell-check"
       "jshint"
       "indent-guide-improved"
+      "background-tips"
+      "symbols-view"
     ]
     ignoredNames: [
       "node_modules"
@@ -90,6 +92,8 @@
     extend_double_slash: false
     align_tags: "no"
     deep_indent: true
+    spacer_between_sections: true
+    per_section_indent: true
   "merge-conflicts": {}
   "markdown-preview":
     useGitHubStyle: true
@@ -116,6 +120,16 @@
   "git-plus": {}
   "tree-view": {}
   "php-getters-setters": {}
+  "remote-sync":
+    difftoolCommand: "meld"
+  "atom-ctags":
+    GotoSymbolKey: [
+      "ctrl"
+      "shift"
+    ]
+  "atom-autocomplete-php": {}
+  "git-blame": {}
+  blame: {}
 ".js.regexp.source":
   editor:
     preferredLineLength: 80
