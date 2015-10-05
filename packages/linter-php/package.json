@@ -1,7 +1,7 @@
 {
   "name": "linter-php",
   "main": "./lib/main",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Lint PHP on the fly, using php -l",
   "repository": {
     "type": "git",
@@ -28,10 +28,10 @@
     "url": "https://github.com/AtomLinter/linter-php/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-php#readme",
-  "_id": "linter-php@1.0.4",
-  "_shasum": "540c3a173801b7ba6d0a8385d043fdc368e7715e",
-  "_resolved": "file:../d-115828-14158-2cswfj/package.tgz",
-  "_from": "../d-115828-14158-2cswfj/package.tgz",
+  "_id": "linter-php@1.0.5",
+  "_shasum": "261bfd572a1a4b0dae0d172338b97f9e0d9c3df3",
+  "_resolved": "file:../d-11595-17632-72iikc/package.tgz",
+  "_from": "../d-11595-17632-72iikc/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

@@ -10,7 +10,7 @@ module.exports =
       order: 1
 
     ignoredMessageTypes:
-      title: "Ignored message Types"
+      title: 'Ignored message Types'
       type: 'array'
       default: []
       items:
@@ -23,8 +23,24 @@ module.exports =
       type: 'boolean'
       default: true
       order: 3
+    gutterEnabled:
+      title: 'Highlight error lines in gutter'
+      type: 'boolean'
+      default: true
+      order: 3
+    gutterPosition:
+      title: 'Position of gutter highlights'
+      enum: ['Left', 'Right']
+      default: 'Right'
+      order: 3
+      type: 'string'
     underlineIssues:
       title: 'Underline Issues'
+      type: 'boolean'
+      default: true
+      order: 3
+    showProviderName:
+      title: 'Show Provider Name (when available)'
       type: 'boolean'
       default: true
       order: 3
@@ -58,7 +74,7 @@ module.exports =
       default: true
       order: 5
     statusIconScope:
-      title: "Scope of messages to show in status icon"
+      title: 'Scope of messages to show in status icon'
       type: 'string'
       enum: ['File', 'Line', 'Project']
       default: 'Project'
@@ -73,14 +89,6 @@ module.exports =
   activate: (@state) ->
     LinterPlus = require('./linter.coffee')
     @instance = new LinterPlus state
-    {deprecate} = require('grim')
-    for atomPackage in atom.packages.getLoadedPackages()
-      deprecate('AtomLinter legacy API has been removed.
-        Please refer to the Linter docs to update and the latest API:
-        https://github.com/atom-community/linter/wiki/Migrating-to-the-new-API', {
-        packageName: atomPackage.name
-      }) if atomPackage.metadata['linter-package']
-
 
   serialize: ->
     @state

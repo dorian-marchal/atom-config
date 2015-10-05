@@ -1,5 +1,6 @@
 'use babel'
 
+const Interact = require('interact.js')
 import {CompositeDisposable} from 'atom'
 import {Message} from './message-element'
 
@@ -7,6 +8,7 @@ export class BottomPanel {
   constructor(scope) {
     this.subscriptions = new CompositeDisposable
     this.element = document.createElement('linter-panel') // TODO(steelbrain): Make this a `div`
+    this.element.tabIndex = "-1"
     this.panel = atom.workspace.addBottomPanel({item: this.element, visible: false, priority: 500})
     this.visibility = false
     this.scope = scope
@@ -20,6 +22,19 @@ export class BottomPanel {
       this.paneVisibility = paneItem === atom.workspace.getActiveTextEditor()
       this.setVisibility(true)
     }))
+
+    Interact(this.element).resizable({edges: { top: true }})
+      .on('resizemove', function (event) {
+        var target = event.target;
+        if (event.rect.height < 25) {
+          if (event.rect.height < 1) {
+            target.style.width = target.style.height = null
+          } else return // No-Op
+        } else {
+          target.style.width  = event.rect.width + 'px'
+          target.style.height = event.rect.height + 'px'
+        }
+      })
   }
   refresh(scope) {
     this.scope = scope

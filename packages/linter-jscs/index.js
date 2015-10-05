@@ -36,7 +36,7 @@ export default class LinterJSCS {
       title: 'Display errors as',
       type: 'string',
       default: 'error',
-      enum: ['error', 'warning']
+      enum: ['error', 'warning', 'jscs Warning', 'jscs Error']
     }
   }
 
@@ -81,6 +81,7 @@ export default class LinterJSCS {
 
   static provideLinter() {
     return {
+      name: 'JSCS',
       grammarScopes,
       scope: 'file',
       lintOnFly: true,

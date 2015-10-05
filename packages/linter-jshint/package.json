@@ -1,7 +1,7 @@
 {
   "name": "linter-jshint",
   "main": "./lib/main",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Linter plugin for JavaScript, using jshint",
   "repository": {
     "type": "git",
@@ -26,16 +26,16 @@
     "url": "https://github.com/AtomLinter/linter-jshint/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jshint#readme",
-  "_id": "linter-jshint@1.2.0",
-  "_shasum": "137255442c143facc9be6f4b568c26144a960a6e",
-  "_resolved": "file:../d-115815-13855-1757vcm/package.tgz",
-  "_from": "../d-115815-13855-1757vcm/package.tgz",
+  "_id": "linter-jshint@1.2.1",
+  "_shasum": "074fc2ed2e275c25bc99cd8dc07c42012419dece",
+  "_resolved": "file:../d-11595-17618-1v9838d/package.tgz",
+  "_from": "../d-11595-17618-1v9838d/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "tmp",
-        "version": "0.0.27",
+        "version": "0.0.28",
         "path": "node_modules/atom-linter/node_modules/tmp/lib/tmp.js"
       },
       {
@@ -175,7 +175,7 @@
       },
       {
         "name": "brace-expansion",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "path": "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/index.js"
       },
       {
@@ -262,6 +262,7 @@
         "node_modules/jshint/node_modules/cli/examples/static.coffee"
       ],
       ".js": [
+        "node_modules/atom-linter/node_modules/tmp/Gruntfile.js",
         "node_modules/atom-linter/node_modules/tmp/lib/tmp.js",
         "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js",
         "node_modules/atom-linter/node_modules/xregexp/xregexp-all.js",
@@ -827,13 +828,13 @@
       },
       {
         "paths": [
-          "node_modules/atom-linter/node_modules/tmp/lib",
           "node_modules/atom-linter/node_modules/tmp",
+          "node_modules/atom-linter/node_modules/tmp/lib",
           "node_modules/atom-linter/node_modules/tmp/test",
           "node_modules/atom-linter/node_modules/tmp/test/symlinkme"
         ],
         "dependencies": {
-          "os-tmpdir": "~1.0.0"
+          "os-tmpdir": "~1.0.1"
         }
       },
       {
@@ -968,8 +969,7 @@
       },
       {
         "paths": [
-          "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion",
-          "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion/test"
+          "node_modules/jshint/node_modules/minimatch/node_modules/brace-expansion"
         ],
         "dependencies": {
           "balanced-match": "^0.2.0",
