@@ -7,3 +7,4 @@ dev
 projects.cson
 /packages/save-session/projects/*
 nohup.out
+/remoteEdit.json
