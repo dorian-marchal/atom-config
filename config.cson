@@ -66,7 +66,6 @@
   "spell-check": {}
   tabs: {}
   pigments:
-    markerType: "dot"
     extendAutocompleteToVariables: false
   "autocomplete-plus": {}
   emmet: {}
@@ -130,6 +129,8 @@
   "atom-autocomplete-php": {}
   "git-blame": {}
   blame: {}
+  "remote-edit":
+    rememberLastOpenDirectory: true
 ".js.regexp.source":
   editor:
     preferredLineLength: 80

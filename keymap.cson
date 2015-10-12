@@ -48,9 +48,13 @@
   'ctrl-f2': 'bookmarks:toggle-bookmark'
   'ctrl-e': 'emmet:expand-abbreviation'
   'ctrl-b': 'blame:toggle'
+  'ctrl-enter': 'toggle-markdown-task:toggle'
+  'ctrl-shift-O': 'link:open'
 
 'body':
   'ctrl-q': 'unset!'
+  # Avoid overring ctrl+shift+o = open link
+  'ctrl-shift-O': 'unset!'
 
  # Stop emmet from hijacking tab from snippets and autocomplete
 'atom-text-editor.autocomplete-active:not([mini])':
