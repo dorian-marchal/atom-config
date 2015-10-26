@@ -1,6 +1,6 @@
 {
   "name": "linter-jscs",
-  "version": "3.1.0",
+  "version": "3.1.2",
   "main": "index.js",
   "description": "Linter plugin for JavaScript, using JSCS",
   "repository": {
@@ -32,10 +32,10 @@
     "url": "https://github.com/AtomLinter/linter-jscs/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jscs#readme",
-  "_id": "linter-jscs@3.1.0",
-  "_shasum": "404abdec3d4fec4b49756df398fcf5ed680c0bec",
-  "_resolved": "file:../d-11595-17606-69ykns/package.tgz",
-  "_from": "../d-11595-17606-69ykns/package.tgz",
+  "_id": "linter-jscs@3.1.2",
+  "_shasum": "4e33fa872c97b1be8411e89b950706d781336630",
+  "_resolved": "file:../d-115926-8509-93f9ba/package.tgz",
+  "_from": "../d-115926-8509-93f9ba/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -61,12 +61,12 @@
       },
       {
         "name": "jscs",
-        "version": "2.2.1",
+        "version": "2.4.0",
         "path": "node_modules/jscs/lib/checker.js"
       },
       {
         "name": "babel-core",
-        "version": "5.8.25",
+        "version": "5.8.29",
         "path": "node_modules/jscs/node_modules/babel-core/index.js"
       },
       {
@@ -151,7 +151,7 @@
       },
       {
         "name": "babylon",
-        "version": "5.8.23",
+        "version": "5.8.29",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/babylon/lib/index.js"
       },
       {
@@ -166,7 +166,7 @@
       },
       {
         "name": "core-js",
-        "version": "1.2.1",
+        "version": "1.2.3",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/core-js/index.js"
       },
       {
@@ -296,7 +296,7 @@
       },
       {
         "name": "regenerator",
-        "version": "0.8.35",
+        "version": "0.8.40",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/main.js"
       },
       {
@@ -386,7 +386,7 @@
       },
       {
         "name": "defs",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/build/es5/defs-main.js"
       },
       {
@@ -408,11 +408,6 @@
         "name": "breakable",
         "version": "1.0.0",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/breakable/breakable.js"
-      },
-      {
-        "name": "esprima-fb",
-        "version": "8001.1001.0-dev-harmony-fb",
-        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/esprima-fb/esprima.js"
       },
       {
         "name": "simple-fmt",
@@ -441,22 +436,127 @@
       },
       {
         "name": "yargs",
-        "version": "1.3.3",
+        "version": "3.27.0",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/index.js"
       },
       {
+        "name": "camelcase",
+        "version": "1.2.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/camelcase/index.js"
+      },
+      {
+        "name": "cliui",
+        "version": "2.1.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/index.js"
+      },
+      {
+        "name": "center-align",
+        "version": "0.1.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/index.js"
+      },
+      {
+        "name": "align-text",
+        "version": "0.1.3",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/index.js"
+      },
+      {
+        "name": "kind-of",
+        "version": "2.0.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of/index.js"
+      },
+      {
+        "name": "is-buffer",
+        "version": "1.1.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of/node_modules/is-buffer/index.js"
+      },
+      {
+        "name": "longest",
+        "version": "1.0.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/longest/index.js"
+      },
+      {
+        "name": "repeat-string",
+        "version": "1.5.2",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/repeat-string/index.js"
+      },
+      {
+        "name": "right-align",
+        "version": "0.1.3",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/index.js"
+      },
+      {
+        "name": "align-text",
+        "version": "0.1.3",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/index.js"
+      },
+      {
+        "name": "kind-of",
+        "version": "2.0.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of/index.js"
+      },
+      {
+        "name": "is-buffer",
+        "version": "1.1.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of/node_modules/is-buffer/index.js"
+      },
+      {
+        "name": "longest",
+        "version": "1.0.1",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/longest/index.js"
+      },
+      {
+        "name": "repeat-string",
+        "version": "1.5.2",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/repeat-string/index.js"
+      },
+      {
+        "name": "wordwrap",
+        "version": "0.0.2",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/wordwrap/index.js"
+      },
+      {
+        "name": "decamelize",
+        "version": "1.1.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/decamelize/index.js"
+      },
+      {
+        "name": "os-locale",
+        "version": "1.4.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/index.js"
+      },
+      {
+        "name": "lcid",
+        "version": "1.0.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/index.js"
+      },
+      {
+        "name": "invert-kv",
+        "version": "1.0.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/node_modules/invert-kv/index.js"
+      },
+      {
+        "name": "window-size",
+        "version": "0.1.2",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/window-size/index.js"
+      },
+      {
+        "name": "y18n",
+        "version": "3.2.0",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/y18n/index.js"
+      },
+      {
         "name": "esprima-fb",
-        "version": "15001.1.0-dev-harmony-fb",
+        "version": "15001.1001.0-dev-harmony-fb",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/esprima-fb/esprima.js"
       },
       {
         "name": "recast",
-        "version": "0.10.24",
+        "version": "0.10.33",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/recast/main.js"
       },
       {
         "name": "ast-types",
-        "version": "0.8.5",
+        "version": "0.8.12",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/recast/node_modules/ast-types/main.js"
       },
       {
@@ -471,12 +571,12 @@
       },
       {
         "name": "esprima",
-        "version": "2.6.0",
+        "version": "2.7.0",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/esprima.js"
       },
       {
         "name": "recast",
-        "version": "0.10.33",
+        "version": "0.10.34",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/main.js"
       },
       {
@@ -488,11 +588,6 @@
         "name": "esprima-fb",
         "version": "15001.1001.0-dev-harmony-fb",
         "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/esprima.js"
-      },
-      {
-        "name": "source-map",
-        "version": "0.5.1",
-        "path": "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/source-map.js"
       },
       {
         "name": "regenerate",
@@ -541,13 +636,8 @@
       },
       {
         "name": "source-map",
-        "version": "0.4.4",
-        "path": "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map.js"
-      },
-      {
-        "name": "amdefine",
-        "version": "1.0.0",
-        "path": "node_modules/jscs/node_modules/babel-core/node_modules/source-map/node_modules/amdefine/amdefine.js"
+        "version": "0.5.3",
+        "path": "node_modules/jscs/node_modules/babel-core/node_modules/source-map/source-map.js"
       },
       {
         "name": "source-map-support",
@@ -581,7 +671,7 @@
       },
       {
         "name": "babel-jscs",
-        "version": "2.0.4",
+        "version": "2.0.5",
         "path": "node_modules/jscs/node_modules/babel-jscs/index.js"
       },
       {
@@ -706,7 +796,7 @@
       },
       {
         "name": "es6-map",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/index.js"
       },
       {
@@ -722,22 +812,7 @@
       {
         "name": "es6-iterator",
         "version": "2.0.0",
-        "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "3.0.0",
-        "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
-      },
-      {
-        "name": "es6-iterator",
-        "version": "0.1.3",
         "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "2.0.1",
-        "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js"
       },
       {
         "name": "es6-set",
@@ -745,18 +820,8 @@
         "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/index.js"
       },
       {
-        "name": "es6-iterator",
-        "version": "2.0.0",
-        "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/index.js"
-      },
-      {
         "name": "es6-symbol",
-        "version": "3.0.0",
-        "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "0.1.1",
+        "version": "3.0.1",
         "path": "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/index.js"
       },
       {
@@ -786,7 +851,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.0",
+        "version": "3.0.1",
         "path": "node_modules/jscs/node_modules/escope/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -816,7 +881,7 @@
       },
       {
         "name": "estraverse",
-        "version": "4.1.0",
+        "version": "4.1.1",
         "path": "node_modules/jscs/node_modules/estraverse/estraverse.js"
       },
       {
@@ -926,7 +991,7 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.4.2",
+        "version": "3.4.3",
         "path": "node_modules/jscs/node_modules/js-yaml/index.js"
       },
       {
@@ -941,7 +1006,7 @@
       },
       {
         "name": "esprima",
-        "version": "2.2.0",
+        "version": "2.7.0",
         "path": "node_modules/jscs/node_modules/js-yaml/node_modules/esprima/esprima.js"
       },
       {
@@ -1016,7 +1081,7 @@
       },
       {
         "name": "balanced-match",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "path": "node_modules/jscs/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js"
       },
       {
@@ -1041,7 +1106,7 @@
       },
       {
         "name": "pkginfo",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "path": "node_modules/jscs/node_modules/prompt/node_modules/pkginfo/lib/pkginfo.js"
       },
       {
@@ -1273,6 +1338,7 @@
         "node_modules/jscs/lib/rules/disallow-dangling-underscores.js",
         "node_modules/jscs/lib/rules/disallow-empty-blocks.js",
         "node_modules/jscs/lib/rules/disallow-function-declarations.js",
+        "node_modules/jscs/lib/rules/disallow-identical-destructuring-names.js",
         "node_modules/jscs/lib/rules/disallow-identifier-names.js",
         "node_modules/jscs/lib/rules/disallow-implicit-type-conversion.js",
         "node_modules/jscs/lib/rules/disallow-keywords-in-comments.js",
@@ -1285,6 +1351,7 @@
         "node_modules/jscs/lib/rules/disallow-multiple-spaces.js",
         "node_modules/jscs/lib/rules/disallow-multiple-var-decl.js",
         "node_modules/jscs/lib/rules/disallow-named-unassigned-functions.js",
+        "node_modules/jscs/lib/rules/disallow-nested-ternaries.js",
         "node_modules/jscs/lib/rules/disallow-newline-before-block-statements.js",
         "node_modules/jscs/lib/rules/disallow-node-types.js",
         "node_modules/jscs/lib/rules/disallow-not-operators-in-conditionals.js",
@@ -1302,6 +1369,7 @@
         "node_modules/jscs/lib/rules/disallow-semicolons.js",
         "node_modules/jscs/lib/rules/disallow-shorthand-arrow-functions.js",
         "node_modules/jscs/lib/rules/disallow-space-after-binary-operators.js",
+        "node_modules/jscs/lib/rules/disallow-space-after-comma.js",
         "node_modules/jscs/lib/rules/disallow-space-after-keywords.js",
         "node_modules/jscs/lib/rules/disallow-space-after-line-comment.js",
         "node_modules/jscs/lib/rules/disallow-space-after-object-keys.js",
@@ -1335,6 +1403,7 @@
         "node_modules/jscs/lib/rules/jsdoc.js",
         "node_modules/jscs/lib/rules/maximum-line-length.js",
         "node_modules/jscs/lib/rules/maximum-number-of-lines.js",
+        "node_modules/jscs/lib/rules/require-aligned-multiline-params.js",
         "node_modules/jscs/lib/rules/require-aligned-object-values.js",
         "node_modules/jscs/lib/rules/require-anonymous-functions.js",
         "node_modules/jscs/lib/rules/require-arrow-functions.js",
@@ -1372,6 +1441,7 @@
         "node_modules/jscs/lib/rules/require-semicolons.js",
         "node_modules/jscs/lib/rules/require-shorthand-arrow-functions.js",
         "node_modules/jscs/lib/rules/require-space-after-binary-operators.js",
+        "node_modules/jscs/lib/rules/require-space-after-comma.js",
         "node_modules/jscs/lib/rules/require-space-after-keywords.js",
         "node_modules/jscs/lib/rules/require-space-after-line-comment.js",
         "node_modules/jscs/lib/rules/require-space-after-object-keys.js",
@@ -2128,6 +2198,7 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.set-proto.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.shared.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.sign.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.species-constructor.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.species.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.strict-new.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/library/modules/$.string-at.js",
@@ -2343,6 +2414,7 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.set-proto.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.shared.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.sign.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.species-constructor.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.species.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.strict-new.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/core-js/modules/$.string-at.js",
@@ -2634,9 +2706,6 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/breakable/breakable.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/breakable/examples/example-explicit.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/breakable/examples/example.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/esprima-fb/bin/esparse.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/esprima-fb/bin/esvalidate.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/esprima-fb/esprima.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/simple-fmt/simple-fmt.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/simple-is/simple-is.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/stringmap/examples.js",
@@ -2644,30 +2713,35 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/stringset/examples.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/stringset/stringset.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/tryor/tryor.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/bool.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/boolean_double.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/boolean_single.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/count.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/default_hash.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/default_singles.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/demand_count.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/divide.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/help.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/implies.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/implies_hash.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/line_count.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/line_count_options.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/line_count_wrap.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/nonopt.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/requires_arg.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/short.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/strict.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/string.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/usage-options.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/example/xup.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/index.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib/minimist.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib/wordwrap.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib/completion.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib/parser.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib/usage.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib/validation.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/camelcase/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of/node_modules/is-buffer/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/longest/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/repeat-string/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of/node_modules/is-buffer/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/longest/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/repeat-string/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/wordwrap/example/center.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/wordwrap/example/meat.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/wordwrap/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/decamelize/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/node_modules/invert-kv/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/window-size/cli.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/window-size/index.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/y18n/index.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/options.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/other/v8-bug.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/other/v8-for-in-scope-2.js",
@@ -2742,17 +2816,6 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/bin/esparse.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/bin/esvalidate.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/esprima.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/array-set.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/base64-vlq.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/base64.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/binary-search.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/mapping-list.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/quick-sort.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/source-map-consumer.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/source-map-generator.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/source-node.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/lib/util.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/source-map.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regenerate/regenerate.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regenerate/x.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regjsgen/regjsgen.js",
@@ -2768,24 +2831,20 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/repeating/node_modules/is-finite/node_modules/number-is-nan/index.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/shebang-regex/index.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/slash/index.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/build/assert-shim.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/build/mini-require.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/build/suffix-browser.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/build/test-prefix.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/build/test-suffix.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/array-set.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/base64-vlq.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/base64.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/binary-search.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/mapping-list.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/quick-sort.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/source-map-consumer.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/source-map-generator.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/source-node.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map/util.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/node_modules/amdefine/amdefine.js",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/node_modules/amdefine/intercept.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/dist/source-map.debug.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/dist/source-map.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/dist/source-map.min.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/array-set.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/base64-vlq.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/base64.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/binary-search.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/mapping-list.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/quick-sort.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map-consumer.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map-generator.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-node.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/util.js",
+        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/source-map.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/source-map-support/amd-test/browser-source-map-support.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/source-map-support/amd-test/require.js",
         "node_modules/jscs/node_modules/babel-core/node_modules/source-map-support/amd-test/script.js",
@@ -3086,21 +3145,6 @@
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/math/trunc/index.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/math/trunc/is-implemented.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/math/trunc/shim.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/#/chain.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/array.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/for-of.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/get.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/index.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/is-iterable.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/string.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/valid-iterable.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/implement.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/index.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/polyfill.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/number/#/index.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/number/#/pad.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/number/epsilon/implement.js",
@@ -3277,13 +3321,6 @@
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/get.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/index.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/is-iterable.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/implement.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/polyfill.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/string.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/valid-iterable.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/ext/copy.js",
@@ -3299,21 +3336,6 @@
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/is-set.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/lib/iterator.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/lib/primitive-iterator.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/#/chain.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/array.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/for-of.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/get.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/index.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/is-iterable.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/string.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/valid-iterable.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/implement.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/index.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/polyfill.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/polyfill.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/primitive/index.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/valid-set.js",
@@ -3323,7 +3345,7 @@
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/is-native-implemented.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/is-symbol.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/polyfill.js",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/valid-symbol.js",
+        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/event-emitter/all-off.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/event-emitter/benchmark/many-on.js",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/event-emitter/benchmark/single-on.js",
@@ -4579,7 +4601,9 @@
         "node_modules/jscs/node_modules/xmlbuilder/lib/index.js",
         "node_modules/jscs/patterns/L.js",
         "node_modules/jscs/patterns/Ll.js",
-        "node_modules/jscs/patterns/Lu.js"
+        "node_modules/jscs/patterns/Lu.js",
+        "node_modules/jscs/patterns/identifiers-ES5.js",
+        "node_modules/jscs/patterns/identifiers-ES6.js"
       ],
       ".coffee": [
         "node_modules/atom-linter/lib/helpers.coffee",
@@ -4680,12 +4704,41 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/ast-traverse/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/ast-traverse/tst/tst-ast.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/breakable/package.json",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/esprima-fb/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/simple-fmt/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/simple-is/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/stringmap/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/stringset/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/tryor/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/de.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/en.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/es.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/fr.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/ja.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/pirate.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/pt.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales/zh.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/camelcase/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of/node_modules/is-buffer/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/longest/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/repeat-string/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of/node_modules/is-buffer/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/longest/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/repeat-string/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/wordwrap/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/decamelize/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/lcid.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/node_modules/invert-kv/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/window-size/package.json",
+        "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/y18n/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/esprima-fb/package.json",
@@ -4697,7 +4750,6 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/esprima/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/ast-types/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/esprima-fb/package.json",
-        "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/node_modules/source-map/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/recast/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regenerate/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/regexpu/node_modules/regjsgen/package.json",
@@ -4709,7 +4761,6 @@
         "node_modules/jscs/node_modules/babel-core/node_modules/repeating/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/shebang-regex/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/slash/package.json",
-        "node_modules/jscs/node_modules/babel-core/node_modules/source-map/node_modules/amdefine/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/source-map/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/source-map-support/node_modules/source-map/node_modules/amdefine/package.json",
         "node_modules/jscs/node_modules/babel-core/node_modules/source-map-support/node_modules/source-map/package.json",
@@ -4745,13 +4796,8 @@
         "node_modules/jscs/node_modules/commander/package.json",
         "node_modules/jscs/node_modules/escope/bower.json",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/d/package.json",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/package.json",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/package.json",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/package.json",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/package.json",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/package.json",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/package.json",
-        "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/package.json",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/package.json",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/package.json",
         "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/event-emitter/package.json",
@@ -4957,10 +5003,11 @@
           "estraverse": "^4.1.0",
           "exit": "~0.1.2",
           "glob": "^5.0.1",
+          "htmlparser2": "3.8.3",
           "js-yaml": "~3.4.0",
           "jscs-jsdoc": "1.2.0",
-          "lodash": "~3.10.0",
           "jsonlint": "~1.6.2",
+          "lodash": "~3.10.0",
           "minimatch": "~2.0.1",
           "natural-compare": "~1.2.2",
           "pathval": "~0.1.1",
@@ -4973,8 +5020,7 @@
           "to-single-quotes": "^1.0.2",
           "vow": "~0.4.8",
           "vow-fs": "~0.3.4",
-          "xmlbuilder": "^2.6.1",
-          "htmlparser2": "3.8.3"
+          "xmlbuilder": "^2.6.1"
         }
       },
       {
@@ -5031,7 +5077,7 @@
           "babel-plugin-runtime": "^1.0.7",
           "babel-plugin-undeclared-variables-check": "^1.0.2",
           "babel-plugin-undefined-to-void": "^1.1.6",
-          "babylon": "^5.8.23",
+          "babylon": "^5.8.29",
           "bluebird": "^2.9.33",
           "chalk": "^1.0.0",
           "convert-source-map": "^1.1.0",
@@ -5052,13 +5098,13 @@
           "path-exists": "^1.0.0",
           "path-is-absolute": "^1.0.0",
           "private": "^0.1.6",
-          "regenerator": "0.8.35",
-          "regexpu": "^1.1.2",
+          "regenerator": "0.8.40",
+          "regexpu": "^1.3.0",
           "repeating": "^1.1.2",
           "resolve": "^1.1.6",
           "shebang-regex": "^1.0.0",
           "slash": "^1.0.0",
-          "source-map": "^0.4.0",
+          "source-map": "^0.5.0",
           "source-map-support": "^0.2.10",
           "to-fast-properties": "^1.0.0",
           "trim-right": "^1.0.0",
@@ -5161,12 +5207,12 @@
           "node_modules/jscs/node_modules/babel-core/node_modules/regenerator"
         ],
         "dependencies": {
-          "commoner": "~0.10.0",
+          "commoner": "~0.10.3",
           "defs": "~1.1.0",
-          "esprima-fb": "~15001.1.0-dev-harmony-fb",
+          "esprima-fb": "~15001.1001.0-dev-harmony-fb",
           "private": "~0.1.5",
-          "recast": "0.10.24",
-          "through": "~2.3.6"
+          "recast": "0.10.33",
+          "through": "~2.3.8"
         }
       },
       {
@@ -5254,13 +5300,13 @@
           "alter": "~0.2.0",
           "ast-traverse": "~0.1.1",
           "breakable": "~1.0.0",
-          "esprima-fb": "~8001.1001.0-dev-harmony-fb",
+          "esprima-fb": "~15001.1001.0-dev-harmony-fb",
           "simple-fmt": "~0.1.0",
           "simple-is": "~0.2.0",
           "stringmap": "~0.2.2",
           "stringset": "~0.2.1",
           "tryor": "~0.1.2",
-          "yargs": "~1.3.2"
+          "yargs": "~3.27.0"
         }
       },
       {
@@ -5274,14 +5320,108 @@
       },
       {
         "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs",
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/lib",
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/locales"
+        ],
+        "dependencies": {
+          "camelcase": "^1.2.1",
+          "cliui": "^2.1.0",
+          "decamelize": "^1.0.0",
+          "os-locale": "^1.4.0",
+          "window-size": "^0.1.2",
+          "y18n": "^3.2.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui",
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/test"
+        ],
+        "dependencies": {
+          "center-align": "^0.1.1",
+          "right-align": "^0.1.1",
+          "wordwrap": "0.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align"
+        ],
+        "dependencies": {
+          "align-text": "^0.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text"
+        ],
+        "dependencies": {
+          "kind-of": "^2.0.0",
+          "longest": "^1.0.1",
+          "repeat-string": "^1.5.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/center-align/node_modules/align-text/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align"
+        ],
+        "dependencies": {
+          "align-text": "^0.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text"
+        ],
+        "dependencies": {
+          "kind-of": "^2.0.0",
+          "longest": "^1.0.1",
+          "repeat-string": "^1.5.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/cliui/node_modules/right-align/node_modules/align-text/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale"
+        ],
+        "dependencies": {
+          "lcid": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/os-locale/node_modules/lcid"
+        ],
+        "dependencies": {
+          "invert-kv": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
           "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/recast/lib",
           "node_modules/jscs/node_modules/babel-core/node_modules/regenerator/node_modules/recast"
         ],
         "dependencies": {
-          "esprima-fb": "~15001.1.0-dev-harmony-fb",
-          "source-map": "~0.4.1",
+          "esprima-fb": "~15001.1001.0-dev-harmony-fb",
+          "source-map": "~0.5.0",
           "private": "~0.1.5",
-          "ast-types": "0.8.5"
+          "ast-types": "0.8.12"
         }
       },
       {
@@ -5331,17 +5471,6 @@
         ],
         "dependencies": {
           "number-is-nan": "^1.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/babel-core/node_modules/source-map/build",
-          "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib/source-map",
-          "node_modules/jscs/node_modules/babel-core/node_modules/source-map/lib",
-          "node_modules/jscs/node_modules/babel-core/node_modules/source-map"
-        ],
-        "dependencies": {
-          "amdefine": ">=0.0.4"
         }
       },
       {
@@ -5486,11 +5615,11 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4",
-          "es6-iterator": "~0.1.1",
-          "es6-set": "~0.1.1",
-          "es6-symbol": "~0.1.1",
-          "event-emitter": "~0.3.1"
+          "es5-ext": "~0.10.8",
+          "es6-iterator": "2",
+          "es6-set": "~0.1.2",
+          "es6-symbol": "3",
+          "event-emitter": "~0.3.4"
         }
       },
       {
@@ -5664,48 +5793,15 @@
       },
       {
         "paths": [
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/#",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/test/#",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-iterator/test"
-        ],
-        "dependencies": {
-          "d": "^0.1.1",
-          "es5-ext": "^0.10.7",
-          "es6-symbol": "3"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es5-ext/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.7"
-        }
-      },
-      {
-        "paths": [
           "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/#",
           "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator",
           "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/test/#",
           "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/test"
         ],
         "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5",
-          "es6-symbol": "~2.0.1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-iterator/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
+          "d": "^0.1.1",
+          "es5-ext": "^0.10.7",
+          "es6-symbol": "3"
         }
       },
       {
@@ -5729,35 +5825,12 @@
       },
       {
         "paths": [
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/#",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/test/#",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-iterator/test"
-        ],
-        "dependencies": {
-          "d": "^0.1.1",
-          "es5-ext": "^0.10.7",
-          "es6-symbol": "3"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol",
-          "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-set/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.7"
-        }
-      },
-      {
-        "paths": [
           "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol",
           "node_modules/jscs/node_modules/escope/node_modules/es6-map/node_modules/es6-symbol/test"
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4"
+          "es5-ext": "~0.10.8"
         }
       },
       {
@@ -5972,7 +6045,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.7"
+          "es5-ext": "~0.10.8"
         }
       },
       {
@@ -6109,8 +6182,8 @@
           "node_modules/jscs/node_modules/js-yaml/lib"
         ],
         "dependencies": {
-          "argparse": "~1.0.2",
-          "esprima": "~2.2.0"
+          "argparse": "^1.0.2",
+          "esprima": "^2.6.0"
         }
       },
       {

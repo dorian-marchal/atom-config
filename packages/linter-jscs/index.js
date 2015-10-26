@@ -13,7 +13,7 @@ export default class LinterJSCS {
       description: 'Preset option is ignored if a config file is found for the linter.',
       type: 'string',
       default: 'airbnb',
-      enum: ['airbnb', 'crockford', 'google', 'grunt', 'jquery', 'mdcs', 'node-style-guide', 'wikimedia', 'wordpress', 'yandex']
+      enum: ['airbnb', 'crockford', 'google', 'grunt', 'idiomatic', 'jquery', 'mdcs', 'node-style-guide', 'wikimedia', 'wordpress', 'yandex']
     },
     esnext: {
       description: 'Attempts to parse your code as ES6+, JSX, and Flow using the babel-jscs package as the parser.',
@@ -138,6 +138,8 @@ export default class LinterJSCS {
     const fixedText = this.jscs.fixString(text, path).output;
     if (text === fixedText) return;
 
-    return editor.setText(fixedText);
+    const cursorPosition = editor.getCursorScreenPosition();
+    editor.setText(fixedText);
+    editor.setCursorScreenPosition(cursorPosition);
   }
 };
