@@ -16,6 +16,7 @@
       "indent-guide-improved"
       "background-tips"
       "symbols-view"
+      "markdown-scroll-sync"
     ]
     ignoredNames: [
       "node_modules"

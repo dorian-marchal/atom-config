@@ -41,6 +41,7 @@
   'ctrl-k ctrl-g': 'grammar-selector:show'
   'ctrl-f12': 'terminal-status:toggle'
   'ctrl-shift-f2': 'copy-filename:copy-open-file-filename'
+  'ctrl-alt-shift-f2': 'editor:copy-path'
   'ctrl-up': 'add-line-break:add-line-break-after'
   'ctrl-down': 'add-line-break:add-line-break-before'
   'ctrl-k ctrl-s': 'editor:log-cursor-scope'
