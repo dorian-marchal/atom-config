@@ -46,20 +46,20 @@ class Minimap
         config: 'editor.scrollPastEnd'
         value: @scrollPastEnd
       })
-    subs.add atom.config.observe 'minimap.charHeight', (@charHeight) =>
+    subs.add atom.config.observe 'minimap.charHeight', (@configCharHeight) =>
       @emitter.emit('did-change-config', {
         config: 'minimap.charHeight'
-        value: @charHeight
+        value: @getCharHeight()
       })
-    subs.add atom.config.observe 'minimap.charWidth', (@charWidth) =>
+    subs.add atom.config.observe 'minimap.charWidth', (@configCharWidth) =>
       @emitter.emit('did-change-config', {
         config: 'minimap.charWidth'
-        value: @charWidth
+        value: @getCharWidth()
       })
-    subs.add atom.config.observe 'minimap.interline', (@interline) =>
+    subs.add atom.config.observe 'minimap.interline', (@configInterline) =>
       @emitter.emit('did-change-config', {
         config: 'minimap.interline'
-        value: @interline
+        value: @getInterline()
       })
 
     subs.add @adapter.onDidChangeScrollTop =>
@@ -92,6 +92,9 @@ class Minimap
     @emitter.dispose()
     @destroyed = true
 
+  # Returns `true` when this `Minimap` has benn destroyed.
+  #
+  # Returns a {Boolean}.
   isDestroyed: -> @destroyed
 
   # Calls the `callback` when changes have been made in the buffer or in the
@@ -208,12 +211,26 @@ class Minimap
   # Returns a {Number}.
   getTextEditorMaxScrollTop: -> @adapter.getMaxScrollTop()
 
+  # Returns the scroll top of the `TextEditor`.
+  #
+  # Returns a {Number}.
   getTextEditorScrollTop: -> @adapter.getScrollTop()
 
+  # Sets the scroll top of the `TextEditor`.
+  #
+  # scrollTop - The new scroll top {Number}.
+  #
+  # Returns a {Number}.
   setTextEditorScrollTop: (scrollTop) -> @adapter.setScrollTop(scrollTop)
 
+  # Returns the scroll left of the `TextEditor`.
+  #
+  # Returns a {Number}.
   getTextEditorScrollLeft: -> @adapter.getScrollLeft()
 
+  # Returns the height of the `TextEditor`.
+  #
+  # Returns a {Number}.
   getTextEditorHeight: -> @adapter.getHeight()
 
   # Returns the `TextEditor` scroll as a value normalized between `0` and `1`.
@@ -305,22 +322,49 @@ class Minimap
   # Returns the height of a line in the {Minimap} in pixels.
   #
   # Returns a {Number}.
-  getLineHeight: -> @charHeight + @interline
+  getLineHeight: -> @getCharHeight() + @getInterline()
 
   # Returns the width of a character in the {Minimap} in pixels.
   #
   # Returns a {Number}.
-  getCharWidth: -> @charWidth
+  getCharWidth: -> @charWidth ? @configCharWidth
+
+  # Sets the char width for this `Minimap`. This value will override the
+  # value from the config for this instance only. A `did-change-config` event
+  # is dispatched.
+  #
+  # charWidth - The char width {Number}.
+  setCharWidth: (charWidth) ->
+    @charWidth = Math.floor(charWidth)
+    @emitter.emit('did-change-config')
 
   # Returns the height of a character in the {Minimap} in pixels.
   #
   # Returns a {Number}.
-  getCharHeight: -> @charHeight
+  getCharHeight: -> @charHeight ? @configCharHeight
+
+  # Sets the char height for this `Minimap`. This value will override the
+  # value from the config for this instance only. A `did-change-config` event
+  # is dispatched.
+  #
+  # charHeight - The char height {Number}.
+  setCharHeight: (charHeight) ->
+    @charHeight = Math.floor(charHeight)
+    @emitter.emit('did-change-config')
 
   # Returns the space between lines in the {Minimap} in pixels.
   #
   # Returns a {Number}.
-  getInterline: -> @interline
+  getInterline: -> @interline ? @configInterline
+
+  # Sets the interline for this `Minimap`. This value will override the
+  # value from the config for this instance only. A `did-change-config` event
+  # is dispatched.
+  #
+  # interline - The interline {Number}.
+  setInterline: (interline) ->
+    @interline = Math.floor(interline)
+    @emitter.emit('did-change-config')
 
   # Returns the index of the first visible row in the {Minimap}.
   #

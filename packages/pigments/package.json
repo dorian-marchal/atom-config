@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -50,10 +50,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments#readme",
-  "_id": "pigments@0.18.0",
-  "_shasum": "57dd646dbc12f6d6e3577a87587b636c297cc20f",
-  "_resolved": "file:../d-115926-8485-1g6csik/package.tgz",
-  "_from": "../d-115926-8485-1g6csik/package.tgz",
+  "_id": "pigments@0.18.1",
+  "_shasum": "cae722d7a1e89db1704dc9217c38e70fe52a5c7f",
+  "_resolved": "file:../d-115101-20555-11a6of2/package.tgz",
+  "_from": "../d-115101-20555-11a6of2/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -64,7 +64,7 @@
       },
       {
         "name": "atom-utils",
-        "version": "0.6.3",
+        "version": "0.7.4",
         "path": "node_modules/atom-utils/lib/atom-utils.js"
       },
       {
@@ -121,6 +121,11 @@
         "name": "property-accessors",
         "version": "1.1.3",
         "path": "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js"
+      },
+      {
+        "name": "grim",
+        "version": "2.0.0",
+        "path": "node_modules/atom-utils/node_modules/grim/lib/grim.js"
       },
       {
         "name": "mixto",
@@ -234,6 +239,7 @@
         "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/package.json",
         "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/package.json",
         "node_modules/atom-utils/node_modules/event-kit/package.json",
+        "node_modules/atom-utils/node_modules/grim/package.json",
         "node_modules/atom-utils/node_modules/mixto/package.json",
         "node_modules/atom-utils/package.json",
         "node_modules/css-color-function/node_modules/balanced-match/package.json",
@@ -309,11 +315,15 @@
       ".js": [
         "node_modules/async/lib/async.js",
         "node_modules/atom-utils/lib/atom-utils.js",
+        "node_modules/atom-utils/lib/custom-elements-updater.js",
+        "node_modules/atom-utils/lib/mixins/ancestors-methods.js",
         "node_modules/atom-utils/lib/mixins/ancestors.js",
         "node_modules/atom-utils/lib/mixins/disposable-events.js",
         "node_modules/atom-utils/lib/mixins/events-delegation.js",
+        "node_modules/atom-utils/lib/mixins/index.js",
         "node_modules/atom-utils/lib/mixins/resize-detection.js",
         "node_modules/atom-utils/lib/mixins/space-pen-dsl.js",
+        "node_modules/atom-utils/lib/register-or-update-element.js",
         "node_modules/atom-utils/node_modules/event-kit/lib/composite-disposable.js",
         "node_modules/atom-utils/node_modules/event-kit/lib/disposable.js",
         "node_modules/atom-utils/node_modules/event-kit/lib/emitter.js",
@@ -746,6 +756,8 @@
         "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/polyfill.js",
         "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/valid-weak-map.js",
         "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js",
+        "node_modules/atom-utils/node_modules/grim/lib/deprecation.js",
+        "node_modules/atom-utils/node_modules/grim/lib/grim.js",
         "node_modules/atom-utils/node_modules/mixto/lib/mixin.js",
         "node_modules/css-color-function/lib/adjusters.js",
         "node_modules/css-color-function/lib/convert.js",
@@ -817,7 +829,8 @@
         ],
         "dependencies": {
           "event-kit": "^1",
-          "mixto": "^1"
+          "mixto": "^1",
+          "grim": "^2"
         }
       },
       {
@@ -1085,6 +1098,15 @@
         "dependencies": {
           "mixto": "1.x",
           "es6-weak-map": "^0.1.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-utils/node_modules/grim/lib",
+          "node_modules/atom-utils/node_modules/grim"
+        ],
+        "dependencies": {
+          "event-kit": "^1.4.1"
         }
       },
       {

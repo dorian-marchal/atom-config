@@ -7,7 +7,7 @@ checkSnippet = (tag)->
     
 tagToSuggestion = (tag)->
   text: tag.name
-  displayText: tag.pattern
+  displayText: tag.pattern.substring(2, tag.pattern.length-2)
   type: tag.kind
   snippet: checkSnippet(tag)
     
@@ -19,6 +19,8 @@ class CtagsProvider
   prefix_opt = {wordRegex: /[a-zA-Z0-9_]+[\.\:]/}
 
   getSuggestions: ({editor, bufferPosition, scopeDescriptor, prefix}) ->
+    return [] if @disabled
+
     if prefix == "." or prefix == ":"
       prefix = editor.getWordUnderCursor(prefix_opt)
 

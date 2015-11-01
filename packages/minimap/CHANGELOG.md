@@ -1,3 +1,31 @@
+<a name="v4.16.0"></a>
+# v4.16.0 (2015-11-01)
+
+## :sparkles: Features
+
+- Implement new custom elements registration to allow updates ([f5ab5e36](https://github.com/atom-minimap/minimap/commit/f5ab5e36b85cb39b43c9f4f66737f3aacdddebbc))
+- Implement removing unused elements in stand-alone minimap ([72e7a90e](https://github.com/atom-minimap/minimap/commit/72e7a90e9ec18b78acc7a5ca96ac27298008b4e1))
+- Add custom render settings on a per-minimal basis ([4eed31af](https://github.com/atom-minimap/minimap/commit/4eed31afd1908c1b4a4ed0a3f42ef5b5165c9db7))
+
+## :arrow_up: Dependencies Update
+
+- Bump atom-utils version ([b4fc2d94](https://github.com/atom-minimap/minimap/commit/b4fc2d94ed6bdeedf8cb53068a7e8b716c3c6b84))
+
+<a name="v4.15.2"></a>
+# v4.15.2 (2015-10-31)
+
+## :bug: Bug Fixes
+
+- Fix minimap broken with changes in flex box behaviour ([0c9389d8](https://github.com/atom-minimap/minimap/commit/0c9389d8141de337dec32724f85ec9d58271124d))
+- Fix deprecations in tests ([3bb81d39](https://github.com/atom-minimap/minimap/commit/3bb81d39261271347dfb4bd58873879b0262659d))
+
+<a name="v4.15.1"></a>
+# v4.15.1 (2015-10-30)
+
+## :bug: Bug Fixes
+
+- Fix unusual issue if an invisible char is not a string ([f261d5ad](https://github.com/atom-minimap/minimap/commit/f261d5ad3396455d4c0beb1ce4f98520c51cb9a5), [#397](https://github.com/atom-minimap/minimap/issues/397))
+
 <a name="v4.15.0"></a>
 # v4.15.0 (2015-10-22)
 
