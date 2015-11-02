@@ -25,6 +25,7 @@
       ".cordova"
       "bower_components"
       "platforms"
+      ".tag*"
     ]
     themes: [
       "atom-dark-ui"
@@ -37,6 +38,7 @@
     tabLength: 4
     scrollPastEnd: true
     showIndentGuide: true
+    fontSize: 15
   minimap:
     plugins:
       "git-diff": true
