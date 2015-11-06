@@ -1,6 +1,6 @@
 {
   "name": "remote-sync",
-  "version": "3.1.2",
+  "version": "3.3.0",
   "description": "Upload your files to remote host after every change. Both SCP/SFTP and FTP are supported.",
   "license": "MIT",
   "repository": {
@@ -21,16 +21,16 @@
     "fs-plus": "^2.1",
     "ftp": "^0.3.7"
   },
-  "readme": "# Atom Remote Sync [![Make a donation via Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lx1988cyk%40gmail%2ecom&lc=US&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)\n\nThis package provides functionality for:\n\n* Uploading changes automatically when you save a file\n* Uploading/downloading files to/from the server\n* Displaying diffs between the local and remote files with your favourite diff tool\n* set difftoolPath in AtomSettingView of `remote-sync` — The path to your diff tool executable\n\nCurrently, both SCP/SFTP and FTP are supported.\n\n## Installation\n\nYou can install this like any other Atom package, with one of these methods:\n\n* Open your settings in Atom, select the \"Install\" tab, search for \"remote-sync\", and click install on it\n* Run `apm install remote-sync` in a terminal\n* Download or clone this repository to your `~/.atom/packages/` directory\n\n## Usage\n\nCreate file `.remote-sync.json` in your project root with these settings:\n\n* `transport` — `scp` for SCP/SFTP, or `ftp` for FTP\n* `hostname` — Remote host address\n* `port` - Remort port to connect on (typically 22 for SCP/SFTP, 21 for FTP)\n* `username` — Remote host username\n* `password` — Remote host password\n* `keyfile` — Absolute path to SSH key (only used for SCP)\n* `passphrase` — Passphrase for the SSH key (only used for SCP)\n* `useAgent` — Whether or not to use an agent process, default: false (only used for SCP)\n* `target` — Target directory on remote host\n* `ignore` — Array of [minimatch](https://github.com/isaacs/minimatch) patterns of files to ignore\n* `uploadOnSave` — Whether or not to upload the current file when saved, default: false\n* `uploadMirrors` — transport mirror config array when upload\n\nSCP example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".git/**\"\n  ]\n}\n```\n\nSCP `useAgent` example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"useAgent\": true,\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".git/**\"\n  ]\n}\n```\n\nFTP example:\n```json\n{\n  \"transport\": \"ftp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 21,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".git/**\"\n  ]\n}\n```\n\nUpload mirrors example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".git/**\"\n  ],\n  \"uploadMirrors\":[\n    {\n      \"transport\": \"scp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 22,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n      \"passphrase\": \"your_passphrase\",\n      \"target\": \"/home/vagrant/dirname/subdirname_one\",\n      \"ignore\": [\n        \".git/**\"\n      ],\n    },\n    {\n      \"transport\": \"ftp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 21,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"target\": \"/home/vagrant/dirname/subdirname_two\",\n      \"ignore\": [\n        \".git/**\"\n      ]\n    }\n  ]\n}\n```\n\n## Usage example\n\n### Existing project\n\n1. Add a file named `.remote-sync.json` to your project, with the contents above\n2. Open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n\nThat's it!\n\n### From scratch, with a remote server\n\n1. Create a folder for your project, and create a file named `.remote-sync.json` in it with the contents above\n2. In the Atom editor, open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n4. Open the command palette again\n5. Input `remote sync download all`\n\nThe package will download all of the files from the remote server for you.\n",
+  "readme": "# Atom Remote Sync\n\nThis package provides functionality for:\n\n* Uploading changes automatically when you save a file\n* Uploading/downloading files to/from the server\n* Displaying diffs between the local and remote files with your favourite diff tool\n* set difftoolPath in AtomSettingView of `remote-sync` — The path to your diff tool executable\n\nCurrently, both SCP/SFTP and FTP are supported.\n\n## Installation\n\nYou can install this like any other Atom package, with one of these methods:\n\n* Open your settings in Atom, select the \"Install\" tab, search for \"remote-sync\", and click install on it\n* Run `apm install remote-sync` in a terminal\n* Download or clone this repository to your `~/.atom/packages/` directory\n\n## Usage\n\nCreate file `.remote-sync.json` in your project root with these settings:\n\n* `transport` — `scp` for SCP/SFTP, or `ftp` for FTP\n* `hostname` — Remote host address\n* `port` - Remort port to connect on (typically 22 for SCP/SFTP, 21 for FTP)\n* `username` — Remote host username\n* `password` — Remote host password\n* `keyfile` — Absolute path to SSH key (only used for SCP)\n* `passphrase` — Passphrase for the SSH key (only used for SCP)\n* `useAgent` — Whether or not to use an agent process, default: false (only used for SCP)\n* `target` — Target directory on remote host\n* `ignore` — Array of [minimatch](https://github.com/isaacs/minimatch) patterns of files to ignore\n* `uploadOnSave` — Whether or not to upload the current file when saved, default: false\n* `uploadMirrors` — transport mirror config array when upload\n\nSCP example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nSCP `useAgent` example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"useAgent\": true,\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nFTP example:\n```json\n{\n  \"transport\": \"ftp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 21,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nUpload mirrors example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ],\n  \"uploadMirrors\":[\n    {\n      \"transport\": \"scp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 22,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n      \"passphrase\": \"your_passphrase\",\n      \"target\": \"/home/vagrant/dirname/subdirname_one\",\n      \"ignore\": [\n\t    \".remote-sync.json\",\n        \".git/**\"\n      ]\n    },\n    {\n      \"transport\": \"ftp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 21,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"target\": \"/home/vagrant/dirname/subdirname_two\",\n      \"ignore\": [\n\t    \".remote-sync.json\",\n        \".git/**\"\n      ]\n    }\n  ]\n}\n```\n\n## Usage example\n\n### Existing project\n\n1. Add a file named `.remote-sync.json` to your project, with the contents above\n2. Open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n\nThat's it!\n\n### From scratch, with a remote server\n\n1. Create a folder for your project, and create a file named `.remote-sync.json` in it with the contents above\n2. In the Atom editor, open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n4. Open the command palette again\n5. Input `remote sync download all`\n\nThe package will download all of the files from the remote server for you.\n\n\n#Make a donation via Paypal ![Make a donation via Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)\nClick 'Send Money' after login PayPal, and my PayPal account is: lx1988cyk#gmail.com\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/yongkangchen/remote-sync/issues"
   },
   "homepage": "https://github.com/yongkangchen/remote-sync#readme",
-  "_id": "remote-sync@3.1.2",
-  "_shasum": "9e02c790f16afcbbeb5b2111308032a80e95fab8",
-  "_resolved": "file:../d-115828-8805-197ocyt/package.tgz",
-  "_from": "../d-115828-8805-197ocyt/package.tgz",
+  "_id": "remote-sync@3.3.0",
+  "_shasum": "f1235177d248228b3d54eb686508a15cc6bb8414",
+  "_resolved": "file:../d-115106-10032-onexx7/package.tgz",
+  "_from": "../d-115106-10032-onexx7/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -51,7 +51,7 @@
       },
       {
         "name": "grim",
-        "version": "1.4.2",
+        "version": "1.5.0",
         "path": "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/lib/grim.js"
       },
       {
@@ -71,8 +71,18 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.7",
+        "version": "0.10.8",
         "path": "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
+      },
+      {
+        "name": "es6-iterator",
+        "version": "2.0.0",
+        "path": "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/index.js"
+      },
+      {
+        "name": "es6-symbol",
+        "version": "3.0.1",
+        "path": "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
         "name": "es6-iterator",
@@ -121,7 +131,7 @@
       },
       {
         "name": "grim",
-        "version": "1.4.2",
+        "version": "1.5.0",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/grim.js"
       },
       {
@@ -141,8 +151,18 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.7",
+        "version": "0.10.8",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
+      },
+      {
+        "name": "es6-iterator",
+        "version": "2.0.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/index.js"
+      },
+      {
+        "name": "es6-symbol",
+        "version": "3.0.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
         "name": "es6-iterator",
@@ -287,6 +307,8 @@
         "node_modules/async/package.json",
         "node_modules/atom-message-panel/node_modules/space-pen/api.json",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/d/package.json",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/package.json",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/package.json",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/package.json",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/package.json",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/package.json",
@@ -302,6 +324,8 @@
         "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/api.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/d/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/package.json",
@@ -570,6 +594,21 @@
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/index.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/is-implemented.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/shim.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/#/chain.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/array.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/for-of.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/get.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/index.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/is-iterable.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/string.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/valid-iterable.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/implement.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-implemented.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-native-implemented.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-symbol.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/polyfill.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/index.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/pad.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/epsilon/implement.js",
@@ -588,6 +627,7 @@
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-nan/index.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-nan/is-implemented.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-nan/shim.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-natural.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-number.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-safe-integer/implement.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-safe-integer/index.js",
@@ -617,6 +657,8 @@
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/eq.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/every.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/filter.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/find-key.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/find.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/first-key.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/flatten.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/for-each.js",
@@ -724,6 +766,7 @@
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/starts-with/index.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/starts-with/is-implemented.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/starts-with/shim.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/uncapitalize.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/format-method.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/from-code-point/implement.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/from-code-point/index.js",
@@ -993,6 +1036,21 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/index.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/is-implemented.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/shim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/#/chain.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/array.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/for-of.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/get.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/is-iterable.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/string.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/valid-iterable.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/implement.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-implemented.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-native-implemented.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-symbol.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/polyfill.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/index.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/pad.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/epsilon/implement.js",
@@ -1011,6 +1069,7 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-nan/index.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-nan/is-implemented.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-nan/shim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-natural.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-number.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-safe-integer/implement.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/is-safe-integer/index.js",
@@ -1040,6 +1099,8 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/eq.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/every.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/filter.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/find-key.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/find.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/first-key.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/flatten.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/for-each.js",
@@ -1147,6 +1208,7 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/starts-with/index.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/starts-with/is-implemented.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/starts-with/shim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/#/uncapitalize.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/format-method.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/from-code-point/implement.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/string/from-code-point/index.js",
@@ -1558,8 +1620,31 @@
           "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/string/raw"
         ],
         "dependencies": {
-          "es6-iterator": "~0.1.3",
-          "es6-symbol": "~2.0.1"
+          "es6-iterator": "2",
+          "es6-symbol": "3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/#",
+          "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator",
+          "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/test/#",
+          "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/test"
+        ],
+        "dependencies": {
+          "d": "^0.1.1",
+          "es5-ext": "^0.10.7",
+          "es6-symbol": "3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol",
+          "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/test"
+        ],
+        "dependencies": {
+          "d": "~0.1.1",
+          "es5-ext": "~0.10.8"
         }
       },
       {
@@ -1823,8 +1908,31 @@
           "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/string/raw"
         ],
         "dependencies": {
-          "es6-iterator": "~0.1.3",
-          "es6-symbol": "~2.0.1"
+          "es6-iterator": "2",
+          "es6-symbol": "3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/#",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/test/#",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-iterator/test"
+        ],
+        "dependencies": {
+          "d": "^0.1.1",
+          "es5-ext": "^0.10.7",
+          "es6-symbol": "3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/test"
+        ],
+        "dependencies": {
+          "d": "~0.1.1",
+          "es5-ext": "~0.10.8"
         }
       },
       {

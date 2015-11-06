@@ -1,0 +1,46 @@
+{
+  "name": "fonts",
+  "main": "./lib/fonts",
+  "version": "1.0.0",
+  "description": "Lots of monospace fonts.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/braver/fonts.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.1.0 <2.0.0"
+  },
+  "dependencies": {},
+  "keywords": [
+    "fonts",
+    "monospace",
+    "programming",
+    "typography",
+    "@fontface"
+  ],
+  "readme": "# Fonts package for Atom\n\nOh we do love our monospace fonts don't we? To celebrate typography and free choice, I've packaged all the great fonts I could get my hands on (over 45 of them at this point).\n\nThis package delivers them straight to Atom through the power of @font-face. You no longer need to hunt down and install your favourite font, instead you can now instantly try out any of the fonts in this package.\n\n# How to use\n\n1. Install the package\n2. Go to the package's settings page\n3. Select a font from the drop-down list\n\n<img src=\"https://raw.githubusercontent.com/braver/fonts/master/howto.jpg\" height=\"150\" width=\"780\">\n\nDisable the package to re-enable the normal font settings.\n\n## All fonts\nAnka/Coder, Anonymous Pro, Aurulent Sans Mono, Average Mono, BPmono, Bitstream Vera Sans Mono, Code New Roman, Consolamono, Cousine, Cutive Mono, DejaVu Mono, Droid Sans Mono, Effects Eighty, Fantasque Sans Mono, Fifteen, Fira Mono, FiraCode, Fixedsys, GNU Freefont, GNU Unifont, Generic Mono, Hack, Hasklig, Hermit Light, Hermit, Inconsolata, Inconsolata-g, Latin Modern Mono Light, Latin Modern Mono, Lekton, Liberation Mono, Luxi Mono, M+ Light, M+ Medium, M+ Thin, M+, Meslo, Monofur, Monoid, NotCourierSans, Nova Mono, Office Code Pro, Oxygen Mono, PT Mono, Profont, Proggy Clean, Quinze, Roboto, Share Tech Mono, Source Code Pro Extra Light, Source Code Pro Light, Source Code Pro Medium, Source Code Pro, Sudo, TeX Gyre Cursor, Ubuntu Mono, VT323, Verily Serif Mono, saxMono\n\n## More programming fonts\n\n* [These fonts (and more) and download links](http://programmingfonts.org/list)\n* Test drive these fonts in your browser using the [Programming Fonts Test Drive App](http://app.programmingfonts.org)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/braver/fonts/issues"
+  },
+  "homepage": "https://github.com/braver/fonts#readme",
+  "_id": "fonts@1.0.0",
+  "_shasum": "07ac6e57f3db258586b015db46d11b4203b73b24",
+  "_resolved": "file:../d-115103-9748-1o84qor/package.tgz",
+  "_from": "../d-115103-9748-1o84qor/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/fonts.coffee",
+        "lib/runner.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

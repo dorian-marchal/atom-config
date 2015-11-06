@@ -1,5 +1,24 @@
 ## Changelog
 
+### 5.5.2
+- Refactoring
+- Catch unstage files errors
+
+### 5.5.0
+- A lot of refactoring into promises
+- __Output console__
+  - Add toggle on the right of status-bar for toggling the output console
+  - Output from `Git Run` will be displayed in the output console
+  - Show notification when Push/Pull/Fetch starts in the output console
+  - Show bigger messages like results of stash/merge in output console
+- Clicking on the branch name in the status-bar will trigger the `Git Checkout` menu (@kandros)
+- Amending no longer resets HEAD so you can safely cancel an amend
+- __`Add All Commit And Push`__
+  - is now an activation command (@dbenson24)
+  - it tries to `pull` before pushing (@mhuggins7278)
+- Add `Git Difftool` to open up a difftool (@outsmirkable)
+- Add `Git Rebase` (@afontaine)
+
 ### 5.4.7
 - #269
 

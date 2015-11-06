@@ -17,6 +17,10 @@
       "background-tips"
       "symbols-view"
       "markdown-scroll-sync"
+      "emmet"
+      "timecop"
+      "styleguide"
+      "autosave"
     ]
     ignoredNames: [
       "node_modules"
@@ -27,11 +31,11 @@
       "platforms"
       ".tag*"
     ]
+    excludeVcsIgnoredPaths: false
     themes: [
       "atom-dark-ui"
       "monokai"
     ]
-    excludeVcsIgnoredPaths: false
   editor:
     invisibles: {}
     showInvisibles: true
@@ -124,6 +128,7 @@
   "php-getters-setters": {}
   "remote-sync":
     difftoolCommand: "meld"
+    logToConsole: true
   "atom-ctags":
     GotoSymbolKey: [
       "ctrl"
@@ -134,6 +139,10 @@
   blame: {}
   "remote-edit":
     rememberLastOpenDirectory: true
+  fonts:
+    preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
+    fontFamily: "Hasklig"
+  "one-dark-ui": {}
 ".js.regexp.source":
   editor:
     preferredLineLength: 80

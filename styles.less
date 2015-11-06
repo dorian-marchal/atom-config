@@ -33,16 +33,25 @@ atom-pane {
 // style the background and foreground colors on the atom-text-editor-element
 // itself
 atom-text-editor {
-    // font-family: 'Inconsolata' !important; font-size: 17px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
-    // font-family: 'DejaVu Sans Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
-    font-family: 'Droid Sans Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
-    // font-family: 'Liberation Mono' !important; font-size: 15px; font-weight: 400; -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    // -webkit-font-feature-settings: "liga" on, "calt" on;
+    // font-feature-settings: "liga" on, "calt" on;
+    // -webkit-font-smoothing: antialiased;
+    font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
+    font-size: 15px;
+    // font-weight: 400;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    // text-rendering: optimizeLegibility;
 }
 
 // To style other content in the text editor's shadow DOM, use the ::shadow
 // expression
 atom-text-editor::shadow {
+
+    .cursor-line {
+        // -webkit-font-feature-settings: "liga" off, "calt" off;
+        // font-feature-settings: "liga" off, "calt" off;
+    }
 
     .indent-guide {
         position: relative;

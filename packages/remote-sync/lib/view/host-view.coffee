@@ -22,7 +22,7 @@ class ConfigView extends View
       @subview 'target', new TextEditorView(mini: true)
 
       @label 'Ignore Paths'
-      @subview 'ignore', new TextEditorView(mini: true, placeholderText: "Default: .git/**")
+      @subview 'ignore', new TextEditorView(mini: true, placeholderText: "Default: .remote-sync.json, .git/**")
 
       @label 'Username'
       @subview 'username', new TextEditorView(mini: true)
@@ -114,7 +114,7 @@ class ConfigView extends View
       val = undefined if val == "" or view.parent().isHidden() or view.parent().parent().isHidden()
       @host[dataName] = val
 
-    if @host.transport == "scp" and @userAgentButton.hasClass('selected')
+    if (@host.transport == undefined or @host.transport == "scp") and @userAgentButton.hasClass('selected')
       @host.useAgent = true
     else
       @host.useAgent = undefined
