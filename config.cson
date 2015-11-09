@@ -19,7 +19,6 @@
       "markdown-scroll-sync"
       "emmet"
       "timecop"
-      "styleguide"
       "autosave"
     ]
     ignoredNames: [
@@ -34,15 +33,16 @@
     excludeVcsIgnoredPaths: false
     themes: [
       "atom-dark-ui"
-      "monokai"
+      "kyokai"
     ]
+    audioBeep: false
   editor:
     invisibles: {}
     showInvisibles: true
     tabLength: 4
     scrollPastEnd: true
     showIndentGuide: true
-    fontSize: 15
+    fontSize: 16
   minimap:
     plugins:
       "git-diff": true
@@ -143,6 +143,9 @@
     preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
     fontFamily: "Hasklig"
   "one-dark-ui": {}
+  "bracket-matcher":
+    autocompleteBrackets: false
+    autocompleteSmartQuotes: false
 ".js.regexp.source":
   editor:
     preferredLineLength: 80
