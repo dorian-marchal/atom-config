@@ -78,3 +78,7 @@
   'ctrl-shift-down': 'atom-ctags:go-to-declaration'
   'ctrl-alt-up': 'unset!'
   'ctrl-shift-up': 'atom-ctags:return-from-declaration'
+
+# disable Tern rename
+'atom-text-editor':
+  'ctrl-alt-c': 'unset!'

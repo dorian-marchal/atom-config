@@ -1,13 +1,16 @@
 {
   "name": "linter-php",
   "main": "./lib/main",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Lint PHP on the fly, using php -l",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AtomLinter/linter-php.git"
   },
   "license": "MIT",
+  "activationHooks": [
+    "language-php:grammar-used"
+  ],
   "dependencies": {
     "atom-linter": "^3.1.0",
     "atom-package-deps": "^2.1.3"
@@ -34,10 +37,10 @@
     "url": "https://github.com/AtomLinter/linter-php/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-php#readme",
-  "_id": "linter-php@1.1.0",
-  "_shasum": "1e2b7ec7bd26e05647f23a97190d963999b0391c",
-  "_resolved": "file:../d-115106-9945-orggpq/package.tgz",
-  "_from": "../d-115106-9945-orggpq/package.tgz",
+  "_id": "linter-php@1.1.1",
+  "_shasum": "fd8284fe4d04e44ac9ccfdf30f85deb118db8262",
+  "_resolved": "file:../d-1151010-3535-11ssxmx/package.tgz",
+  "_from": "../d-1151010-3535-11ssxmx/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

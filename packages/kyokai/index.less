@@ -48,12 +48,12 @@ atom-text-editor, :host {
   .gfm {
     .markup {
       &.heading {
-        color: @green;
+        color: @fluo-green;
         font-weight: bold;
       }
 
       &.underline {
-        color: @yellow;
+        color: @light-orange;
         text-decoration: underline;
       }
     }
@@ -67,11 +67,11 @@ atom-text-editor, :host {
     }
 
     .raw {
-      color: @blue;
+      color: @green-blue;
     }
 
     .variable.list {
-      color: @pink;
+      color: @red;
       font-weight: bold;
     }
 
@@ -79,7 +79,7 @@ atom-text-editor, :host {
       color: @light-gray;
 
       .entity {
-        color: @purple;
+        color: @green;
       }
     }
   }
@@ -94,50 +94,50 @@ atom-text-editor, :host {
   &.language,
   &.numeric,
   &.other {
-    color: @purple;
+    color: @green;
   }
 }
 
 .entity {
   &.name.class {
     text-decoration: none;
-    color: @green;
+    color: @fluo-green;
   }
 
   &.name.function {
-    color: @green;
+    color: @fluo-green;
   }
 
   &.name.instance {
-    color: @blue;
+    color: @green-blue;
   }
 
   &.name.tag {
-    color: @pink;
+    color: @red;
   }
 
   &.other.attribute-name {
-    color: @green;
+    color: @fluo-green;
   }
 
   &.other.inherited-class {
     font-style: italic;
     text-decoration: none;
-    color: @green;
+    color: @fluo-green;
   }
 }
 
 .invalid {
   color: @ghost-white;
-  background-color: @pink;
+  background-color: @red;
 
   &.deprecated {
-    background-color: @purple;
+    background-color: @green;
   }
 }
 
 .keyword {
-  color: @pink !important;
+  color: @red !important;
 }
 
 .meta.tag {
@@ -145,28 +145,28 @@ atom-text-editor, :host {
 }
 
 .storage {
-  color: @pink;
+  color: @red;
 
   &.type {
     font-style: italic;
-    color: @blue;
+    color: @green-blue;
   }
 }
 
 .string {
-  color: @yellow;
+  color: @light-orange;
 }
 
 .support {
   &.constant,
   &.function {
-    color: @blue;
+    color: @green-blue;
   }
 
   &.class,
   &.type {
     font-style: italic;
-    color: @blue;
+    color: @green-blue;
   }
 }
 
@@ -180,13 +180,13 @@ atom-text-editor, :host {
   &.language.python,
   // 'this' Javascript
   &.language.js {
-    color: @pink;
+    color: @red;
   }
 }
 
 // Jade syntax
 .class.jade {
-  color: @purple;
+  color: @green;
 }
 
 // Prevent underlines from making their way into whitespace elements

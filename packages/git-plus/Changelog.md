@@ -1,5 +1,18 @@
 ## Changelog
 
+### 5.5.6
+- Fix #315
+
+### 5.5.5
+- Complete fix for #310
+
+### 5.5.4
+- Refactor
+- Try to ignore CRLF errors when commiting
+
+### 5.5.3
+- Fix #311
+
 ### 5.5.2
 - Refactoring
 - Catch unstage files errors

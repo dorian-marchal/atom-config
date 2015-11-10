@@ -146,6 +146,7 @@
   "bracket-matcher":
     autocompleteBrackets: false
     autocompleteSmartQuotes: false
+  "atom-ternjs": {}
 ".js.regexp.source":
   editor:
     preferredLineLength: 80

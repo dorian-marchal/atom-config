@@ -1,7 +1,7 @@
 {
   "name": "kyokai",
   "theme": "syntax",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "A monokai based theme",
   "repository": {
@@ -18,10 +18,10 @@
     "url": "https://github.com/dorian-marchal/kyokai/issues"
   },
   "homepage": "https://github.com/dorian-marchal/kyokai#readme",
-  "_id": "kyokai@0.1.0",
-  "_shasum": "580ef68e8e04e15b835be888d705261fb8a5c0b9",
-  "_resolved": "file:../d-1151010-29884-53nana/package.tgz",
-  "_from": "../d-1151010-29884-53nana/package.tgz",
+  "_id": "kyokai@0.1.1",
+  "_shasum": "364fc3bbd10f362afb896dfd25a284314ba402e6",
+  "_resolved": "file:../d-1151010-3523-19j3e9u/package.tgz",
+  "_from": "../d-1151010-3523-19j3e9u/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
