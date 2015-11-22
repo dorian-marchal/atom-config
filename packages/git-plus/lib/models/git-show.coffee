@@ -11,13 +11,10 @@ showCommitFilePath = (objectHash) ->
   Path.join Os.tmpDir(), "#{objectHash}.diff"
 
 showObject = (repo, objectHash, file) ->
-  args = ['show']
-  args.push '--format=full'
+  args = ['show', '--color=never', '--format=full']
   args.push '--word-diff' if atom.config.get 'git-plus.wordDiff'
   args.push objectHash
-  if file?
-    args.push '--'
-    args.push file
+  args.push '--', file if file?
 
   git.cmd(args, cwd: repo.getWorkingDirectory())
   .then (data) -> prepFile(data, objectHash) if data.length > 0

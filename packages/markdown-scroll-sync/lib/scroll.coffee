@@ -25,6 +25,18 @@ module.exports =
         @lastScrnBotOfs = @scrnBotOfs
         @lastPvwTopOfs  = @previewTopOfs
         @lastPvwBotOfs  = @previewBotOfs
+    
+      # {width:scrnW, height:scrnH} = @editorView.getBoundingClientRect()
+      # {width:pvwW, height:pvwH}   = @previewEle.getBoundingClientRect()
+      # if scrnW isnt @lastScrnW or
+      #    scrnH isnt @lastScrnH or
+      #    pvwW  isnt @lastPvwW  or
+      #    pvwH  isnt @lastPvwH
+      #   @lastScrnW = scrnW    
+      #   @lastScrnH = scrnH
+      #   @lastPvwW  = pvwW 
+      #   @lastPvwH  = pvwH 
+      
         @setMap no
     
     switch eventType

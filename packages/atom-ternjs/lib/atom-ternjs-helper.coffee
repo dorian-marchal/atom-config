@@ -6,10 +6,25 @@ class Helper
 
   projectRoot: null
   manager: null
+  accessKey: 'altKey'
+  platform:
+    darwin: false
+    linux: false
+    windows: false
   checkpointsDefinition: []
 
   constructor: (manager) ->
     @manager = manager
+    @initPlatform()
+
+  initPlatform: ->
+    classList = document.getElementsByTagName('body')[0].classList.toString()
+    @platform.darwin = classList.indexOf('platform-darwin') > -1
+    @platform.linux = classList.indexOf('platform-linux') > -1
+    @platform.windows = classList.indexOf('platform-win') > -1
+
+    if @platform.windows
+      @accessKey = 'ctrlKey'
 
   updateTernFile: (content) ->
     @projectRoot = @manager.server?.rootPath

@@ -1,5 +1,24 @@
 ## Changelog
 
+### 5.6.5
+- Trigger checkout from clicking on branch name in status bar on atom-workspace
+- Update splitPaneDirection config to be an enum
+
+### 5.6.3
+- Fix #318
+
+### 5.6.2
+- Disable color for 'Git show' (@modosc)
+
+### 5.6.1
+- Display untracked files in list of files to stage as separate items
+
+### 5.6.0
+- Fix #270. When pulling, you now have the default option to pull from the origin of the current branch
+
+### 5.5.7
+- Fix #317 and #319
+
 ### 5.5.6
 - Fix #315
 

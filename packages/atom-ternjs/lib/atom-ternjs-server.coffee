@@ -3,8 +3,10 @@ class Server
 
   process: null
   rootPath: null
+  manager: null
 
-  constructor: (rootPath) ->
+  constructor: (rootPath, manager) ->
+    @manager = manager
     @rootPath = rootPath
 
   start: (callback) ->
@@ -19,7 +21,7 @@ class Server
       return if isNaN(port) or port is 0
       callback port
 
-    if @isPlatformWindows()
+    if @manager.helper.platform.windows
       {BufferedProcess} = require 'atom'
       @process = new BufferedProcess {command, args, options, stdout, @stderr, @exit}
     else
@@ -34,9 +36,7 @@ class Server
     content = "atom-ternjs<br />" + output
     atom.notifications.addError(content, dismissable: true)
 
-  exit: (code) ->
-    content = "tern exited with code: #{code}.<br />Restart the server via Packages -> Atom Ternjs -> Restart server"
-    atom.notifications.addError(content, dismissable: true)
-
-  isPlatformWindows: ->
-    document.getElementsByTagName('body')[0].classList.toString().indexOf('platform-win') > -1
+  exit: (code) =>
+    content = "tern exited with code: #{code}.<br />Server is restarting..."
+    atom.notifications.addError(content, dismissable: false)
+    @manager.restartServer()

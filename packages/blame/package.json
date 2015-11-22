@@ -1,7 +1,7 @@
 {
   "name": "blame",
   "main": "./lib/init",
-  "version": "0.7.0",
+  "version": "0.8.1",
   "description": "Show git blame as a gutter.",
   "author": {
     "name": "Josa Gesell",
@@ -33,10 +33,10 @@
     "url": "https://github.com/josa42/atom-blame/issues"
   },
   "homepage": "https://github.com/josa42/atom-blame#readme",
-  "_id": "blame@0.7.0",
-  "_shasum": "b6ee3080bcacfb650ffaf29d6579e696ab22349d",
-  "_resolved": "file:../d-11598-8376-34gu7o/package.tgz",
-  "_from": "../d-11598-8376-34gu7o/package.tgz",
+  "_id": "blame@0.8.1",
+  "_shasum": "2a9a3cc5747308367ac7f13edf973f5744e824db",
+  "_resolved": "file:../d-1151022-3873-50mm2b/package.tgz",
+  "_from": "../d-1151022-3873-50mm2b/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -52,17 +52,17 @@
       },
       {
         "name": "xml2js",
-        "version": "0.4.12",
+        "version": "0.4.15",
         "path": "node_modules/blamer/node_modules/xml2js/lib/xml2js.js"
       },
       {
         "name": "sax",
-        "version": "1.1.3",
+        "version": "1.1.4",
         "path": "node_modules/blamer/node_modules/xml2js/node_modules/sax/lib/sax.js"
       },
       {
         "name": "xmlbuilder",
-        "version": "3.1.0",
+        "version": "4.1.0",
         "path": "node_modules/blamer/node_modules/xml2js/node_modules/xmlbuilder/lib/index.js"
       },
       {
@@ -77,7 +77,7 @@
       },
       {
         "name": "gravatar",
-        "version": "1.3.0",
+        "version": "1.4.0",
         "path": "node_modules/gravatar/index.js"
       },
       {
@@ -87,20 +87,14 @@
       }
     ],
     "extensions": {
-      ".coffee": [
-        "lib/blame-gutter-view.coffee",
-        "lib/config/provider.coffee",
-        "lib/init.coffee",
-        "lib/utils/blame.coffee",
-        "lib/utils/find-repo.coffee",
-        "lib/utils/get-commit-link.coffee",
-        "lib/utils/get-commit.coffee",
-        "node_modules/blamer/node_modules/xml2js/83.coffee",
-        "node_modules/blamer/node_modules/xml2js/borker.coffee",
-        "node_modules/blamer/node_modules/xml2js/incompat.coffee",
-        "node_modules/blamer/node_modules/xml2js/text.coffee"
-      ],
       ".js": [
+        "lib/blame-gutter-view.js",
+        "lib/config/provider.js",
+        "lib/init.js",
+        "lib/utils/blame.js",
+        "lib/utils/find-repo.js",
+        "lib/utils/get-commit-link.js",
+        "lib/utils/get-commit.js",
         "node_modules/blamer/node_modules/bluebird/js/browser/bluebird.js",
         "node_modules/blamer/node_modules/bluebird/js/main/any.js",
         "node_modules/blamer/node_modules/bluebird/js/main/assert.js",
@@ -174,10 +168,6 @@
         "node_modules/blamer/node_modules/bluebird/js/zalgo/timers.js",
         "node_modules/blamer/node_modules/bluebird/js/zalgo/using.js",
         "node_modules/blamer/node_modules/bluebird/js/zalgo/util.js",
-        "node_modules/blamer/node_modules/xml2js/.psci_modules/index.js",
-        "node_modules/blamer/node_modules/xml2js/Depp.js",
-        "node_modules/blamer/node_modules/xml2js/att.js",
-        "node_modules/blamer/node_modules/xml2js/incompat2.js",
         "node_modules/blamer/node_modules/xml2js/lib/bom.js",
         "node_modules/blamer/node_modules/xml2js/lib/processors.js",
         "node_modules/blamer/node_modules/xml2js/lib/xml2js.js",
@@ -617,12 +607,12 @@
         "node_modules/blamer/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash/utility/times.js",
         "node_modules/blamer/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash/utility/uniqueId.js",
         "node_modules/blamer/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash/utility.js",
-        "node_modules/blamer/node_modules/xml2js/x.js",
         "node_modules/blamer/src/Blamer.js",
         "node_modules/blamer/src/index.js",
         "node_modules/blamer/src/vcs/git.js",
         "node_modules/blamer/src/vcs/svn.js",
         "node_modules/git-wrapper/git.js",
+        "node_modules/gravatar/cli.js",
         "node_modules/gravatar/index.js",
         "node_modules/gravatar/lib/gravatar.js",
         "node_modules/open/lib/open.js"
@@ -671,9 +661,8 @@
       },
       {
         "paths": [
-          "node_modules/blamer/node_modules/xml2js/.psci_modules",
-          "node_modules/blamer/node_modules/xml2js",
-          "node_modules/blamer/node_modules/xml2js/lib"
+          "node_modules/blamer/node_modules/xml2js/lib",
+          "node_modules/blamer/node_modules/xml2js"
         ],
         "dependencies": {
           "sax": ">=0.6.0",

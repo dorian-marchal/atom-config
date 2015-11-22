@@ -83,7 +83,7 @@ class Manager
   startServer: (dir) ->
     Server = require './atom-ternjs-server' if !Server
     return if @getServerForProject(dir)
-    idxServer = @servers.push(new Server(dir)) - 1
+    idxServer = @servers.push(new Server(dir, this)) - 1
     @servers[idxServer].start (port) =>
       client = @getClientForProject(dir)
       if !client
@@ -161,6 +161,10 @@ class Manager
       @reference.findReference()
     @disposables.push atom.workspace.observeTextEditors (editor) =>
       return unless @isValidEditor(editor)
+      editorView = atom.views.getView(editor)
+      @disposables.push editorView.addEventListener 'click', (event) =>
+        return unless event[@helper.accessKey]
+        @client?.definition()
       @disposables.push editor.onDidChangeCursorPosition (event) =>
         if @inlineFnCompletion
           if !@type

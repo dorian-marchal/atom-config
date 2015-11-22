@@ -1,6 +1,6 @@
 {
   "name": "atom-ctags",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "main": "./lib/main",
   "description": "better autocomplete for atom",
   "keywords": [
@@ -34,10 +34,10 @@
     "url": "https://github.com/yongkangchen/atom-ctags/issues"
   },
   "homepage": "https://github.com/yongkangchen/atom-ctags#readme",
-  "_id": "atom-ctags@4.4.0",
-  "_shasum": "cc0a9c91808b9435aab8e76fcef4413cb8a583d1",
-  "_resolved": "file:../d-115101-20529-1h4i89a/package.tgz",
-  "_from": "../d-115101-20529-1h4i89a/package.tgz",
+  "_id": "atom-ctags@4.4.1",
+  "_shasum": "0d79d55d2018597b3499cbdeabbf8896443c13f4",
+  "_resolved": "file:../d-1151022-3825-1woe49w/package.tgz",
+  "_from": "../d-1151022-3825-1woe49w/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

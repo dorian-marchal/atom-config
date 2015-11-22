@@ -50,10 +50,11 @@ module.exports =
       default: true
       description: 'Allow commands to open new panes'
     splitPane:
-      title: 'Split pane direction (up, right, down, or left)'
+      title: 'Split pane direction'
       type: 'string'
       default: 'right'
       description: 'Where should new panes go? (Defaults to right)'
+      enum: ['up', 'right', 'down', 'left']
     wordDiff:
       type: 'boolean'
       default: true
@@ -147,5 +148,5 @@ module.exports =
     statusBar.getRightTiles().some ({item}) =>
       if item?.classList?.contains? 'git-view'
         @subscriptions.add $(item).find('.git-branch').on 'click', (e) ->
-          atom.commands.dispatch(document.querySelector('atom-text-editor'), 'git-plus:checkout')
+          atom.commands.dispatch(document.querySelector('atom-workspace'), 'git-plus:checkout')
         return true

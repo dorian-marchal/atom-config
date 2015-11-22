@@ -1,6 +1,6 @@
 # atom-ternjs
 
-> Javascript code intelligence for atom with [Tern](https://github.com/marijnh/tern).
+> JavaScript code intelligence for atom with [Tern](https://github.com/ternjs/tern).
 Uses suggestion provider by [autocomplete-plus](https://github.com/atom/autocomplete-plus).
 
 ## Installation
@@ -14,14 +14,14 @@ Configure your project
 * Hit "Save & Restart Server" to create/update the .tern-project file
 
 **Configure project doesn't support the plugins-section (yet).
-Please add plugins manually by editing the .tern-project file as shown below**
+Please add plugins manually by editing the .tern-project file as shown below.**
+
+**In order to use third party plugins read the [Third party plugins](#third-party-plugins) section!**
 
 If configure project does not work for you
 * In your project root create a file named .tern-project. See docs @ http://ternjs.net/doc/manual.html#configuration.
 * Check path in loadEagerly
 * Restart the server via *Packages -> Atom Ternjs -> Restart server*
-
-If a root file named .tern-project is not found `~/.tern-config` serves as a default.
 
 Example `.tern-project` file (customize to your own needs):
 ```json
@@ -43,6 +43,7 @@ Example `.tern-project` file (customize to your own needs):
     "lint": {},
     "angular": {},
     "requirejs": {},
+    "modules": {},
     "es_modules": {},
     "doc_comment": {
       "fullDocs": true
@@ -69,7 +70,32 @@ Example `.tern-project` file (customize to your own needs):
 * lint: <a href="https://github.com/angelozerr/tern-lint">angelozerr/tern-lint</a> is a tern plugin which is able to validate JavaScript files to collect semantic errors. <a href="https://github.com/AtomLinter/Linter">Linter</a> is used to display these errors and warnings (optional)
 * angular: AngularJS (optional)
 * requirejs: RequireJS (optional, understand RequireJS-style dependency management)
+* modules: This is a supporting plugin to act as a dependency for other module-loading and module-resolving plugins. (optional, required by es_modules)
+* es_modules: Builds on top of the modules plugin to support ECMAScript 6’s import and export based module inclusion. (optional, requires modules)
 * For a list of possible plugins goto http://ternjs.net/doc/manual.html#plugins
+
+## Third party plugins
+In order to use third party plugins (e.g. [tern-node-express](https://github.com/angelozerr/tern-node-express)):
+```
+$ cd ~/.atom/packages/atom-ternjs
+$ npm install tern-node-express
+```
+Add the plugin to your .tern-project file:
+```json
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser"
+  ],
+  "loadEagerly": [
+    "app/**/*.js"
+  ],
+  "plugins": {
+    "node-express": {}
+  }
+}
+```
+Restart the server: *Packages -> Atom Ternjs -> Restart server*
 
 ## .tern-project created/modified
 * After the file was created or has been modified, restart the server via *Packages -> Atom Ternjs -> Restart server*
@@ -77,14 +103,14 @@ Example `.tern-project` file (customize to your own needs):
 ## Features
 * Completion (autocompletion triggers automatically, via strg+space or can be forced in any context with <kbd>ctrl+alt+space</kbd>)
 
-![atom-ternjs](http://www.tobias-schubert.com/github/github-atom-ternjs-9.png)
+![atom-ternjs](http://www.tobias-schubert.com/github/completion-1.png)
 
-![atom-ternjs](http://www.tobias-schubert.com/github/github-atom-ternjs-inline-2.png)
-* Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find references" or use the shortcut <kbd>ctrl+shift+r</kbd>) Click any item in the generated reference-list and navigate directly to file and position
+![atom-ternjs](http://www.tobias-schubert.com/github/completion-2.png)
+* Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find references" or use the shortcut <kbd>ctrl+shift+r</kbd> (mac), <kbd>ctrl+shift+e</kbd> (mac, linux)) Click any item in the generated reference-list and navigate directly to file and position
 
-![atom-ternjs](http://www.tobias-schubert.com/github/github-atom-ternjs-reference.png)
+![atom-ternjs](http://www.tobias-schubert.com/github/reference-1.png)
 
 * Documentation (displayed if a suggestion with a valid documentation is selected in the select-list)
-* Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find definition" or use the shortcut <kbd>ctrl+alt+d</kbd>)
+* Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find definition", <kbd>alt+click</kbd> (mac, linux), <kbd>ctrl+click</kbd> (windows) or use the shortcut <kbd>ctrl+alt+d</kbd>)
 * Back from definition <kbd>ctrl+alt+z</kbd>
 * Rename variable (set your cursor position to a variable -> open context-menu and trigger "Rename" or use the shortcut <kbd>ctrl+alt+c</kbd>)

@@ -44,8 +44,11 @@ class ListView extends SelectListView
 
   confirmed: ({name}) ->
     if @mode is 'pull'
-      git.cmd(['branch', '-r'], cwd: @repo.getWorkingDirectory())
-      .then (data) => new PullBranchListView(@repo, data, name, @extraArgs, @resolve)
+      if name is @currentBranchString
+        @execute()
+      else
+        git.cmd(['branch', '-r'], cwd: @repo.getWorkingDirectory())
+        .then (data) => new PullBranchListView(@repo, data, name, @extraArgs, @resolve)
     else if @mode is 'fetch-prune'
       @mode = 'fetch'
       @execute name, '--prune'
@@ -53,12 +56,12 @@ class ListView extends SelectListView
       @execute name
     @cancel()
 
-  execute: (remote, extraArgs='') ->
+  execute: (remote='', extraArgs='') ->
     view = OutputViewManager.new()
     args = [@mode]
     if extraArgs.length > 0
       args.push extraArgs
-    args = args.concat([remote, @tag])
+    args = args.concat([remote, @tag]).filter((arg) -> arg isnt '')
     command = atom.config.get('git-plus.gitPath') ? 'git'
     message = "#{@mode[0].toUpperCase()+@mode.substring(1)}ing..."
     startMessage = notifier.addInfo message, dismissable: true
