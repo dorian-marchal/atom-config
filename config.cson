@@ -16,7 +16,6 @@
       "indent-guide-improved"
       "background-tips"
       "symbols-view"
-      "markdown-scroll-sync"
       "emmet"
       "timecop"
       "autosave"
@@ -146,7 +145,6 @@
   "bracket-matcher":
     autocompleteBrackets: false
     autocompleteSmartQuotes: false
-  "atom-ternjs": {}
 ".js.regexp.source":
   editor:
     preferredLineLength: 80
