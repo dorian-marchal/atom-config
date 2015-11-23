@@ -122,7 +122,8 @@
     onlyConfig: true
     preset: "google"
     verbose: true
-  "git-plus": {}
+  "git-plus":
+    wordDiff: false
   "tree-view": {}
   "php-getters-setters": {}
   "remote-sync":

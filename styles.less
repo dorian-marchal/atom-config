@@ -9,7 +9,17 @@
  */
 
 .tree-view {
-    font-size: 1.2em !important;
+    font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
+    font-size: 1.1em !important;
+
+    .list-tree .list-item {
+        line-height: 22px;
+    }
+
+    &.list-tree.has-collapsable-children .list-nested-item > .list-tree > li,
+    &.list-tree.has-collapsable-children .list-nested-item > .list-group > li {
+        padding-left: 12px;
+    }
 }
 
 atom-pane {
@@ -37,11 +47,11 @@ atom-text-editor {
     // font-feature-settings: "liga" on, "calt" on;
     // -webkit-font-smoothing: antialiased;
     font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
-    font-size: 15px;
+    font-size: 14px;
     // font-weight: 400;
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-    // text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
 }
 
 // To style other content in the text editor's shadow DOM, use the ::shadow
