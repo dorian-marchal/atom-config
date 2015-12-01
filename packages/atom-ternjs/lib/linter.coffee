@@ -12,9 +12,10 @@ class LinterTern
 
   lint: (textEditor) ->
     return new Promise (resolve, reject) =>
+      return resolve [] unless @manager.config?.config?.plugins.lint?.active
+      return resolve [] unless @manager.server
+
       messages = []
-      return resolve [] unless @manager.server and @manager.useLint and @manager.config.config
-      return resolve [] unless @manager.config.config.plugins.lint?.active
 
       buffer = textEditor.getBuffer()
       URI = textEditor.getURI()

@@ -1,17 +1,18 @@
 Manager = require './atom-ternjs-manager'
 Provider = require './atom-ternjs-provider'
-LinterTern = require './linter'
+LinterTern = undefined
 
 module.exports =
 
   manager: null
   provider: null
+  useLint: false
 
   # config
   config:
     excludeLowerPriorityProviders:
-      title: 'Exclude other providers'
-      description: 'Whether to exclude other providers (e.g. autocomplete-paths)'
+      title: 'Exclude lower priority providers'
+      description: 'Whether to exclude lower priority providers (e.g. autocomplete-paths)'
       type: 'boolean'
       default: false
       order: 0
@@ -59,7 +60,7 @@ module.exports =
       order: 7
     lint:
       title: 'Use tern-lint'
-      description: 'Use tern-lint to validate JavaScript files to collect semantic errors'
+      description: 'Use tern-lint to validate JavaScript files to collect semantic errors. Restart atom after this option has been changed.'
       type: 'boolean'
       default: true
       order: 8
@@ -85,6 +86,9 @@ module.exports =
   activate: (state) ->
     @provider = new Provider()
     @manager = new Manager(@provider)
+    @useLint = atom.config.get('atom-ternjs.lint')
+    return unless @useLint
+    LinterTern = require './linter'
     @providerLinter = new LinterTern(@manager)
 
   deactivate: ->
@@ -95,4 +99,5 @@ module.exports =
     @provider
 
   provideLinter: ->
+    return unless @useLint
     @providerLinter

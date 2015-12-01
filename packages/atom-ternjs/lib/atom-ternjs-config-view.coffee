@@ -20,7 +20,7 @@ class ConfigView extends HTMLElement
     this
 
   buildOptionsMarkup: (manager) ->
-    project = manager.client?.rootPath
+    project = manager.client?.projectDir
     config = @getModel().config
     title = document.createElement('h2')
     title.innerHTML = project
@@ -41,7 +41,6 @@ class ConfigView extends HTMLElement
     @content.appendChild(wrapper)
     @content.appendChild(@close)
     @content.appendChild(@cancel)
-    true
 
   buildStringArray: (obj, section) ->
     wrapper = document.createElement('section')

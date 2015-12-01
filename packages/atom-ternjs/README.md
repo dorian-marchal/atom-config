@@ -5,9 +5,6 @@ Uses suggestion provider by [autocomplete-plus](https://github.com/atom/autocomp
 
 ## Installation
 
-Make sure <a href="https://nodejs.org">Node.js</a> is installed and the PATH variable is set.<br>
-Make sure <a href="http://git-scm.com">GIT</a> is installed and the PATH variable is set.<br>
-
 Configure your project
 * Navigate to Packages -> Atom Ternjs -> Configure project
 * The config view appears.
@@ -17,6 +14,8 @@ Configure your project
 Please add plugins manually by editing the .tern-project file as shown below.**
 
 **In order to use third party plugins read the [Third party plugins](#third-party-plugins) section!**
+
+**In order to use third party plugins from within your project's ```node_modules``` read the [Third party plugins local](#third-party-plugins-local) section! This is also an alternative if [Third party plugins](#third-party-plugins) aren't working.**
 
 If configure project does not work for you
 * In your project root create a file named .tern-project. See docs @ http://ternjs.net/doc/manual.html#configuration.
@@ -51,6 +50,7 @@ Example `.tern-project` file (customize to your own needs):
   }
 }
 ```
+
 ## EcmaVersion
 * 5: use ECMAScript5
 * 6: use ECMAScript6 (default)
@@ -97,11 +97,49 @@ Add the plugin to your .tern-project file:
 ```
 Restart the server: *Packages -> Atom Ternjs -> Restart server*
 
+If completion isn't working as expected, you may also have a look here: [Third party plugins local](#third-party-plugins-local) section!
+
+## Third party plugins local
+This is a bit hacky but necessary if a third party plugin isn't working. Any help to improve this is appreciated.
+This example uses [tern-node-express](https://github.com/angelozerr/tern-node-express).
+
+```
+$ cd ~/[your-project]
+$ npm install tern-node-express
+```
+
+* Be sure ```tern``` and ```tern-node-express``` aren't installed via ```npm install -g```
+* You can check this by using ``` $ npm list -g --depth=0 ```
+* navigate to ```[your-project]/node_modules/tern-node-express```
+* open node-express.js
+
+Replace:
+```
+(function(mod) {
+  if (typeof exports == "object" && typeof module == "object") // CommonJS
+    return mod(require("tern/lib/infer"), require("tern/lib/tern"));
+  if (typeof define == "function" && define.amd) // AMD
+    return define([ "tern/lib/infer", "tern/lib/tern" ], mod);
+  mod(tern, tern);
+})(function(infer, tern) { ... }});
+```
+
+With:
+```
+(function(mod) {
+  return mod(process.__infer, process.__tern);
+})(function(infer, tern) { ... }});
+```
+
+**If ```mod``` relies on other dependencies, just keep them as they are.**
+
+Restart the server via *Packages -> Atom Ternjs -> Restart server*
+
 ## .tern-project created/modified
 * After the file was created or has been modified, restart the server via *Packages -> Atom Ternjs -> Restart server*
 
 ## Features
-* Completion (autocompletion triggers automatically, via strg+space or can be forced in any context with <kbd>ctrl+alt+space</kbd>)
+* Completion (autocompletion triggers automatically, via <kbd>strg+space</kbd> or can be forced in any context with <kbd>ctrl+alt+space</kbd>)
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/completion-1.png)
 

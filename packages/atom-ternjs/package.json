@@ -1,7 +1,7 @@
 {
   "name": "atom-ternjs",
   "main": "./lib/atom-ternjs",
-  "version": "0.8.7",
+  "version": "0.10.2",
   "private": false,
   "description": "JavaScript code intelligence for atom with tern.js. Uses suggestion provider by autocomplete-plus.",
   "activationCommands": {},
@@ -11,13 +11,15 @@
   },
   "license": "MIT",
   "engines": {
-    "atom": ">=1.0.0"
+    "atom": ">=1.2.0"
   },
   "dependencies": {
     "loophole": "^1.1.0",
     "tern": "github:ternjs/tern",
     "tern-lint": "^0.5.0",
-    "underscore-plus": "^1.6.6"
+    "underscore-plus": "^1.6.6",
+    "glob": "3",
+    "minimatch": "0.2"
   },
   "providedServices": {
     "autocomplete.provider": {
@@ -37,23 +39,63 @@
     "autocomplete",
     "tern"
   ],
-  "readme": "# atom-ternjs\n\n> JavaScript code intelligence for atom with [Tern](https://github.com/ternjs/tern).\nUses suggestion provider by [autocomplete-plus](https://github.com/atom/autocomplete-plus).\n\n## Installation\n\nMake sure <a href=\"https://nodejs.org\">Node.js</a> is installed and the PATH variable is set.<br>\nMake sure <a href=\"http://git-scm.com\">GIT</a> is installed and the PATH variable is set.<br>\n\nConfigure your project\n* Navigate to Packages -> Atom Ternjs -> Configure project\n* The config view appears.\n* Hit \"Save & Restart Server\" to create/update the .tern-project file\n\n**Configure project doesn't support the plugins-section (yet).\nPlease add plugins manually by editing the .tern-project file as shown below.**\n\n**In order to use third party plugins read the [Third party plugins](#third-party-plugins) section!**\n\nIf configure project does not work for you\n* In your project root create a file named .tern-project. See docs @ http://ternjs.net/doc/manual.html#configuration.\n* Check path in loadEagerly\n* Restart the server via *Packages -> Atom Ternjs -> Restart server*\n\nExample `.tern-project` file (customize to your own needs):\n```json\n{\n  \"ecmaVersion\": 6,\n  \"libs\": [\n    \"browser\",\n    \"jquery\"\n  ],\n  \"loadEagerly\": [\n    \"absolute/or/relative/path/to/your/js/**/*.js\"\n  ],\n  \"dontLoad\": [\n    \"absolute/or/relative/path/to/your/js/**/*.js\"\n  ],\n  \"plugins\": {\n    \"complete_strings\": {},\n    \"node\": {},\n    \"lint\": {},\n    \"angular\": {},\n    \"requirejs\": {},\n    \"modules\": {},\n    \"es_modules\": {},\n    \"doc_comment\": {\n      \"fullDocs\": true\n    }\n  }\n}\n```\n## EcmaVersion\n* 5: use ECMAScript5\n* 6: use ECMAScript6 (default)\n\n## Libs\n* browser: completion for vanilla js (optional)\n* jquery: completion for jQuery (optional)\n\n## Options\n* loadEagerly: provide the path to your projects js. Absolute path is recommended, but not necessary. (For relative path do not use `./` as a prefix. This sometimes leads to an unexpected behaviour)\n* dontLoad: can be used to prevent Tern from loading certain files. It also takes an array of file names or glob patterns.\n\n## Plugins\n* complete_strings: When enabled, this plugin will gather (short) strings in your code, and completing when inside a string will try to complete to previously seen strings. Takes a single option, maxLength, which controls the maximum length of string values to gather, and defaults to 15. (optional)\n* doc_comment: tern will look for JSDoc-style type declarations. Returns the full comment text instead of the first sentence. (optional)\n* node: NodeJS (optional)\n* lint: <a href=\"https://github.com/angelozerr/tern-lint\">angelozerr/tern-lint</a> is a tern plugin which is able to validate JavaScript files to collect semantic errors. <a href=\"https://github.com/AtomLinter/Linter\">Linter</a> is used to display these errors and warnings (optional)\n* angular: AngularJS (optional)\n* requirejs: RequireJS (optional, understand RequireJS-style dependency management)\n* modules: This is a supporting plugin to act as a dependency for other module-loading and module-resolving plugins. (optional, required by es_modules)\n* es_modules: Builds on top of the modules plugin to support ECMAScript 6’s import and export based module inclusion. (optional, requires modules)\n* For a list of possible plugins goto http://ternjs.net/doc/manual.html#plugins\n\n## Third party plugins\nIn order to use third party plugins (e.g. [tern-node-express](https://github.com/angelozerr/tern-node-express)):\n```\n$ cd ~/.atom/packages/atom-ternjs\n$ npm install tern-node-express\n```\nAdd the plugin to your .tern-project file:\n```json\n{\n  \"ecmaVersion\": 6,\n  \"libs\": [\n    \"browser\"\n  ],\n  \"loadEagerly\": [\n    \"app/**/*.js\"\n  ],\n  \"plugins\": {\n    \"node-express\": {}\n  }\n}\n```\nRestart the server: *Packages -> Atom Ternjs -> Restart server*\n\n## .tern-project created/modified\n* After the file was created or has been modified, restart the server via *Packages -> Atom Ternjs -> Restart server*\n\n## Features\n* Completion (autocompletion triggers automatically, via strg+space or can be forced in any context with <kbd>ctrl+alt+space</kbd>)\n\n![atom-ternjs](http://www.tobias-schubert.com/github/completion-1.png)\n\n![atom-ternjs](http://www.tobias-schubert.com/github/completion-2.png)\n* Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger \"Find references\" or use the shortcut <kbd>ctrl+shift+r</kbd> (mac), <kbd>ctrl+shift+e</kbd> (mac, linux)) Click any item in the generated reference-list and navigate directly to file and position\n\n![atom-ternjs](http://www.tobias-schubert.com/github/reference-1.png)\n\n* Documentation (displayed if a suggestion with a valid documentation is selected in the select-list)\n* Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger \"Find definition\", <kbd>alt+click</kbd> (mac, linux), <kbd>ctrl+click</kbd> (windows) or use the shortcut <kbd>ctrl+alt+d</kbd>)\n* Back from definition <kbd>ctrl+alt+z</kbd>\n* Rename variable (set your cursor position to a variable -> open context-menu and trigger \"Rename\" or use the shortcut <kbd>ctrl+alt+c</kbd>)\n",
+  "readme": "# atom-ternjs\n\n> JavaScript code intelligence for atom with [Tern](https://github.com/ternjs/tern).\nUses suggestion provider by [autocomplete-plus](https://github.com/atom/autocomplete-plus).\n\n## Installation\n\nConfigure your project\n* Navigate to Packages -> Atom Ternjs -> Configure project\n* The config view appears.\n* Hit \"Save & Restart Server\" to create/update the .tern-project file\n\n**Configure project doesn't support the plugins-section (yet).\nPlease add plugins manually by editing the .tern-project file as shown below.**\n\n**In order to use third party plugins read the [Third party plugins](#third-party-plugins) section!**\n\n**In order to use third party plugins from within your project's ```node_modules``` read the [Third party plugins local](#third-party-plugins-local) section! This is also an alternative if [Third party plugins](#third-party-plugins) aren't working.**\n\nIf configure project does not work for you\n* In your project root create a file named .tern-project. See docs @ http://ternjs.net/doc/manual.html#configuration.\n* Check path in loadEagerly\n* Restart the server via *Packages -> Atom Ternjs -> Restart server*\n\nExample `.tern-project` file (customize to your own needs):\n```json\n{\n  \"ecmaVersion\": 6,\n  \"libs\": [\n    \"browser\",\n    \"jquery\"\n  ],\n  \"loadEagerly\": [\n    \"absolute/or/relative/path/to/your/js/**/*.js\"\n  ],\n  \"dontLoad\": [\n    \"absolute/or/relative/path/to/your/js/**/*.js\"\n  ],\n  \"plugins\": {\n    \"complete_strings\": {},\n    \"node\": {},\n    \"lint\": {},\n    \"angular\": {},\n    \"requirejs\": {},\n    \"modules\": {},\n    \"es_modules\": {},\n    \"doc_comment\": {\n      \"fullDocs\": true\n    }\n  }\n}\n```\n\n## EcmaVersion\n* 5: use ECMAScript5\n* 6: use ECMAScript6 (default)\n\n## Libs\n* browser: completion for vanilla js (optional)\n* jquery: completion for jQuery (optional)\n\n## Options\n* loadEagerly: provide the path to your projects js. Absolute path is recommended, but not necessary. (For relative path do not use `./` as a prefix. This sometimes leads to an unexpected behaviour)\n* dontLoad: can be used to prevent Tern from loading certain files. It also takes an array of file names or glob patterns.\n\n## Plugins\n* complete_strings: When enabled, this plugin will gather (short) strings in your code, and completing when inside a string will try to complete to previously seen strings. Takes a single option, maxLength, which controls the maximum length of string values to gather, and defaults to 15. (optional)\n* doc_comment: tern will look for JSDoc-style type declarations. Returns the full comment text instead of the first sentence. (optional)\n* node: NodeJS (optional)\n* lint: <a href=\"https://github.com/angelozerr/tern-lint\">angelozerr/tern-lint</a> is a tern plugin which is able to validate JavaScript files to collect semantic errors. <a href=\"https://github.com/AtomLinter/Linter\">Linter</a> is used to display these errors and warnings (optional)\n* angular: AngularJS (optional)\n* requirejs: RequireJS (optional, understand RequireJS-style dependency management)\n* modules: This is a supporting plugin to act as a dependency for other module-loading and module-resolving plugins. (optional, required by es_modules)\n* es_modules: Builds on top of the modules plugin to support ECMAScript 6’s import and export based module inclusion. (optional, requires modules)\n* For a list of possible plugins goto http://ternjs.net/doc/manual.html#plugins\n\n## Third party plugins\nIn order to use third party plugins (e.g. [tern-node-express](https://github.com/angelozerr/tern-node-express)):\n```\n$ cd ~/.atom/packages/atom-ternjs\n$ npm install tern-node-express\n```\nAdd the plugin to your .tern-project file:\n```json\n{\n  \"ecmaVersion\": 6,\n  \"libs\": [\n    \"browser\"\n  ],\n  \"loadEagerly\": [\n    \"app/**/*.js\"\n  ],\n  \"plugins\": {\n    \"node-express\": {}\n  }\n}\n```\nRestart the server: *Packages -> Atom Ternjs -> Restart server*\n\nIf completion isn't working as expected, you may also have a look here: [Third party plugins local](#third-party-plugins-local) section!\n\n## Third party plugins local\nThis is a bit hacky but necessary if a third party plugin isn't working. Any help to improve this is appreciated.\nThis example uses [tern-node-express](https://github.com/angelozerr/tern-node-express).\n\n```\n$ cd ~/[your-project]\n$ npm install tern-node-express\n```\n\n* Be sure ```tern``` and ```tern-node-express``` aren't installed via ```npm install -g```\n* You can check this by using ``` $ npm list -g --depth=0 ```\n* navigate to ```[your-project]/node_modules/tern-node-express```\n* open node-express.js\n\nReplace:\n```\n(function(mod) {\n  if (typeof exports == \"object\" && typeof module == \"object\") // CommonJS\n    return mod(require(\"tern/lib/infer\"), require(\"tern/lib/tern\"));\n  if (typeof define == \"function\" && define.amd) // AMD\n    return define([ \"tern/lib/infer\", \"tern/lib/tern\" ], mod);\n  mod(tern, tern);\n})(function(infer, tern) { ... }});\n```\n\nWith:\n```\n(function(mod) {\n  return mod(process.__infer, process.__tern);\n})(function(infer, tern) { ... }});\n```\n\n**If ```mod``` relies on other dependencies, just keep them as they are.**\n\nRestart the server via *Packages -> Atom Ternjs -> Restart server*\n\n## .tern-project created/modified\n* After the file was created or has been modified, restart the server via *Packages -> Atom Ternjs -> Restart server*\n\n## Features\n* Completion (autocompletion triggers automatically, via <kbd>strg+space</kbd> or can be forced in any context with <kbd>ctrl+alt+space</kbd>)\n\n![atom-ternjs](http://www.tobias-schubert.com/github/completion-1.png)\n\n![atom-ternjs](http://www.tobias-schubert.com/github/completion-2.png)\n* Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger \"Find references\" or use the shortcut <kbd>ctrl+shift+r</kbd> (mac), <kbd>ctrl+shift+e</kbd> (mac, linux)) Click any item in the generated reference-list and navigate directly to file and position\n\n![atom-ternjs](http://www.tobias-schubert.com/github/reference-1.png)\n\n* Documentation (displayed if a suggestion with a valid documentation is selected in the select-list)\n* Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger \"Find definition\", <kbd>alt+click</kbd> (mac, linux), <kbd>ctrl+click</kbd> (windows) or use the shortcut <kbd>ctrl+alt+d</kbd>)\n* Back from definition <kbd>ctrl+alt+z</kbd>\n* Rename variable (set your cursor position to a variable -> open context-menu and trigger \"Rename\" or use the shortcut <kbd>ctrl+alt+c</kbd>)\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/tststs/atom-ternjs/issues"
   },
   "homepage": "https://github.com/tststs/atom-ternjs#readme",
-  "_id": "atom-ternjs@0.8.7",
-  "_shasum": "22e898f18d7f26809e6e9b4c1243bfaea7d093b0",
-  "_resolved": "file:../d-1151022-3839-np6efc/package.tgz",
-  "_from": "../d-1151022-3839-np6efc/package.tgz",
+  "_id": "atom-ternjs@0.10.2",
+  "_shasum": "f62d698f09ec617bf320afc3e3ac5994485e6861",
+  "_resolved": "file:../d-115111-20894-dvrxyr/package.tgz",
+  "_from": "../d-115111-20894-dvrxyr/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
+        "name": "glob",
+        "version": "3.2.11",
+        "path": "node_modules/glob/glob.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.1",
+        "path": "node_modules/glob/node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "minimatch",
+        "version": "0.3.0",
+        "path": "node_modules/glob/node_modules/minimatch/minimatch.js"
+      },
+      {
+        "name": "lru-cache",
+        "version": "2.7.0",
+        "path": "node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
+      },
+      {
+        "name": "sigmund",
+        "version": "1.0.1",
+        "path": "node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js"
+      },
+      {
         "name": "loophole",
         "version": "1.1.0",
         "path": "node_modules/loophole/lib/loophole.js"
+      },
+      {
+        "name": "minimatch",
+        "version": "0.2.14",
+        "path": "node_modules/minimatch/minimatch.js"
+      },
+      {
+        "name": "lru-cache",
+        "version": "2.7.0",
+        "path": "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
+      },
+      {
+        "name": "sigmund",
+        "version": "1.0.1",
+        "path": "node_modules/minimatch/node_modules/sigmund/sigmund.js"
       },
       {
         "name": "tern",
@@ -86,46 +128,6 @@
         "path": "node_modules/tern/node_modules/enhanced-resolve/node_modules/tapable/lib/Tapable.js"
       },
       {
-        "name": "glob",
-        "version": "3.2.11",
-        "path": "node_modules/tern/node_modules/glob/glob.js"
-      },
-      {
-        "name": "inherits",
-        "version": "2.0.1",
-        "path": "node_modules/tern/node_modules/glob/node_modules/inherits/inherits.js"
-      },
-      {
-        "name": "minimatch",
-        "version": "0.3.0",
-        "path": "node_modules/tern/node_modules/glob/node_modules/minimatch/minimatch.js"
-      },
-      {
-        "name": "lru-cache",
-        "version": "2.7.0",
-        "path": "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
-      },
-      {
-        "name": "sigmund",
-        "version": "1.0.1",
-        "path": "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js"
-      },
-      {
-        "name": "minimatch",
-        "version": "0.2.14",
-        "path": "node_modules/tern/node_modules/minimatch/minimatch.js"
-      },
-      {
-        "name": "lru-cache",
-        "version": "2.7.0",
-        "path": "node_modules/tern/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
-      },
-      {
-        "name": "sigmund",
-        "version": "1.0.1",
-        "path": "node_modules/tern/node_modules/minimatch/node_modules/sigmund/sigmund.js"
-      },
-      {
         "name": "typescript",
         "version": "1.0.1",
         "path": "node_modules/tern/node_modules/typescript/bin/typescript.js"
@@ -139,56 +141,6 @@
         "name": "acorn",
         "version": "2.6.4",
         "path": "node_modules/tern-lint/node_modules/acorn/dist/acorn.js"
-      },
-      {
-        "name": "tern",
-        "version": "0.15.0",
-        "path": "node_modules/tern-lint/node_modules/tern/lib/tern.js"
-      },
-      {
-        "name": "glob",
-        "version": "3.2.11",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/glob/glob.js"
-      },
-      {
-        "name": "inherits",
-        "version": "2.0.1",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/inherits/inherits.js"
-      },
-      {
-        "name": "minimatch",
-        "version": "0.3.0",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/minimatch.js"
-      },
-      {
-        "name": "lru-cache",
-        "version": "2.7.0",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
-      },
-      {
-        "name": "sigmund",
-        "version": "1.0.1",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js"
-      },
-      {
-        "name": "minimatch",
-        "version": "0.2.14",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/minimatch.js"
-      },
-      {
-        "name": "lru-cache",
-        "version": "2.7.0",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
-      },
-      {
-        "name": "sigmund",
-        "version": "1.0.1",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/sigmund/sigmund.js"
-      },
-      {
-        "name": "typescript",
-        "version": "1.0.1",
-        "path": "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/typescript.js"
       },
       {
         "name": "underscore-plus",
@@ -205,22 +157,37 @@
       ".coffee": [
         "lib/atom-ternjs-client.coffee",
         "lib/atom-ternjs-config-view.coffee",
-        "lib/atom-ternjs-config.coffee",
         "lib/atom-ternjs-helper.coffee",
-        "lib/atom-ternjs-manager.coffee",
         "lib/atom-ternjs-provider.coffee",
         "lib/atom-ternjs-reference-view.coffee",
         "lib/atom-ternjs-reference.coffee",
         "lib/atom-ternjs-rename-view.coffee",
         "lib/atom-ternjs-rename.coffee",
-        "lib/atom-ternjs-server.coffee",
         "lib/atom-ternjs-type-view.coffee",
         "lib/atom-ternjs-type.coffee",
         "lib/atom-ternjs.coffee",
         "lib/linter.coffee"
       ],
       ".js": [
+        "lib/atom-ternjs-config.js",
+        "lib/atom-ternjs-manager.js",
+        "lib/atom-ternjs-package-config.js",
+        "lib/atom-ternjs-server.js",
+        "node_modules/glob/examples/g.js",
+        "node_modules/glob/examples/usr-local.js",
+        "node_modules/glob/glob.js",
+        "node_modules/glob/node_modules/inherits/inherits.js",
+        "node_modules/glob/node_modules/inherits/inherits_browser.js",
+        "node_modules/glob/node_modules/inherits/test.js",
+        "node_modules/glob/node_modules/minimatch/minimatch.js",
+        "node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
+        "node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
+        "node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
         "node_modules/loophole/lib/loophole.js",
+        "node_modules/minimatch/minimatch.js",
+        "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
+        "node_modules/minimatch/node_modules/sigmund/bench.js",
+        "node_modules/minimatch/node_modules/sigmund/sigmund.js",
         "node_modules/tern/doc/demo/demo.js",
         "node_modules/tern/doc/demo/polyfill.js",
         "node_modules/tern/doc/demo/underscore.js",
@@ -289,20 +256,6 @@
         "node_modules/tern/node_modules/enhanced-resolve/node_modules/memory-fs/lib/join.js",
         "node_modules/tern/node_modules/enhanced-resolve/node_modules/memory-fs/lib/normalize.js",
         "node_modules/tern/node_modules/enhanced-resolve/node_modules/tapable/lib/Tapable.js",
-        "node_modules/tern/node_modules/glob/examples/g.js",
-        "node_modules/tern/node_modules/glob/examples/usr-local.js",
-        "node_modules/tern/node_modules/glob/glob.js",
-        "node_modules/tern/node_modules/glob/node_modules/inherits/inherits.js",
-        "node_modules/tern/node_modules/glob/node_modules/inherits/inherits_browser.js",
-        "node_modules/tern/node_modules/glob/node_modules/inherits/test.js",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/minimatch.js",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
-        "node_modules/tern/node_modules/minimatch/minimatch.js",
-        "node_modules/tern/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
-        "node_modules/tern/node_modules/minimatch/node_modules/sigmund/bench.js",
-        "node_modules/tern/node_modules/minimatch/node_modules/sigmund/sigmund.js",
         "node_modules/tern/node_modules/typescript/bin/tsc.js",
         "node_modules/tern/node_modules/typescript/bin/typescript.js",
         "node_modules/tern/plugin/angular.js",
@@ -351,48 +304,21 @@
         "node_modules/tern-lint/node_modules/acorn/src/util.js",
         "node_modules/tern-lint/node_modules/acorn/src/walk/index.js",
         "node_modules/tern-lint/node_modules/acorn/src/whitespace.js",
-        "node_modules/tern-lint/node_modules/tern/doc/demo/demo.js",
-        "node_modules/tern-lint/node_modules/tern/doc/demo/polyfill.js",
-        "node_modules/tern-lint/node_modules/tern/doc/demo/underscore.js",
-        "node_modules/tern-lint/node_modules/tern/lib/comment.js",
-        "node_modules/tern-lint/node_modules/tern/lib/condense.js",
-        "node_modules/tern-lint/node_modules/tern/lib/def.js",
-        "node_modules/tern-lint/node_modules/tern/lib/infer.js",
-        "node_modules/tern-lint/node_modules/tern/lib/signal.js",
-        "node_modules/tern-lint/node_modules/tern/lib/tern.js",
-        "node_modules/tern-lint/node_modules/tern/lib/typescript.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/examples/g.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/examples/usr-local.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/glob.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/inherits/inherits.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/inherits/inherits_browser.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/inherits/test.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/minimatch.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/minimatch.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/sigmund/bench.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/sigmund/sigmund.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/tsc.js",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/typescript.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/angular.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/commonjs.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/complete_strings.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/doc_comment.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/es_modules.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/modules.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/node.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/node_resolve.js",
-        "node_modules/tern-lint/node_modules/tern/plugin/requirejs.js",
         "node_modules/tern-lint/scripts/git-tag.js",
         "node_modules/underscore-plus/lib/underscore-plus.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore.js"
       ],
       ".json": [
+        "node_modules/glob/node_modules/inherits/package.json",
+        "node_modules/glob/node_modules/minimatch/node_modules/lru-cache/package.json",
+        "node_modules/glob/node_modules/minimatch/node_modules/sigmund/package.json",
+        "node_modules/glob/node_modules/minimatch/package.json",
+        "node_modules/glob/package.json",
         "node_modules/loophole/package.json",
+        "node_modules/minimatch/node_modules/lru-cache/package.json",
+        "node_modules/minimatch/node_modules/sigmund/package.json",
+        "node_modules/minimatch/package.json",
         "node_modules/tern/defs/browser.json",
         "node_modules/tern/defs/chai.json",
         "node_modules/tern/defs/ecma5.json",
@@ -404,14 +330,6 @@
         "node_modules/tern/node_modules/enhanced-resolve/node_modules/memory-fs/package.json",
         "node_modules/tern/node_modules/enhanced-resolve/node_modules/tapable/package.json",
         "node_modules/tern/node_modules/enhanced-resolve/package.json",
-        "node_modules/tern/node_modules/glob/node_modules/inherits/package.json",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/package.json",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/package.json",
-        "node_modules/tern/node_modules/glob/node_modules/minimatch/package.json",
-        "node_modules/tern/node_modules/glob/package.json",
-        "node_modules/tern/node_modules/minimatch/node_modules/lru-cache/package.json",
-        "node_modules/tern/node_modules/minimatch/node_modules/sigmund/package.json",
-        "node_modules/tern/node_modules/minimatch/package.json",
         "node_modules/tern/node_modules/typescript/bin/resources/cs/cz/diagnosticMessages.generated.json",
         "node_modules/tern/node_modules/typescript/bin/resources/cs/diagnosticMessages.generated.json",
         "node_modules/tern/node_modules/typescript/bin/resources/cz/diagnosticMessages.generated.json",
@@ -436,47 +354,11 @@
         "node_modules/tern/node_modules/typescript/package.json",
         "node_modules/tern/package.json",
         "node_modules/tern-lint/node_modules/acorn/package.json",
-        "node_modules/tern-lint/node_modules/tern/defs/browser.json",
-        "node_modules/tern-lint/node_modules/tern/defs/chai.json",
-        "node_modules/tern-lint/node_modules/tern/defs/ecma5.json",
-        "node_modules/tern-lint/node_modules/tern/defs/ecma6.json",
-        "node_modules/tern-lint/node_modules/tern/defs/jquery.json",
-        "node_modules/tern-lint/node_modules/tern/defs/underscore.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/inherits/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/node_modules/sigmund/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/glob/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/lru-cache/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/node_modules/sigmund/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/package.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/cs/cz/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/cs/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/cz/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/de/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/en/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/en/us/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/es/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/fr/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/it/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/ja/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/ja/jp/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/ko/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/ko/kr/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/pl/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/pt/br/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/pt/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/ru/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/tr/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/zh/cn/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/bin/resources/zh/tw/diagnosticMessages.generated.json",
-        "node_modules/tern-lint/node_modules/tern/node_modules/typescript/package.json",
-        "node_modules/tern-lint/node_modules/tern/package.json",
         "node_modules/tern-lint/package.json",
         "node_modules/tern-lint/scripts/package.json",
         "node_modules/underscore-plus/node_modules/underscore/package.json",
         "node_modules/underscore-plus/package.json",
+        "npm-shrinkwrap.json",
         "package.json",
         "tern-config.json"
       ]
@@ -491,7 +373,40 @@
         "dependencies": {
           "loophole": "^1.1.0",
           "tern-lint": "^0.5.0",
-          "underscore-plus": "^1.6.6"
+          "underscore-plus": "^1.6.6",
+          "glob": "3",
+          "minimatch": "0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/glob/examples",
+          "node_modules/glob",
+          "node_modules/glob/test"
+        ],
+        "dependencies": {
+          "inherits": "2",
+          "minimatch": "0.3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/glob/node_modules/minimatch",
+          "node_modules/glob/node_modules/minimatch/test"
+        ],
+        "dependencies": {
+          "lru-cache": "2",
+          "sigmund": "~1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/minimatch",
+          "node_modules/minimatch/test"
+        ],
+        "dependencies": {
+          "lru-cache": "2",
+          "sigmund": "~1.0.0"
         }
       },
       {
@@ -537,37 +452,6 @@
       },
       {
         "paths": [
-          "node_modules/tern/node_modules/glob/examples",
-          "node_modules/tern/node_modules/glob",
-          "node_modules/tern/node_modules/glob/test"
-        ],
-        "dependencies": {
-          "inherits": "2",
-          "minimatch": "0.3"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/tern/node_modules/glob/node_modules/minimatch",
-          "node_modules/tern/node_modules/glob/node_modules/minimatch/test"
-        ],
-        "dependencies": {
-          "lru-cache": "2",
-          "sigmund": "~1.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/tern/node_modules/minimatch",
-          "node_modules/tern/node_modules/minimatch/test"
-        ],
-        "dependencies": {
-          "lru-cache": "2",
-          "sigmund": "~1.0.0"
-        }
-      },
-      {
-        "paths": [
           "node_modules/tern-lint/codemirror/addon/lint",
           "node_modules/tern-lint/demos/defs",
           "node_modules/tern-lint/demos/tern.googleapi/plugin",
@@ -582,65 +466,6 @@
         "dependencies": {
           "tern": "^0.15.0",
           "acorn": "^2.4.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/tern-lint/node_modules/tern/defs",
-          "node_modules/tern-lint/node_modules/tern/doc/demo",
-          "node_modules/tern-lint/node_modules/tern/lib",
-          "node_modules/tern-lint/node_modules/tern",
-          "node_modules/tern-lint/node_modules/tern/plugin",
-          "node_modules/tern-lint/node_modules/tern/test/cases/angular",
-          "node_modules/tern-lint/node_modules/tern/test/cases",
-          "node_modules/tern-lint/node_modules/tern/test/cases/defs",
-          "node_modules/tern-lint/node_modules/tern/test/cases/es_modules",
-          "node_modules/tern-lint/node_modules/tern/test/cases/node",
-          "node_modules/tern-lint/node_modules/tern/test/cases/node/dir",
-          "node_modules/tern-lint/node_modules/tern/test/cases/node/dir/lib",
-          "node_modules/tern-lint/node_modules/tern/test/cases/requirejs",
-          "node_modules/tern-lint/node_modules/tern/test/cases/requirejs/subdir",
-          "node_modules/tern-lint/node_modules/tern/test/cases/requirejs_config",
-          "node_modules/tern-lint/node_modules/tern/test/condense",
-          "node_modules/tern-lint/node_modules/tern/test",
-          "node_modules/tern-lint/node_modules/tern/test/data"
-        ],
-        "dependencies": {
-          "acorn": "^2.3.0",
-          "glob": "3",
-          "minimatch": "0.2",
-          "typescript": "=1.0.1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/tern-lint/node_modules/tern/node_modules/glob/examples",
-          "node_modules/tern-lint/node_modules/tern/node_modules/glob",
-          "node_modules/tern-lint/node_modules/tern/node_modules/glob/test"
-        ],
-        "dependencies": {
-          "inherits": "2",
-          "minimatch": "0.3"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch",
-          "node_modules/tern-lint/node_modules/tern/node_modules/glob/node_modules/minimatch/test"
-        ],
-        "dependencies": {
-          "lru-cache": "2",
-          "sigmund": "~1.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/tern-lint/node_modules/tern/node_modules/minimatch",
-          "node_modules/tern-lint/node_modules/tern/node_modules/minimatch/test"
-        ],
-        "dependencies": {
-          "lru-cache": "2",
-          "sigmund": "~1.0.0"
         }
       },
       {

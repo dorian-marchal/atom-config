@@ -1,5 +1,6 @@
 fs = require 'fs'
 path = require 'path'
+_ = require 'underscore-plus'
 
 module.exports =
 class Helper
@@ -23,11 +24,8 @@ class Helper
     @platform.linux = classList.indexOf('platform-linux') > -1
     @platform.windows = classList.indexOf('platform-win') > -1
 
-    if @platform.windows
-      @accessKey = 'ctrlKey'
-
   updateTernFile: (content) ->
-    @projectRoot = @manager.server?.rootPath
+    @projectRoot = @manager.server?.projectDir
     return unless @projectRoot
     @writeFile(path.resolve(__dirname, @projectRoot + '/.tern-project'), content)
 
@@ -40,9 +38,11 @@ class Helper
     try return fs.statSync(dir).isDirectory()
     catch then return false
 
-  writeFile: (filePath, content) ->
+  writeFile: (filePath, content, restartServer) ->
     fs.writeFile filePath, content, (err) =>
       atom.workspace.open(filePath)
+      if !err and restartServer
+        @manager.restartServer()
       return unless err
       message = 'Could not create/update .tern-project file. Use the README to manually create a .tern-project file.'
       atom.notifications.addInfo(message, dismissable: true)
@@ -51,7 +51,7 @@ class Helper
     fs.readFileSync path, 'utf8'
 
   getFileContent: (filePath, projectRoot) ->
-    @projectRoot = @manager.server?.rootPath
+    @projectRoot = @manager.server?.projectDir
     return false unless @projectRoot
     if projectRoot
       filePath = @projectRoot + filePath
@@ -120,11 +120,11 @@ class Helper
 
     if obj.rightLabel.startsWith('fn')
       params = @extractParams(obj.rightLabel)
-      if @manager.useSnippets || @manager.useSnippetsAndFunction
+      if @manager.packageConfig.options.useSnippets || @manager.packageConfig.options.useSnippetsAndFunction
         obj._snippet = @buildSnippet(params, obj.name)
         obj._hasParams = if params.length then true else false
       else
-        if @manager.doNotAddParantheses
+        if @manager.packageConfig.options.doNotAddParantheses
           obj._snippet = "#{obj.name}"
         else
           obj._snippet = if params.length then "#{obj.name}(${#{0}:#{}})" else "#{obj.name}()"
