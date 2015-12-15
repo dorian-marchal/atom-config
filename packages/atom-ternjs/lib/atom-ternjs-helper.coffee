@@ -24,10 +24,10 @@ class Helper
     @platform.linux = classList.indexOf('platform-linux') > -1
     @platform.windows = classList.indexOf('platform-win') > -1
 
-  updateTernFile: (content) ->
+  updateTernFile: (content, restartServer) ->
     @projectRoot = @manager.server?.projectDir
     return unless @projectRoot
-    @writeFile(path.resolve(__dirname, @projectRoot + '/.tern-project'), content)
+    @writeFile(path.resolve(__dirname, @projectRoot + '/.tern-project'), content, restartServer)
 
   fileExists: (path) ->
     try fs.accessSync path, fs.F_OK, (err) =>
@@ -124,10 +124,8 @@ class Helper
         obj._snippet = @buildSnippet(params, obj.name)
         obj._hasParams = if params.length then true else false
       else
-        if @manager.packageConfig.options.doNotAddParantheses
-          obj._snippet = "#{obj.name}"
-        else
-          obj._snippet = if params.length then "#{obj.name}(${#{0}:#{}})" else "#{obj.name}()"
+        obj._snippet = if params.length then "#{obj.name}(${#{0}:#{}})" else "#{obj.name}()"
+        obj._displayText = @buildDisplayText(params, obj.name)
       obj._typeSelf = 'function'
 
     if obj.name
@@ -139,6 +137,14 @@ class Helper
       obj.rightLabel = null
 
     obj
+
+  buildDisplayText: (params, name) ->
+    return "#{name}()" if params.length is 0
+    suggestionParams = []
+    for param, i in params
+      param = param.replace '}', '\\}'
+      suggestionParams.push "#{param}"
+    "#{name}(#{suggestionParams.join(',')})"
 
   buildSnippet: (params, name) ->
     return "#{name}()" if params.length is 0

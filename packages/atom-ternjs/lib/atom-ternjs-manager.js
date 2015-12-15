@@ -5,6 +5,9 @@ let Client;
 let Helper;
 let PackageConfig;
 let Config;
+let Type;
+let Reference;
+let Rename;
 let _ = require('underscore-plus');
 
 export default class Manager {
@@ -21,6 +24,8 @@ export default class Manager {
     this.client = undefined;
     this.servers = [];
     this.server = undefined;
+
+    this.editors = [];
 
     this.rename = undefined;
     this.type = undefined;
@@ -66,7 +71,7 @@ export default class Manager {
 
       object.destroy();
     }
-    object = null;
+    object = undefined;
   }
 
   destroy() {
@@ -74,7 +79,7 @@ export default class Manager {
     for (let server of this.servers) {
 
       server.destroy();
-      server = null;
+      server = undefined;
     }
     this.servers = [];
 
@@ -84,10 +89,10 @@ export default class Manager {
     }
     this.clients = [];
 
-    this.server = null;
-    this.client = null;
+    this.server = undefined;
+    this.client = undefined;
     this.unregisterEventsAndCommands();
-    this.provider = null;
+    this.provider = undefined;
 
     this.destroyObject(this.config);
     this.destroyObject(this.packageConfig);
@@ -179,8 +184,8 @@ export default class Manager {
 
       } else {
 
-        this.server = null;
-        this.client = null;
+        this.server = undefined;
+        this.client = undefined;
 
         return;
       }
@@ -198,9 +203,9 @@ export default class Manager {
 
     } else {
 
-      this.server = null;
+      this.server = undefined;
       this.config.clear();
-      this.client = null;
+      this.client = undefined;
     }
   }
 
@@ -242,15 +247,10 @@ export default class Manager {
 
     let server = this.servers[serverIdx];
     let client = this.getClientForProject(server.projectDir);
-
-    if (client) {
-
-      client.unregisterEvents();
-    }
-    client = null;
+    client = undefined;
 
     server.destroy();
-    server = null;
+    server = undefined;
 
     this.servers.splice(serverIdx, 1);
   }
@@ -279,6 +279,17 @@ export default class Manager {
     }
 
     return false;
+  }
+
+  getEditor(editor) {
+
+    for (let _editor of this.editors) {
+
+      if (_editor.id === editor.id) {
+
+        return _editor;
+      }
+    }
   }
 
   isValidEditor(editor) {
@@ -329,6 +340,13 @@ export default class Manager {
         return;
       }
 
+      // Register valid editor
+      this.editors.push({
+
+        id: editor.id,
+        diffs: []
+      });
+
       if (!this.initCalled) {
 
         this.init();
@@ -349,7 +367,16 @@ export default class Manager {
         }
       }));
 
-      let scrollView = editorView.shadowRoot.querySelector('.scroll-view');
+      let scrollView;
+
+      if (!editorView.shadowRoot) {
+
+        scrollView = editorView.querySelector('.scroll-view');
+
+      } else {
+
+        scrollView = editorView.shadowRoot.querySelector('.scroll-view');
+      }
 
       this.disposables.push(scrollView.addEventListener('mousemove', (e) => {
 
@@ -385,8 +412,13 @@ export default class Manager {
 
         if (this.client) {
 
-          this.client.update(editor.getURI(), editor.getText());
+          this.client.update(editor);
         }
+      }));
+
+      this.disposables.push(editor.getBuffer().onDidChange((e) => {
+
+        this.getEditor(editor).diffs.push(e);
       }));
     }));
 
@@ -456,6 +488,22 @@ export default class Manager {
       if (this.reference) {
 
         this.reference.hide();
+      }
+    }));
+
+    this.disposables.push(atom.commands.add('atom-text-editor', 'tern:listFiles', (e) => {
+
+      if (this.client) {
+
+        this.client.files();
+      }
+    }));
+
+    this.disposables.push(atom.commands.add('atom-text-editor', 'tern:flush', (e) => {
+
+      if (this.server) {
+
+        this.server.flush();
       }
     }));
 

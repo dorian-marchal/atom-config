@@ -12,8 +12,8 @@ export default class PackageConfig {
       excludeLowerPriority: atom.config.get('atom-ternjs.excludeLowerPriorityProviders'),
       inlineFnCompletion: atom.config.get('atom-ternjs.inlineFnCompletion'),
       useSnippets: atom.config.get('atom-ternjs.useSnippets'),
+      displayAboveSnippets: atom.config.get('atom-ternjs.displayAboveSnippets'),
       useSnippetsAndFunction: atom.config.get('atom-ternjs.useSnippetsAndFunction'),
-      doNotAddParantheses: atom.config.get('atom-ternjs.doNotAddParantheses'),
       sort: atom.config.get('atom-ternjs.sort'),
       guess: atom.config.get('atom-ternjs.guess'),
       urls: atom.config.get('atom-ternjs.urls'),
@@ -55,33 +55,16 @@ export default class PackageConfig {
 
         return;
       }
-
-      atom.config.set('atom-ternjs.doNotAddParantheses', false);
     }));
 
     this.disposables.push(atom.config.observe('atom-ternjs.useSnippetsAndFunction', (value) => {
 
-      this.useSnippetsAndFunction = value;
+      this.options.useSnippetsAndFunction = value;
 
       if (!value) {
 
         return;
       }
-
-      atom.config.set('atom-ternjs.doNotAddParantheses', false);
-    }));
-
-    this.disposables.push(atom.config.observe('atom-ternjs.doNotAddParantheses', (value) => {
-
-      this.options.doNotAddParantheses = value;
-
-      if (!value) {
-
-        return;
-      }
-
-      atom.config.set('atom-ternjs.useSnippets', false);
-      atom.config.set('atom-ternjs.useSnippetsAndFunction', false);
     }));
 
     this.disposables.push(atom.config.observe('atom-ternjs.sort', (value) => {

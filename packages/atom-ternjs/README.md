@@ -1,6 +1,7 @@
 # atom-ternjs
 
 > JavaScript code intelligence for atom with [Tern](https://github.com/ternjs/tern).
+Adds support for ES5, ES6 (JavaScript 2015), Node.js, jQuery, Angular and more. Extendable via plugins.
 Uses suggestion provider by [autocomplete-plus](https://github.com/atom/autocomplete-plus).
 
 ## Installation
@@ -60,7 +61,7 @@ Example `.tern-project` file (customize to your own needs):
 * jquery: completion for jQuery (optional)
 
 ## Options
-* loadEagerly: provide the path to your projects js. Absolute path is recommended, but not necessary. (For relative path do not use `./` as a prefix. This sometimes leads to an unexpected behaviour)
+* loadEagerly: provide the path to your projects js. Absolute path is recommended, but not necessary. (For relative path do not use `./` as a prefix. This sometimes leads to an unexpected behaviour). **loadEagerly is expensive. Do not add paths like `node_modules`.**
 * dontLoad: can be used to prevent Tern from loading certain files. It also takes an array of file names or glob patterns.
 
 ## Plugins
@@ -139,16 +140,32 @@ Restart the server via *Packages -> Atom Ternjs -> Restart server*
 * After the file was created or has been modified, restart the server via *Packages -> Atom Ternjs -> Restart server*
 
 ## Features
-* Completion (autocompletion triggers automatically, via <kbd>strg+space</kbd> or can be forced in any context with <kbd>ctrl+alt+space</kbd>)
+* Completion (autocompletion triggers automatically), or via the keybindings:
+  * <kbd>strg+space</kbd>
+  * <kbd>ctrl+alt+space</kbd> (force autocompletion in any context)
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/completion-1.png)
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/completion-2.png)
-* Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find references" or use the shortcut <kbd>ctrl+shift+r</kbd> (mac), <kbd>ctrl+shift+e</kbd> (mac, linux)) Click any item in the generated reference-list and navigate directly to file and position
+* Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find references" or use the keybindings:
+  * <kbd>ctrl+shift+r</kbd> (mac, windows)
+  * <kbd>ctrl+alt+shift+e</kbd> (linux)
+
+Click any item in the generated reference-list and navigate directly to file and position
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/reference-1.png)
 
 * Documentation (displayed if a suggestion with a valid documentation is selected in the select-list)
-* Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find definition", <kbd>alt+click</kbd> (mac, linux), <kbd>ctrl+click</kbd> (windows) or use the shortcut <kbd>ctrl+alt+d</kbd>)
-* Back from definition <kbd>ctrl+alt+z</kbd>
-* Rename variable (set your cursor position to a variable -> open context-menu and trigger "Rename" or use the shortcut <kbd>ctrl+alt+c</kbd>)
+
+* Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find definition") or use the keybindings:
+  * <kbd>alt+click</kbd> (mac, windows, linux)
+  * <kbd>ctrl+alt+d</kbd> (mac, windows)
+  * <kbd>ctrl+alt+shift+d</kbd> (linux)
+
+* Back from definition
+  * <kbd>ctrl+alt+z</kbd> (mac, windows)
+  * <kbd>ctrl+alt+shift+z</kbd> (linux)
+
+* Rename variable (set your cursor position to a variable -> open context-menu and trigger "Rename") or use the keybindings:
+  * <kbd>ctrl+alt+c</kbd> (mac, windows)
+  * <kbd>ctrl+alt+shift+c</kbd> (linux)

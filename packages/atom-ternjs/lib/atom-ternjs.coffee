@@ -38,17 +38,17 @@ module.exports =
       title: 'Use autocomplete-snippets'
       description: 'Adds snippets to autocomplete+ suggestions'
       type: 'boolean'
-      default: true
+      default: false
       order: 4
-    useSnippetsAndFunction:
-      title: 'Display both, autocomplete-snippets and function name'
-      description: 'Choose to just complete the function name or expand the snippet'
+    displayAboveSnippets:
+      title: 'Display above snippets'
+      description: 'Displays ternjs suggestions above snippet suggestions. Requires a restart.'
       type: 'boolean'
       default: false
       order: 5
-    doNotAddParantheses:
-      title: 'Do not add parantheses if method is completed'
-      description: 'Currently only works if "Use autocomplete-snippets" and "Display both, autocomplete-snippets and function name" are both disabled.'
+    useSnippetsAndFunction:
+      title: 'Display both, autocomplete-snippets and function name'
+      description: 'Choose to just complete the function name or expand the snippet'
       type: 'boolean'
       default: false
       order: 6

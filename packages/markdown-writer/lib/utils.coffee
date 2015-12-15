@@ -2,6 +2,8 @@
 path = require "path"
 wcswidth = require "wcwidth"
 
+config = require "./config"
+
 # ==================================================
 # General Utils
 #
@@ -21,6 +23,21 @@ dasherize = (str) ->
 getPackagePath = (segments...) ->
   segments.unshift(atom.packages.resolvePackagePath("markdown-writer"))
   path.join.apply(null, segments)
+
+getRootPath = ->
+  paths = atom.project.getPaths()
+
+  if paths && paths.length > 0
+    projectPath = paths[0]
+  else
+    # Give the user a path if there's no project paths.
+    projectPath = atom.config.get("core.projectHome")
+
+  if !config.get("siteLocalDir")
+    return projectPath
+  else
+    return config.get("siteLocalDir")
+
 
 # ==================================================
 # General View Helpers
@@ -132,6 +149,11 @@ parseImage = (input) ->
     return alt: image[1], src: image[2], title: image[3]
   else
     return alt: input, src: "", title: ""
+    
+IMG_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".ico"]
+
+isImageFile = (file) ->
+  file && (path.extname(file).toLowerCase() in IMG_EXTENSIONS)
 
 # ==================================================
 # Inline link
@@ -414,7 +436,9 @@ module.exports =
   getJSON: getJSON
   regexpEscape: regexpEscape
   dasherize: dasherize
+  
   getPackagePath: getPackagePath
+  getRootPath: getRootPath
 
   setTabIndex: setTabIndex
 
@@ -448,5 +472,6 @@ module.exports =
   createTableRow: createTableRow
 
   isUrl: isUrl
+  isImageFile: isImageFile
 
   getTextBufferRange: getTextBufferRange

@@ -1,3 +1,8 @@
+## 2.1.0
+
+* Add default project support directory
+* Add `relativeImagePath` configuration for insert image
+
 ## 2.0.1
 
 * Fix publish draft in new buffers

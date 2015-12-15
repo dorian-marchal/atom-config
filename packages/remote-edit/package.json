@@ -1,7 +1,7 @@
 {
   "name": "remote-edit",
   "main": "./lib/main.coffee",
-  "version": "1.8.22",
+  "version": "1.8.23",
   "description": "Browse and edit remote files using SFTP and FTP",
   "homepage": "https://github.com/sveale/remote-edit",
   "repository": {
@@ -17,7 +17,7 @@
     "email": "sverre.aleksandersen@gmail.com"
   },
   "engines": {
-    "atom": ">=1.1.0 <2.0.0"
+    "atom": ">=1.2.3 <2.0.0"
   },
   "dependencies": {
     "ftp": ">=0.3.7",
@@ -34,6 +34,7 @@
     "atom-space-pen-views": "^2.0.3",
     "mkdirp": "~0.5.1",
     "upath": "~0.1.6",
+    "temp": ">=0.8.3",
     "keytar": "~3.0.0"
   },
   "optionalDependencies": {
@@ -55,10 +56,10 @@
   ],
   "readme": "# remote-edit for atom.io\n\n[![Build Status](https://travis-ci.org/sveale/remote-edit.svg?branch=master)](https://travis-ci.org/sveale/remote-edit)\n[![Build status](https://ci.appveyor.com/api/projects/status/i1swrbog9vdk29uk)](https://ci.appveyor.com/project/SverreAleksandersen/remote-edit)\n\n\nAtom package to browse and edit remote files using FTP and SFTP.\n\n## Key features\n* Add FTP/SFTP hosts graphically (FTPS not supported at the moment)\n* Supports password, key and agent authentication\n* Browse files through a select list\n* Automatically upload file on save\n* Multi-window support (ie. server settings and downloaded files are serialized and accessible across multiple Atom windows)\n\n## Security concerns\n * By default, __all information is stored in cleartext to disk__. This includes passwords and passphrases.\n * Passwords and passphrases can alternatively be stored in the systems __default keychain__ by enabling it in the settings page for remote-edit. This is achieved using [node-keytar](https://github.com/atom/node-keytar) and might not work on all systems.\n\n## Keyboard shortcuts\n<kbd>Shift+e</kbd>\nEdit hosts. Usable when selecting hosts (_Browse_).\n\n<kbd>Shift+d</kbd>\nDelete hosts or downloaded files. Usable when selecting hosts (_Browse_) or open files (_Show open files_).\n\n\n### Windows / Linux specific\n<kbd>Ctrl+Alt+b</kbd>\nSelect host.\n\n<kbd>Ctrl+Alt+o</kbd>\nShow downloaded files.\n\n### Mac OS X specific\n<kbd>Ctrl+Cmd+b</kbd>\nSelect host.\n\n<kbd>Ctrl+Cmd+o</kbd>\nShow downloaded files\n\n\n## Tips and tricks\n### SSH auth with password fails\nOn some sshd configuration (Mac OS X Mavericks), if _PasswordAuthentication_ is not explicitly set to yes, ssh server will not allow non-interactive password authentication. See [this issue](https://github.com/mscdex/ssh2/issues/154) for more in-depth information.\n\n### Agent authentication when using SSH\nThe package uses [ssh2](https://github.com/mscdex/ssh2) to connect to ssh servers, and also use the default construct in this package to authenticate with an agent.\nOn Windows, the agent will be set to \"pageant\", otherwise it assumes a \\ix system and uses \"process.env['SSH_AUTH_SOCK']\" to get the agent.\nThis can be overridden in the settings.\n\n## Screenshot\n### Available commands\n![Available commands](http://imgur.com/dS9a0CZ.png)\n\n### Add a new FTP host\n![Adding a new FTP host](http://imgur.com/dEVvXd6.png)\n\n### Add a new SFTP host\n![Adding a new SFTP host](http://imgur.com/4Kq3kwh.png)\n\n### Edit existing host\n![Editing an existing host](http://imgur.com/GgXh5qQ.png)\n\n### Select host\n![Select host](http://imgur.com/BediXn9.png)\n\n### Browse host\n![Browsing host](http://i.imgur.com/RwvMgFH.png)\n\n### Show downloaded files\n![Show open files](http://imgur.com/wpTTBQt.png)\n\n\n## Settings window\n![Settings window for remote-edit](http://imgur.com/8BG2Mz7.png)\n",
   "readmeFilename": "README.md",
-  "_id": "remote-edit@1.8.22",
-  "_shasum": "ca7fad28e9c6d579e4948c535bbe42ba1384a9e1",
-  "_resolved": "file:../d-115101-20567-h9ttee/package.tgz",
-  "_from": "../d-115101-20567-h9ttee/package.tgz",
+  "_id": "remote-edit@1.8.23",
+  "_shasum": "5fcee87acab2e623ce4ec0a4c0471c99def0c9b2",
+  "_resolved": "file:../d-1151115-24640-1o4mml7/package.tgz",
+  "_from": "../d-1151115-24640-1o4mml7/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -104,7 +105,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.8",
+        "version": "0.10.10",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -114,7 +115,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.1",
+        "version": "3.0.2",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -179,7 +180,7 @@
       },
       {
         "name": "core-util-is",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "path": "node_modules/ftp/node_modules/readable-stream/node_modules/core-util-is/lib/util.js"
       },
       {
@@ -264,7 +265,7 @@
       },
       {
         "name": "core-util-is",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "path": "node_modules/ssh2/node_modules/readable-stream/node_modules/core-util-is/lib/util.js"
       },
       {
@@ -284,18 +285,13 @@
       },
       {
         "name": "ssh2-streams",
-        "version": "0.0.18",
+        "version": "0.0.19",
         "path": "node_modules/ssh2/node_modules/ssh2-streams/index.js"
       },
       {
         "name": "asn1",
         "version": "0.2.3",
         "path": "node_modules/ssh2/node_modules/ssh2-streams/node_modules/asn1/lib/index.js"
-      },
-      {
-        "name": "jsbn",
-        "version": "0.1.0",
-        "path": "node_modules/ssh2/node_modules/ssh2-streams/node_modules/jsbn/index.js"
       },
       {
         "name": "streamsearch",
@@ -306,6 +302,21 @@
         "name": "string-hash",
         "version": "1.1.0",
         "path": "node_modules/string-hash/index.js"
+      },
+      {
+        "name": "temp",
+        "version": "0.8.3",
+        "path": "node_modules/temp/lib/temp.js"
+      },
+      {
+        "name": "os-tmpdir",
+        "version": "1.0.1",
+        "path": "node_modules/temp/node_modules/os-tmpdir/index.js"
+      },
+      {
+        "name": "rimraf",
+        "version": "2.2.8",
+        "path": "node_modules/temp/node_modules/rimraf/rimraf.js"
       },
       {
         "name": "underscore-plus",
@@ -649,6 +660,8 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/copy.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/count.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/create.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number-value.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/eq.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/every.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/filter.js",
@@ -664,6 +677,7 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy-deep.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-empty.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-number-value.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-object.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-plain-object.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is.js",
@@ -894,7 +908,7 @@
         "node_modules/ftp/node_modules/readable-stream/lib/_stream_transform.js",
         "node_modules/ftp/node_modules/readable-stream/lib/_stream_writable.js",
         "node_modules/ftp/node_modules/readable-stream/node_modules/core-util-is/lib/util.js",
-        "node_modules/ftp/node_modules/readable-stream/node_modules/core-util-is/util.js",
+        "node_modules/ftp/node_modules/readable-stream/node_modules/core-util-is/test.js",
         "node_modules/ftp/node_modules/readable-stream/node_modules/inherits/inherits.js",
         "node_modules/ftp/node_modules/readable-stream/node_modules/inherits/inherits_browser.js",
         "node_modules/ftp/node_modules/readable-stream/node_modules/inherits/test.js",
@@ -1028,7 +1042,7 @@
         "node_modules/ssh2/node_modules/readable-stream/lib/_stream_transform.js",
         "node_modules/ssh2/node_modules/readable-stream/lib/_stream_writable.js",
         "node_modules/ssh2/node_modules/readable-stream/node_modules/core-util-is/lib/util.js",
-        "node_modules/ssh2/node_modules/readable-stream/node_modules/core-util-is/util.js",
+        "node_modules/ssh2/node_modules/readable-stream/node_modules/core-util-is/test.js",
         "node_modules/ssh2/node_modules/readable-stream/node_modules/inherits/inherits.js",
         "node_modules/ssh2/node_modules/readable-stream/node_modules/inherits/inherits_browser.js",
         "node_modules/ssh2/node_modules/readable-stream/node_modules/inherits/test.js",
@@ -1041,6 +1055,7 @@
         "node_modules/ssh2/node_modules/readable-stream/writable.js",
         "node_modules/ssh2/node_modules/ssh2-streams/index.js",
         "node_modules/ssh2/node_modules/ssh2-streams/lib/constants.js",
+        "node_modules/ssh2/node_modules/ssh2-streams/lib/jsbn.js",
         "node_modules/ssh2/node_modules/ssh2-streams/lib/keyParser.js",
         "node_modules/ssh2/node_modules/ssh2-streams/lib/sftp.js",
         "node_modules/ssh2/node_modules/ssh2-streams/lib/ssh.js",
@@ -1053,11 +1068,18 @@
         "node_modules/ssh2/node_modules/ssh2-streams/node_modules/asn1/lib/index.js",
         "node_modules/ssh2/node_modules/ssh2-streams/node_modules/asn1/tst/ber/reader.test.js",
         "node_modules/ssh2/node_modules/ssh2-streams/node_modules/asn1/tst/ber/writer.test.js",
-        "node_modules/ssh2/node_modules/ssh2-streams/node_modules/jsbn/example.js",
-        "node_modules/ssh2/node_modules/ssh2-streams/node_modules/jsbn/index.js",
         "node_modules/ssh2/node_modules/ssh2-streams/node_modules/streamsearch/lib/sbmh.js",
         "node_modules/string-hash/index.js",
         "node_modules/string-hash/test.js",
+        "node_modules/temp/examples/grepcount.js",
+        "node_modules/temp/examples/pdfcreator.js",
+        "node_modules/temp/lib/temp.js",
+        "node_modules/temp/no_cleanup.js",
+        "node_modules/temp/no_cleanup_on_exit.js",
+        "node_modules/temp/no_cleanup_on_exit.spec.js",
+        "node_modules/temp/node_modules/os-tmpdir/index.js",
+        "node_modules/temp/node_modules/rimraf/bin.js",
+        "node_modules/temp/node_modules/rimraf/rimraf.js",
         "node_modules/underscore-plus/lib/underscore-plus.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore.js",
@@ -1533,11 +1555,13 @@
         "node_modules/ssh2/node_modules/readable-stream/node_modules/string_decoder/package.json",
         "node_modules/ssh2/node_modules/readable-stream/package.json",
         "node_modules/ssh2/node_modules/ssh2-streams/node_modules/asn1/package.json",
-        "node_modules/ssh2/node_modules/ssh2-streams/node_modules/jsbn/package.json",
         "node_modules/ssh2/node_modules/ssh2-streams/node_modules/streamsearch/package.json",
         "node_modules/ssh2/node_modules/ssh2-streams/package.json",
         "node_modules/ssh2/package.json",
         "node_modules/string-hash/package.json",
+        "node_modules/temp/node_modules/os-tmpdir/package.json",
+        "node_modules/temp/node_modules/rimraf/package.json",
+        "node_modules/temp/package.json",
         "node_modules/underscore-plus/node_modules/underscore/package.json",
         "node_modules/underscore-plus/package.json",
         "node_modules/upath/node_modules/lodash/package.json",
@@ -1571,6 +1595,7 @@
           "atom-space-pen-views": "^2.0.3",
           "mkdirp": "~0.5.1",
           "upath": "~0.1.6",
+          "temp": ">=0.8.3",
           "keytar": "~3.0.0"
         }
       },
@@ -1794,7 +1819,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "3"
+          "es6-symbol": "~3.0.1"
         }
       },
       {
@@ -1817,7 +1842,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.8"
+          "es5-ext": "~0.10.10"
         }
       },
       {
@@ -1953,8 +1978,19 @@
         "dependencies": {
           "readable-stream": "~1.0.0",
           "streamsearch": "~0.1.2",
-          "asn1": "~0.2.0",
-          "jsbn": "*"
+          "asn1": "~0.2.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/temp/examples",
+          "node_modules/temp/lib",
+          "node_modules/temp",
+          "node_modules/temp/test"
+        ],
+        "dependencies": {
+          "os-tmpdir": "^1.0.0",
+          "rimraf": "~2.2.6"
         }
       },
       {
