@@ -23,10 +23,12 @@
 # This file uses CoffeeScript Object Notation (CSON).
 # If you are unfamiliar with CSON, you can read more about it here:
 # https://github.com/bevry/cson#what-is-cson
-
 'atom-workspace atom-text-editor:not([mini])':
   'alt-up': 'editor:move-line-up'
   'alt-down': 'editor:move-line-down'
+  # temporaire, en attendant le fix du déplacement de lignes
+  'alt-up': 'my:move-line-up'
+  'alt-down': 'my:move-line-down'
   'ctrl-alt-down': 'editor:duplicate-lines'
   'ctrl-d': 'editor:delete-line'
   'ctrl-u': 'find-and-replace:select-next'
@@ -82,3 +84,7 @@
 # disable Tern rename
 'atom-text-editor':
   'ctrl-alt-c': 'unset!'
+
+# Disable indent item list
+'atom-workspace atom-text-editor:not([mini])[data-grammar~=\'gfm\']':
+  'tab': 'snippets:expand'
