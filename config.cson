@@ -39,7 +39,7 @@
     tabLength: 4
     scrollPastEnd: true
     showIndentGuide: true
-    fontSize: 16
+    fontSize: 17
   minimap:
     plugins:
       "git-diff": true
@@ -87,7 +87,8 @@
     maximumOpenedTabs: 8
     neverCloseDirty: true
     neverCloseUnsaved: true
-  "fuzzy-finder": {}
+  "fuzzy-finder":
+    useAlternateScoring: true
   "terminal-status": {}
   achievements: {}
   "travis-ci-status": {}
@@ -144,6 +145,9 @@
   "bracket-matcher":
     autocompleteBrackets: false
     autocompleteSmartQuotes: false
+  "linter-jslint":
+    disableWhenNoJslintrcFileInPath: true
+    jslintVersion: "2013-08-26"
 ".js.regexp.source":
   editor:
     preferredLineLength: 80
