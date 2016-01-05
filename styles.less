@@ -82,10 +82,15 @@ atom-text-editor::shadow {
     .invisible-character {
         color: transparent;
 
+        &:not(.trailing-whitespace):not(.leading-whitespace):nth-last-child(2) {
+            color: #39F !important;
+        }
+
         &.hard-tab {
             color: #FFF;
             opacity: 0.3;
         }
+
         &.trailing-whitespace {
             background-color: #39F !important;
             color: #222;
