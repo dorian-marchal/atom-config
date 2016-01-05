@@ -1,3 +1,18 @@
+<a name="v0.19.5"></a>
+# v0.19.5 (2015-12-23)
+
+## Bug Fixes
+
+- Force re-render if rendered region is empty ([25ac6752](https://github.com/abe33/atom-pigments/commit/25ac67521f3a973028d1b9d706f73b18e0baa334))
+- Fix condition on model existence in markers update ([6ac0affa](https://github.com/abe33/atom-pigments/commit/6ac0affa49493067a3386a406d34834344920a02))
+
+<a name="v0.19.4"></a>
+# v0.19.4 (2015-12-22)
+
+## Bug Fixes
+
+- Fix inconsistencies when rendering markers synchronously ([6af4270c](https://github.com/abe33/atom-pigments/commit/6af4270cf093f80b254e8c6a209c62cd546e160e), [#124](https://github.com/abe33/atom-pigments/issues/124))
+
 <a name="v0.19.3"></a>
 # v0.19.3 (2015-12-11)
 

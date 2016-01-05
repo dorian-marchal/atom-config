@@ -1,5 +1,5 @@
 # turbo-javascript
-A collection of commands and ES6-ready snippets for optimizing Javascript development productivity.
+A collection of commands and ES6-ready snippets for optimizing Javascript and Typescript development productivity.
 
 ## Commands
 
@@ -146,6 +146,16 @@ try {
 }
 ```
 
+#### `sw⇥` switch case
+```js
+switch (${1:expr}) {
+  case ${2:value}:
+    return $0;
+  default:
+    return;
+}
+```
+
 ### Functions
 
 #### `f⇥` anonymous function
@@ -210,6 +220,11 @@ function* ${1:name}(${1:arguments}) {
 
 ### Iterables
 
+#### `seq⇥` sequence of 0..n
+```js
+[...Array(${1:length}).keys()]${0}
+```
+
 #### `fe⇥` forEach loop (chainable)
 ```js
 ${1:iterable}.forEach((${2:item}) => {
@@ -266,6 +281,13 @@ class ${1:name} extends ${2:base} {
 }
 ```
 
+#### `ctor` class constructor (ES6)
+```js
+constructor(${1:arguments}) {
+  super(${1:arguments});${0}
+}
+```
+
 #### `:⇥` key/value pair
 Javascript:
 ```js
@@ -314,6 +336,16 @@ ${1:Class}.prototype.${2:methodName} = function (${3:arguments}) {
 };
 ```
 
+#### `a⇥` Object assign
+```js
+Object.assign(${1:dest}, ${2:source})
+```
+
+#### `ac⇥` Object assign copy (shallow clone)
+```js
+Object.assign({}, ${1:original}, ${2:source})
+```
+
 ### Returning values
 
 #### `r⇥` return
@@ -356,6 +388,13 @@ return -1;
 return new Promise((resolve, reject) => {
   ${0}
 });
+```
+
+#### `rc⇥` return complex value (such as JSX components)
+```js
+return (
+  ${0}
+);
 ```
 
 ### Types
@@ -430,7 +469,13 @@ describe('${1:description}', function () {
   ${0}
 });
 ```
-#### `its⇥` synchronous "it"
+#### `cont⇥` context
+```js
+context('${1:description}', function () {
+  ${0}
+});
+```
+#### `it⇥` and `its⇥` synchronous "it"
 ```js
 it('${1:description}', function () {
   ${0}
@@ -499,12 +544,12 @@ setTimeout(() => {
 
 #### `si⇥` setInterval
 ```js
-setTimeout(() => {
+setInterval(() => {
   ${0}
 }, ${1:delay});
 ```
 
-#### `sim⇥` setInterval
+#### `sim⇥` setImmediate
 ```js
 setImmediate(() => {
   ${0}

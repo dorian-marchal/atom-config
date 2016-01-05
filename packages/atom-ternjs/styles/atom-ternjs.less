@@ -2,7 +2,8 @@
 //
 // See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
 // for a full listing of what's available.
-@import "ui-variables";
+@import 'ui-variables';
+
 @atom-ternjs-padding: 20px;
 @atom-ternjs-margin: 20px;
 @atom-ternjs-height: 180px;
@@ -107,19 +108,46 @@ atom-ternjs-reference {
   }
 }
 
-atom-ternjs-type {
+.atom-ternjs-documentation,
+.atom-ternjs-type {
 
+  max-width: 60%;
   background: fade(@overlay-background-color, 90%);
   border: 1px solid fade(@base-border-color, 20%);
   color: @text-color;
   border-radius: @component-border-radius;
-  padding: 5px;
-  display: inline-block;
-  position: relative;
 
-  span {
+  h3,
+  p,
+  a {
 
-    display: inline-block;
+    word-break: break-word;
+  }
+}
+
+atom-ternjs-type,
+atom-ternjs-documentation {
+
+  > div {
+
+    max-height: calc(100vh / 3);
+    overflow-y: auto;
+  }
+}
+
+atom-ternjs-documentation {
+
+  > div {
+
+    padding: 5px 20px;
+  }
+}
+
+atom-ternjs-type {
+
+  > div {
+
+    padding: 5px 10px;
   }
 
   .current-param {

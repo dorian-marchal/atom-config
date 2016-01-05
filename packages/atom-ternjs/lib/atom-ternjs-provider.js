@@ -94,25 +94,30 @@ export default class Provider {
 
   getSuggestions({editor, bufferPosition, scopeDescriptor, prefix, activatedManually}) {
 
-    if (!this.manager.client) {
-
-      return [];
-    }
-
-    this.tempPrefix = this.getPrefix(editor, bufferPosition) || prefix;
-
-    if (!this.isValidPrefix(this.tempPrefix, this.tempPrefix[this.tempPrefix.length - 1]) && !this.force && !activatedManually) {
-
-      return [];
-    }
-
-    prefix = this.checkPrefix(this.tempPrefix);
-
     return new Promise((resolve) => {
 
-      this.manager.client.update(editor).then(() => {
+      if (!this.manager.client) {
 
-        this.manager.client.completions(editor.getURI(), {
+        return resolve([]);
+      }
+
+      this.tempPrefix = this.getPrefix(editor, bufferPosition) || prefix;
+
+      if (!this.isValidPrefix(this.tempPrefix, this.tempPrefix[this.tempPrefix.length - 1]) && !this.force && !activatedManually) {
+
+        return resolve([]);
+      }
+
+      prefix = this.checkPrefix(this.tempPrefix);
+
+      this.manager.client.update(editor).then((data) => {
+
+        if (data.isQueried) {
+
+          return resolve([]);
+        }
+
+        this.manager.client.completions(atom.project.relativizePath(editor.getURI())[1], {
 
           line: bufferPosition.row,
           ch: bufferPosition.column

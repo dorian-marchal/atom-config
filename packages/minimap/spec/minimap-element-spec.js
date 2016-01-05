@@ -40,8 +40,9 @@ describe('MinimapElement', () => {
     atom.config.set('minimap.charWidth', 2)
     atom.config.set('minimap.interline', 1)
     atom.config.set('minimap.textOpacity', 1)
+    atom.config.set('minimap.smoothScrolling', true)
 
-    MinimapElement.registerViewProvider()
+    MinimapElement.registerViewProvider(Minimap)
 
     editor = atom.workspace.buildTextEditor({})
     editorElement = atom.views.getView(editor)
@@ -498,7 +499,7 @@ describe('MinimapElement', () => {
 
             beforeEach(() => {
               originalTop = visibleArea.getBoundingClientRect().top
-              mousemove(visibleArea, {x: originalLeft + 1, y: scrollTo + 40})
+              mousemove(visibleArea, {x: originalLeft + 1, y: scrollTo + 40, btn: 1})
 
               waitsFor(() => { return nextAnimationFrame !== noAnimationFrame })
               runs(() => { nextAnimationFrame() })
@@ -565,6 +566,14 @@ describe('MinimapElement', () => {
             nextAnimationFrame !== noAnimationFrame && nextAnimationFrame()
             return editorElement.getScrollTop() >= 380
           })
+        })
+
+        it('stops the animation if the text editor is destroyed', () => {
+          editor.destroy()
+
+          nextAnimationFrame !== noAnimationFrame && nextAnimationFrame()
+
+          expect(nextAnimationFrame === noAnimationFrame)
         })
       })
 
@@ -686,8 +695,10 @@ describe('MinimapElement', () => {
           runs(() => { nextAnimationFrame() })
         })
 
+
+
         describe('dragging the visible area', () => {
-          let [visibleArea, originalTop] = []
+          let [originalTop, visibleArea] = []
 
           beforeEach(() => {
             visibleArea = minimapElement.visibleArea
@@ -1170,6 +1181,22 @@ describe('MinimapElement', () => {
           atom.config.set('minimap.displayMinimapOnLeft', true)
           expect(minimapElement.classList.contains('absolute')).toBeTruthy()
           expect(minimapElement.classList.contains('left')).toBeTruthy()
+        })
+      })
+    })
+
+    describe('when the smoothScrolling setting is disabled', () => {
+      beforeEach(() => {
+        atom.config.set('minimap.smoothScrolling', false)
+      })
+      it('does not offset the canvas when the scroll does not match line height', () => {
+        editorElement.setScrollTop(1004)
+
+        waitsFor(() => { return nextAnimationFrame !== noAnimationFrame })
+        runs(() => {
+          nextAnimationFrame()
+
+          expect(realOffsetTop(canvas)).toEqual(0)
         })
       })
     })

@@ -1,11 +1,22 @@
 'use babel'
 
+/*
+  The following hack clears the require cache of all the paths to the minimap when this file is laoded. It should prevents errors of partial reloading after an update.
+ */
+import path from 'path'
+if (!atom.inSpecMode()) {
+  Object.keys(require.cache).filter((p) => {
+    return p !== __filename && p.indexOf(path.resolve(__dirname, '..') + path.sep) > -1
+  }).forEach((p) => {
+    delete require.cache[p]
+  })
+}
+
 import {Emitter, CompositeDisposable} from 'atom'
 import include from './decorators/include'
-import Minimap from './minimap'
-import MinimapElement from './minimap-element'
 import PluginManagement from './mixins/plugin-management'
-import MinimapPluginGeneratorElement from './minimap-plugin-generator-element'
+
+let Minimap, MinimapElement, MinimapPluginGeneratorElement
 
 /**
  * The `Minimap` package provides an eagle-eye view of text buffers.
@@ -81,7 +92,10 @@ class Main {
   activate () {
     if (this.active) { return }
 
-    MinimapElement.registerViewProvider()
+    if (!Minimap) { Minimap = require('./minimap') }
+    if (!MinimapElement) { MinimapElement = require('./minimap-element') }
+
+    MinimapElement.registerViewProvider(Minimap)
 
     this.subscriptionsOfCommands = atom.commands.add('atom-workspace', {
       'minimap:toggle': () => {
@@ -157,6 +171,9 @@ class Main {
    * @param  {string} template the name of the template to use
    */
   generatePlugin (template) {
+    if (!MinimapPluginGeneratorElement) {
+      MinimapPluginGeneratorElement = require('./minimap-plugin-generator-element')
+    }
     var view = new MinimapPluginGeneratorElement()
     view.template = template
     view.attach()

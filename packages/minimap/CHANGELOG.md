@@ -1,3 +1,43 @@
+<a name="v4.19.0"></a>
+# v4.19.0 (2015-12-24)
+
+## :sparkles: Features
+
+- Add a smoothScrolling setting to enable/disable canvas offset ([18f57c80](https://github.com/atom-minimap/minimap/commit/18f57c80fd248e4e888e87da692bb71bb8109689))
+
+<a name="v4.18.4"></a>
+# v4.18.4 (2015-12-21)
+
+## :bug: Bug Fixes
+
+- Fix error raised when editor is destroyed during animation ([cb215b68](https://github.com/atom-minimap/minimap/commit/cb215b68427264586fd8b56874e7d8e8a71853ae), [#438](https://github.com/atom-minimap/minimap/issues/438))
+
+<a name="v4.18.3"></a>
+# v4.18.3 (2015-12-21)
+
+## :bug: Bug Fixes
+
+- Fixes [#383](https://github.com/atom-minimap/minimap/issues/383) Fix touch scroll support ([cfb509eb](https://github.com/atom-minimap/minimap/commit/cfb509ebe1b861be4ee0c0d85227ba00144234bf), thanks to @TimoSta)
+
+<a name="v4.18.2"></a>
+# v4.18.2 (2015-12-17)
+
+## :racehorse: Performances
+
+- Lazy load model and views ([e0b11276](https://github.com/atom-minimap/minimap/commit/e0b11276ebd2d28581f85114e40d8d59590b84ca), [#430](https://github.com/atom-minimap/minimap/issues/430))
+
+<a name="v4.18.1"></a>
+# v4.18.1 (2015-12-16)
+
+## :bug: Bug Fixes
+
+- Clear require cache on main module loading ([1b698abf](https://github.com/atom-minimap/minimap/commit/1b698abf8da2e07408e67be8a27c53c96dbf4188))
+- Fix folding/unfolding rows giving invalid redraw range ([8d0f061c](https://github.com/atom-minimap/minimap/commit/8d0f061c8ef3e7780d714a86a7451b4cdd7cdee6), [#429](https://github.com/atom-minimap/minimap/issues/429))
+
+## :racehorse: Performances
+
+- Use dedicated pending changes array for back and front decorations ([aef0c49a](https://github.com/atom-minimap/minimap/commit/aef0c49a1544023e189fee17b5d45c02fbc189eb))
+
 <a name="v4.18.0"></a>
 # v4.18.0 (2015-12-11)
 

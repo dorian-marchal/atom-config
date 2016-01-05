@@ -1,4 +1,4 @@
-".source.js":
+".source.js, .source.ts":
   "class":
     prefix: "c"
     body: """
@@ -16,5 +16,12 @@
     \t\tsuper(${3:arguments});
     \t\t${0}
     \t}
+    }
+    """
+  "constructor":
+    prefix: "ctor"
+    body: """
+    constructor(${1:arguments}) {
+    \tsuper(${1:arguments});${0}
     }
     """
