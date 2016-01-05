@@ -123,6 +123,16 @@
     'prefix': 'pr'
     'body': '<?php pr(${1}) ?>'
 
+
+'.text.html.twig':
+  'endif':
+    'prefix': 'endif'
+    'body': '{% endif %}'
+
+  'endfor':
+    'prefix': 'endfor'
+    'body': '{% endfor %}'
+
 # Markdown
 '.source.gfm':
   'Checkbox':
