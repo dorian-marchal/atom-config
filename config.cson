@@ -1,9 +1,21 @@
 "*":
-  "exception-reporting":
-    userId: "3079f2c3-af1f-fc1b-e5c7-6add982dcebc"
-  welcome:
-    showOnStartup: false
+  achievements: {}
+  "atom-autocomplete-php": {}
+  "atom-beautify":
+    _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
+  "atom-ctags":
+    GotoSymbolKey: [
+      "ctrl"
+      "shift"
+    ]
+  "autocomplete-plus": {}
+  blame: {}
+  "bracket-matcher": {}
+  "color-picker":
+    preferredFormat: "HEX"
+    randomColor: false
   core:
+    audioBeep: false
     disabledPackages: [
       "remember-session"
       "save-session"
@@ -18,6 +30,7 @@
       "timecop"
       "autosave"
     ]
+    excludeVcsIgnoredPaths: false
     ignoredNames: [
       "node_modules"
       "*.scssc"
@@ -27,127 +40,122 @@
       "platforms"
       ".tag*"
     ]
-    excludeVcsIgnoredPaths: false
     themes: [
       "atom-dark-ui"
       "kyokai"
     ]
-    audioBeep: false
+  docblockr:
+    align_tags: "no"
+    deep_indent: true
+    extend_double_slash: false
+    per_section_indent: true
+    spacer_between_sections: true
   editor:
+    fontSize: 18
     invisibles: {}
-    showInvisibles: true
-    tabLength: 4
     scrollPastEnd: true
     showIndentGuide: true
-    fontSize: 17
-  minimap:
-    plugins:
-      "git-diff": true
-      "highlight-selected": true
-  "save-session":
-    dataSaveFolder: "/home/dorian/.atom/packages/save-session/projects"
-    windowX: 1985
-    windowY: 24
-    windowWidth: 1615
-    windowHeight: 1026
-    fullScreen: false
-    projects: [
-      "/media/data/www/phonegap-boilerplate-example"
-      "/media/data/www/phonegap-boilerplate-server-example"
-    ]
-  "remember-session":
-    x: 1986
-    y: 52
-    width: 1615
-    height: 1026
+    showInvisibles: true
+    tabLength: 4
+    zoomFontWhenCtrlScrolling: false
+  emmet: {}
+  "exception-reporting":
+    userId: "3079f2c3-af1f-fc1b-e5c7-6add982dcebc"
+  "file-icons": {}
+  "find-and-replace": {}
+  fonts:
+    fontFamily: "Hasklig"
+    preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
+  "fuzzy-finder":
+    useAlternateScoring: true
+  "git-blame": {}
+  "git-plus":
+    wordDiff: false
+  "highlight-selected": {}
+  "isotope-ui": {}
+  jshint:
+    supportLintingJsx: true
+  linter:
+    clearOnChange: true
+    lintOnChangeInterval: 500
+    showErrorPanel: false
+    statusBar: "Show all errors"
+  "linter-jscs":
+    onlyConfig: true
+    preset: "google"
+    verbose: true
+  "linter-jshint":
+    disableWhenNoJshintrcFileInPath: true
+    jshintExecutablePath: "/usr/local/bin/jshint"
+  "linter-jslint":
+    disableWhenNoJslintrcFileInPath: true
+    jslintVersion: "2013-08-26"
+  "linter-php": {}
+  "markdown-preview":
+    useGitHubStyle: true
   "markdown-writer":
     fileExtension: ".markdown, .md"
     urlForPosts: '''
             
       'enter': 'markdown-writer:insert-new-line'
     '''
-  "toggle-quotes": {}
-  "spell-check": {}
-  tabs: {}
+  "merge-conflicts": {}
+  minimap:
+    plugins:
+      "git-diff": true
+      "highlight-selected": true
+  "one-dark-ui": {}
+  "php-getters-setters": {}
   pigments:
     extendAutocompleteToVariables: false
-  "autocomplete-plus": {}
-  emmet: {}
-  "highlight-selected": {}
-  jshint:
-    supportLintingJsx: true
   "project-manager": {}
+  "recent-files-fuzzy-finder": {}
+  "remember-session":
+    height: 1026
+    width: 1615
+    x: 1986
+    y: 52
+  "remote-edit":
+    rememberLastOpenDirectory: true
+  "remote-sync":
+    difftoolCommand: "meld"
+    logToConsole: true
+  "save-session":
+    dataSaveFolder: "/home/dorian/.atom/packages/save-session/projects"
+    fullScreen: false
+    projects: [
+      "/media/data/www/phonegap-boilerplate-example"
+      "/media/data/www/phonegap-boilerplate-server-example"
+    ]
+    windowHeight: 1026
+    windowWidth: 1615
+    windowX: 1985
+    windowY: 24
+  "spell-check": {}
   "sublime-tabs": {}
-  "file-icons": {}
-  "isotope-ui": {}
+  tabs: {}
+  "terminal-status": {}
+  "todo-show": {}
+  "toggle-quotes": {}
+  "travis-ci-status": {}
   "tree-ignore":
     enabled: false
-  "recent-files-fuzzy-finder": {}
+  "tree-view": {}
+  welcome:
+    showOnStartup: false
+  "xml-formatter": {}
   zentabs:
     maximumOpenedTabs: 8
     neverCloseDirty: true
     neverCloseUnsaved: true
-  "fuzzy-finder":
-    useAlternateScoring: true
-  "terminal-status": {}
-  achievements: {}
-  "travis-ci-status": {}
-  docblockr:
-    extend_double_slash: false
-    align_tags: "no"
-    deep_indent: true
-    spacer_between_sections: true
-    per_section_indent: true
-  "merge-conflicts": {}
-  "markdown-preview":
-    useGitHubStyle: true
-  "color-picker":
-    preferredFormat: "HEX"
-    randomColor: false
-  "linter-php": {}
-  linter:
-    clearOnChange: true
-    statusBar: "Show all errors"
-    showErrorPanel: false
-    lintOnChangeInterval: 500
-  "xml-formatter": {}
-  "atom-beautify":
-    _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
-  "linter-jshint":
-    jshintExecutablePath: "/usr/local/bin/jshint"
-    disableWhenNoJshintrcFileInPath: true
-  "todo-show": {}
-  "linter-jscs":
-    onlyConfig: true
-    preset: "google"
-    verbose: true
-  "git-plus":
-    wordDiff: false
-  "tree-view": {}
-  "php-getters-setters": {}
-  "remote-sync":
-    difftoolCommand: "meld"
-    logToConsole: true
-  "atom-ctags":
-    GotoSymbolKey: [
-      "ctrl"
-      "shift"
-    ]
-  "atom-autocomplete-php": {}
-  "git-blame": {}
-  blame: {}
-  "remote-edit":
-    rememberLastOpenDirectory: true
-  fonts:
-    preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
-    fontFamily: "Hasklig"
-  "one-dark-ui": {}
-  "bracket-matcher":
-    autocompleteBrackets: false
-    autocompleteSmartQuotes: false
-  "linter-jslint":
-    disableWhenNoJslintrcFileInPath: true
-    jslintVersion: "2013-08-26"
+".js.regexp.replacement.source":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+    preferredLineLength: 80
 ".js.regexp.source":
   editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
     preferredLineLength: 80
+".js.source":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"

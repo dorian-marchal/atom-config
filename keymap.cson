@@ -48,6 +48,7 @@
   'ctrl-down': 'add-line-break:add-line-break-before'
   'ctrl-k ctrl-s': 'editor:log-cursor-scope'
   'ctrl-k ctrl-w': 'editor:toggle-soft-wrap'
+  'ctrl-k ctrl-h': 'git-time-machine:toggle'
   'ctrl-f2': 'bookmarks:toggle-bookmark'
   'ctrl-e': 'emmet:expand-abbreviation'
   'ctrl-b': 'blame:toggle'
