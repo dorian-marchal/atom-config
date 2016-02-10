@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.7.6
+Fix [#195](https://github.com/danielbrodin/atom-project-manager/issues/195)
+
+## 2.7.5
+Bugfix
+
+## 2.7.4
+Now adds back focus to editor when closing the project list view.
+
+## 2.7.3
+Fixes [#143](https://github.com/danielbrodin/atom-project-manager/issues/143)
+
+## 2.7.2
+Fixes [#185](https://github.com/danielbrodin/atom-project-manager/issues/185) and [#182](https://github.com/danielbrodin/atom-project-manager/issues/182)
+
+## 2.7.1
+Fixes [#180](https://github.com/danielbrodin/atom-project-manager/issues/180)
+
+## 2.7.0
+- The option to close the current window when opening a new project is now back. Still not a great implementation but the old one seems to work again.
+- The project listing will now warn you if a projects path is not available.
+
 ## 2.6.5
 Fixes [#163](https://github.com/danielbrodin/atom-project-manager/issues/163)
 

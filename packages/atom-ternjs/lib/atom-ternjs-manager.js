@@ -110,6 +110,11 @@ export default class Manager {
 
     for (let disposable of this.disposables) {
 
+      if (!disposable) {
+
+        continue;
+      }
+
       disposable.dispose();
     }
 
@@ -356,18 +361,21 @@ export default class Manager {
 
       let editorView = atom.views.getView(editor);
 
-      this.disposables.push(editorView.addEventListener('click', (e) => {
+      if (editorView) {
 
-        if (!e[this.helper.accessKey]) {
+        this.disposables.push(editorView.addEventListener('click', (e) => {
 
-          return;
-        }
+          if (!e[this.helper.accessKey]) {
 
-        if (this.client) {
+            return;
+          }
 
-          this.client.definition();
-        }
-      }));
+          if (this.client) {
+
+            this.client.definition();
+          }
+        }));
+      }
 
       let scrollView;
 
@@ -380,25 +388,28 @@ export default class Manager {
         scrollView = editorView.shadowRoot.querySelector('.scroll-view');
       }
 
-      this.disposables.push(scrollView.addEventListener('mousemove', (e) => {
+      if (scrollView) {
 
-        if (!e[this.helper.accessKey]) {
+        this.disposables.push(scrollView.addEventListener('mousemove', (e) => {
 
-          return;
-        }
+          if (!e[this.helper.accessKey]) {
 
-        if (e.target.classList.contains('line')) {
+            return;
+          }
 
-          return;
-        }
+          if (e.target.classList.contains('line')) {
 
-        e.target.classList.add('atom-ternjs-hover');
-      }));
+            return;
+          }
 
-      this.disposables.push(scrollView.addEventListener('mouseout', (e) => {
+          e.target.classList.add('atom-ternjs-hover');
+        }));
 
-        e.target.classList.remove('atom-ternjs-hover');
-      }));
+        this.disposables.push(scrollView.addEventListener('mouseout', (e) => {
+
+          e.target.classList.remove('atom-ternjs-hover');
+        }));
+      }
 
       this.disposables.push(editor.onDidChangeCursorPosition((e) => {
 
@@ -530,7 +541,10 @@ export default class Manager {
         this.documentation = new Documentation(this);
       }
 
-      this.documentation.request();
+      if (this.client) {
+
+        this.documentation.request();
+      }
     }));
 
     this.disposables.push(atom.commands.add('atom-text-editor', 'tern:references', (e) => {

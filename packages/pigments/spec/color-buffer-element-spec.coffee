@@ -1,5 +1,6 @@
 path = require 'path'
 require './helpers/spec-helper'
+{mousedown} = require './helpers/events'
 
 ColorBufferElement = require '../lib/color-buffer-element'
 ColorMarkerElement = require '../lib/color-marker-element'
@@ -144,15 +145,18 @@ describe 'ColorBufferElement', ->
 
           describe 'and the markers are updated', ->
             beforeEach ->
-              waitsForPromise -> colorBuffer.variablesAvailable()
-              sleep(100)
+              waitsForPromise 'colors available', ->
+                colorBuffer.variablesAvailable()
+              waitsFor 'last marker visible', ->
+                markers = colorBufferElement.shadowRoot.querySelectorAll('pigments-color-marker')
+                isVisible(markers[3])
 
             it 'hides the created markers', ->
               markers = colorBufferElement.shadowRoot.querySelectorAll('pigments-color-marker')
               expect(isVisible(markers[0])).toBeFalsy()
               expect(isVisible(markers[1])).toBeTruthy()
               expect(isVisible(markers[2])).toBeTruthy()
-              expect(isVisible(markers[3])).toBeFalsy()
+              expect(isVisible(markers[3])).toBeTruthy()
 
       describe 'when a line is edited and gets wrapped', ->
         marker = null
@@ -269,6 +273,20 @@ describe 'ColorBufferElement', ->
 
             it 'sets the size of the gutter based on the number of markers in the same row', ->
               expect(gutter.style.minWidth).toEqual('42px')
+
+            describe 'clicking on a gutter decoration', ->
+              beforeEach ->
+                project.colorPickerAPI =
+                  open: jasmine.createSpy('color-picker.open')
+
+                decoration = editorElement.shadowRoot.querySelector('.pigments-gutter-marker span')
+                mousedown(decoration)
+
+              it 'selects the text in the editor', ->
+                expect(editor.getSelectedScreenRange()).toEqual([[0,13],[0,17]])
+
+              it 'opens the color picker', ->
+                expect(project.colorPickerAPI.open).toHaveBeenCalled()
 
         describe 'when the marker is changed again', ->
           beforeEach ->

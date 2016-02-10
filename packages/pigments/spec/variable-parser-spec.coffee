@@ -30,11 +30,15 @@ describe 'VariableParser', ->
 
   itParses('$color: white;').as('$color': 'white')
   itParses('$color: white').as('$color': 'white')
+  itParses('$color  : white').as('$color': 'white')
   itParses('$non-color: 10px;').as('$non-color': '10px')
   itParses('$non-color: 10px').as('$non-color': '10px')
 
   itParses('@color: white;').as('@color': 'white')
   itParses('@non-color: 10px;').as('@non-color': '10px')
+
+  itParses('--color: white;').as('var(--color)': 'white')
+  itParses('--non-color: 10px;').as('var(--non-color)': '10px')
 
   itParses("""
     colors = {

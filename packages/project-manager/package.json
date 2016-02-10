@@ -1,7 +1,7 @@
 {
   "name": "project-manager",
   "main": "./lib/project-manager",
-  "version": "2.6.5",
+  "version": "2.7.6",
   "description": "Project Manager for easy access and switching between projects in Atom.",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "productivity"
   ],
   "engines": {
-    "atom": ">0.200.0"
+    "atom": ">1.4.0"
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
@@ -31,22 +31,22 @@
       }
     }
   },
-  "readme": "# Project Manager\n[![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg?branch=master)](https://travis-ci.org/danielbrodin/atom-project-manager/)\n[![apm](https://img.shields.io/apm/dm/project-manager.svg)](https://atom.io/packages/project-manager)\n[![apm](https://img.shields.io/apm/v/project-manager.svg)]()\n\n![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)\n\n\nGet easy access to all your projects and manage them with project specific settings and options.\n\n\n## Install\n```\n$ apm install project-manager\n```\nor open Atom and go to Preferences > Install and search for `project-manager`\n\n\n## Use\n### List Projects\n`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or `Project Manager: List Projects` in the Command Palette.\n\nYou can filter projects by `title`, `group` and `template`.\n`group: atom` would list all projects with the group `atom`. Default is `title`\n\n### Save Project\n`Project Manager: Save Project` in the Command Palette and write the title you want to save the project as.\n\n### Edit Projects\nAll projects are saved in a `.cson` file which you can easily reach by searching for `Project Manager: Edit Projects` in the Command Palette.\n\n## Project Settings\n\nsetting    | Type      | Description                                                                                                                                           | Default               \n-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------\n`title`    | `string`  | Projects title. Used in the projects list                                                                                                | `''`                  \n`paths`    | `array`   | The folders that will open in the tree view. First path is the main one that counts as the project.                                                   | `[]`                  \n`settings` | `Object`  | Enables you to set project specific settings. Everything that goes in the `config.cson` file can go here. It also supports scoped settings.           | `{}`                  \n`icon`     | `string`  | Icon that shows in the projects list. It's class-based so can either be a class already provided by Atom like `icon-squirell` or a class of your own. | `'icon-chevron-right'`\n`devMode`  | `boolean` | `true` if project should open in dev mode                                                                                                             | `false`               \n`group`    | `string`  | Adds a group to the projects list that can be used to group and filter projects                                                                       | `null`                \n`template` | `string`  | If you add a project in the `projects.cson` file without `paths` it will count as a template. This way you can easily share settings between projects | `null`                \n\n\n### Example\n```\nprojectmanager:\n  title: 'Project Manager'\n  devMode: true\n  group: 'Atom'\n  template: 'coffeescript-template'\n  paths: [\n    '/path/to/project-manager'\n  ]\n  settings:\n    '*':\n      'editor.tabLength': 4\n\n'coffeescript-template':\n  icon: 'icon-coffeescript'\n  settings:\n    '.source.coffee':\n      'editor.tabLength': 2\n      'editor.preferredLineLength': 80\n```\n\n## Package Settings\nName                          | Setting                                       | Default     | Description                                                                                                                                      \n------------------------------|-----------------------------------------------|-------------|------------\nShow Path                     | `project-manager.showPath`                    | `true`      | Shows each projects paths in the projects list                                                                                                   \nEnvironment Specific Projects | `project-manager.environmentSpecificProjects` | `false`     | If you share your `.atom` folder between computers but don't use the same projects. Will create a `projects.[hostname].cson` for each environment\nSort By                       | `project-manager.sortBy`                      | `'default'` | Will sort the projects list by selected option. Default sorting is the order in which the are                                                    \n~~Close Current~~             | ~~`project-manager.closeCurrent`~~            | ~~`false`~~ | ~~Closes the current window before opening a new project.~~ **Currently disabled** because I haven't found a proper way to achieve this anymore.\n\n\n## API\nThe project manager provides a service that you can use in your own Atom packages. To use it, include `project-manager` in the `consumedServices` section of your package.json.\n\n```\n\"consumedServices\": {\n    \"project-manager\": {\n      \"versions\": {\n        \"^2.2.1\": \"consumeProjectManager\"\n      }\n    }\n  }\n```\nThen in your package's main module, call methods on the service\n```\nmodule.exports =\n  doSomethingWithTheCurrentProject: (project) ->\n\n  consumeProjectManager: (PM) ->\n    PM.projects.getCurrent (project) =>\n      if project\n        @doSomethingWithTheCurrentProject(project)\n```\n\n### Methods\n#### `{Projects}`\n- `::getAll`\n  - `{Function} callback` - Callback that receives an `Array` of `{Project}`'s\n- `::getCurrent`\n  - `{Function} callback` - Callback that receives the current `{Project}` or `false` if there is none active\n- `::onUpdate`\n  - `{Function} callback` - Will be called each time a project have been updated\n\n#### `{Project}`\n- `{props}` - Contains all properties of the project like `title`, `paths` and `settings`\n- `::open` - Will open the project\n- `::isCurrent` - Returns `true` if it's the current project\n- `::onUpdate`\n  - `{Function} callback` - Will be called when the project have been updated\n- `::set` - Will set the property on the project\n  - `{String} key`\n  - `{Mixed} value`\n- `::unset` - Will remove the property from the project\n  - `{String} key`\n\n\nPlease let me know if you make something out of it :)\n\n## Contribute\nIf you would like to contribute to the project manager, be it new features or bugs,\nplease do the following:\n\n1. Fork the repository\n2. Create a new topic branch off the master branch that describe what it does\n3. Commit and push the branch\n4. Make a pull request describing what you have done\n5. Now it will hopefully get merged :)\n\nAll PR's should:\n- Pass the [jscs](https://atom.io/packages/linter-jscs) linter\n- Pass the [jshint](https://atom.io/packages/linter-jshint) linter\n- Add a test when it makes sense, which should be most of the time\n\n--------\n\n[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)",
+  "readme": "# Project Manager\n[![Build status](https://travis-ci.org/danielbrodin/atom-project-manager.svg?branch=master)](https://travis-ci.org/danielbrodin/atom-project-manager/)\n[![apm](https://img.shields.io/apm/dm/project-manager.svg)](https://atom.io/packages/project-manager)\n[![apm](https://img.shields.io/apm/v/project-manager.svg)]()\n\n![Project Manager](https://raw.github.com/danielbrodin/atom-project-manager/master/project-manager.gif)\n\n\nGet easy access to all your projects and manage them with project specific settings and options.\n\n\n## Install\n```\n$ apm install project-manager\n```\nor open Atom and go to Preferences > Install and search for `project-manager`\n\n\n## Use\n### List Projects\n`ctrl-cmd-p` (mac) / `alt-shift-P` (win & linux) or `Project Manager: List Projects` in the Command Palette.\n\nYou can filter projects by `title`, `group` and `template`.\n`group: atom` would list all projects with the group `atom`. Default is `title`\n\n### Save Project\n`Project Manager: Save Project` in the Command Palette and write the title you want to save the project as.\n\n### Edit Projects\nAll projects are saved in a `.cson` file which you can easily reach by searching for `Project Manager: Edit Projects` in the Command Palette.\n\n## Project Settings\n\nsetting    | Type      | Description                                                                                                                                           | Default               \n-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------\n`title`    | `string`  | Projects title. Used in the projects list                                                                                                | `''`                  \n`paths`    | `array`   | The folders that will open in the tree view. First path is the main one that counts as the project.                                                   | `[]`                  \n`settings` | `Object`  | Enables you to set project specific settings. Everything that goes in the `config.cson` file can go here. It also supports scoped settings.           | `{}`                  \n`icon`     | `string`  | Icon that shows in the projects list. It's class-based so can either be a class already provided by Atom like `icon-squirell` or a class of your own. | `'icon-chevron-right'`\n`devMode`  | `boolean` | `true` if project should open in dev mode                                                                                                             | `false`               \n`group`    | `string`  | Adds a group to the projects list that can be used to group and filter projects                                                                       | `null`                \n`template` | `string`  | If you add a project in the `projects.cson` file without `paths` it will count as a template. This way you can easily share settings between projects | `null`                \n\n\n### Example\n```\nprojectmanager:\n  title: 'Project Manager'\n  devMode: true\n  group: 'Atom'\n  template: 'coffeescript-template'\n  paths: [\n    '/path/to/project-manager'\n  ]\n  settings:\n    '*':\n      'editor.tabLength': 4\n\n'coffeescript-template':\n  icon: 'icon-coffeescript'\n  settings:\n    '.source.coffee':\n      'editor.tabLength': 2\n      'editor.preferredLineLength': 80\n```\n\n## Package Settings\nName                          | Setting                                       | Default     | Description                                                                                                                                      \n------------------------------|-----------------------------------------------|-------------|------------\nShow Path                     | `project-manager.showPath`                    | `true`      | Shows each projects paths in the projects list                                                                                                   \nEnvironment Specific Projects | `project-manager.environmentSpecificProjects` | `false`     | If you share your `.atom` folder between computers but don't use the same projects. Will create a `projects.[hostname].cson` for each environment\nSort By                       | `project-manager.sortBy`                      | `'default'` | Will sort the projects list by selected option. Default sorting is the order in which the are                                                    \nClose Current                 | `project-manager.closeCurrent`                | `false`     | Closes the current window before opening a new project.\n\n\n## API\nThe project manager provides a service that you can use in your own Atom packages. To use it, include `project-manager` in the `consumedServices` section of your package.json.\n\n```\n\"consumedServices\": {\n    \"project-manager\": {\n      \"versions\": {\n        \"^2.2.1\": \"consumeProjectManager\"\n      }\n    }\n  }\n```\nThen in your package's main module, call methods on the service\n```\nmodule.exports =\n  doSomethingWithTheCurrentProject: (project) ->\n\n  consumeProjectManager: (PM) ->\n    PM.projects.getCurrent (project) =>\n      if project\n        @doSomethingWithTheCurrentProject(project)\n```\n\n### Methods\n#### `{Projects}`\n- `::getAll`\n  - `{Function} callback` - Callback that receives an `Array` of `{Project}`'s\n- `::getCurrent`\n  - `{Function} callback` - Callback that receives the current `{Project}` or `false` if there is none active\n- `::onUpdate`\n  - `{Function} callback` - Will be called each time a project have been updated\n\n#### `{Project}`\n- `{props}` - Contains all properties of the project like `title`, `paths` and `settings`\n- `::open` - Will open the project\n- `::isCurrent` - Returns `true` if it's the current project\n- `::onUpdate`\n  - `{Function} callback` - Will be called when the project have been updated\n- `::set` - Will set the property on the project\n  - `{String} key`\n  - `{Mixed} value`\n- `::unset` - Will remove the property from the project\n  - `{String} key`\n\n\nPlease let me know if you make something out of it :)\n\n## Contribute\nIf you would like to contribute to the project manager, be it new features or bugs,\nplease do the following:\n\n1. Fork the repository\n2. Create a new topic branch off the master branch that describe what it does\n3. Commit and push the branch\n4. Make a pull request describing what you have done\n5. Now it will hopefully get merged :)\n\nAll PR's should:\n- Pass the [jscs](https://atom.io/packages/linter-jscs) linter\n- Pass the [jshint](https://atom.io/packages/linter-jshint) linter\n- Add a test when it makes sense, which should be most of the time\n\n--------\n\n[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=DR4XQWAZV6M2A&lc=SE&item_name=Project%20Manager&item_number=atom%2dproject%2dmanager&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :beer: if you enjoy using the [project manager](https://github.com/danielbrodin/atom-project-manager) :)\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/danielbrodin/atom-project-manager/issues"
   },
   "homepage": "https://github.com/danielbrodin/atom-project-manager#readme",
-  "_id": "project-manager@2.6.5",
-  "_shasum": "43f118808d620dcc295f74944ca8e325987667a0",
-  "_resolved": "file:../d-115926-8475-ecdrpy/package.tgz",
-  "_from": "../d-115926-8475-ecdrpy/package.tgz",
+  "_id": "project-manager@2.7.6",
+  "_shasum": "5e820c7c35ef83b685af14c31c71073ac118742e",
+  "_resolved": "file:../d-116110-9369-1vur1cz/package.tgz",
+  "_from": "../d-116110-9369-1vur1cz/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "atom-space-pen-views",
-        "version": "2.1.0",
+        "version": "2.1.1",
         "path": "node_modules/atom-space-pen-views/lib/main.js"
       },
       {
@@ -56,7 +56,7 @@
       },
       {
         "name": "space-pen",
-        "version": "5.1.1",
+        "version": "5.1.2",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js"
       },
       {
@@ -81,7 +81,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.8",
+        "version": "0.10.11",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -91,7 +91,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.1",
+        "version": "3.0.2",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -479,6 +479,8 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/copy.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/count.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/create.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number-value.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/eq.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/every.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/filter.js",
@@ -494,6 +496,7 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy-deep.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-empty.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-number-value.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-object.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-plain-object.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is.js",
@@ -761,7 +764,6 @@
         "node_modules/underscore-plus/node_modules/underscore/underscore.js"
       ],
       ".coffee": [
-        "lib/db.coffee",
         "lib/dialog.coffee",
         "lib/save-dialog.coffee"
       ],
@@ -819,7 +821,7 @@
         ],
         "dependencies": {
           "fuzzaldrin": "^2.1.0",
-          "space-pen": "^5.0.1"
+          "space-pen": "^5.1.2"
         }
       },
       {
@@ -829,7 +831,7 @@
         ],
         "dependencies": {
           "grim": "^1.0.0",
-          "jquery": "^2.1.3",
+          "jquery": "2.1.4",
           "underscore-plus": "1.x"
         }
       },
@@ -1032,7 +1034,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "3"
+          "es6-symbol": "~3.0.2"
         }
       },
       {
@@ -1055,7 +1057,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.8"
+          "es5-ext": "~0.10.10"
         }
       },
       {

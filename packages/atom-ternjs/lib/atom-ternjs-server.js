@@ -1,23 +1,19 @@
 "use babel";
 
-let tern = require('tern');
-let infer = require('../node_modules/tern/lib/infer');
 let fs = require('fs');
 let path = require('path');
-let url = require('url');
 let glob = require('glob');
 let minimatch = require('minimatch');
+let uuid = require('node-uuid');
 
 export default class Server {
 
   constructor(projectRoot, client, manager) {
-    
-    process.__tern = tern;
-    process.__infer = infer;
 
     this.manager = manager;
-
     this.client = client;
+
+    this.resolves = {};
 
     this.projectDir = projectRoot;
     this.distDir = path.resolve(__dirname, '../node_modules/tern');
@@ -29,22 +25,11 @@ export default class Server {
       plugins: {},
       ecmaScript: true,
       ecmaVersion: 6,
-      dependencyBudget: tern.defaultOptions.dependencyBudget
+      dependencyBudget: 20000
     };
 
     this.projectFileName = '.tern-project';
-    this.portFileName = '.tern-port';
-    this.maxIdleTime = 6e4 * 5; // Shut down after five minutes of inactivity
-
-    this.persistent = true;
-    this.stripCRs = false;
     this.disableLoadingLocal = false;
-    this.verbose = false;
-    this.debug = false;
-    this.noPortFile = true;
-    this.host = '127.0.0.1';
-    this.port = 0;
-    this.httpServer = null;
 
     this.getHomeDir();
     this.init();
@@ -57,81 +42,122 @@ export default class Server {
       return;
     }
 
-    let config = this.readProjectFile(path.resolve(this.projectDir, this.projectFileName));
+    this.config = this.readProjectFile(path.resolve(this.projectDir, this.projectFileName));
 
-    if (!config) {
+    if (!this.config) {
 
-      config = this.defaultConfig;
+      this.config = this.defaultConfig;
     }
 
-    this.httpServer = require('http').createServer((req, resp) => {
+    let defs = this.findDefs(this.projectDir, this.config);
+    let plugins = this.loadPlugins(this.projectDir, this.config);
+    let files = [];
 
-      clearTimeout(this.shutdown);
-      this.shutdown = setTimeout(this.doShutdown.bind(this), this.maxIdleTime);
+    if (this.config.loadEagerly) {
 
-      var target = url.parse(req.url, true);
+      this.config.loadEagerly.forEach((pat) => {
 
-      if (target.pathname == '/ping') {
+        glob.sync(pat, { cwd: this.projectDir }).forEach(function(file) {
 
-        return this.respondSimple(resp, 200, 'pong');
-      }
-
-      if (target.pathname != '/') {
-
-        return this.respondSimple(resp, 404, `No service at ${target.pathname}`);
-      }
-
-      if (req.method === 'POST') {
-
-        var body = '';
-
-        req.on('data', function (data) {
-
-          body += data;
+          files.push(file);
         });
+      });
+    }
 
-        req.on('end', () => {
+    this.worker = new Worker(path.resolve(__dirname, './atom-ternjs-server-worker.js'));
+    this.worker.onmessage = this.onWorkerMessage.bind(this);
 
-          this.respond(resp, body);
-        });
+    this.worker.postMessage({
 
-      } else if (req.method === 'GET') {
-
-        if (target.query.doc) {
-
-          this.respond(resp, target.query.doc);
-
-        } else {
-
-          this.respondSimple(resp, 400, 'Missing query document');
-        }
-      }
+      type: 'init',
+      dir: this.projectDir,
+      config: this.config,
+      defs: defs,
+      plugins: plugins,
+      files: files
     });
+  }
 
-    this.server = this.startServer(this.projectDir, config, this.httpServer);
-    this.shutdown = setTimeout(this.doShutdown.bind(this), this.maxIdleTime);
+  request(type, data) {
 
-    this.httpServer.listen(this.port, this.host, () => {
+    let requestID = uuid.v1();
 
-      this.port = this.httpServer.address().port;
-      this.client.port = this.port;
+    return new Promise((resolve, reject) => {
 
-      if (!this.noPortFile) {
+      this.resolves[requestID] = resolve;
 
-        this.portFile = path.resolve(this.projectDir, this.portFileName);
-        fs.writeFileSync(this.portFile, String(this.port), 'utf8');
-      }
+      this.worker.postMessage({
 
-      console.log(`Listening on port ${this.port}`);
+        type: type,
+        id: requestID,
+        data: data
+      });
     });
   }
 
   flush() {
 
-    this.server.flush(() => {
+    this.request('flush', {}).then(() => {
 
       atom.notifications.addInfo('All files fetched an analyzed.');
     });
+  }
+
+  dontLoad(file) {
+
+    if (!this.config.dontLoad) {
+
+      return;
+    }
+
+    return this.config.dontLoad.some((pat) => {
+
+      return minimatch(file, pat);
+    });
+  }
+
+  onWorkerMessage(e) {
+
+    if (!e.data.type) {
+
+      this.resolves[e.data.id](e.data.data);
+      delete(this.resolves[e.data.id]);
+
+      return;
+    }
+
+    if (e.data.type === 'getFile') {
+
+      let result;
+
+      if (this.dontLoad(e.data.name)) {
+
+        this.worker.postMessage({
+
+          type: 'pending',
+          id: e.data.id,
+          data: [null, '']
+        });
+
+      } else {
+
+        fs.readFile(path.resolve(this.projectDir, e.data.name), 'utf8', (err, data) => {
+
+          this.worker.postMessage({
+
+            type: 'pending',
+            id: e.data.id,
+            data: [String(err), data]
+          });
+        });
+      }
+    }
+  }
+
+  destroy() {
+
+    this.worker.terminate();
+    this.worker = undefined;
   }
 
   getHomeDir() {
@@ -261,8 +287,9 @@ export default class Server {
 
     let plugins = config.plugins;
     let options = {};
+    this.config.pluginImports = [];
 
-    for (var plugin in plugins) {
+    for (let plugin in plugins) {
 
       let val = plugins[plugin];
 
@@ -298,13 +325,7 @@ export default class Server {
         }
       }
 
-      let mod = require(found);
-
-      if (mod.hasOwnProperty('initialize')) {
-
-        mod.initialize(this.distDir);
-      }
-
+      this.config.pluginImports.push(found);
       options[path.basename(plugin)] = val;
     }
 
@@ -317,148 +338,5 @@ export default class Server {
     });
 
     return options;
-  }
-
-  startServer(dir, config, httpServer) {
-
-    let defs = this.findDefs(dir, config);
-    let plugins = this.loadPlugins(dir, config);
-    let server = new tern.Server({
-
-      getFile: function(name, c) {
-
-        if (config.dontLoad && config.dontLoad.some(function (pat) {
-
-          return minimatch(name, pat);
-
-        })) {
-
-          c(null, '');
-
-        } else {
-
-          fs.readFile(path.resolve(dir, name), 'utf8', c);
-        }
-      },
-      normalizeFilename: function(name) {
-
-        let pt = path.resolve(dir, name);
-
-        try {
-
-          pt = fs.realpathSync(path.resolve(dir, name));
-
-        } catch(e) {
-
-          console.error(e.message);
-        }
-
-        return path.relative(dir, pt);
-      },
-      async: true,
-      defs: defs,
-      plugins: plugins,
-      debug: this.debug,
-      projectDir: dir,
-      ecmaVersion: config.ecmaVersion,
-      dependencyBudget: config.dependencyBudget,
-      stripCRs: this.stripCRs,
-      parent: {httpServer: this.httpServer}
-    });
-
-    if (config.loadEagerly) {
-
-      config.loadEagerly.forEach(function(pat) {
-
-        glob.sync(pat, { cwd: dir }).forEach(function(file) {
-
-          server.addFile(file);
-        });
-      });
-    }
-
-    return server;
-  }
-
-  doShutdown() {
-
-    if (this.persistent) {
-
-      return;
-    }
-
-    console.log(`Was idle for ${Math.floor(this.maxIdleTime / 6e4)} minutes. Shutting down.`);
-    this.destroy();
-  }
-
-  respondSimple(resp, status, text) {
-
-    resp.writeHead(status, {
-
-      'content-type': 'text/plain; charset=utf-8'
-    });
-
-    resp.end(text);
-
-    if (this.verbose) {
-
-      console.log(`Response: ${status} ${text}`);
-    }
-  }
-
-  respond(resp, doc) {
-
-    try {
-
-      doc = JSON.parse(doc);
-
-    } catch(e) {
-
-      return this.respondSimple(resp, 400, `JSON parse error: ${e.message}`);
-    }
-
-    if (this.verbose) {
-
-      console.log('Request: ' + JSON.stringify(doc, null, 2));
-    }
-
-    this.server.request(doc, (err, data) => {
-
-      if (err) {
-
-        return this.respondSimple(resp, 400, String(err));
-      }
-
-      resp.writeHead(200, {
-
-        'content-type': 'application/json; charset=utf-8'
-      });
-
-      if (this.verbose) {
-
-        console.log(`Response: ${JSON.stringify(data, null, 2)} \n`);
-      }
-
-      resp.end(JSON.stringify(data));
-    });
-  }
-
-  destroy() {
-
-    if (this.httpServer) {
-
-      this.httpServer.close();
-    }
-
-    try {
-
-      var cur = Number(fs.readFileSync(this.portFile, 'utf8'));
-
-      if (cur === this.port) {
-
-        fs.unlinkSync(this.portFile);
-      }
-
-    } catch(e) {}
   }
 }

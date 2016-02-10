@@ -1,6 +1,6 @@
 {
   "name": "atom-ternjs",
-  "version": "0.12.2",
+  "version": "0.13.2",
   "dependencies": {
     "glob": {
       "version": "3.2.11",
@@ -53,15 +53,20 @@
         }
       }
     },
+    "node-uuid": {
+      "version": "1.4.7",
+      "from": "node-uuid@1.4.7",
+      "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
+    },
     "tern": {
-      "version": "0.16.1",
-      "from": "ternjs/tern",
-      "resolved": "https://github.com/ternjs/tern.git#f585fe7d6f4da28770fdd3dc7ddf88a39ad9b105",
+      "version": "0.17.0",
+      "from": "tern@>=0.17.0 <0.18.0",
+      "resolved": "https://registry.npmjs.org/tern/-/tern-0.17.0.tgz",
       "dependencies": {
         "acorn": {
-          "version": "2.6.4",
-          "from": "acorn@>=2.5.2 <3.0.0",
-          "resolved": "https://registry.npmjs.org/acorn/-/acorn-2.6.4.tgz"
+          "version": "2.7.0",
+          "from": "acorn@>=2.7.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/acorn/-/acorn-2.7.0.tgz"
         },
         "enhanced-resolve": {
           "version": "0.9.1",
@@ -93,14 +98,14 @@
       }
     },
     "tern-lint": {
-      "version": "0.5.0",
-      "from": "tern-lint@>=0.5.0 <0.6.0",
-      "resolved": "https://registry.npmjs.org/tern-lint/-/tern-lint-0.5.0.tgz",
+      "version": "0.6.0",
+      "from": "tern-lint@>=0.6.0 <0.7.0",
+      "resolved": "https://registry.npmjs.org/tern-lint/-/tern-lint-0.6.0.tgz",
       "dependencies": {
         "acorn": {
-          "version": "2.6.4",
-          "from": "acorn@>=2.4.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/acorn/-/acorn-2.6.4.tgz"
+          "version": "2.7.0",
+          "from": "acorn@>=2.6.4 <3.0.0",
+          "resolved": "https://registry.npmjs.org/acorn/-/acorn-2.7.0.tgz"
         }
       }
     },

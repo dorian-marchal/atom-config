@@ -115,6 +115,8 @@ function State(options) {
   this.flowLevel   = (common.isNothing(options['flowLevel']) ? -1 : options['flowLevel']);
   this.styleMap    = compileStyleMap(this.schema, options['styles'] || null);
   this.sortKeys    = options['sortKeys'] || false;
+  this.lineWidth   = options['lineWidth'] || 80;
+  this.noRefs      = options['noRefs'] || false;
 
   this.implicitTypes = this.schema.compiledImplicit;
   this.explicitTypes = this.schema.compiledExplicit;
@@ -238,9 +240,12 @@ function writeScalar(state, object, level, iskey) {
     simple = false;
   }
 
-  // can only use > and | if not wrapped in spaces or is not a key.
-  if (spaceWrap) {
-    simple = false;
+  // Can only use > and | if not wrapped in spaces or is not a key.
+  // Also, don't use if in flow mode.
+  if (spaceWrap || (state.flowLevel > -1 && state.flowLevel <= level)) {
+    if (spaceWrap) {
+      simple = false;
+    }
     folded = false;
     literal = false;
   } else {
@@ -256,7 +261,13 @@ function writeScalar(state, object, level, iskey) {
   longestLine = 0;
 
   indent = state.indent * level;
-  max = 80;
+  max = state.lineWidth;
+  if (max === -1) {
+    // Replace -1 with biggest ingeger number according to
+    // http://ecma262-5.com/ELS5_HTML.htm#Section_8.5
+    max = 9007199254740991;
+  }
+
   if (indent < 40) {
     max -= indent;
   } else {
@@ -340,7 +351,7 @@ function writeScalar(state, object, level, iskey) {
     }
   }
 
-  if (literal && longestLine < max) {
+  if (literal && longestLine < max || state.tag !== null) {
     folded = false;
   }
 
@@ -825,7 +836,9 @@ function dump(input, options) {
 
   var state = new State(options);
 
-  getDuplicateReferences(input, state);
+  if (!state.noRefs) {
+    getDuplicateReferences(input, state);
+  }
 
   if (writeNode(state, 0, input, true, true)) {
     return state.dump + '\n';

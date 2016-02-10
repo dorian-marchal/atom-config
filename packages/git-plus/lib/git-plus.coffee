@@ -52,9 +52,9 @@ module.exports =
     splitPane:
       title: 'Split pane direction'
       type: 'string'
-      default: 'right'
-      description: 'Where should new panes go? (Defaults to right)'
-      enum: ['up', 'right', 'down', 'left']
+      default: 'Right'
+      description: 'Where should new panes go? (Defaults to Right)'
+      enum: ['Up', 'Right', 'Down', 'Left']
     wordDiff:
       type: 'boolean'
       default: true
@@ -76,10 +76,6 @@ module.exports =
       type: 'string'
       default: 'no'
       enum: ['no', 'pull', 'pull --rebase']
-    verboseCommit:
-      description: 'Show diffs in the commit pane?'
-      type: 'boolean'
-      default: false
 
   subscriptions: null
 
@@ -130,6 +126,7 @@ module.exports =
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:tags', -> git.getRepo().then((repo) -> GitTags(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:run', -> git.getRepo().then((repo) -> new GitRun(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:merge', -> git.getRepo().then((repo) -> GitMerge(repo))
+    @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:merge-remote', -> git.getRepo().then((repo) -> GitMerge(repo, remote: true))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:rebase', -> git.getRepo().then((repo) -> GitRebase(repo))
 
   deactivate: ->
@@ -156,6 +153,6 @@ module.exports =
   setupBranchesMenuToggle: (statusBar) ->
     statusBar.getRightTiles().some ({item}) =>
       if item?.classList?.contains? 'git-view'
-        @subscriptions.add $(item).find('.git-branch').on 'click', (e) ->
+        $(item).find('.git-branch').on 'click', (e) ->
           atom.commands.dispatch(document.querySelector('atom-workspace'), 'git-plus:checkout')
         return true

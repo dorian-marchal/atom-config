@@ -4,7 +4,6 @@ Path = require 'flavored-path'
 
 git = require '../git'
 notifier = require '../notifier'
-splitPane = require '../splitPane'
 GitPush = require './git-push'
 GitPull = require './git-pull'
 
@@ -24,21 +23,20 @@ getTemplate = (cwd) ->
   git.getConfig('commit.template', cwd).then (filePath) ->
     if filePath then fs.readFileSync(Path.get(filePath.trim())).toString().trim() else ''
 
-prepFile = (status, filePath, diff) ->
+prepFile = (status, filePath) ->
   cwd = Path.dirname(filePath)
   git.getConfig('core.commentchar', cwd).then (commentchar) ->
     commentchar = if commentchar then commentchar.trim() else '#'
     status = status.replace(/\s*\(.*\)\n/g, "\n")
     status = status.trim().replace(/\n/g, "\n#{commentchar} ")
     getTemplate(cwd).then (template) ->
-      fs.writeFileSync filePath,
+      content =
         """#{template}
         #{commentchar} Please enter the commit message for your changes. Lines starting
         #{commentchar} with '#{commentchar}' will be ignored, and an empty message aborts the commit.
         #{commentchar}
-        #{commentchar} #{status}
-
-        #{diff}"""
+        #{commentchar} #{status}"""
+      fs.writeFileSync filePath, content
 
 destroyCommitEditor = ->
   atom.workspace?.getPanes().some (pane) ->
@@ -51,8 +49,7 @@ destroyCommitEditor = ->
         return true
 
 commit = (directory, filePath) ->
-  args = ['commit', '--cleanup=strip', "--file=#{filePath}"]
-  git.cmd(args, cwd: directory)
+  git.cmd(['commit', "--cleanup=strip", "--file=#{filePath}"], cwd: directory)
   .then (data) ->
     notifier.addSuccess data
     destroyCommitEditor()
@@ -66,16 +63,15 @@ cleanup = (currentPane, filePath) ->
   fs.unlink filePath
 
 showFile = (filePath) ->
-  atom.workspace.open(filePath, searchAllPanes: true).then (textEditor) ->
-    if atom.config.get('git-plus.openInPane')
-      splitPane(atom.config.get('git-plus.splitPane'), textEditor)
-    else
-      textEditor
+  if atom.config.get('git-plus.openInPane')
+    splitDirection = atom.config.get('git-plus.splitPane')
+    atom.workspace.getActivePane()["split#{splitDirection}"]()
+  atom.workspace.open filePath
 
 module.exports = (repo, {stageChanges, andPush}={}) ->
   filePath = Path.join(repo.getPath(), 'COMMIT_EDITMSG')
   currentPane = atom.workspace.getActivePane()
-  init = -> getStagedFiles(repo).then (status) -> prepFile status, filePath, ''
+  init = -> getStagedFiles(repo).then (status) -> prepFile status, filePath
   startCommit = ->
     showFile filePath
     .then (textEditor) ->
@@ -90,7 +86,7 @@ module.exports = (repo, {stageChanges, andPush}={}) ->
   else
     init().then -> startCommit()
     .catch (message) ->
-      if message.includes 'CRLF'
+      if message.includes?('CRLF')
         startCommit()
       else
         notifier.addInfo message

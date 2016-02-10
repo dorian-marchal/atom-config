@@ -48,6 +48,16 @@ export default class DB {
           result = _.deepExtend(result, results[template]);
         }
 
+        for (let i in result.paths) {
+          if (typeof result.paths[i] !== 'string') {
+            continue;
+          }
+
+          if (result.paths[i].charAt(0) === '~') {
+            result.paths[i] = result.paths[i].replace('~', os.homedir());
+          }
+        }
+
         projects.push(result);
       }
 

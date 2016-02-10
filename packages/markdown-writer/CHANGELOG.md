@@ -1,3 +1,18 @@
+## 2.3.0
+
+* Add command `markdown-writer:create-project-configs`
+* Fix format table not working properly on lines with trailing spaces
+* More fields for template `{category}`, `{tag}`, `{directory}`
+* Fix exception when some user templates are not escaped
+
+## 2.2.0
+
+* Refactoring frontMatter and template
+  * Use `slug` instead of `title` in directory templates
+  * https://github.com/zhuochun/md-writer/pull/103
+* Add `language-markdown` package filetype to supported grammars
+* Support customization of link tags using template
+
 ## 2.1.1
 
 * Abort key mapping event if action not performable
