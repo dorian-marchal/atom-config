@@ -42,7 +42,7 @@
     ]
     themes: [
       "atom-dark-ui"
-      "kyokai"
+      "monokai"
     ]
   docblockr:
     align_tags: "no"
