@@ -1,5 +1,16 @@
 
 <a name="1.2.3"></a>
+## [1.2.5](https://github.com/littlebee/git-time-machine/compare/1.2.4...1.2.5) (2016-02-52)
+The last apm publish failed attempting to right
+
+## [1.2.4](https://github.com/littlebee/git-time-machine/compare/1.2.3...1.2.4) (2016-02-52)
+No fundamental changes except to mention [git-log-utils](https://www.npmjs.com/package/git-log-utils) being moved to it's own package.  
+
+### Other Commits
+* [0e4737e](https://github.com/littlebee/git-time-machine/commit/0e4737e35eda9225d461f847e33dc5e12e8135d6) Merge branch 'master' of https://github.com/littlebee/git-time-machine
+* [ee5033d](https://github.com/littlebee/git-time-machine/commit/ee5033dd5b5512e9af85810c198c2f5e122b9f28) Merge pull request #10 from raqystyle/fix/pop-over-background
+* [d4c8230](https://github.com/littlebee/git-time-machine/commit/d4c8230be73087df7c1aa6f982af5d6afb02e344) Set the background of the popup. Used standard border colours (followed style guides)
+
 ## [1.2.3](https://github.com/littlebee/git-time-machine/compare/v1.2.2...v1.2.3) (2016-01-10)
 
 ### :bug:

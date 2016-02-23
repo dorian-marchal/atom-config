@@ -29,7 +29,6 @@
       "background-tips"
       "timecop"
       "autosave"
-      "markdown-scroll-sync"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [

@@ -44,6 +44,12 @@ class PaletteElement extends HTMLElement
     @project = pigments.getProject()
     @subscriptions = new CompositeDisposable
 
+    @subscriptions.add @project.onDidUpdateVariables =>
+      if @palette?
+        @palette.variables = @project.getColorVariables()
+        @renderList() if @attached
+
+
     @subscriptions.add atom.config.observe 'pigments.sortPaletteColors', (@sortPaletteColors) =>
       @renderList() if @palette? and @attached
 
@@ -71,12 +77,6 @@ class PaletteElement extends HTMLElement
   attachedCallback: ->
     @renderList() if @palette?
     @attached = true
-
-  getTitle: -> 'Palette'
-
-  getURI: -> 'pigments://palette'
-
-  getIconName: -> "pigments"
 
   getModel: -> @palette
 

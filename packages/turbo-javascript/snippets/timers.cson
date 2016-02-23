@@ -1,4 +1,4 @@
-".source.js, .source.ts, .source.tsx":
+".source.js, .source.ts, .source.tsx, .source.js-semantic":
   "setTimeout":
     prefix: "st"
     body: """
@@ -18,5 +18,12 @@
     body: """
     setImmediate(() => {
     \t${0}
+    });
+    """
+  "process nextTick":
+    prefix: "nt"
+    body: """
+    process.nextTick(() => {
+    \t${1:}
     });
     """
