@@ -7,6 +7,7 @@ An npm module to get path of requirer apm module from your npm module
 
 ```js
 export function guess(): ?string
+export function guessFromCallIndex(index: number): ?string
 export function guessFromFilePath(filePath: string): ?string
 ```
 
@@ -22,7 +23,7 @@ export function doSomething() {
 
 #### Notes
 
-This package guesses filePath of requirer based on the stack. It expects the second stack entry to come from the Atom package, therefore it will work only when you call this method instantly as your module is called from an Atom package.
+This package guesses filePath of requirer based on the stack. It expects the stack to come from the Atom package, therefore it will work only when you call this method when your module is called from an Atom package.
 
 #### License
 

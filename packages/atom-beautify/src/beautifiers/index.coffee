@@ -38,6 +38,7 @@ module.exports = class Beautifiers extends EventEmitter
     'coffee-formatter'
     'coffee-fmt'
     'clang-format'
+    'dfmt'
     'elm-format'
     'htmlbeautifier'
     'csscomb'
@@ -48,8 +49,10 @@ module.exports = class Beautifiers extends EventEmitter
     'jscs'
     'perltidy'
     'php-cs-fixer'
+    'phpcbf'
     'prettydiff'
     'puppet-fix'
+    'remark'
     'rubocop'
     'ruby-beautify'
     'rustfmt'
@@ -58,6 +61,7 @@ module.exports = class Beautifiers extends EventEmitter
     'tidy-markdown'
     'typescript-formatter'
     'yapf'
+    'erl_tidy'
   ]
 
   ###
@@ -258,7 +262,6 @@ module.exports = class Beautifiers extends EventEmitter
       beautifiers = lang.beautifiers
       optionName = "language_#{lang.namespace}"
 
-
       # Add Language configurations
       flatOptions["#{optionName}_disabled"] = {
         title : "Language Config - #{name} - Disable Beautifying Language"
@@ -298,7 +301,7 @@ module.exports = class Beautifiers extends EventEmitter
     _.filter( @beautifiers, (beautifier) ->
 
       # logger.verbose('beautifier',beautifier, language)
-      _.contains(beautifier.languages, language)
+      _.includes(beautifier.languages, language)
     )
 
   getBeautifierForLanguage : (language) ->
@@ -633,9 +636,12 @@ module.exports = class Beautifiers extends EventEmitter
     externalOptions = undefined
     if configPath
       fs ?= require("fs")
-      contents = fs.readFileSync(configPath,
-        encoding : "utf8"
-      )
+      try
+        contents = fs.readFileSync(configPath,
+          encoding : "utf8"
+        )
+      catch error
+        contents = null #file isnt available anymore
       unless contents
         externalOptions = {}
       else

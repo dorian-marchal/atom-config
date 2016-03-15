@@ -1,3 +1,7 @@
+#### 1.1.0
+
+- Add `guessFromCallIndex` function
+
 #### 1.0.2
 
 - Minor package internl problem resolved

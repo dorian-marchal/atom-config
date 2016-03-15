@@ -1,3 +1,34 @@
+<a name="v0.24.5"></a>
+# v0.24.5 (2016-03-09)
+
+## Bug Fixes
+
+- Fix variables followed by !default not matched as color ([7a735c05](https://github.com/abe33/atom-pigments/commit/7a735c05386dd147bcd190b93744397602e9b9c0))
+
+<a name="v0.24.4"></a>
+# v0.24.4 (2016-03-07)
+
+## Bug Fixes
+
+- Fix error when styling undefined regions ([d6118d95](https://github.com/abe33/atom-pigments/commit/d6118d9596f4973ce0fae7a02e9e44ef02c92650))
+- Fix error raised when regions array holds null region ([d3512b9a](https://github.com/abe33/atom-pigments/commit/d3512b9a5cbcd575a99cebf8f0ed0f8cc7fececa))
+
+<a name="v0.24.3"></a>
+# v0.24.3 (2016-03-07)
+
+## Bug Fixes
+
+- Fix issues with less mixing looking like CSS variables ([37cbaed0](https://github.com/abe33/atom-pigments/commit/37cbaed02a9e6e2b1916ae0be49538fa9dd16061), [#157](https://github.com/abe33/atom-pigments/issues/157))
+- Fix invalid scope name computed in scan buffer handler ([edeaf44c](https://github.com/abe33/atom-pigments/commit/edeaf44cab21b555e3424d9710400432bdd42804), [#156](https://github.com/abe33/atom-pigments/issues/156))
+
+<a name="v0.24.2"></a>
+# v0.24.2 (2016-02-29)
+
+## Bug Fixes
+
+- Guard against destroyed project when creating a palette panel ([52187952](https://github.com/abe33/atom-pigments/commit/52187952288a52d4c75690c8a7c6524ea60351d6), [#145](https://github.com/abe33/atom-pigments/issues/145))
+- Fix access to editor shadow root in color buffer element ([39097489](https://github.com/abe33/atom-pigments/commit/39097489fc61788fb8d118026c5ed98b7fd5cac0), [#149](https://github.com/abe33/atom-pigments/issues/149))
+
 <a name="v0.24.1"></a>
 # v0.24.1 (2016-02-16)
 
@@ -17,7 +48,7 @@
 
 - Ensure that all custom pane items are serialized on pane split ([0d39d82c](https://github.com/abe33/atom-pigments/commit/0d39d82c192a24bbc3558fc10b9e3f04f79122c5), [#139](https://github.com/abe33/atom-pigments/issues/139))
 
-a name="v0.23.1"></a>
+<a name="v0.23.1"></a>
 # v0.23.1 (2016-02-03)
 
 ## Bug Fixes

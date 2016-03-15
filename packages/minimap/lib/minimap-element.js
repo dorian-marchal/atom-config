@@ -2,6 +2,7 @@
 
 import {CompositeDisposable, Disposable} from 'atom'
 import {EventsDelegation, AncestorsMethods} from 'atom-utils'
+import Main from './main'
 import include from './decorators/include'
 import element from './decorators/element'
 import DOMStylesReader from './mixins/dom-styles-reader'
@@ -307,10 +308,12 @@ export default class MinimapElement {
       Why? Currently, The style element will be removed first, and then re-added
       and the `change` event has not be triggered in the process.
     */
-    return this.subscriptions.add(atom.styles.onDidAddStyleElement(() => {
+    this.subscriptions.add(atom.styles.onDidAddStyleElement(() => {
       this.invalidateDOMStylesCache()
       this.requestForcedUpdate()
     }))
+
+    this.subscriptions.add(this.subscribeToMediaQuery())
   }
 
   /**
@@ -406,7 +409,9 @@ export default class MinimapElement {
 
     this.subscriptions.add(this.subscribeTo(this, {
       'mousewheel': (e) => {
-        if (!this.standAlone) { this.relayMousewheelEvent(e) }
+        if (!this.standAlone) {
+          this.relayMousewheelEvent(e)
+        }
       }
     }))
 
@@ -658,12 +663,16 @@ export default class MinimapElement {
 
     this.subscriptions.add(this.minimap.onDidChangeDecorationRange((change) => {
       const {type} = change
-      if (type === 'line' || type === 'highlight-under') {
+      if (type === 'line' || type === 'highlight-under' || type === 'background-custom') {
         this.pendingBackDecorationChanges.push(change)
       } else {
         this.pendingFrontDecorationChanges.push(change)
       }
       this.requestUpdate()
+    }))
+
+    this.subscriptions.add(Main.onDidChangePluginOrder(() => {
+      this.requestForcedUpdate()
     }))
 
     this.setStandAlone(this.minimap.isStandAlone())
@@ -775,7 +784,7 @@ export default class MinimapElement {
       canvasTransform += ' ' + this.makeScale(1 / devicePixelRatio)
     }
 
-    if(this.smoothScrolling) {
+    if (this.smoothScrolling) {
       if (SPEC_MODE) {
         this.applyStyles(this.backLayer.canvas, {top: canvasTop + 'px'})
         this.applyStyles(this.tokensLayer.canvas, {top: canvasTop + 'px'})
@@ -794,7 +803,7 @@ export default class MinimapElement {
     if (this.scrollIndicator != null) {
       let minimapScreenHeight = minimap.getScreenHeight()
       let indicatorHeight = minimapScreenHeight * (minimapScreenHeight / minimap.getHeight())
-      let indicatorScroll = (minimapScreenHeight - indicatorHeight) * minimap.getCapedTextEditorScrollRatio()
+      let indicatorScroll = (minimapScreenHeight - indicatorHeight) * minimap.getScrollRatio()
 
       if (SPEC_MODE) {
         this.applyStyles(this.scrollIndicator, {
@@ -971,19 +980,34 @@ export default class MinimapElement {
    * @access private
    */
   canvasLeftMousePressed (y) {
-    let deltaY = y - this.getBoundingClientRect().top
-    let row = Math.floor(deltaY / this.minimap.getLineHeight()) + this.minimap.getFirstVisibleScreenRow()
+    const deltaY = y - this.getBoundingClientRect().top
+    const row = Math.floor(deltaY / this.minimap.getLineHeight()) + this.minimap.getFirstVisibleScreenRow()
 
-    let textEditor = this.minimap.getTextEditor()
+    const textEditor = this.minimap.getTextEditor()
 
-    let scrollTop = row * textEditor.getLineHeightInPixels() - this.minimap.getTextEditorHeight() / 2
+    const scrollTop = row * textEditor.getLineHeightInPixels() - this.minimap.getTextEditorHeight() / 2
 
     if (atom.config.get('minimap.scrollAnimation')) {
+      const duration = atom.config.get('minimap.scrollAnimationDuration')
+      const independentScroll = this.minimap.scrollIndependentlyOnMouseWheel()
+
       let from = this.minimap.getTextEditorScrollTop()
       let to = scrollTop
-      let step = (now) => this.minimap.setTextEditorScrollTop(now)
-      let duration = atom.config.get('minimap.scrollAnimationDuration')
-      this.animate({from: from, to: to, duration: duration, step: step})
+      let step
+
+      if (independentScroll) {
+        const minimapFrom = this.minimap.getScrollTop()
+        const minimapTo = Math.min(1, scrollTop / (this.minimap.getTextEditorMaxScrollTop() || 1)) * this.minimap.getMaxScrollTop()
+
+        step = (now, t) => {
+          this.minimap.setTextEditorScrollTop(now, true)
+          this.minimap.setScrollTop(minimapFrom + (minimapTo - minimapFrom) * t)
+        }
+        this.animate({from: from, to: to, duration: duration, step: step})
+      } else {
+        step = (now) => this.minimap.setTextEditorScrollTop(now)
+        this.animate({from: from, to: to, duration: duration, step: step})
+      }
     } else {
       this.minimap.setTextEditorScrollTop(scrollTop)
     }
@@ -1014,7 +1038,11 @@ export default class MinimapElement {
    * @access private
    */
   relayMousewheelEvent (e) {
-    this.getTextEditorElement().component.onMouseWheel(e)
+    if (this.minimap.scrollIndependentlyOnMouseWheel()) {
+      this.minimap.onMouseWheel(e)
+    } else {
+      this.getTextEditorElement().component.onMouseWheel(e)
+    }
   }
 
   /**
@@ -1057,6 +1085,24 @@ export default class MinimapElement {
       isLeftMouse: true, // Touch is treated like a left mouse button click
       isMiddleMouse: false
     }
+  }
+
+  /**
+   * Subscribes to a media query for device pixel ratio changes and forces
+   * a repaint when it occurs.
+   *
+   * @return {Disposable} a disposable to remove the media query listener
+   * @access private
+   */
+  subscribeToMediaQuery () {
+    const query = 'screen and (-webkit-min-device-pixel-ratio: 1.5)'
+    const mediaQuery = window.matchMedia(query)
+    const mediaListener = (e) => { this.requestForcedUpdate() }
+    mediaQuery.addListener(mediaListener)
+
+    return new Disposable(() => {
+      mediaQuery.removeListener(mediaListener)
+    })
   }
 
   //    ########    ####    ########
@@ -1224,25 +1270,26 @@ export default class MinimapElement {
    * @access private
    */
   animate ({from, to, duration, step}) {
+    const start = this.getTime()
     let progress
-    let start = this.getTime()
 
-    let swing = function (progress) {
+    const swing = function (progress) {
       return 0.5 - Math.cos(progress * Math.PI) / 2
     }
 
-    let update = () => {
+    const update = () => {
       if (!this.minimap) { return }
 
-      let passed = this.getTime() - start
+      const passed = this.getTime() - start
       if (duration === 0) {
         progress = 1
       } else {
         progress = passed / duration
       }
       if (progress > 1) { progress = 1 }
-      let delta = swing(progress)
-      step(from + (to - from) * delta)
+      const delta = swing(progress)
+      const value = from + (to - from) * delta
+      step(value, delta)
 
       if (progress < 1) { requestAnimationFrame(update) }
     }

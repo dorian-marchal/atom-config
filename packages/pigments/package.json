@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.24.1",
+  "version": "0.24.5",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -67,10 +67,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments#readme",
-  "_id": "pigments@0.24.1",
-  "_shasum": "e4eaf459a27735dc22715f1bfad294c3e4a30787",
-  "_resolved": "file:../d-116122-20279-19p9yk0/package.tgz",
-  "_from": "../d-116122-20279-19p9yk0/package.tgz",
+  "_id": "pigments@0.24.5",
+  "_shasum": "e362d6d458650910f34900966a78d9444d3de9db",
+  "_resolved": "file:../d-116215-10054-1mazyro/package.tgz",
+  "_from": "../d-116215-10054-1mazyro/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

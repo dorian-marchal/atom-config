@@ -2,14 +2,14 @@ module.exports = {
 
   name: "Riot.js"
   description: "Riot.js HTML based templating language"
-  namespace: "html"
+  namespace: "riot"
   fallback: ['html', 'mustache']
 
   ###
   Supported Grammars
   ###
   grammars: [
-    "Riot.js"
+    "Riot.js", "HTML (Riot Tag)"
   ]
 
   ###
@@ -19,7 +19,7 @@ module.exports = {
     'tag'
   ]
 
-  defaultBeautifier: "Pretty Diff"
+  defaultBeautifier: "JS Beautify"
 
   options: []
 
