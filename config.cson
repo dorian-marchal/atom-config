@@ -91,6 +91,8 @@
     disableWhenNoJslintrcFileInPath: true
     jslintVersion: "2013-08-26"
   "linter-php": {}
+  "linter-phpcs":
+    warningSeverity: 0
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
