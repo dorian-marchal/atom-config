@@ -1,3 +1,3 @@
 
 
-module.exports = require('./src/stringHelpers')
+module.exports = require('./lib/bumble-strings')

@@ -49,8 +49,6 @@ class GitRevisionView
 
   @_loadRevision: (file, hash, stdout, exit) ->
     showArgs = [
-      "-C",
-      path.dirname(file),
       "show",
       "#{hash}:./#{path.basename(file)}"
     ]
@@ -58,8 +56,9 @@ class GitRevisionView
     new BufferedProcess {
       command: "git",
       args: showArgs,
+      options: { cwd:path.dirname(file) },
       stdout,
-      exit 
+      exit
     }
 
 
@@ -80,7 +79,7 @@ class GitRevisionView
     fs.mkdir outputDir if not fs.existsSync outputDir
     outputFilePath = "#{outputDir}/#{@FILE_PREFIX}#{path.basename(file)}"
     outputFilePath += ".diff" if options.diff
-    tempContent = "\n\n\nLoading #{path.basename(file)}@#{revHash}...\n\n\n\n"
+    tempContent = "Loading..." + editor.buffer?.lineEndingForRow(0)
     fs.writeFile outputFilePath, tempContent, (error) =>
       if not error
           promise = atom.workspace.open outputFilePath,
@@ -95,10 +94,15 @@ class GitRevisionView
   @_updateNewTextEditor: (newTextEditor, editor, revHash, fileContents) ->
     # slight delay so the user gets feedback on their action
     _.delay =>
+      lineEnding = editor.buffer?.lineEndingForRow(0) || "\n"
+      fileContents = fileContents.replace(/(\r\n|\n)/g, lineEnding)
+      newTextEditor.buffer.setPreferredLineEnding(lineEnding)
       newTextEditor.setText(fileContents)
+      
       # HACK ALERT: this is prone to eventually fail. Don't show user change
-      #  message between changes to rev being viewed
+      #  "would you like to save" message between changes to rev being viewed
       newTextEditor.buffer.cachedDiskContents = fileContents
+      
       @_splitDiff(editor, newTextEditor)
       # split diff will keep the scroll sync'd, but doesn't seem to initially sync themes
       @_syncScroll(editor, newTextEditor)

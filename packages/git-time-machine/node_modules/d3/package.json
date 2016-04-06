@@ -78,7 +78,7 @@
   },
   "dist": {
     "shasum": "a518d6ced154a3078f2cb78ae1f8ad95342b2734",
-    "tarball": "http://registry.npmjs.org/d3/-/d3-3.5.16.tgz"
+    "tarball": "https://registry.npmjs.org/d3/-/d3-3.5.16.tgz"
   },
   "maintainers": [
     {

@@ -25,11 +25,14 @@ class GitTimeMachineView
 
 
   render: () ->
-    unless @file?
+    commits = @gitCommitHistory()
+    unless @file? && commits?
       @_renderPlaceholder()
     else
       @$element.text("")
-      @_renderTimeline()
+      @_renderCloseHandle()
+      @_renderStats(commits)
+      @_renderTimeline(commits)
 
     return @$element
 
@@ -54,18 +57,43 @@ class GitTimeMachineView
 
   getElement: ->
     return @$element.get(0)
+  
+  
+  gitCommitHistory: (file=@file)->
+    return null unless file?
+    try
+      commits = GitLog.getCommitHistory file
+    catch e
+      if e.message?
+        if e.message.match('File not a git repository') || str.weaklyHas(e.message, "is outside repository")
+          atom.notifications.addError "Error: Not in a git repository"
+          return null
+      atom.notifications.addError String e
+      return null
 
-
+    return commits;
+      
   _renderPlaceholder: () ->
     @$element.html("<div class='placeholder'>Select a file in the git repo to see timeline</div>")
     return
+    
+    
+  _renderCloseHandle: () ->
+    $closeHandle = $("<div class='close-handle'>X</div>")
+    @$element.append $closeHandle
+    $closeHandle.on 'mousedown', (e)->
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      e.stopPropagation()
+      # why not? instead of adding callback, our own event...
+      atom.commands.dispatch(atom.views.getView(atom.workspace), "git-time-machine:toggle")
+      
+    
 
-  _renderTimeline: () ->
+  _renderTimeline: (commits) ->
     @timeplot ||= new GitTimeplot(@$element)
-    commits = GitLog.getCommitHistory @file
     @timeplot.render(@editor, commits)
-    @_renderStats(commits)
-    return
+    return 
 
 
   _renderStats: (commits) ->
