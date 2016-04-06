@@ -29,6 +29,12 @@
       "background-tips"
       "timecop"
       "autosave"
+      "atom-bootstrap3"
+      "merge-conflicts"
+      "php-getters-setters"
+      "project-manager"
+      "travis-ci-status"
+      "xml-formatter"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -71,7 +77,8 @@
   "git-blame": {}
   "git-plus":
     wordDiff: false
-  "highlight-selected": {}
+  "highlight-selected":
+    onlyHighlightWholeWords: false
   "isotope-ui": {}
   jshint:
     supportLintingJsx: true
@@ -80,6 +87,9 @@
     lintOnChangeInterval: 500
     showErrorPanel: false
     statusBar: "Show all errors"
+  "linter-eslint":
+    disableEslintIgnore: true
+    useGlobalEslint: true
   "linter-jscs":
     onlyConfig: true
     preset: "google"
@@ -92,6 +102,7 @@
     jslintVersion: "2013-08-26"
   "linter-php": {}
   "linter-phpcs":
+    disableWhenNoConfigFile: true
     warningSeverity: 0
   "markdown-preview":
     useGitHubStyle: true
@@ -105,7 +116,9 @@
   minimap:
     plugins:
       "git-diff": true
+      "git-diffDecorationsZIndex": 0
       "highlight-selected": true
+      "highlight-selectedDecorationsZIndex": 0
   "one-dark-ui": {}
   "php-getters-setters": {}
   pigments:
@@ -137,7 +150,11 @@
   "sublime-tabs": {}
   tabs: {}
   "terminal-status": {}
-  "todo-show": {}
+  "todo-show":
+    ignoreThesePaths: [
+      "node_modules"
+      "vendore"
+    ]
   "toggle-quotes": {}
   "travis-ci-status": {}
   "tree-ignore":
