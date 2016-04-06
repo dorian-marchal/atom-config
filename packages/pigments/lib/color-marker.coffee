@@ -90,3 +90,13 @@ class ColorMarker
     rgba = "rgba(#{Math.round @color.red}, #{Math.round @color.green}, #{Math.round @color.blue}, #{@color.alpha})"
 
     @marker.displayBuffer.buffer.setTextInRange(@marker.getBufferRange(), rgba)
+
+  convertContentToHSL: ->
+    hsl = "hsl(#{Math.round @color.hue}, #{Math.round @color.saturation}%, #{Math.round @color.lightness}%)"
+
+    @marker.displayBuffer.buffer.setTextInRange(@marker.getBufferRange(), hsl)
+
+  convertContentToHSLA: ->
+    hsla = "hsla(#{Math.round @color.hue}, #{Math.round @color.saturation}%, #{Math.round @color.lightness}%, #{@color.alpha})"
+
+    @marker.displayBuffer.buffer.setTextInRange(@marker.getBufferRange(), hsla)

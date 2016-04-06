@@ -31,14 +31,12 @@ module.exports =
       description: "Glob patterns of files to ignore when scanning the project for variables."
       items:
         type: 'string'
-
     ignoredBufferNames:
       type: 'array'
       default: []
       description: "Glob patterns of files that won't get any colors highlighted"
       items:
         type: 'string'
-
     extendedSearchNames:
       type: 'array'
       default: ['**/*.css']
@@ -47,12 +45,17 @@ module.exports =
       type: 'array'
       default: ['*']
       description: "An array of file extensions where colors will be highlighted. If the wildcard `*` is present in this array then colors in every file will be highlighted."
+    extendedFiletypesForColorWords:
+      type: 'array'
+      default: []
+      description: "An array of file extensions where color values such as `red`, `azure` or `whitesmoke` will be highlighted. By default CSS and CSS pre-processors files are supported."
     ignoredScopes:
       type: 'array'
       default: []
       description: "Regular expressions of scopes in which colors are ignored. For example, to ignore all colors in comments you can use `\\.comment`."
       items:
         type: 'string'
+
     autocompleteScopes:
       type: 'array'
       default: [
@@ -133,6 +136,12 @@ module.exports =
       'pigments:convert-to-rgba': convertMethod (marker) ->
         marker.convertContentToRGBA() if marker?
 
+      'pigments:convert-to-hsl': convertMethod (marker) ->
+        marker.convertContentToHSL() if marker?
+
+      'pigments:convert-to-hsla': convertMethod (marker) ->
+        marker.convertContentToHSLA() if marker?
+
     atom.workspace.addOpener (uriToOpen) =>
       url ||= require 'url'
 
@@ -151,6 +160,8 @@ module.exports =
           {label: 'Convert to hexadecimal', command: 'pigments:convert-to-hex'}
           {label: 'Convert to RGB', command: 'pigments:convert-to-rgb'}
           {label: 'Convert to RGBA', command: 'pigments:convert-to-rgba'}
+          {label: 'Convert to HSL', command: 'pigments:convert-to-hsl'}
+          {label: 'Convert to HSLA', command: 'pigments:convert-to-hsla'}
         ]
         shouldDisplay: (event) => @shouldDisplayContextMenu(event)
       }]
