@@ -32,10 +32,12 @@ module.exports = class Languages
     "handlebars"
     "haskell"
     "html"
+    "jade"
     "java"
     "javascript"
     "json"
     "jsx"
+    "latex"
     "less"
     "markdown"
     'marko'

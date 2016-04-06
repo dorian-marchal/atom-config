@@ -1,7 +1,7 @@
 {
   "name": "atom-beautify",
   "main": "./src/beautify",
-  "version": "0.28.26",
+  "version": "0.29.1",
   "private": true,
   "description": "Beautify HTML, CSS, JavaScript, PHP, Python, Ruby, Java, C, C++, C#, Objective-C, CoffeeScript, TypeScript, Coldfusion, and SQL in Atom",
   "repository": {
@@ -66,10 +66,18 @@
     {
       "name": "Luis Arias",
       "url": "https://github.com/kaaloo"
+    },
+    {
+      "name": "Bati Sengul",
+      "url": "https://github.com/Focus"
+    },
+    {
+      "name": "Dheepak Krishnamurthy",
+      "url": "https://github.com/kdheepak89"
     }
   ],
   "engines": {
-    "atom": ">=0.174.0 <2.0.0"
+    "atom": ">=1.6.0 <2.0.0"
   },
   "dependencies": {
     "analytics-node": "^1.2.2",
@@ -79,12 +87,13 @@
     "bluebird": "^2.9.30",
     "coffee-fmt": "0.11.0",
     "coffee-formatter": "^0.1.2",
+    "coffee-script": "^1.10.0",
     "cross-spawn": "^2.0.0",
     "csscomb": "^3.1.7",
     "diff": "^2.1.0",
     "editorconfig": "^0.12.2",
     "event-kit": "^1.4.1",
-    "expand-home-dir": "0.0.2",
+    "expand-home-dir": "0.0.3",
     "extend": "^3.0.0",
     "gherkin": "2.12.2",
     "handlebars": "^4.0.2",
@@ -95,6 +104,7 @@
     "node-dir": "^0.1.8",
     "node-uuid": "^1.4.3",
     "prettydiff": "^1.16.27",
+    "pug-beautify": "^0.1.1",
     "remark": "^3.2.2",
     "season": "^5.3.0",
     "space-pen": "^5.1.1",
@@ -111,6 +121,7 @@
     "atom-workspace": [
       "atom-beautify:help-debug-editor",
       "atom-beautify:beautify-editor",
+      "atom-beautify:migrate-settings",
       "core:save",
       "core:save-as"
     ],
@@ -171,22 +182,23 @@
     "elm"
   ],
   "devDependencies": {
-    "coffee-script": "^1.9.3",
     "coffeelint": "^1.10.1",
     "handlebars": "^4.0.2"
   },
   "scripts": {
+    "postinstall": "node script/build-options.js",
     "prepublish": "npm run docs",
     "docs": "coffee docs/",
-    "lint": "coffeelint src/ spec/"
+    "lint": "coffeelint src/ spec/",
+    "code-docs": "codo && open docs/code/index.html"
   },
   "readme": "# [atom-beautify](https://github.com/Glavin001/atom-beautify)\n\n[![Build Status](https://travis-ci.org/Glavin001/atom-beautify.svg?branch=master)](https://travis-ci.org/Glavin001/atom-beautify)\n[![Build status](https://ci.appveyor.com/api/projects/status/himnq7tjxl2fdc8u?svg=true)](https://ci.appveyor.com/project/Glavin001/atom-beautify)\n[![Gitter chat](https://img.shields.io/badge/gitter-Glavin001%2Fatom--beautify-1dce73.svg)](https://gitter.im/Glavin001/atom-beautify)\n[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=X2RK5DKN6YXPJ&lc=CA&item_name=Atom%2dBeautify&item_number=atom%2dbeautify&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)\n\n[![Throughput Graph](https://graphs.waffle.io/Glavin001/atom-beautify/throughput.svg)](https://waffle.io/Glavin001/atom-beautify/metrics)\n\n> [Beautify](https://github.com/beautify-web/js-beautify)\nHTML (including [Handlebars](http://handlebarsjs.com/)),\nCSS (including [Sass](http://sass-lang.com/) and [Less](http://lesscss.org/)),\nJavaScript, and much more in Atom.\n\nAtom Package: https://atom.io/packages/atom-beautify\n\n```bash\napm install atom-beautify\n```\n\nOr Settings/Preferences ➔ Packages ➔ Search for `atom-beautify`\n\n## Language Support\n\n- [x] JavaScript and JSON\n- [x] HTML, including\n  - [x] [Handlebars](http://handlebarsjs.com/)\n  - [x] [Mustache](http://mustache.github.io)\n  - [x] [Embedded Ruby (ERB)](https://github.com/Glavin001/atom-beautify/issues/80)\n    - Requires [htmlbeautifier](https://github.com/threedaymonk/htmlbeautifier)\n  - [x] XML\n  - [x] SVG\n  - [x] [Marko](https://github.com/marko-js/marko)\n    - Requires [language-marko](https://github.com/marko-js/atom-language-marko)\n- [x] CSS, including\n  - [Sass](http://sass-lang.com/)\n  - [Less](http://lesscss.org/)\n- [x] [SQL](https://github.com/Glavin001/atom-beautify/pull/67)\n  - Requires [python-sqlparse](https://github.com/andialbrecht/sqlparse)\n- [x] [Markdown](https://github.com/Glavin001/atom-beautify/issues/292)\n- [x] [Perl](https://github.com/Glavin001/atom-beautify/issues/33)\n  - Requires [perltidy](http://perltidy.sourceforge.net/)\n- [x] [PHP](https://github.com/Glavin001/atom-beautify/issues/26)  \n  - Requires [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to be already installed.\n- [x] [Python](https://github.com/Glavin001/atom-beautify/issues/24)\n  - Requires [autopep8](https://github.com/hhatto/autopep8) or [YAPF](https://github.com/google/yapf) to be already installed.\n  - Beautifies to [PEP 8](https://www.python.org/dev/peps/pep-0008/).\n- [x] [Ruby](https://github.com/Glavin001/atom-beautify/issues/25)\n  - Requires [Ruby Beautify](https://github.com/erniebrodeur/ruby-beautify)\n- [x] [CoffeeScript](https://github.com/Glavin001/atom-beautify/issues/31)\n- [x] [Golang](https://github.com/Glavin001/atom-beautify/issues/176)\n- [x] [Java](https://github.com/Glavin001/atom-beautify/issues/45)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [C](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [C++](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [C#](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [Objective-C](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [D](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/) or [dfmt](https://github.com/Hackerpilot/dfmt)\n- [x] [Fortran](https://github.com/Glavin001/atom-beautify/issues/300)\n  - Requires [GNU Emacs](http://www.gnu.org/software/emacs/)\n- [x] [Pawn](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [Vala](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [TypeScript](https://github.com/Glavin001/atom-beautify/issues/49)\n- [x] [Haskell](https://github.com/Glavin001/atom-beautify/issues/628)\n  - Requires [stylish-haskell](https://github.com/jaspervdj/stylish-haskell)\n- [x] [Elm](https://github.com/Glavin001/atom-beautify/pull/700)\n  - Requires [Elm-Format](https://github.com/avh4/elm-format)\n- [x] [Erlang](https://github.com/Glavin001/atom-beautify/pull/683)\n  - Requires erlang syntax_tools to be installed\n\n## Usage\n\nOpen the [Command Palette](https://github.com/atom/command-palette), and type `Beautify`.\n\nIt will only beautify selected text if a selection is found -- if not, the whole file will be beautified.\n\n### Shortcut\n\nYou can also type `ctrl-alt-b` as a shortcut or click `Packages > Beautify` in the menu.\n\n#### Custom Keyboard Shortcuts\n\nSee [Keymaps In-Depth](https://atom.io/docs/latest/behind-atom-keymaps-in-depth) for more details.\n\nFor example:\n\n```coffeescript\n'.editor':\n  'ctrl-alt-b': 'atom-beautify:beautify-editor'\n```\n\n## Configuration\n\nEdit your `.jsbeautifyrc` file in any of the following locations:\n\n- Atom Package Settings  \n  `Atom` ➔ `Preferences` ➔ Search for `atom-beautify`\n- Same directory as current file\n- Project root  \n`atom-beautify` will recursively look up from the current file's directory to find `.jsbeautifyrc`.\n- Your user's home directory\n\n**Note**: *Comments are supported in `.jsbeautifyrc` thanks to [strip-json-comments](https://github.com/sindresorhus/strip-json-comments).*\n\nSee examples of both ways inside [`examples/`](https://github.com/donaldpipowitch/atom-beautify/tree/master/examples)\n\nSee [all supported options in the documentation at  `docs/options.md`](https://github.com/Glavin001/atom-beautify/blob/master/docs/options.md).\n\n### Simple\n\nSee [examples/simple-jsbeautifyrc/.jsbeautifyrc](https://github.com/donaldpipowitch/atom-beautify/blob/master/examples/simple-jsbeautifyrc/.jsbeautifyrc).\n\n```json\n{\n  \"indent_size\": 2,\n  \"indent_char\": \" \",\n  \"other\": \" \",\n  \"indent_level\": 0,\n  \"indent_with_tabs\": false,\n  \"preserve_newlines\": true,\n  \"max_preserve_newlines\": 2,\n  \"jslint_happy\": true,\n  \"indent_handlebars\": true\n}\n```\n\n### Nested\n\nSee [examples/nested-jsbeautifyrc/.jsbeautifyrc](https://github.com/donaldpipowitch/atom-beautify/blob/master/examples/nested-jsbeautifyrc/.jsbeautifyrc).\n\n```json\n{\n  \"html\": {\n    \"brace_style\": \"collapse\",\n    \"indent_char\": \" \",\n    \"indent_scripts\": \"normal\",\n    \"indent_size\": 6,\n    \"max_preserve_newlines\": 1,\n    \"preserve_newlines\": true,\n    \"unformatted\": [\"a\", \"sub\", \"sup\", \"b\", \"i\", \"u\"],\n    \"wrap_line_length\": 0\n  },\n  \"css\": {\n    \"indent_char\": \" \",\n    \"indent_size\": 4\n  },\n  \"js\": {\n    \"indent_size\": 2,\n    \"indent_char\": \" \",\n    \"indent_level\": 0,\n    \"indent_with_tabs\": false,\n    \"preserve_newlines\": true,\n    \"max_preserve_newlines\": 2,\n    \"jslint_happy\": true\n  },\n  \"sql\": {\n    \"indent_size\": 4,\n    \"indent_char\": \" \",\n    \"indent_level\": 0,\n    \"indent_with_tabs\": false\n  }\n}\n```\n\n## Contributing\n\n[See all contributors on GitHub](https://github.com/donaldpipowitch/atom-beautify/graphs/contributors).\n\nPlease update the [CHANGELOG.md](https://github.com/donaldpipowitch/atom-beautify/blob/master/CHANGELOG.md),\nadd yourself as a contributor to the [package.json](https://github.com/donaldpipowitch/atom-beautify/blob/master/package.json),\nand submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests/).\n\n## License\n\n[MIT](https://github.com/donaldpipowitch/atom-beautify/blob/master/LICENSE.md) © [Glavin Wiechert](https://github.com/Glavin001)\n",
   "readmeFilename": "README.md",
   "homepage": "https://github.com/Glavin001/atom-beautify#readme",
-  "_id": "atom-beautify@0.28.26",
-  "_shasum": "fc354b020679ba86c63f7cd0171d5699eca98478",
-  "_resolved": "file:../d-116215-9966-1vvgfvs/package.tgz",
-  "_from": "../d-116215-9966-1vvgfvs/package.tgz",
+  "_id": "atom-beautify@0.29.1",
+  "_shasum": "0c3db656126915143c61d99c8f5eed516d18491f",
+  "_resolved": "file:../d-11636-7488-1bnxgt3/package.tgz",
+  "_from": "../d-11636-7488-1bnxgt3/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -807,7 +819,7 @@
       },
       {
         "name": "y18n",
-        "version": "3.2.0",
+        "version": "3.2.1",
         "path": "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/y18n/index.js"
       },
       {
@@ -1021,18 +1033,23 @@
         "path": "node_modules/coffee-formatter/node_modules/optimist/node_modules/wordwrap/index.js"
       },
       {
+        "name": "coffee-script",
+        "version": "1.10.0",
+        "path": "node_modules/coffee-script/lib/coffee-script/coffee-script.js"
+      },
+      {
         "name": "cross-spawn",
-        "version": "2.1.5",
+        "version": "2.2.0",
         "path": "node_modules/cross-spawn/index.js"
       },
       {
         "name": "cross-spawn-async",
-        "version": "2.1.9",
+        "version": "2.2.0",
         "path": "node_modules/cross-spawn/node_modules/cross-spawn-async/index.js"
       },
       {
         "name": "lru-cache",
-        "version": "4.0.0",
+        "version": "4.0.1",
         "path": "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -1262,7 +1279,7 @@
       },
       {
         "name": "expand-home-dir",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "path": "node_modules/expand-home-dir/index.js"
       },
       {
@@ -1472,7 +1489,7 @@
       },
       {
         "name": "babel-core",
-        "version": "5.8.35",
+        "version": "5.8.38",
         "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/index.js"
       },
       {
@@ -1557,7 +1574,7 @@
       },
       {
         "name": "babylon",
-        "version": "5.8.35",
+        "version": "5.8.38",
         "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/babylon/lib/index.js"
       },
       {
@@ -1649,16 +1666,6 @@
         "name": "json5",
         "version": "0.4.0",
         "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/json5/lib/json5.js"
-      },
-      {
-        "name": "line-numbers",
-        "version": "0.2.0",
-        "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/index.js"
-      },
-      {
-        "name": "left-pad",
-        "version": "0.0.3",
-        "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/node_modules/left-pad/index.js"
       },
       {
         "name": "minimatch",
@@ -1927,7 +1934,7 @@
       },
       {
         "name": "y18n",
-        "version": "3.2.0",
+        "version": "3.2.1",
         "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/regenerator/node_modules/defs/node_modules/yargs/node_modules/y18n/index.js"
       },
       {
@@ -2037,7 +2044,7 @@
       },
       {
         "name": "to-fast-properties",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "path": "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/to-fast-properties/index.js"
       },
       {
@@ -2107,18 +2114,13 @@
       },
       {
         "name": "chalk",
-        "version": "1.1.1",
+        "version": "1.1.3",
         "path": "node_modules/jscs/node_modules/chalk/index.js"
       },
       {
         "name": "ansi-styles",
-        "version": "2.2.0",
+        "version": "2.2.1",
         "path": "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/index.js"
-      },
-      {
-        "name": "color-convert",
-        "version": "1.0.0",
-        "path": "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/index.js"
       },
       {
         "name": "escape-string-regexp",
@@ -2372,7 +2374,7 @@
       },
       {
         "name": "argparse",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "path": "node_modules/jscs/node_modules/js-yaml/node_modules/argparse/index.js"
       },
       {
@@ -2387,7 +2389,7 @@
       },
       {
         "name": "jscs-jsdoc",
-        "version": "1.3.1",
+        "version": "1.3.2",
         "path": "node_modules/jscs/node_modules/jscs-jsdoc/lib/index.js"
       },
       {
@@ -2797,8 +2799,13 @@
       },
       {
         "name": "prettydiff",
-        "version": "1.16.34",
+        "version": "1.16.37",
         "path": "node_modules/prettydiff/prettydiff.js"
+      },
+      {
+        "name": "pug-beautify",
+        "version": "0.1.1",
+        "path": "node_modules/pug-beautify/index.js"
       },
       {
         "name": "remark",
@@ -2817,18 +2824,13 @@
       },
       {
         "name": "chalk",
-        "version": "1.1.1",
+        "version": "1.1.3",
         "path": "node_modules/remark/node_modules/chalk/index.js"
       },
       {
         "name": "ansi-styles",
-        "version": "2.2.0",
+        "version": "2.2.1",
         "path": "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/index.js"
-      },
-      {
-        "name": "color-convert",
-        "version": "1.0.0",
-        "path": "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/index.js"
       },
       {
         "name": "escape-string-regexp",
@@ -2942,8 +2944,13 @@
       },
       {
         "name": "expand-brackets",
-        "version": "0.1.4",
+        "version": "0.1.5",
         "path": "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/index.js"
+      },
+      {
+        "name": "is-posix-bracket",
+        "version": "0.1.1",
+        "path": "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/node_modules/is-posix-bracket/index.js"
       },
       {
         "name": "extglob",
@@ -2982,12 +2989,12 @@
       },
       {
         "name": "for-own",
-        "version": "0.1.3",
+        "version": "0.1.4",
         "path": "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/index.js"
       },
       {
         "name": "for-in",
-        "version": "0.1.4",
+        "version": "0.1.5",
         "path": "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/node_modules/for-in/index.js"
       },
       {
@@ -3012,7 +3019,7 @@
       },
       {
         "name": "regex-cache",
-        "version": "0.4.2",
+        "version": "0.4.3",
         "path": "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/index.js"
       },
       {
@@ -3707,7 +3714,7 @@
       },
       {
         "name": "argparse",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "path": "node_modules/tidy-markdown/node_modules/argparse/index.js"
       },
       {
@@ -3737,7 +3744,7 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.5.4",
+        "version": "3.5.5",
         "path": "node_modules/tidy-markdown/node_modules/js-yaml/index.js"
       },
       {
@@ -3862,12 +3869,12 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.5.4",
+        "version": "3.5.5",
         "path": "node_modules/yaml-front-matter/node_modules/js-yaml/index.js"
       },
       {
         "name": "argparse",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "path": "node_modules/yaml-front-matter/node_modules/js-yaml/node_modules/argparse/index.js"
       },
       {
@@ -4093,6 +4100,8 @@
         "node_modules/coffee-formatter/node_modules/optimist/node_modules/wordwrap/package.json",
         "node_modules/coffee-formatter/node_modules/optimist/package.json",
         "node_modules/coffee-formatter/package.json",
+        "node_modules/coffee-script/bower.json",
+        "node_modules/coffee-script/package.json",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/node_modules/pseudomap/package.json",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/node_modules/yallist/package.json",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/package.json",
@@ -4237,8 +4246,6 @@
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/is-integer/package.json",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/js-tokens/package.json",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/json5/package.json",
-        "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/node_modules/left-pad/package.json",
-        "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/package.json",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/minimatch/node_modules/brace-expansion/package.json",
@@ -4352,7 +4359,6 @@
         "node_modules/jscs/node_modules/babel-jscs/node_modules/lodash.assign/node_modules/lodash.keys/package.json",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/lodash.assign/package.json",
         "node_modules/jscs/node_modules/babel-jscs/package.json",
-        "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/package.json",
         "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/package.json",
         "node_modules/jscs/node_modules/chalk/node_modules/escape-string-regexp/package.json",
         "node_modules/jscs/node_modules/chalk/node_modules/has-ansi/node_modules/ansi-regex/package.json",
@@ -4547,11 +4553,11 @@
         "node_modules/prettydiff/bower.json",
         "node_modules/prettydiff/inch.json",
         "node_modules/prettydiff/package.json",
+        "node_modules/pug-beautify/package.json",
         "node_modules/remark/lib/block-elements.json",
         "node_modules/remark/lib/escape.json",
         "node_modules/remark/node_modules/camelcase/package.json",
         "node_modules/remark/node_modules/ccount/package.json",
-        "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/package.json",
         "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/package.json",
         "node_modules/remark/node_modules/chalk/node_modules/escape-string-regexp/package.json",
         "node_modules/remark/node_modules/chalk/node_modules/has-ansi/node_modules/ansi-regex/package.json",
@@ -4574,6 +4580,7 @@
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/preserve/package.json",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/repeat-element/package.json",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/package.json",
+        "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/node_modules/is-posix-bracket/package.json",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/package.json",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob/package.json",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/filename-regex/package.json",
@@ -4801,7 +4808,8 @@
         "node_modules/yaml-front-matter/node_modules/js-yaml/package.json",
         "node_modules/yaml-front-matter/package.json",
         "package.json",
-        "src/beautifiers/uncrustify/possible-options.json"
+        "src/beautifiers/uncrustify/possible-options.json",
+        "src/options.json"
       ],
       ".js": [
         "node_modules/analytics-node/analytics-node.js",
@@ -6215,13 +6223,30 @@
         "node_modules/coffee-formatter/node_modules/optimist/node_modules/wordwrap/example/center.js",
         "node_modules/coffee-formatter/node_modules/optimist/node_modules/wordwrap/example/meat.js",
         "node_modules/coffee-formatter/node_modules/optimist/node_modules/wordwrap/index.js",
+        "node_modules/coffee-script/lib/coffee-script/browser.js",
+        "node_modules/coffee-script/lib/coffee-script/cake.js",
+        "node_modules/coffee-script/lib/coffee-script/coffee-script.js",
+        "node_modules/coffee-script/lib/coffee-script/command.js",
+        "node_modules/coffee-script/lib/coffee-script/grammar.js",
+        "node_modules/coffee-script/lib/coffee-script/helpers.js",
+        "node_modules/coffee-script/lib/coffee-script/index.js",
+        "node_modules/coffee-script/lib/coffee-script/lexer.js",
+        "node_modules/coffee-script/lib/coffee-script/nodes.js",
+        "node_modules/coffee-script/lib/coffee-script/optparse.js",
+        "node_modules/coffee-script/lib/coffee-script/parser.js",
+        "node_modules/coffee-script/lib/coffee-script/register.js",
+        "node_modules/coffee-script/lib/coffee-script/repl.js",
+        "node_modules/coffee-script/lib/coffee-script/rewriter.js",
+        "node_modules/coffee-script/lib/coffee-script/scope.js",
+        "node_modules/coffee-script/lib/coffee-script/sourcemap.js",
+        "node_modules/coffee-script/register.js",
+        "node_modules/coffee-script/repl.js",
         "node_modules/cross-spawn/index.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/index.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/lib/enoent.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/lib/parse.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/lib/resolveCommand.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/lib/util/mixIn.js",
-        "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/benchmarks/insertion-time.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/node_modules/pseudomap/map.js",
         "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/node_modules/pseudomap/pseudomap.js",
@@ -8421,8 +8446,6 @@
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/json5/lib/cli.js",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/json5/lib/json5.js",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/json5/lib/require.js",
-        "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/index.js",
-        "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/node_modules/left-pad/index.js",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/minimatch/browser.js",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/minimatch/minimatch.js",
         "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/minimatch/node_modules/brace-expansion/example.js",
@@ -8724,10 +8747,6 @@
         "node_modules/jscs/node_modules/babel-jscs/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray/index.js",
         "node_modules/jscs/node_modules/chalk/index.js",
         "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/index.js",
-        "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/conversions.js",
-        "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/css-keywords.js",
-        "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/index.js",
-        "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/route.js",
         "node_modules/jscs/node_modules/chalk/node_modules/escape-string-regexp/index.js",
         "node_modules/jscs/node_modules/chalk/node_modules/has-ansi/index.js",
         "node_modules/jscs/node_modules/chalk/node_modules/has-ansi/node_modules/ansi-regex/index.js",
@@ -11401,6 +11420,7 @@
         "node_modules/prettydiff/lib/markuppretty.js",
         "node_modules/prettydiff/lib/safeSort.js",
         "node_modules/prettydiff/prettydiff.js",
+        "node_modules/pug-beautify/index.js",
         "node_modules/remark/index.js",
         "node_modules/remark/lib/cli/cli.js",
         "node_modules/remark/lib/cli/configuration.js",
@@ -11434,10 +11454,6 @@
         "node_modules/remark/node_modules/ccount/index.js",
         "node_modules/remark/node_modules/chalk/index.js",
         "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/index.js",
-        "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/conversions.js",
-        "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/css-keywords.js",
-        "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/index.js",
-        "node_modules/remark/node_modules/chalk/node_modules/ansi-styles/node_modules/color-convert/route.js",
         "node_modules/remark/node_modules/chalk/node_modules/escape-string-regexp/index.js",
         "node_modules/remark/node_modules/chalk/node_modules/has-ansi/index.js",
         "node_modules/remark/node_modules/chalk/node_modules/has-ansi/node_modules/ansi-regex/index.js",
@@ -11469,6 +11485,7 @@
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/preserve/test.js",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/repeat-element/index.js",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/index.js",
+        "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/node_modules/is-posix-bracket/index.js",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob/index.js",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/filename-regex/index.js",
         "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/is-extglob/index.js",
@@ -12572,10 +12589,12 @@
         "src/beautifiers/index.coffee",
         "src/beautifiers/js-beautify.coffee",
         "src/beautifiers/jscs.coffee",
+        "src/beautifiers/latex-beautify.coffee",
         "src/beautifiers/perltidy.coffee",
         "src/beautifiers/php-cs-fixer.coffee",
         "src/beautifiers/phpcbf.coffee",
         "src/beautifiers/prettydiff.coffee",
+        "src/beautifiers/pug-beautify.coffee",
         "src/beautifiers/puppet-fix.coffee",
         "src/beautifiers/remark.coffee",
         "src/beautifiers/rubocop.coffee",
@@ -12611,10 +12630,12 @@
         "src/languages/haskell.coffee",
         "src/languages/html.coffee",
         "src/languages/index.coffee",
+        "src/languages/jade.coffee",
         "src/languages/java.coffee",
         "src/languages/javascript.coffee",
         "src/languages/json.coffee",
         "src/languages/jsx.coffee",
+        "src/languages/latex.coffee",
         "src/languages/less.coffee",
         "src/languages/markdown.coffee",
         "src/languages/marko.coffee",
@@ -12650,6 +12671,7 @@
       {
         "paths": [
           "",
+          "docs/code/javascript",
           "docs",
           "examples/nested-jsbeautifyrc/javascript/expected",
           "examples/nested-jsbeautifyrc/javascript/original",
@@ -12657,6 +12679,7 @@
           "examples/simple-jsbeautifyrc/coffeescript/original",
           "examples/simple-jsbeautifyrc/javascript/expected",
           "examples/simple-jsbeautifyrc/javascript/original",
+          "script",
           "spec",
           "src/beautifiers",
           "src/beautifiers/fortran-beautifier",
@@ -12673,12 +12696,13 @@
           "bluebird": "^2.9.30",
           "coffee-fmt": "0.11.0",
           "coffee-formatter": "^0.1.2",
+          "coffee-script": "^1.10.0",
           "cross-spawn": "^2.0.0",
           "csscomb": "^3.1.7",
           "diff": "^2.1.0",
           "editorconfig": "^0.12.2",
           "event-kit": "^1.4.1",
-          "expand-home-dir": "0.0.2",
+          "expand-home-dir": "0.0.3",
           "extend": "^3.0.0",
           "gherkin": "2.12.2",
           "handlebars": "^4.0.2",
@@ -12689,6 +12713,7 @@
           "node-dir": "^0.1.8",
           "node-uuid": "^1.4.3",
           "prettydiff": "^1.16.27",
+          "pug-beautify": "^0.1.1",
           "remark": "^3.2.2",
           "season": "^5.3.0",
           "space-pen": "^5.1.1",
@@ -13567,7 +13592,7 @@
           "node_modules/cross-spawn"
         ],
         "dependencies": {
-          "cross-spawn-async": "^2.0.0",
+          "cross-spawn-async": "^2.2.0",
           "spawn-sync": "^1.0.15"
         }
       },
@@ -13584,10 +13609,8 @@
       },
       {
         "paths": [
-          "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/benchmarks",
           "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/lib",
-          "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache",
-          "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache/test"
+          "node_modules/cross-spawn/node_modules/cross-spawn-async/node_modules/lru-cache"
         ],
         "dependencies": {
           "pseudomap": "^1.0.1",
@@ -14295,7 +14318,7 @@
           "babel-plugin-runtime": "^1.0.7",
           "babel-plugin-undeclared-variables-check": "^1.0.2",
           "babel-plugin-undefined-to-void": "^1.1.6",
-          "babylon": "^5.8.35",
+          "babylon": "^5.8.38",
           "bluebird": "^2.9.33",
           "chalk": "^1.0.0",
           "convert-source-map": "^1.1.0",
@@ -14309,7 +14332,6 @@
           "is-integer": "^1.0.4",
           "js-tokens": "1.0.1",
           "json5": "^0.4.0",
-          "line-numbers": "0.2.0",
           "lodash": "^3.10.0",
           "minimatch": "^2.0.3",
           "output-file-sync": "^1.1.0",
@@ -14388,15 +14410,6 @@
         ],
         "dependencies": {
           "number-is-nan": "^1.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers",
-          "node_modules/jscs/node_modules/babel-jscs/node_modules/babel-core/node_modules/line-numbers/test"
-        ],
-        "dependencies": {
-          "left-pad": "0.0.3"
         }
       },
       {
@@ -14747,19 +14760,11 @@
           "node_modules/jscs/node_modules/chalk"
         ],
         "dependencies": {
-          "ansi-styles": "^2.1.0",
+          "ansi-styles": "^2.2.1",
           "escape-string-regexp": "^1.0.2",
           "has-ansi": "^2.0.0",
           "strip-ansi": "^3.0.0",
           "supports-color": "^2.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/jscs/node_modules/chalk/node_modules/ansi-styles"
-        ],
-        "dependencies": {
-          "color-convert": "^1.0.0"
         }
       },
       {
@@ -15756,19 +15761,11 @@
           "node_modules/remark/node_modules/chalk"
         ],
         "dependencies": {
-          "ansi-styles": "^2.1.0",
+          "ansi-styles": "^2.2.1",
           "escape-string-regexp": "^1.0.2",
           "has-ansi": "^2.0.0",
           "strip-ansi": "^3.0.0",
           "supports-color": "^2.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/remark/node_modules/chalk/node_modules/ansi-styles"
-        ],
-        "dependencies": {
-          "color-convert": "^1.0.0"
         }
       },
       {
@@ -15899,6 +15896,14 @@
       },
       {
         "paths": [
+          "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets"
+        ],
+        "dependencies": {
+          "is-posix-bracket": "^0.1.0"
+        }
+      },
+      {
+        "paths": [
           "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob"
         ],
         "dependencies": {
@@ -15927,7 +15932,7 @@
           "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own"
         ],
         "dependencies": {
-          "for-in": "^0.1.4"
+          "for-in": "^0.1.5"
         }
       },
       {
@@ -15955,7 +15960,7 @@
           "node_modules/remark/node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache"
         ],
         "dependencies": {
-          "is-equal-shallow": "^0.1.1",
+          "is-equal-shallow": "^0.1.3",
           "is-primitive": "^2.0.0"
         }
       },

@@ -27,6 +27,13 @@ $ = null
 # nopt.clean(data, types);
 # return data;
 # }
+getScrollTop = (editor) ->
+  view = editor.viewRegistry.getView(editor)
+  view.getScrollTop()
+setScrollTop = (editor, value) ->
+  view = editor.viewRegistry.getView(editor)
+  view.setScrollTop value
+
 getCursors = (editor) ->
   cursors = editor.getCursors()
   posArray = []
@@ -58,7 +65,7 @@ beautifier.on('beautify::end', ->
 )
 # Show error
 showError = (error) ->
-  if not atom.config.get("atom-beautify.muteAllErrors")
+  if not atom.config.get("atom-beautify.general.muteAllErrors")
     # console.log(e)
     stack = error.stack
     detail = error.description or error.message
@@ -66,25 +73,12 @@ showError = (error) ->
       stack, detail, dismissable : true})
 
 beautify = ({onSave}) ->
-  # Deprecation warning for beautify on save
-  if atom.config.get("atom-beautify.beautifyOnSave") is true
-    detail = """See issue https://github.com/Glavin001/atom-beautify/issues/308
 
-             To stop seeing this message:
-             - Uncheck (disable) the deprecated \"Beautify On Save\" option
-
-             To enable Beautify on Save for a particular language:
-             - Go to Atom Beautify's package settings
-             - Find option for \"Language Config - <Your Language> - Beautify On Save\"
-             - Check (enable) Beautify On Save option for that particular language
-
-             """
-
-    atom?.notifications.addWarning("The option \"atom-beautify.beautifyOnSave\" has been deprecated", {detail, dismissable : true})
+  plugin.checkUnsupportedOptions()
 
   # Continue beautifying
   path ?= require("path")
-  forceEntireFile = onSave and atom.config.get("atom-beautify.beautifyEntireFileOnSave")
+  forceEntireFile = onSave and atom.config.get("atom-beautify.general.beautifyEntireFileOnSave")
 
   # Get the path to the config file
   # All of the options
@@ -109,7 +103,7 @@ beautify = ({onSave}) ->
         posArray = getCursors(editor)
 
         # console.log "posArray:
-        origScrollTop = editor.getScrollTop()
+        origScrollTop = getScrollTop(editor)
 
         # console.log "origScrollTop:
         if not forceEntireFile and isSelection
@@ -132,7 +126,7 @@ beautify = ({onSave}) ->
         setTimeout ( ->
 
           # console.log "setScrollTop"
-          editor.setScrollTop origScrollTop
+          setScrollTop editor, origScrollTop
           return
         ), 0
     else
@@ -273,6 +267,8 @@ beautifyDirectory = ({target}) ->
   return
 
 debug = () ->
+
+  plugin.checkUnsupportedOptions()
 
   # Get current editor
   editor = atom.workspace.getActiveTextEditor()
@@ -490,12 +486,12 @@ handleSaveEvent = ->
       # TODO: select appropriate language
       language = languages[0]
       # Get language config
-      key = "atom-beautify.language_#{language.namespace}_beautify_on_save"
+      key = "atom-beautify.#{language.namespace}.beautify_on_save"
       beautifyOnSave = atom.config.get(key)
       logger.verbose('save editor positions', key, beautifyOnSave)
       if beautifyOnSave
         posArray = getCursors(editor)
-        origScrollTop = editor.getScrollTop()
+        origScrollTop = getScrollTop(editor)
         beautifyFilePath(filePath, ->
           if editor.isAlive() is true
             buffer.reload()
@@ -505,22 +501,69 @@ handleSaveEvent = ->
             # addition happens asynchronously
             setTimeout ( ->
               setCursors(editor, posArray)
-              editor.setScrollTop(origScrollTop)
+              setScrollTop(editor, origScrollTop)
               # console.log "setScrollTop"
               return
             ), 0
         )
       )
     plugin.subscriptions.add disposable
+
+getUnsupportedOptions = ->
+  settings = atom.config.get('atom-beautify')
+  schema = atom.config.getSchema('atom-beautify')
+  unsupportedOptions = _.filter(_.keys(settings), (key) ->
+    # return atom.config.getSchema("atom-beautify.${key}").type
+    # return typeof settings[key]
+    schema.properties[key] is undefined
+  )
+  return unsupportedOptions
+
+plugin.checkUnsupportedOptions = ->
+  unsupportedOptions = getUnsupportedOptions()
+  if unsupportedOptions.length isnt 0
+    atom.notifications.addWarning("You have unsupported options: #{unsupportedOptions.join(', ')} <br> Please run Atom command 'Atom-Beautify: Migrate Settings'.")
+
+plugin.migrateSettings = ->
+  unsupportedOptions = getUnsupportedOptions()
+  namespaces = beautifier.languages.namespaces
+  # console.log('migrate-settings', schema, namespaces, unsupportedOptions)
+  if unsupportedOptions.length is 0
+    atom.notifications.addSuccess("No options to migrate.")
+  else
+    rex = new RegExp("(#{namespaces.join('|')})_(.*)")
+    rename = _.toPairs(_.zipObject(unsupportedOptions, _.map(unsupportedOptions, (key) ->
+      m = key.match(rex)
+      if m is null
+        # Did not match
+        # Put into general
+        return "general.#{key}"
+      else
+        return "#{m[1]}.#{m[2]}"
+    )))
+    # console.log('rename', rename)
+    # logger.verbose('rename', rename)
+
+    # Move all option values to renamed key
+    _.each(rename, ([key, newKey]) ->
+      # console.log('rename', key, newKey)
+      # Copy to new key
+      val = atom.config.get("atom-beautify.#{key}")
+      atom.config.set("atom-beautify.#{newKey}", val)
+      # Delete old key
+      atom.config.set("atom-beautify.#{key}", undefined)
+    )
+    atom.notifications.addSuccess("Successfully migrated options: #{unsupportedOptions.join(', ')}")
+
 plugin.config = _.merge(require('./config.coffee'), defaultLanguageOptions)
 plugin.activate = ->
   @subscriptions = new CompositeDisposable
   @subscriptions.add handleSaveEvent()
-  @subscriptions.add atom.config.observe("atom-beautify.beautifyOnSave", handleSaveEvent)
   @subscriptions.add atom.commands.add "atom-workspace", "atom-beautify:beautify-editor", beautify
   @subscriptions.add atom.commands.add "atom-workspace", "atom-beautify:help-debug-editor", debug
   @subscriptions.add atom.commands.add ".tree-view .file .name", "atom-beautify:beautify-file", beautifyFile
   @subscriptions.add atom.commands.add ".tree-view .directory .name", "atom-beautify:beautify-directory", beautifyDirectory
+  @subscriptions.add atom.commands.add "atom-workspace", "atom-beautify:migrate-settings", plugin.migrateSettings
 
 plugin.deactivate = ->
   @subscriptions.dispose()
