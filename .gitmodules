@@ -1,3 +1,0 @@
-[submodule "kyokai"]
-	path = packages/kyokai
-	url = git@github.com:dorian-marchal/kyokai
