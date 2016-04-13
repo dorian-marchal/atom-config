@@ -1,6 +1,6 @@
 {
   "name": "remote-sync",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "Upload your files to remote host after every change. Both SCP/SFTP and FTP are supported.",
   "license": "MIT",
   "repository": {
@@ -12,25 +12,26 @@
     "atom": ">=0.78"
   },
   "dependencies": {
-    "ssh2": "^0.2",
-    "minimatch": "^0.2",
     "async": "^0.2",
-    "mkdirp": "^0.3",
     "atom-message-panel": "^1.1.1",
     "atom-space-pen-views": "^2.0.3",
+    "chokidar": "^1.4.3",
     "fs-plus": "^2.1",
-    "ftp": "^0.3.7"
+    "ftp": "^0.3.7",
+    "minimatch": "^0.2",
+    "mkdirp": "^0.3",
+    "ssh2": "^0.2"
   },
-  "readme": "# Atom Remote Sync\n\nThis package provides functionality for:\n\n* Uploading changes automatically when you save a file\n* Uploading/downloading files to/from the server\n* Displaying diffs between the local and remote files with your favourite diff tool\n* set difftoolPath in AtomSettingView of `remote-sync` — The path to your diff tool executable\n\nCurrently, both SCP/SFTP and FTP are supported.\n\n## Installation\n\nYou can install this like any other Atom package, with one of these methods:\n\n* Open your settings in Atom, select the \"Install\" tab, search for \"remote-sync\", and click install on it\n* Run `apm install remote-sync` in a terminal\n* Download or clone this repository to your `~/.atom/packages/` directory\n\n## Usage\n\nCreate file `.remote-sync.json` in your project root with these settings:\n\n* `transport` — `scp` for SCP/SFTP, or `ftp` for FTP\n* `hostname` — Remote host address\n* `port` - Remort port to connect on (typically 22 for SCP/SFTP, 21 for FTP)\n* `username` — Remote host username\n* `password` — Remote host password\n* `keyfile` — Absolute path to SSH key (only used for SCP)\n* `passphrase` — Passphrase for the SSH key (only used for SCP)\n* `useAgent` — Whether or not to use an agent process, default: false (only used for SCP)\n* `target` — Target directory on remote host\n* `ignore` — Array of [minimatch](https://github.com/isaacs/minimatch) patterns of files to ignore\n* `uploadOnSave` — Whether or not to upload the current file when saved, default: false\n* `uploadMirrors` — transport mirror config array when upload\n* `deleteLocal` - whether or not to delete the local file / folder after remote delete\n\nSCP example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nSCP `useAgent` example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"useAgent\": true,\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nFTP example:\n```json\n{\n  \"transport\": \"ftp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 21,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nUpload mirrors example:\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ],\n  \"uploadMirrors\":[\n    {\n      \"transport\": \"scp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 22,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n      \"passphrase\": \"your_passphrase\",\n      \"target\": \"/home/vagrant/dirname/subdirname_one\",\n      \"ignore\": [\n\t    \".remote-sync.json\",\n        \".git/**\"\n      ]\n    },\n    {\n      \"transport\": \"ftp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 21,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"target\": \"/home/vagrant/dirname/subdirname_two\",\n      \"ignore\": [\n\t    \".remote-sync.json\",\n        \".git/**\"\n      ]\n    }\n  ]\n}\n```\n\n## Usage example\n\n### Existing project\n\n1. Add a file named `.remote-sync.json` to your project, with the contents above\n2. Open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n\nThat's it!\n\n### From scratch, with a remote server\n\n1. Create a folder for your project, and create a file named `.remote-sync.json` in it with the contents above\n2. In the Atom editor, open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n4. Open the command palette again\n5. Input `remote sync download all`\n\nThe package will download all of the files from the remote server for you.\n\n\n#Make a donation via Paypal ![Make a donation via Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)\nClick 'Send Money' after login PayPal, and my PayPal account is: lx1988cyk#gmail.com\n",
+  "readme": "# Atom Remote Sync\nThis package provides functionality for:\n- Uploading changes automatically when you save a file\n- Uploading/downloading files to/from the server\n- Displaying diffs between the local and remote files with your favourite diff tool\n- Monitor files for external change and automatically upload\n- set difftoolCommand in AtomSettingView of `remote-sync` -- The path to your diff tool executable\n\nCurrently, both SCP/SFTP and FTP are supported.\n\n## Installation\nYou can install this like any other Atom package, with one of these methods:\n- Open your settings in Atom, select the \"Install\" tab, search for \"remote-sync\", and click install on it\n- Run `apm install remote-sync` in a terminal\n- Download or clone this repository to your `~/.atom/packages/` directory and enter the directory run `apm install`\n\n## Usage\nCreate file `.remote-sync.json` in your project root with these settings:\n- `transport` -- `scp` for SCP/SFTP, or `ftp` for FTP\n- `hostname` -- Remote host address\n- `port` - Remort port to connect on (typically 22 for SCP/SFTP, 21 for FTP)\n- `username` -- Remote host username\n- `password` -- Remote host password\n- `keyfile` -- Absolute path to SSH key (only used for SCP)\n- `passphrase` -- Passphrase for the SSH key (only used for SCP)\n- `useAgent` -- Whether or not to use an agent process, default: false (only used for SCP)\n- `target` -- Target directory on remote host\n- `source` -- Source directory relative to project root\n- `ignore` -- Array of [minimatch](https://github.com/isaacs/minimatch) patterns of files to ignore\n- `uploadOnSave` -- Whether or not to upload the current file when saved, default: false\n- `useAtomicWrites` -- Upload file using a temporary filename before moving to its final location (only used for SCP), default: false\n- `uploadMirrors` -- transport mirror config array when upload\n- `deleteLocal` - whether or not to delete the local file / folder after remote delete\n- `saveOnUpload` - Whether or not to save a modified file before uploading, default: false\n\nSCP example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nSCP `useAgent` example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"useAgent\": true,\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nFTP example:\n\n```json\n{\n  \"transport\": \"ftp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 21,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nUpload mirrors example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ],\n  \"uploadMirrors\":[\n    {\n      \"transport\": \"scp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 22,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n      \"passphrase\": \"your_passphrase\",\n      \"target\": \"/home/vagrant/dirname/subdirname_one\",\n      \"ignore\": [\n        \".remote-sync.json\",\n        \".git/**\"\n      ]\n    },\n    {\n      \"transport\": \"ftp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 21,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"target\": \"/home/vagrant/dirname/subdirname_two\",\n      \"ignore\": [\n        \".remote-sync.json\",\n        \".git/**\"\n      ]\n    }\n  ]\n}\n```\n\n## Usage example\n### Existing project\n1. Add a file named `.remote-sync.json` to your project, with the contents above\n2. Open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n\nThat's it!\n\n### From scratch, with a remote server\n1. Create a folder for your project, and create a file named `.remote-sync.json` in it with the contents above\n2. In the Atom editor, open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n4. Open the command palette again\n5. Input `remote sync download all`\n\nThe package will download all of the files from the remote server for you.\n\n# Make a donation via Paypal ![Make a donation via Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)\nClick 'Send Money' after login PayPal, and my PayPal account is: lx1988cyk#gmail.com\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/yongkangchen/remote-sync/issues"
   },
   "homepage": "https://github.com/yongkangchen/remote-sync#readme",
-  "_id": "remote-sync@3.5.0",
-  "_shasum": "dd9e419481d20c7713251dee1ee12558a4fb6820",
-  "_resolved": "file:../d-1151022-4110-10t0kix/package.tgz",
-  "_from": "../d-1151022-4110-10t0kix/package.tgz",
+  "_id": "remote-sync@4.0.0",
+  "_shasum": "09504531b54804c0e6c47b517b8cf4f7e25fb8c4",
+  "_resolved": "file:../d-116313-9880-m4ckby/package.tgz",
+  "_from": "../d-116313-9880-m4ckby/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -71,7 +72,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.8",
+        "version": "0.10.11",
         "path": "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -81,7 +82,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.1",
+        "version": "3.0.2",
         "path": "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -116,7 +117,7 @@
       },
       {
         "name": "atom-space-pen-views",
-        "version": "2.1.0",
+        "version": "2.2.0",
         "path": "node_modules/atom-space-pen-views/lib/main.js"
       },
       {
@@ -126,7 +127,7 @@
       },
       {
         "name": "space-pen",
-        "version": "5.1.1",
+        "version": "5.1.2",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js"
       },
       {
@@ -151,7 +152,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.8",
+        "version": "0.10.11",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -161,7 +162,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.1",
+        "version": "3.0.2",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -200,8 +201,283 @@
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore.js"
       },
       {
+        "name": "chokidar",
+        "version": "1.4.3",
+        "path": "node_modules/chokidar/index.js"
+      },
+      {
+        "name": "anymatch",
+        "version": "1.3.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/index.js"
+      },
+      {
+        "name": "arrify",
+        "version": "1.0.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/arrify/index.js"
+      },
+      {
+        "name": "micromatch",
+        "version": "2.3.7",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/index.js"
+      },
+      {
+        "name": "arr-diff",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff/index.js"
+      },
+      {
+        "name": "arr-flatten",
+        "version": "1.0.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff/node_modules/arr-flatten/index.js"
+      },
+      {
+        "name": "array-unique",
+        "version": "0.2.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/array-unique/index.js"
+      },
+      {
+        "name": "braces",
+        "version": "1.8.3",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/index.js"
+      },
+      {
+        "name": "expand-range",
+        "version": "1.8.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/index.js"
+      },
+      {
+        "name": "fill-range",
+        "version": "2.2.3",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/index.js"
+      },
+      {
+        "name": "is-number",
+        "version": "2.1.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/is-number/index.js"
+      },
+      {
+        "name": "isobject",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/index.js"
+      },
+      {
+        "name": "isarray",
+        "version": "0.0.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/node_modules/isarray/index.js"
+      },
+      {
+        "name": "randomatic",
+        "version": "1.1.5",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/randomatic/index.js"
+      },
+      {
+        "name": "repeat-string",
+        "version": "1.5.4",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/repeat-string/index.js"
+      },
+      {
+        "name": "preserve",
+        "version": "0.2.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/preserve/index.js"
+      },
+      {
+        "name": "repeat-element",
+        "version": "1.1.2",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/repeat-element/index.js"
+      },
+      {
+        "name": "expand-brackets",
+        "version": "0.1.5",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/index.js"
+      },
+      {
+        "name": "is-posix-bracket",
+        "version": "0.1.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/node_modules/is-posix-bracket/index.js"
+      },
+      {
+        "name": "extglob",
+        "version": "0.3.2",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob/index.js"
+      },
+      {
+        "name": "filename-regex",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/filename-regex/index.js"
+      },
+      {
+        "name": "is-extglob",
+        "version": "1.0.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/is-extglob/index.js"
+      },
+      {
+        "name": "kind-of",
+        "version": "3.0.2",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of/index.js"
+      },
+      {
+        "name": "is-buffer",
+        "version": "1.1.3",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of/node_modules/is-buffer/index.js"
+      },
+      {
+        "name": "normalize-path",
+        "version": "2.0.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/normalize-path/index.js"
+      },
+      {
+        "name": "object.omit",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/index.js"
+      },
+      {
+        "name": "for-own",
+        "version": "0.1.4",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/index.js"
+      },
+      {
+        "name": "for-in",
+        "version": "0.1.5",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/node_modules/for-in/index.js"
+      },
+      {
+        "name": "is-extendable",
+        "version": "0.1.1",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/is-extendable/index.js"
+      },
+      {
+        "name": "parse-glob",
+        "version": "3.0.4",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/index.js"
+      },
+      {
+        "name": "glob-base",
+        "version": "0.3.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/glob-base/index.js"
+      },
+      {
+        "name": "is-dotfile",
+        "version": "1.0.2",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/is-dotfile/index.js"
+      },
+      {
+        "name": "regex-cache",
+        "version": "0.4.3",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/index.js"
+      },
+      {
+        "name": "is-equal-shallow",
+        "version": "0.1.3",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-equal-shallow/index.js"
+      },
+      {
+        "name": "is-primitive",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-primitive/index.js"
+      },
+      {
+        "name": "async-each",
+        "version": "1.0.0",
+        "path": "node_modules/chokidar/node_modules/async-each/index.js"
+      },
+      {
+        "name": "glob-parent",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/glob-parent/index.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.1",
+        "path": "node_modules/chokidar/node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "is-binary-path",
+        "version": "1.0.1",
+        "path": "node_modules/chokidar/node_modules/is-binary-path/index.js"
+      },
+      {
+        "name": "binary-extensions",
+        "version": "1.4.0",
+        "path": "node_modules/chokidar/node_modules/is-binary-path/node_modules/binary-extensions/binary-extensions.json"
+      },
+      {
+        "name": "is-glob",
+        "version": "2.0.1",
+        "path": "node_modules/chokidar/node_modules/is-glob/index.js"
+      },
+      {
+        "name": "is-extglob",
+        "version": "1.0.0",
+        "path": "node_modules/chokidar/node_modules/is-glob/node_modules/is-extglob/index.js"
+      },
+      {
+        "name": "path-is-absolute",
+        "version": "1.0.0",
+        "path": "node_modules/chokidar/node_modules/path-is-absolute/index.js"
+      },
+      {
+        "name": "readdirp",
+        "version": "2.0.0",
+        "path": "node_modules/chokidar/node_modules/readdirp/readdirp.js"
+      },
+      {
+        "name": "graceful-fs",
+        "version": "4.1.3",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/graceful-fs/graceful-fs.js"
+      },
+      {
+        "name": "minimatch",
+        "version": "2.0.10",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/minimatch.js"
+      },
+      {
+        "name": "brace-expansion",
+        "version": "1.1.3",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/index.js"
+      },
+      {
+        "name": "balanced-match",
+        "version": "0.3.0",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js"
+      },
+      {
+        "name": "concat-map",
+        "version": "0.0.1",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
+      },
+      {
+        "name": "readable-stream",
+        "version": "2.0.6",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/readable.js"
+      },
+      {
+        "name": "core-util-is",
+        "version": "1.0.2",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/lib/util.js"
+      },
+      {
+        "name": "isarray",
+        "version": "1.0.0",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/index.js"
+      },
+      {
+        "name": "process-nextick-args",
+        "version": "1.0.6",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/index.js"
+      },
+      {
+        "name": "string_decoder",
+        "version": "0.10.31",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder/index.js"
+      },
+      {
+        "name": "util-deprecate",
+        "version": "1.0.2",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/node.js"
+      },
+      {
         "name": "fs-plus",
-        "version": "2.8.1",
+        "version": "2.8.2",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -261,7 +537,7 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.7.0",
+        "version": "2.7.3",
         "path": "node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
@@ -340,6 +616,67 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/package.json",
         "node_modules/atom-space-pen-views/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/arrify/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff/node_modules/arr-flatten/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/array-unique/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/is-number/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/node_modules/isarray/component.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/node_modules/isarray/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/randomatic/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/repeat-string/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/preserve/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/repeat-element/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/node_modules/is-posix-bracket/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/filename-regex/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/is-extglob/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of/node_modules/is-buffer/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/normalize-path/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/node_modules/for-in/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/is-extendable/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/glob-base/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/is-dotfile/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-equal-shallow/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-primitive/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/package.json",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/package.json",
+        "node_modules/chokidar/node_modules/anymatch/package.json",
+        "node_modules/chokidar/node_modules/async-each/bower.json",
+        "node_modules/chokidar/node_modules/async-each/component.json",
+        "node_modules/chokidar/node_modules/async-each/package.json",
+        "node_modules/chokidar/node_modules/glob-parent/package.json",
+        "node_modules/chokidar/node_modules/inherits/package.json",
+        "node_modules/chokidar/node_modules/is-binary-path/node_modules/binary-extensions/binary-extensions.json",
+        "node_modules/chokidar/node_modules/is-binary-path/node_modules/binary-extensions/package.json",
+        "node_modules/chokidar/node_modules/is-binary-path/package.json",
+        "node_modules/chokidar/node_modules/is-glob/node_modules/is-extglob/package.json",
+        "node_modules/chokidar/node_modules/is-glob/package.json",
+        "node_modules/chokidar/node_modules/path-is-absolute/package.json",
+        "node_modules/chokidar/node_modules/readdirp/examples/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/graceful-fs/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/component.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/package.json",
+        "node_modules/chokidar/node_modules/readdirp/package.json",
+        "node_modules/chokidar/package.json",
         "node_modules/fs-plus/node_modules/rimraf/package.json",
         "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/package.json",
         "node_modules/fs-plus/node_modules/underscore-plus/package.json",
@@ -654,6 +991,8 @@
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/copy.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/count.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/create.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number-value.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/eq.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/every.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/filter.js",
@@ -669,6 +1008,7 @@
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy-deep.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-empty.js",
+        "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-number-value.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-object.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-plain-object.js",
         "node_modules/atom-message-panel/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is.js",
@@ -1096,6 +1436,8 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/copy.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/count.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/create.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number-value.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/ensure-natural-number.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/eq.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/every.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/filter.js",
@@ -1111,6 +1453,7 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy-deep.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-copy.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-empty.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-number-value.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-object.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is-plain-object.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/is.js",
@@ -1328,6 +1671,97 @@
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib/underscore-plus.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore.js",
+        "node_modules/chokidar/index.js",
+        "node_modules/chokidar/lib/fsevents-handler.js",
+        "node_modules/chokidar/lib/nodefs-handler.js",
+        "node_modules/chokidar/node_modules/anymatch/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/arrify/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/lib/chars.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/lib/expand.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/lib/glob.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/lib/utils.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff/node_modules/arr-flatten/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/array-unique/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/is-number/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/node_modules/isarray/build/build.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject/node_modules/isarray/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/randomatic/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/repeat-string/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/preserve/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/preserve/test.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/repeat-element/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets/node_modules/is-posix-bracket/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/filename-regex/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/is-extglob/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of/node_modules/is-buffer/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/normalize-path/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own/node_modules/for-in/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/is-extendable/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/glob-base/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/is-dotfile/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-equal-shallow/index.js",
+        "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-primitive/index.js",
+        "node_modules/chokidar/node_modules/async-each/index.js",
+        "node_modules/chokidar/node_modules/async-each/test.js",
+        "node_modules/chokidar/node_modules/glob-parent/index.js",
+        "node_modules/chokidar/node_modules/glob-parent/test.js",
+        "node_modules/chokidar/node_modules/inherits/inherits.js",
+        "node_modules/chokidar/node_modules/inherits/inherits_browser.js",
+        "node_modules/chokidar/node_modules/inherits/test.js",
+        "node_modules/chokidar/node_modules/is-binary-path/index.js",
+        "node_modules/chokidar/node_modules/is-glob/index.js",
+        "node_modules/chokidar/node_modules/is-glob/node_modules/is-extglob/index.js",
+        "node_modules/chokidar/node_modules/path-is-absolute/index.js",
+        "node_modules/chokidar/node_modules/readdirp/examples/callback-api.js",
+        "node_modules/chokidar/node_modules/readdirp/examples/grep.js",
+        "node_modules/chokidar/node_modules/readdirp/examples/stream-api-pipe.js",
+        "node_modules/chokidar/node_modules/readdirp/examples/stream-api.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/graceful-fs/fs.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/graceful-fs/graceful-fs.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/graceful-fs/legacy-streams.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/graceful-fs/polyfills.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/browser.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/minimatch.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/example.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/example.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/duplex.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib/_stream_duplex.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib/_stream_passthrough.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib/_stream_readable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib/_stream_transform.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib/_stream_writable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/lib/util.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/test.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/test.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/test.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/browser.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/node.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/passthrough.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/readable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/transform.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/writable.js",
+        "node_modules/chokidar/node_modules/readdirp/readdirp.js",
+        "node_modules/chokidar/node_modules/readdirp/stream-api.js",
         "node_modules/fs-plus/lib/fs-plus.js",
         "node_modules/fs-plus/node_modules/rimraf/bin.js",
         "node_modules/fs-plus/node_modules/rimraf/rimraf.js",
@@ -1392,14 +1826,15 @@
           "lib/view"
         ],
         "dependencies": {
-          "ssh2": "^0.2",
-          "minimatch": "^0.2",
           "async": "^0.2",
-          "mkdirp": "^0.3",
           "atom-message-panel": "^1.1.1",
           "atom-space-pen-views": "^2.0.3",
+          "chokidar": "^1.4.3",
           "fs-plus": "^2.1",
-          "ftp": "^0.3.7"
+          "ftp": "^0.3.7",
+          "minimatch": "^0.2",
+          "mkdirp": "^0.3",
+          "ssh2": "^0.2"
         }
       },
       {
@@ -1621,7 +2056,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "3"
+          "es6-symbol": "~3.0.2"
         }
       },
       {
@@ -1644,7 +2079,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.8"
+          "es5-ext": "~0.10.10"
         }
       },
       {
@@ -1696,7 +2131,7 @@
         ],
         "dependencies": {
           "fuzzaldrin": "^2.1.0",
-          "space-pen": "^5.0.1"
+          "space-pen": "^5.1.2"
         }
       },
       {
@@ -1706,7 +2141,7 @@
         ],
         "dependencies": {
           "grim": "^1.0.0",
-          "jquery": "^2.1.3",
+          "jquery": "2.1.4",
           "underscore-plus": "1.x"
         }
       },
@@ -1909,7 +2344,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "3"
+          "es6-symbol": "~3.0.2"
         }
       },
       {
@@ -1932,7 +2367,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.8"
+          "es5-ext": "~0.10.10"
         }
       },
       {
@@ -1975,6 +2410,261 @@
         ],
         "dependencies": {
           "underscore": "~1.6.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar",
+          "node_modules/chokidar/lib"
+        ],
+        "dependencies": {
+          "anymatch": "^1.3.0",
+          "async-each": "^1.0.0",
+          "glob-parent": "^2.0.0",
+          "inherits": "^2.0.1",
+          "is-binary-path": "^1.0.0",
+          "is-glob": "^2.0.0",
+          "path-is-absolute": "^1.0.0",
+          "readdirp": "^2.0.0",
+          "fsevents": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch"
+        ],
+        "dependencies": {
+          "arrify": "^1.0.0",
+          "micromatch": "^2.1.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch",
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/lib"
+        ],
+        "dependencies": {
+          "arr-diff": "^2.0.0",
+          "array-unique": "^0.2.1",
+          "braces": "^1.8.2",
+          "expand-brackets": "^0.1.4",
+          "extglob": "^0.3.1",
+          "filename-regex": "^2.0.0",
+          "is-extglob": "^1.0.0",
+          "is-glob": "^2.0.1",
+          "kind-of": "^3.0.2",
+          "normalize-path": "^2.0.1",
+          "object.omit": "^2.0.0",
+          "parse-glob": "^3.0.4",
+          "regex-cache": "^0.4.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/arr-diff"
+        ],
+        "dependencies": {
+          "arr-flatten": "^1.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces"
+        ],
+        "dependencies": {
+          "expand-range": "^1.8.1",
+          "preserve": "^0.2.0",
+          "repeat-element": "^1.1.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range"
+        ],
+        "dependencies": {
+          "fill-range": "^2.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range"
+        ],
+        "dependencies": {
+          "is-number": "^2.1.0",
+          "isobject": "^2.0.0",
+          "randomatic": "^1.1.3",
+          "repeat-element": "^1.1.2",
+          "repeat-string": "^1.5.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/is-number"
+        ],
+        "dependencies": {
+          "kind-of": "^3.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/isobject"
+        ],
+        "dependencies": {
+          "isarray": "0.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/braces/node_modules/expand-range/node_modules/fill-range/node_modules/randomatic"
+        ],
+        "dependencies": {
+          "is-number": "^2.0.2",
+          "kind-of": "^3.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/expand-brackets"
+        ],
+        "dependencies": {
+          "is-posix-bracket": "^0.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/extglob"
+        ],
+        "dependencies": {
+          "is-extglob": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit"
+        ],
+        "dependencies": {
+          "for-own": "^0.1.3",
+          "is-extendable": "^0.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/object.omit/node_modules/for-own"
+        ],
+        "dependencies": {
+          "for-in": "^0.1.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob"
+        ],
+        "dependencies": {
+          "glob-base": "^0.3.0",
+          "is-dotfile": "^1.0.0",
+          "is-extglob": "^1.0.0",
+          "is-glob": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/parse-glob/node_modules/glob-base"
+        ],
+        "dependencies": {
+          "glob-parent": "^2.0.0",
+          "is-glob": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache"
+        ],
+        "dependencies": {
+          "is-equal-shallow": "^0.1.3",
+          "is-primitive": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/anymatch/node_modules/micromatch/node_modules/regex-cache/node_modules/is-equal-shallow"
+        ],
+        "dependencies": {
+          "is-primitive": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/glob-parent"
+        ],
+        "dependencies": {
+          "is-glob": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/is-binary-path"
+        ],
+        "dependencies": {
+          "binary-extensions": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/is-glob"
+        ],
+        "dependencies": {
+          "is-extglob": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/examples",
+          "node_modules/chokidar/node_modules/readdirp",
+          "node_modules/chokidar/node_modules/readdirp/test"
+        ],
+        "dependencies": {
+          "graceful-fs": "^4.1.2",
+          "minimatch": "^2.0.10",
+          "readable-stream": "^2.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch"
+        ],
+        "dependencies": {
+          "brace-expansion": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion"
+        ],
+        "dependencies": {
+          "balanced-match": "^0.3.0",
+          "concat-map": "0.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream",
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib"
+        ],
+        "dependencies": {
+          "core-util-is": "~1.0.0",
+          "inherits": "~2.0.1",
+          "isarray": "~1.0.0",
+          "process-nextick-args": "~1.0.6",
+          "string_decoder": "~0.10.x",
+          "util-deprecate": "~1.0.1"
         }
       },
       {

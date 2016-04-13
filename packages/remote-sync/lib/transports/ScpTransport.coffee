@@ -51,19 +51,27 @@ class ScpTransport
 
       end = @logger.log "Upload: #{localFilePath} to #{targetFilePath} ..."
 
-      c.sftp (err, sftp) ->
+      c.sftp (err, sftp) =>
         return errorHandler err if err
 
-        c.exec "mkdir -p \"#{path.dirname(targetFilePath)}\"", (err) ->
+        c.exec "mkdir -p \"#{path.dirname(targetFilePath)}\"", (err) =>
           return errorHandler err if err
 
-          sftp.fastPut localFilePath, targetFilePath, (err) ->
+          uploadFilePath = if @settings.useAtomicWrites then "#{targetFilePath}.temp" else "#{targetFilePath}"
+
+          sftp.fastPut localFilePath, uploadFilePath, (err) =>
             return errorHandler err if err
 
-            end()
-
             sftp.end()
-            callback()
+
+            if @settings.useAtomicWrites
+              c.exec "cp \"#{uploadFilePath}\" \"#{targetFilePath}\"; rm \"#{uploadFilePath}\"", (err) ->
+                return errorHandler err if err
+                end()
+                callback()
+            else
+              end()
+              callback()
 
   download: (targetFilePath, localFilePath, callback) ->
     if not localFilePath
@@ -146,7 +154,18 @@ class ScpTransport
       privateKey = fs.readFileSync keyfile
     else
       privateKey = null
-
+      
+    agent = switch
+      when useAgent is true
+        if /windows/i.test process.env['OS']
+          process.env['SSH_AUTH_SOCK'] or "pageant"
+        else
+          process.env['SSH_AUTH_SOCK'] or null
+      when typeof useAgent is "string"
+        useAgent
+      else
+        null
+    
     connection.connect
       host: hostname
       port: port
@@ -155,6 +174,6 @@ class ScpTransport
       privateKey: privateKey
       passphrase: passphrase
       readyTimeout: readyTimeout
-      agent: if useAgent then process.env['SSH_AUTH_SOCK'] else null
+      agent: agent
 
     @connection = connection
