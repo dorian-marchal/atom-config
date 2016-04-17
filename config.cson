@@ -29,7 +29,28 @@
       "background-tips"
       "timecop"
       "autosave"
+      "atom-bootstrap3"
+      "merge-conflicts"
       "php-getters-setters"
+      "project-manager"
+      "travis-ci-status"
+      "xml-formatter"
+      "minimap"
+      "minimap-git-diff"
+      "minimap-highlight-selected"
+      "atom-ternjs"
+      "auto-detect-indentation"
+      "css-snippets"
+      "fonts"
+      "git-plus"
+      "javascript-snippets"
+      "linter-jshint"
+      "remote-edit"
+      "smart-tags"
+      "todo-show"
+      "trailing-spaces"
+      "turbo-javascript"
+      "dev-live-reload"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -74,8 +95,6 @@
   "highlight-selected":
     onlyHighlightWholeWords: false
   "isotope-ui": {}
-  jshint:
-    supportLintingJsx: true
   linter:
     clearOnChange: true
     lintOnChangeInterval: 500
@@ -102,7 +121,6 @@
     useGitHubStyle: true
   "markdown-writer":
     fileExtension: ".markdown, .md"
-    urlForPosts: "'enter': 'markdown-writer:insert-new-line'"
   "merge-conflicts": {}
   minimap:
     plugins:
@@ -110,34 +128,20 @@
       "git-diffDecorationsZIndex": 0
       "highlight-selected": true
       "highlight-selectedDecorationsZIndex": 0
-    textOpacity: 0.4
-  "minimap-git-diff": {}
   "one-dark-ui": {}
   "php-getters-setters": {}
   pigments:
     extendAutocompleteToVariables: false
   "project-manager": {}
-  react: {}
   "recent-files-fuzzy-finder": {}
-  "remember-session":
-    height: 1026
-    width: 1615
-    x: 1986
-    y: 52
   "remote-edit":
     rememberLastOpenDirectory: true
   "remote-sync":
     difftoolCommand: "meld"
     logToConsole: true
   "spell-check": {}
-  "sublime-tabs": {}
   tabs: {}
   "terminal-status": {}
-  "todo-show":
-    ignoreThesePaths: [
-      "node_modules"
-      "vendore"
-    ]
   "toggle-quotes": {}
   "travis-ci-status": {}
   "tree-ignore":
