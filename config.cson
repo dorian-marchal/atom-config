@@ -55,7 +55,6 @@
     per_section_indent: true
     spacer_between_sections: true
   editor:
-    fontSize: 18
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
@@ -106,10 +105,7 @@
     useGitHubStyle: true
   "markdown-writer":
     fileExtension: ".markdown, .md"
-    urlForPosts: '''
-            
-      'enter': 'markdown-writer:insert-new-line'
-    '''
+    urlForPosts: "'enter': 'markdown-writer:insert-new-line'"
   "merge-conflicts": {}
   minimap:
     plugins:
@@ -122,6 +118,7 @@
   pigments:
     extendAutocompleteToVariables: false
   "project-manager": {}
+  react: {}
   "recent-files-fuzzy-finder": {}
   "remember-session":
     height: 1026
@@ -133,17 +130,6 @@
   "remote-sync":
     difftoolCommand: "meld"
     logToConsole: true
-  "save-session":
-    dataSaveFolder: "/home/dorian/.atom/packages/save-session/projects"
-    fullScreen: false
-    projects: [
-      "/media/data/www/phonegap-boilerplate-example"
-      "/media/data/www/phonegap-boilerplate-server-example"
-    ]
-    windowHeight: 1026
-    windowWidth: 1615
-    windowX: 1985
-    windowY: 24
   "spell-check": {}
   "sublime-tabs": {}
   tabs: {}
@@ -165,6 +151,15 @@
     maximumOpenedTabs: 8
     neverCloseDirty: true
     neverCloseUnsaved: true
+".attribute-values.js.jsx.source":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+".js.jsx.react.source":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+".js.jsx.source":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
 ".js.regexp.replacement.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
@@ -174,5 +169,8 @@
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
     preferredLineLength: 80
 ".js.source":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+".js.source.subtlegradient":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
