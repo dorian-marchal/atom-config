@@ -29,10 +29,7 @@
       "background-tips"
       "timecop"
       "autosave"
-      "atom-bootstrap3"
       "php-getters-setters"
-      "travis-ci-status"
-      "xml-formatter"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -113,6 +110,8 @@
       "git-diffDecorationsZIndex": 0
       "highlight-selected": true
       "highlight-selectedDecorationsZIndex": 0
+    textOpacity: 0.4
+  "minimap-git-diff": {}
   "one-dark-ui": {}
   "php-getters-setters": {}
   pigments:
