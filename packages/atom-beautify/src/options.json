@@ -517,10 +517,6 @@
     "description": "Options for language Coldfusion",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -666,17 +662,7 @@
     "collapsed": true,
     "beautifiers": [
       "CSScomb",
-      "CSScomb",
       "JS Beautify",
-      "JS Beautify",
-      "JS Beautify",
-      "JS Beautify",
-      "JS Beautify",
-      "JS Beautify",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -913,10 +899,6 @@
     "description": "Options for language CSV",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -1003,10 +985,6 @@
     "description": "Options for language EJS",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -1177,10 +1155,6 @@
     "collapsed": true,
     "beautifiers": [
       "HTML Beautifier",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -1473,7 +1447,8 @@
     "description": "Options for language Handlebars",
     "collapsed": true,
     "beautifiers": [
-      "JS Beautify"
+      "JS Beautify",
+      "Pretty Diff"
     ],
     "properties": {
       "indent_inner_html": {
@@ -1494,10 +1469,11 @@
         "type": "integer",
         "default": 4,
         "minimum": 0,
-        "description": "Indentation size/length (Supported by JS Beautify)",
+        "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "indent_size",
         "language": {
@@ -1508,10 +1484,11 @@
       "indent_char": {
         "type": "string",
         "default": " ",
-        "description": "Indentation character (Supported by JS Beautify)",
+        "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "indent_char",
         "language": {
@@ -1561,10 +1538,11 @@
       "wrap_line_length": {
         "type": "integer",
         "default": 250,
-        "description": "Maximum characters per line (0 disables) (Supported by JS Beautify)",
+        "description": "Maximum characters per line (0 disables) (Supported by JS Beautify, Pretty Diff)",
         "title": "Wrap line length",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "wrap_line_length",
         "language": {
@@ -1608,10 +1586,11 @@
       "preserve_newlines": {
         "type": "boolean",
         "default": true,
-        "description": "Preserve line-breaks (Supported by JS Beautify)",
+        "description": "Preserve line-breaks (Supported by JS Beautify, Pretty Diff)",
         "title": "Preserve newlines",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "preserve_newlines",
         "language": {
@@ -1737,7 +1716,8 @@
         "default": "JS Beautify",
         "description": "Default Beautifier to be used for Handlebars",
         "enum": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ]
       },
       "beautify_on_save": {
@@ -1791,10 +1771,6 @@
     "collapsed": true,
     "beautifiers": [
       "JS Beautify",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -2082,7 +2058,6 @@
     "description": "Options for language Jade",
     "collapsed": true,
     "beautifiers": [
-      "Pug Beautify",
       "Pug Beautify"
     ],
     "properties": {
@@ -2198,10 +2173,6 @@
     "beautifiers": [
       "JS Beautify",
       "JSCS Fixer",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -2521,10 +2492,6 @@
     "collapsed": true,
     "beautifiers": [
       "JS Beautify",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -2842,10 +2809,6 @@
     "description": "Options for language JSX",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -3120,11 +3083,6 @@
     "collapsed": true,
     "beautifiers": [
       "CSScomb",
-      "CSScomb",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -3341,27 +3299,6 @@
     "description": "Options for language Markdown",
     "collapsed": true,
     "beautifiers": [
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
-      "Remark",
       "Remark",
       "Tidy Markdown"
     ],
@@ -4396,10 +4333,6 @@
     "description": "Options for language Riot.js",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -4493,8 +4426,6 @@
     "collapsed": true,
     "beautifiers": [
       "Rubocop",
-      "Rubocop",
-      "Ruby Beautify",
       "Ruby Beautify"
     ],
     "properties": {
@@ -4629,11 +4560,6 @@
     "collapsed": true,
     "beautifiers": [
       "CSScomb",
-      "CSScomb",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -4851,11 +4777,6 @@
     "collapsed": true,
     "beautifiers": [
       "CSScomb",
-      "CSScomb",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -5072,10 +4993,6 @@
     "description": "Options for language Spacebars",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -5258,10 +5175,6 @@
     "description": "Options for language SVG",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -5354,10 +5267,6 @@
     "description": "Options for language Swig",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -5450,10 +5359,6 @@
     "description": "Options for language TSS",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -5636,10 +5541,6 @@
     "description": "Options for language Twig",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -6132,10 +6033,6 @@
     "description": "Options for language Visualforce",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -6229,10 +6126,6 @@
     "collapsed": true,
     "beautifiers": [
       "JS Beautify",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {
@@ -6520,10 +6413,6 @@
     "description": "Options for language XTemplate",
     "collapsed": true,
     "beautifiers": [
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
-      "Pretty Diff",
       "Pretty Diff"
     ],
     "properties": {

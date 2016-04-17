@@ -1,11 +1,11 @@
 {
   "name": "permanent-delete",
   "main": "./lib/permanent-delete",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Bypass the recycle bin",
   "repository": {
     "type": "git",
-    "url": "https://github.com/olmokramer/atom-permanent-delete"
+    "url": "git+https://github.com/olmokramer/atom-permanent-delete.git"
   },
   "license": "MIT",
   "engines": {
@@ -24,17 +24,17 @@
   "bugs": {
     "url": "https://github.com/olmokramer/atom-permanent-delete/issues"
   },
-  "homepage": "https://github.com/olmokramer/atom-permanent-delete",
-  "_id": "permanent-delete@0.1.4",
-  "_shasum": "0749fb2608a14130f5483c3f380adb0a6ff07b8e",
-  "_resolved": "file:../d-115628-25705-1u3pdjo/package.tgz",
-  "_from": "../d-115628-25705-1u3pdjo/package.tgz",
+  "homepage": "https://github.com/olmokramer/atom-permanent-delete#readme",
+  "_id": "permanent-delete@0.1.5",
+  "_shasum": "789078a7c373466a43a051b08d89f8b7b8e0a8c0",
+  "_resolved": "file:../d-116317-16467-s1saq/package.tgz",
+  "_from": "../d-116317-16467-s1saq/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "fs-plus",
-        "version": "2.8.1",
+        "version": "2.8.2",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {

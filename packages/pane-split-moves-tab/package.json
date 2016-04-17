@@ -1,7 +1,7 @@
 {
   "name": "pane-split-moves-tab",
   "main": "./lib/pane-split-moves-tab",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Pane:split moves tab to new pane",
   "repository": {
     "type": "git",
@@ -25,16 +25,19 @@
       "tabs:split-right"
     ]
   },
-  "readme": "# pane-split-moves-tab package\n\nPane:split commands moves the tab to the new pane, instead of copying.\n\n![screencast](https://raw.githubusercontent.com/olmokramer/atom-pane-split-moves-tab/master/screencast.gif)\n\n## Copyright & License\n\n&copy; Olmo Kramer, 2015 <br> [MIT License](LICENSE.md)\n",
+  "devDependencies": {
+    "eslint": "^2.7.0"
+  },
+  "readme": "# pane-split-moves-tab package\n\nTab:split commands moves the tab to the new pane, instead of copying.\n\n![screencast](https://raw.githubusercontent.com/olmokramer/atom-pane-split-moves-tab/master/screencast.gif)\n\n## Copyright & License\n\n&copy; Olmo Kramer, 2015 <br> [MIT License](LICENSE.md)\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/olmokramer/atom-pane-split-moves-tab/issues"
   },
   "homepage": "https://github.com/olmokramer/atom-pane-split-moves-tab#readme",
-  "_id": "pane-split-moves-tab@0.0.3",
-  "_shasum": "11eaff8fab7bb7028c96fbea3655fcfb0e7a003a",
-  "_resolved": "file:../d-115828-14191-ah6dyd/package.tgz",
-  "_from": "../d-115828-14191-ah6dyd/package.tgz",
+  "_id": "pane-split-moves-tab@0.1.0",
+  "_shasum": "e6c6b064f738bee0df60d77b2412e3ab4c44d114",
+  "_resolved": "file:../d-116317-16462-11h89xe/package.tgz",
+  "_from": "../d-116317-16462-11h89xe/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

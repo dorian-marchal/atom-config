@@ -1,6 +1,6 @@
 {
   "name": "remote-sync",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Upload your files to remote host after every change. Both SCP/SFTP and FTP are supported.",
   "license": "MIT",
   "repository": {
@@ -22,16 +22,16 @@
     "mkdirp": "^0.3",
     "ssh2": "^0.2"
   },
-  "readme": "# Atom Remote Sync\nThis package provides functionality for:\n- Uploading changes automatically when you save a file\n- Uploading/downloading files to/from the server\n- Displaying diffs between the local and remote files with your favourite diff tool\n- Monitor files for external change and automatically upload\n- set difftoolCommand in AtomSettingView of `remote-sync` -- The path to your diff tool executable\n\nCurrently, both SCP/SFTP and FTP are supported.\n\n## Installation\nYou can install this like any other Atom package, with one of these methods:\n- Open your settings in Atom, select the \"Install\" tab, search for \"remote-sync\", and click install on it\n- Run `apm install remote-sync` in a terminal\n- Download or clone this repository to your `~/.atom/packages/` directory and enter the directory run `apm install`\n\n## Usage\nCreate file `.remote-sync.json` in your project root with these settings:\n- `transport` -- `scp` for SCP/SFTP, or `ftp` for FTP\n- `hostname` -- Remote host address\n- `port` - Remort port to connect on (typically 22 for SCP/SFTP, 21 for FTP)\n- `username` -- Remote host username\n- `password` -- Remote host password\n- `keyfile` -- Absolute path to SSH key (only used for SCP)\n- `passphrase` -- Passphrase for the SSH key (only used for SCP)\n- `useAgent` -- Whether or not to use an agent process, default: false (only used for SCP)\n- `target` -- Target directory on remote host\n- `source` -- Source directory relative to project root\n- `ignore` -- Array of [minimatch](https://github.com/isaacs/minimatch) patterns of files to ignore\n- `uploadOnSave` -- Whether or not to upload the current file when saved, default: false\n- `useAtomicWrites` -- Upload file using a temporary filename before moving to its final location (only used for SCP), default: false\n- `uploadMirrors` -- transport mirror config array when upload\n- `deleteLocal` - whether or not to delete the local file / folder after remote delete\n- `saveOnUpload` - Whether or not to save a modified file before uploading, default: false\n\nSCP example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nSCP `useAgent` example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"useAgent\": true,\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nFTP example:\n\n```json\n{\n  \"transport\": \"ftp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 21,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nUpload mirrors example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ],\n  \"uploadMirrors\":[\n    {\n      \"transport\": \"scp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 22,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n      \"passphrase\": \"your_passphrase\",\n      \"target\": \"/home/vagrant/dirname/subdirname_one\",\n      \"ignore\": [\n        \".remote-sync.json\",\n        \".git/**\"\n      ]\n    },\n    {\n      \"transport\": \"ftp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 21,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"target\": \"/home/vagrant/dirname/subdirname_two\",\n      \"ignore\": [\n        \".remote-sync.json\",\n        \".git/**\"\n      ]\n    }\n  ]\n}\n```\n\n## Usage example\n### Existing project\n1. Add a file named `.remote-sync.json` to your project, with the contents above\n2. Open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n\nThat's it!\n\n### From scratch, with a remote server\n1. Create a folder for your project, and create a file named `.remote-sync.json` in it with the contents above\n2. In the Atom editor, open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n4. Open the command palette again\n5. Input `remote sync download all`\n\nThe package will download all of the files from the remote server for you.\n\n# Make a donation via Paypal ![Make a donation via Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)\nClick 'Send Money' after login PayPal, and my PayPal account is: lx1988cyk#gmail.com\n",
+  "readme": "# Atom Remote Sync\nThis package provides functionality for:\n- Uploading changes automatically when you save a file\n- Uploading/downloading files to/from the server\n- Displaying diffs between the local and remote files with your favourite diff tool\n- Monitoring files for external change and automatically upload\n- set difftoolCommand in AtomSettingView of `remote-sync` -- The path to your diff tool executable\n\nCurrently, both SCP/SFTP and FTP are supported.\n\n## Installation\nYou can install this like any other Atom package, with one of these methods:\n- Open your settings in Atom, select the \"Install\" tab, search for \"remote-sync\", and click install on it\n- Run `apm install remote-sync` in a terminal\n- Download or clone this repository to your `~/.atom/packages/` directory and enter the directory run `apm install`\n\n## Usage\nCreate file `.remote-sync.json` in your project root with these settings:\n- `transport` -- `scp` for SCP/SFTP, or `ftp` for FTP\n- `hostname` -- Remote host address\n- `port` - Remort port to connect on (typically 22 for SCP/SFTP, 21 for FTP)\n- `username` -- Remote host username\n- `password` -- Remote host password\n- `keyfile` -- Absolute path to SSH key (only used for SCP)\n- `passphrase` -- Passphrase for the SSH key (only used for SCP)\n- `useAgent` -- Whether or not to use an agent process, default: false (only used for SCP)\n- `target` -- Target directory on remote host\n- `source` -- Source directory relative to project root\n- `ignore` -- Array of [minimatch](https://github.com/isaacs/minimatch) patterns of files to ignore\n- `uploadOnSave` -- Whether or not to upload the current file when saved, default: false\n- `useAtomicWrites` -- Upload file using a temporary filename before moving to its final location (only used for SCP), default: false\n- `uploadMirrors` -- transport mirror config array when upload\n- `deleteLocal` - whether or not to delete the local file / folder after remote delete\n- `saveOnUpload` - Whether or not to save a modified file before uploading, default: false\n\nSCP example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nSCP `useAgent` example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"useAgent\": true,\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nFTP example:\n\n```json\n{\n  \"transport\": \"ftp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 21,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ]\n}\n```\n\nUpload mirrors example:\n\n```json\n{\n  \"transport\": \"scp\",\n  \"hostname\": \"10.10.10.10\",\n  \"port\": 22,\n  \"username\": \"vagrant\",\n  \"password\": \"vagrant\",\n  \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n  \"passphrase\": \"your_passphrase\",\n  \"target\": \"/home/vagrant/dirname/subdirname\",\n  \"ignore\": [\n    \".remote-sync.json\",\n    \".git/**\"\n  ],\n  \"uploadMirrors\":[\n    {\n      \"transport\": \"scp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 22,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"keyfile\": \"/home/vagrant/.ssh/aws.pem\",\n      \"passphrase\": \"your_passphrase\",\n      \"target\": \"/home/vagrant/dirname/subdirname_one\",\n      \"ignore\": [\n        \".remote-sync.json\",\n        \".git/**\"\n      ]\n    },\n    {\n      \"transport\": \"ftp\",\n      \"hostname\": \"10.10.10.10\",\n      \"port\": 21,\n      \"username\": \"vagrant\",\n      \"password\": \"vagrant\",\n      \"target\": \"/home/vagrant/dirname/subdirname_two\",\n      \"ignore\": [\n        \".remote-sync.json\",\n        \".git/**\"\n      ]\n    }\n  ]\n}\n```\n\n## Usage example\n### Existing project\n1. Add a file named `.remote-sync.json` to your project, with the contents above\n2. Open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n\nThat's it!\n\n### From scratch, with a remote server\n1. Create a folder for your project, and create a file named `.remote-sync.json` in it with the contents above\n2. In the Atom editor, open the command palette by pressing cmd + shift + P on a Mac, or ctrl + shift + P on Linux/Windows\n3. Type in `remote sync reload config` and press enter\n4. Open the command palette again\n5. Input `remote sync download all`\n\nThe package will download all of the files from the remote server for you.\n\n# Make a donation via Paypal ![Make a donation via Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)\nClick 'Send Money' after login PayPal, and my PayPal account is: lx1988cyk#gmail.com\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/yongkangchen/remote-sync/issues"
   },
   "homepage": "https://github.com/yongkangchen/remote-sync#readme",
-  "_id": "remote-sync@4.0.0",
-  "_shasum": "09504531b54804c0e6c47b517b8cf4f7e25fb8c4",
-  "_resolved": "file:../d-116313-9880-m4ckby/package.tgz",
-  "_from": "../d-116313-9880-m4ckby/package.tgz",
+  "_id": "remote-sync@4.0.1",
+  "_shasum": "7dc5823971959bf8ce79560c4e778d37ae3fd362",
+  "_resolved": "file:../d-116317-16474-1jibeub/package.tgz",
+  "_from": "../d-116317-16474-1jibeub/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -447,13 +447,63 @@
       },
       {
         "name": "readable-stream",
-        "version": "2.0.6",
+        "version": "2.1.0",
         "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/readable.js"
       },
       {
         "name": "core-util-is",
         "version": "1.0.2",
         "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/lib/util.js"
+      },
+      {
+        "name": "inline-process-browser",
+        "version": "2.0.1",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/index.js"
+      },
+      {
+        "name": "falafel",
+        "version": "1.2.0",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/index.js"
+      },
+      {
+        "name": "acorn",
+        "version": "1.2.2",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/dist/acorn.js"
+      },
+      {
+        "name": "foreach",
+        "version": "2.0.5",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/foreach/index.js"
+      },
+      {
+        "name": "isarray",
+        "version": "0.0.1",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/isarray/index.js"
+      },
+      {
+        "name": "object-keys",
+        "version": "1.0.9",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/object-keys/index.js"
+      },
+      {
+        "name": "through2",
+        "version": "0.6.5",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/through2.js"
+      },
+      {
+        "name": "readable-stream",
+        "version": "1.0.34",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/readable.js"
+      },
+      {
+        "name": "isarray",
+        "version": "0.0.1",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/node_modules/isarray/index.js"
+      },
+      {
+        "name": "xtend",
+        "version": "4.0.1",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/xtend/immutable.js"
       },
       {
         "name": "isarray",
@@ -469,6 +519,41 @@
         "name": "string_decoder",
         "version": "0.10.31",
         "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder/index.js"
+      },
+      {
+        "name": "unreachable-branch-transform",
+        "version": "0.5.1",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/index.js"
+      },
+      {
+        "name": "esmangle-evaluator",
+        "version": "1.0.0",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/esmangle-evaluator/evaluator.js"
+      },
+      {
+        "name": "recast",
+        "version": "0.11.5",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/main.js"
+      },
+      {
+        "name": "ast-types",
+        "version": "0.8.16",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/main.js"
+      },
+      {
+        "name": "esprima",
+        "version": "2.7.2",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/esprima/esprima.js"
+      },
+      {
+        "name": "private",
+        "version": "0.1.6",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/private/private.js"
+      },
+      {
+        "name": "source-map",
+        "version": "0.5.3",
+        "path": "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/source-map.js"
       },
       {
         "name": "util-deprecate",
@@ -502,7 +587,7 @@
       },
       {
         "name": "readable-stream",
-        "version": "1.1.13",
+        "version": "1.1.14",
         "path": "node_modules/ftp/node_modules/readable-stream/readable.js"
       },
       {
@@ -669,10 +754,31 @@
         "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/node_modules/brace-expansion/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/minimatch/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/foreach/component.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/foreach/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/isarray/component.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/isarray/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/object-keys/.jscs.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/object-keys/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/node_modules/isarray/component.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/node_modules/isarray/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/xtend/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/component.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/esmangle-evaluator/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/esprima/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/private/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/package.json",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/package.json",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/package.json",
         "node_modules/chokidar/node_modules/readdirp/package.json",
@@ -1749,11 +1855,117 @@
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/lib/_stream_writable.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/lib/util.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/core-util-is/test.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/example/array.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/example/keyword.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/example/prompt.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/bin/build-acorn.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/bin/generate-identifier-regex.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/dist/acorn.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/dist/acorn_csp.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/dist/acorn_loose.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/dist/walk.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/expression.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/identifier.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/location.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/acorn_loose.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/expression.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/parseutil.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/state.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/statement.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/loose/tokenize.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/lval.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/node.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/options.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/parseutil.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/state.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/statement.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/tokencontext.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/tokenize.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/tokentype.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/util.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/walk/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/acorn/src/whitespace.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/foreach/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/foreach/test.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/isarray/build/build.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/isarray/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/object-keys/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/node_modules/object-keys/isArguments.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/duplex.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/lib/_stream_duplex.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/lib/_stream_passthrough.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/lib/_stream_readable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/lib/_stream_transform.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/lib/_stream_writable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/node_modules/isarray/build/build.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/node_modules/isarray/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/passthrough.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/readable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/transform.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/writable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/xtend/immutable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/xtend/mutable.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/xtend/test.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/through2.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/index.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/isarray/test.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/index.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/process-nextick-args/test.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/index.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/esmangle-evaluator/common.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/esmangle-evaluator/evaluator.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/comments.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/fast-path.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/lines.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/mapping.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/options.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/parser.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/patcher.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/printer.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/types.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib/util.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/main.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/babel.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/core.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/e4x.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/es6.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/es7.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/esprima.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/flow.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/jsx.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/def/mozilla.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/equiv.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/node-path.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/path-visitor.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/path.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/scope.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/shared.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/lib/types.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/ast-types/main.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/esprima/bin/esparse.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/esprima/bin/esvalidate.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/esprima/esprima.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/private/private.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/dist/source-map.debug.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/dist/source-map.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/dist/source-map.min.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/array-set.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/base64-vlq.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/base64.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/binary-search.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/mapping-list.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/quick-sort.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/source-map-consumer.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/source-map-generator.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/source-node.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/lib/util.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/node_modules/source-map/source-map.js",
+        "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/unreachableBranchTransformer.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/browser.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/util-deprecate/node.js",
         "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/passthrough.js",
@@ -2661,10 +2873,77 @@
         "dependencies": {
           "core-util-is": "~1.0.0",
           "inherits": "~2.0.1",
+          "inline-process-browser": "~2.0.1",
           "isarray": "~1.0.0",
           "process-nextick-args": "~1.0.6",
           "string_decoder": "~0.10.x",
+          "unreachable-branch-transform": "~0.5.0",
           "util-deprecate": "~1.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser"
+        ],
+        "dependencies": {
+          "falafel": "^1.0.1",
+          "through2": "^0.6.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/example",
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel",
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/test",
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/falafel/test/bin"
+        ],
+        "dependencies": {
+          "acorn": "^1.0.3",
+          "foreach": "^2.0.5",
+          "isarray": "0.0.1",
+          "object-keys": "^1.0.6"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2"
+        ],
+        "dependencies": {
+          "readable-stream": ">=1.0.33-1 <1.1.0-0",
+          "xtend": ">=4.0.0 <4.1.0-0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream",
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/inline-process-browser/node_modules/through2/node_modules/readable-stream/lib"
+        ],
+        "dependencies": {
+          "core-util-is": "~1.0.0",
+          "isarray": "0.0.1",
+          "string_decoder": "~0.10.x",
+          "inherits": "~2.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform"
+        ],
+        "dependencies": {
+          "esmangle-evaluator": "^1.0.0",
+          "recast": "^0.11.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast/lib",
+          "node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/unreachable-branch-transform/node_modules/recast"
+        ],
+        "dependencies": {
+          "ast-types": "0.8.16",
+          "esprima": "~2.7.1",
+          "private": "~0.1.5",
+          "source-map": "~0.5.0"
         }
       },
       {

@@ -276,6 +276,12 @@ export default class MinimapElement {
         return this.classList.toggle('absolute', this.absoluteMode)
       },
 
+      'minimap.ignoreWhitespacesInTokens': (ignoreWhitespacesInTokens) => {
+        this.ignoreWhitespacesInTokens = ignoreWhitespacesInTokens
+
+        if (this.attached) { this.requestForcedUpdate() }
+      },
+
       'editor.preferredLineLength': () => {
         if (this.attached) { this.measureHeightAndWidth() }
       },
@@ -756,8 +762,10 @@ export default class MinimapElement {
 
     if (this.adjustToSoftWrap && this.flexBasis) {
       this.style.flexBasis = this.flexBasis + 'px'
+      this.style.width = this.flexBasis + 'px'
     } else {
       this.style.flexBasis = null
+      this.style.width = null
     }
 
     if (SPEC_MODE) {

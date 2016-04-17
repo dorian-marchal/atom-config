@@ -392,6 +392,7 @@ export default class CanvasDrawer extends Mixin {
       renderData.screenRow = screenRow
 
       this.drawDecorations(screenRow, decorations, renderData, {
+        'gutter': this.drawGutterDecoration,
         'highlight-over': this.drawHighlightDecoration,
         'highlight-outline': this.drawHighlightOutlineDecoration,
         'foreground-custom': this.drawCustomDecoration
@@ -496,23 +497,30 @@ export default class CanvasDrawer extends Mixin {
   drawToken (context, text, color, x, y, charWidth, charHeight) {
     context.fillStyle = color
 
-    let chars = 0
-    for (let j = 0, len = text.length; j < len; j++) {
-      const char = text[j]
-      if (/\s/.test(char)) {
-        if (chars > 0) {
-          context.fillRect(x - (chars * charWidth), y, chars * charWidth, charHeight)
+    if (this.ignoreWhitespacesInTokens) {
+      const length = text.length * charWidth
+      context.fillRect(x, y, length, charHeight)
+
+      return x + length
+    } else {
+      let chars = 0
+      for (let j = 0, len = text.length; j < len; j++) {
+        const char = text[j]
+        if (/\s/.test(char)) {
+          if (chars > 0) {
+            context.fillRect(x - (chars * charWidth), y, chars * charWidth, charHeight)
+          }
+          chars = 0
+        } else {
+          chars++
         }
-        chars = 0
-      } else {
-        chars++
+        x += charWidth
       }
-      x += charWidth
+      if (chars > 0) {
+        context.fillRect(x - (chars * charWidth), y, chars * charWidth, charHeight)
+      }
+      return x
     }
-    if (chars > 0) {
-      context.fillRect(x - (chars * charWidth), y, chars * charWidth, charHeight)
-    }
-    return x
   }
 
   /**
@@ -559,6 +567,18 @@ export default class CanvasDrawer extends Mixin {
   drawLineDecoration (decoration, data) {
     data.context.fillStyle = this.getDecorationColor(decoration)
     data.context.fillRect(0, data.yRow, data.canvasWidth, data.lineHeight)
+  }
+
+  /**
+   * Draws a gutter decoration.
+   *
+   * @param  {Decoration} decoration the decoration to render
+   * @param  {Object} data the data need to perform the render
+   * @access private
+   */
+  drawGutterDecoration (decoration, data) {
+    data.context.fillStyle = this.getDecorationColor(decoration)
+    data.context.fillRect(0, data.yRow, 1, data.lineHeight)
   }
 
   /**
