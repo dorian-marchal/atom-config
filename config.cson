@@ -8,6 +8,7 @@
       "ctrl"
       "shift"
     ]
+  "autocomplete-modules": {}
   "autocomplete-plus": {}
   blame: {}
   "bracket-matcher": {}

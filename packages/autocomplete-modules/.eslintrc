@@ -1,0 +1,10 @@
+{
+  "parser": "babel-eslint",
+  "extends": "nkt",
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "atom": false
+  }
+}
