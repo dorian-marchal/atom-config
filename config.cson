@@ -52,6 +52,7 @@
       "trailing-spaces"
       "turbo-javascript"
       "dev-live-reload"
+      "zentabs"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -103,7 +104,6 @@
     statusBar: "Show all errors"
   "linter-eslint":
     disableEslintIgnore: true
-    useGlobalEslint: true
   "linter-jscs":
     onlyConfig: true
     preset: "google"
