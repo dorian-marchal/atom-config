@@ -43,7 +43,6 @@
       "auto-detect-indentation"
       "css-snippets"
       "fonts"
-      "git-plus"
       "javascript-snippets"
       "linter-jshint"
       "remote-edit"
@@ -52,7 +51,6 @@
       "trailing-spaces"
       "turbo-javascript"
       "dev-live-reload"
-      "zentabs"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -63,6 +61,7 @@
       "bower_components"
       "platforms"
       ".tag*"
+      "dist"
     ]
     themes: [
       "atom-dark-ui"
@@ -89,11 +88,11 @@
   fonts:
     fontFamily: "Hasklig"
     preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
-  "fuzzy-finder":
-    useAlternateScoring: true
+  "fuzzy-finder": {}
   "git-blame": {}
   "git-plus":
     wordDiff: false
+  "gulp-control": {}
   "highlight-selected":
     onlyHighlightWholeWords: false
   "isotope-ui": {}
@@ -152,7 +151,8 @@
     showOnStartup: false
   "xml-formatter": {}
   zentabs:
-    maximumOpenedTabs: 8
+    manualMode: true
+    maximumOpenedTabs: 6
     neverCloseDirty: true
     neverCloseUnsaved: true
 ".attribute-values.js.jsx.source":
