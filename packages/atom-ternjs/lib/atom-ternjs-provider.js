@@ -112,7 +112,7 @@ export default class Provider {
 
       this.manager.client.update(editor).then((data) => {
 
-        if (data.isQueried) {
+        if (!data) {
 
           return resolve([]);
         }
@@ -136,9 +136,12 @@ export default class Provider {
 
           this.suggestionsArr = [];
 
+          let scopesPath = scopeDescriptor.getScopesArray();
+          let isInFunDef = scopesPath.indexOf('meta.function.js') > -1;
+
           for (let obj of data.completions) {
 
-            obj = this.manager.helper.formatTypeCompletion(obj);
+            obj = this.manager.helper.formatTypeCompletion(obj, isInFunDef);
 
             this.suggestion = {
 

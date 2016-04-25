@@ -1,3 +1,5 @@
+path = require 'path'
+
 {Emitter} = require 'atom'
 _ = require 'underscore-plus'
 
@@ -13,20 +15,18 @@ class TodoModel
     atom.config.get('todo-show.showInTable') or ['Text']
 
   get: (key = '') ->
-    return value if value = @[key.toLowerCase()]
+    return value if (value = @[key.toLowerCase()]) or value is ''
     @text or 'No details'
 
   getMarkdown: (key = '') ->
     return '' unless value = @[key.toLowerCase()]
     switch key
-      when 'All' then " #{value}"
-      when 'Text' then " #{value}"
-      when 'Type' then " __#{value}__"
-      when 'Range' then " _:#{value}_"
-      when 'Line' then " _:#{value}_"
+      when 'All', 'Text' then " #{value}"
+      when 'Type', 'Project' then " __#{value}__"
+      when 'Range', 'Line' then " _:#{value}_"
       when 'Regex' then " _'#{value}'_"
-      when 'File' then " [#{value}](#{value})"
-      when 'Tags' then " _#{value}_"
+      when 'Path', 'File' then " [#{value}](#{value})"
+      when 'Tags', 'Id' then " _#{value}_"
 
   getMarkdownArray: (keys) ->
     for key in keys or @getAllKeys()
@@ -38,7 +38,7 @@ class TodoModel
   contains: (string = '') ->
     for key in @getAllKeys()
       break unless item = @get(key)
-      return true if item.indexOf(string) isnt -1
+      return true if item.toLowerCase().indexOf(string.toLowerCase()) isnt -1
     false
 
   handleScanMatch: (match) ->
@@ -52,8 +52,13 @@ class TodoModel
       # Extract todo text
       matchText = _matchText.pop()
 
-    # Strip common block comment endings and whitespaces
-    matchText = matchText.replace(/(\*\/|\?>|-->|#>|-}|\]\])\s*$/, '').trim()
+    # Extract google style guide todo id
+    if matchText.indexOf('(') is 0
+      if matches = matchText.match(/\((.*?)\):?(.*)/)
+        matchText = matches.pop()
+        match.id = matches.pop()
+
+    matchText = @stripCommentEnd(matchText)
 
     # Extract todo tags
     match.tags = (while (tag = /\s*#(\w+)[,.]?$/.exec(matchText))
@@ -61,6 +66,11 @@ class TodoModel
       matchText = matchText.slice(0, -tag.shift().length)
       tag.shift()
     ).sort().join(', ')
+
+    # Use text before todo if no content after
+    if not matchText and match.all and pos = match.position?[0][1]
+      matchText = match.all.substr(0, pos)
+      matchText = @stripCommentStart(matchText)
 
     # Truncate long match strings
     if matchText.length >= maxLength
@@ -73,9 +83,27 @@ class TodoModel
     else
       match.range = match.position.toString()
 
-    match.text = matchText || "No details"
+    # Extract paths and project
+    relativePath = atom.project.relativizePath(match.loc)
+    match.path = relativePath[1] or ''
+    match.file = path.basename(match.loc)
+
+    if (project = path.basename(relativePath[0])) isnt 'null'
+      match.project = project
+    else
+      match.project = ''
+
+    match.text = matchText or "No details"
     match.line = (parseInt(match.range.split(',')[0]) + 1).toString()
-    match.file ?= atom.project.relativize(match.path)
     match.regex = match.regex.replace('${TODOS}', match.type)
+    match.id = match.id or ''
 
     _.extend(this, match)
+
+  stripCommentStart: (text = '') ->
+    startRegex = /(\/\*|<\?|<!--|<#|{-|\[\[|\/\/|#)\s*$/
+    text.replace(startRegex, '').trim()
+
+  stripCommentEnd: (text = '') ->
+    endRegex = /(\*\/|\?>|-->|#>|-}|\]\])\s*$/
+    text.replace(endRegex, '').trim()

@@ -1,3 +1,13 @@
+## [0.14.1]
+- Enable autocompletion if there is no .tern-project file
+- Try to restart the server if there was an uncaught exception in our child process
+
+## [0.14]
+- Update tern to 0.18.0
+- Tern server now running in a node environment
+- Fix keybindings could not be disabled via the package settings
+- Rename now groups changes per file so you don't have to undo every single change
+
 ## [0.13]
 - Push the tern server to a webworker
 - Do not send files to the tern server if it is defined in dontLoad

@@ -1,130 +1,142 @@
-"use strict";
+var infer = require('tern/lib/infer');
+var tern = require('tern/lib/tern');
+var path = require('path');
+var minimatch = require('minimatch');
+var fs = require('fs');
 
-importScripts(
-  '../node_modules/tern/node_modules/acorn/dist/acorn.js',
-  '../node_modules/tern/node_modules/acorn/dist/acorn_loose.js',
-  '../node_modules/tern/node_modules/acorn/dist/walk.js',
-  '../node_modules/tern/lib/signal.js',
-  '../node_modules/tern/lib/tern.js',
-  '../node_modules/tern/lib/def.js',
-  '../node_modules/tern/lib/infer.js',
-  '../node_modules/tern/lib/comment.js',
-  '../node_modules/tern/plugin/commonjs.js',
-  '../node_modules/tern/plugin/node_resolve.js',
-  '../node_modules/tern/plugin/modules.js'
-);
+var TERN_ROOT = '../node_modules/tern';
 
-class Server {
+module.exports = TernServer = function () {
 
-  constructor() {
+  process.__tern = tern;
+  process.__infer = infer;
+  this.config = {};
+};
 
-    this.pendingID = 0;
-    this.pending = [];
-  }
+TernServer.prototype.importPlugins = function (plugins) {
 
-  request(data) {
+  for (var i = 0; i < plugins.length; i++) {
 
-    function done(err, reqData) {
+    var mod = require(plugins[i]);
+    if (mod.hasOwnProperty('initialize')) {
 
-      postMessage({
-
-        id: data.id,
-        err: String(err),
-        data: reqData
-      });
+      mod.initialize(TERN_ROOT);
     }
-
-    this.ternServer.request(data.data, done);
-  }
-
-  importPlugins(plugins) {
-
-    importScripts.apply((void 0), plugins);
-  }
-
-  flush(data) {
-
-    if (!this.ternServer) {
-
-      return;
-    }
-
-    function done(err) {
-
-      postMessage({
-
-        id: data.id,
-        err: String(err)
-      });
-    }
-
-    this.ternServer.flush(done);
-  }
-  
-  startServer(data) {
-
-    this.importPlugins(data.config.pluginImports);
-
-    this.ternServer = new tern.Server({
-
-      getFile: (name, c) => {
-
-        this.pending.push(c);
-
-        postMessage({
-
-          id: this.pendingID,
-          type: 'getFile',
-          name: name
-        });
-
-        this.pendingID++;
-      },
-      async: true,
-      defs: data.defs,
-      plugins: data.plugins,
-      debug: false,
-      projectDir: data.dir,
-      ecmaVersion: data.config.ecmaVersion,
-      dependencyBudget: data.config.dependencyBudget,
-      stripCRs: false
-    });
-
-    if (data.files) {
-
-      for (let i = 0; i < data.files.length; i++) {
-
-        this.ternServer.addFile(data.files[i]);
-      }
-    }
-  }
-}
-
-let server = new Server();
-
-onmessage = function(e) {
-
-  if (e.data.type === 'query') {
-
-    server.request(e.data);
-    return;
-  }
-
-  if (e.data.type === 'pending') {
-
-    server.pending[e.data.id](e.data.data[0], e.data.data[1]);
-    return;
-  }
-
-  if (e.data.type === 'flush') {
-
-    server.flush(e.data);
-    return;
-  }
-
-  if (e.data.type === 'init') {
-
-    server.startServer(e.data);
-    return;
   }
 };
+
+TernServer.prototype.startServer = function (data) {
+
+  this.config = data.config;
+  this.importPlugins(data.config.pluginImports);
+
+  this.ternServer = new tern.Server({
+
+    getFile: function(name, c) {
+
+      if (this.config.dontLoad && this.config.dontLoad.some(function(pat) {
+
+        return minimatch(name, pat);
+      })) {
+
+        c(null, '');
+
+      } else {
+
+        fs.readFile(path.resolve(data.dir, name), 'utf8', c);
+      }
+    }.bind(this),
+    async: true,
+    defs: data.defs,
+    plugins: data.plugins,
+    debug: false,
+    projectDir: data.dir,
+    ecmaVersion: data.config.ecmaVersion,
+    dependencyBudget: data.config.dependencyBudget,
+    stripCRs: false
+  });
+
+  if (data.files) {
+
+    for (var i = 0; i < data.files.length; i++) {
+
+      this.ternServer.addFile(data.files[i]);
+    }
+  }
+};
+
+TernServer.prototype.request = function (data) {
+
+  var that = this;
+
+  function done(err, reqData) {
+
+    process.send({
+
+      id: data.id,
+      error: String(err),
+      data: reqData
+    });
+  }
+
+  this.ternServer.request(data.data, done);
+};
+
+TernServer.prototype.flush = function (data) {
+
+  if (!this.ternServer) {
+
+    return;
+  }
+
+  function done(err) {
+
+    process.send({
+
+      id: data.id,
+      error: String(err)
+    });
+  }
+
+  this.ternServer.flush(done);
+};
+
+var server = new TernServer();
+
+process.on('uncaughtException', function (err) {
+
+  process.send({
+
+    error: {
+
+      isUncaughtException: true,
+      message: String(err)
+    }
+  });
+});
+
+process.on('disconnect', function () {
+
+	process.kill();
+});
+
+process.on('message', function (e) {
+
+  if (e.type === 'query') {
+
+    server.request(e);
+    return;
+  }
+
+  if (e.type === 'flush') {
+
+    server.flush(e);
+    return;
+  }
+
+  if (e.type === 'init') {
+
+    server.startServer(e);
+    return;
+  }
+});

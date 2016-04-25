@@ -26,8 +26,11 @@ class TodoView extends View
             when 'Range' then @i todo.range
             when 'Line'  then @i todo.line
             when 'Regex' then @code todo.regex
+            when 'Path'  then @a todo.path
             when 'File'  then @a todo.file
             when 'Tags'  then @i todo.tags
+            when 'Id'    then @i todo.id
+            when 'Project' then @a todo.project
 
   initialize: (showInTable, @todo) ->
     @handleEvents()
@@ -39,10 +42,12 @@ class TodoView extends View
     @on 'click', 'td', @openPath
 
   openPath: =>
-    return unless todo = @todo
-    atom.workspace.open(todo.path, split: 'left').then ->
+    return unless @todo
+    position = [@todo.position[0][0], @todo.position[0][1]]
+    pending = atom.config.get('core.allowPendingPaneItems') or false
+
+    atom.workspace.open(@todo.path, {split: 'left', pending}).then ->
       if textEditor = atom.workspace.getActiveTextEditor()
-        position = [todo.position[0][0], todo.position[0][1]]
         textEditor.setCursorBufferPosition(position, autoscroll: false)
         textEditor.scrollToCursorPosition(center: true)
 

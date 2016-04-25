@@ -655,6 +655,41 @@
       }
     }
   },
+  "crystal": {
+    "title": "Crystal",
+    "type": "object",
+    "description": "Options for language Crystal",
+    "collapsed": true,
+    "beautifiers": [
+      "crystal"
+    ],
+    "properties": {
+      "disabled": {
+        "title": "Disable Beautifying Language",
+        "order": -3,
+        "type": "boolean",
+        "default": false,
+        "description": "Disable Crystal Beautification"
+      },
+      "default_beautifier": {
+        "title": "Default Beautifier",
+        "order": -2,
+        "type": "string",
+        "default": "crystal",
+        "description": "Default Beautifier to be used for Crystal",
+        "enum": [
+          "crystal"
+        ]
+      },
+      "beautify_on_save": {
+        "title": "Beautify On Save",
+        "order": -1,
+        "type": "boolean",
+        "default": false,
+        "description": "Automatically beautify Crystal files on save"
+      }
+    }
+  },
   "css": {
     "title": "CSS",
     "type": "object",
@@ -1015,6 +1050,20 @@
         "language": {
           "name": "HTML",
           "namespace": "html"
+        }
+      },
+      "indent_with_tabs": {
+        "type": "boolean",
+        "default": false,
+        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Pretty Diff)",
+        "title": "Indent with tabs",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "indent_with_tabs",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
         }
       },
       "preserve_newlines": {
@@ -2224,10 +2273,11 @@
       "indent_with_tabs": {
         "type": "boolean",
         "default": false,
-        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify)",
+        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "indent_with_tabs",
         "language": {
@@ -2543,10 +2593,11 @@
       "indent_with_tabs": {
         "type": "boolean",
         "default": false,
-        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify)",
+        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "indent_with_tabs",
         "language": {
@@ -2836,6 +2887,20 @@
           "Pretty Diff"
         ],
         "key": "indent_char",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
+      "indent_with_tabs": {
+        "type": "boolean",
+        "default": false,
+        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Pretty Diff)",
+        "title": "Indent with tabs",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "indent_with_tabs",
         "language": {
           "name": "JavaScript",
           "namespace": "js"
@@ -3984,6 +4049,41 @@
         "type": "boolean",
         "default": false,
         "description": "Automatically beautify Objective-C files on save"
+      }
+    }
+  },
+  "ocaml": {
+    "title": "OCaml",
+    "type": "object",
+    "description": "Options for language OCaml",
+    "collapsed": true,
+    "beautifiers": [
+      "ocp-indent"
+    ],
+    "properties": {
+      "disabled": {
+        "title": "Disable Beautifying Language",
+        "order": -3,
+        "type": "boolean",
+        "default": false,
+        "description": "Disable OCaml Beautification"
+      },
+      "default_beautifier": {
+        "title": "Default Beautifier",
+        "order": -2,
+        "type": "string",
+        "default": "ocp-indent",
+        "description": "Default Beautifier to be used for OCaml",
+        "enum": [
+          "ocp-indent"
+        ]
+      },
+      "beautify_on_save": {
+        "title": "Beautify On Save",
+        "order": -1,
+        "type": "boolean",
+        "default": false,
+        "description": "Automatically beautify OCaml files on save"
       }
     }
   },
@@ -5571,6 +5671,20 @@
         "language": {
           "name": "HTML",
           "namespace": "html"
+        }
+      },
+      "indent_with_tabs": {
+        "type": "boolean",
+        "default": false,
+        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Pretty Diff)",
+        "title": "Indent with tabs",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "indent_with_tabs",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
         }
       },
       "preserve_newlines": {

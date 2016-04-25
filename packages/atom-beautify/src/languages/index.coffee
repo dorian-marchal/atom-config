@@ -19,6 +19,7 @@ module.exports = class Languages
     "coffeescript"
     "coldfusion"
     "cpp"
+    "crystal"
     "css"
     "csv"
     "d"
@@ -43,6 +44,7 @@ module.exports = class Languages
     'marko'
     "mustache"
     "objective-c"
+    "ocaml"
     "pawn"
     "perl"
     "php"

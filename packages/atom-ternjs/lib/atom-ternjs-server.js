@@ -3,6 +3,7 @@
 let fs = require('fs');
 let path = require('path');
 let glob = require('glob');
+let cp = require('child_process');
 let minimatch = require('minimatch');
 let uuid = require('node-uuid');
 
@@ -13,7 +14,10 @@ export default class Server {
     this.manager = manager;
     this.client = client;
 
+    this.child = null;
+
     this.resolves = {};
+    this.rejects = {};
 
     this.projectDir = projectRoot;
     this.distDir = path.resolve(__dirname, '../node_modules/tern');
@@ -22,16 +26,18 @@ export default class Server {
 
       libs: [],
       loadEagerly: false,
-      plugins: {},
+      plugins: {
+
+        doc_comment: true
+      },
       ecmaScript: true,
       ecmaVersion: 6,
-      dependencyBudget: 20000
+      dependencyBudget: 40000
     };
 
     this.projectFileName = '.tern-project';
     this.disableLoadingLocal = false;
 
-    this.getHomeDir();
     this.init();
   }
 
@@ -49,6 +55,11 @@ export default class Server {
       this.config = this.defaultConfig;
     }
 
+    if (!this.config.plugins['doc_comment']) {
+
+      this.config.plugins['doc_comment'] = true;
+    }
+
     let defs = this.findDefs(this.projectDir, this.config);
     let plugins = this.loadPlugins(this.projectDir, this.config);
     let files = [];
@@ -64,10 +75,11 @@ export default class Server {
       });
     }
 
-    this.worker = new Worker(path.resolve(__dirname, './atom-ternjs-server-worker.js'));
-    this.worker.onmessage = this.onWorkerMessage.bind(this);
-
-    this.worker.postMessage({
+    this.child = cp.fork(path.resolve(__dirname, './atom-ternjs-server-worker.js'));
+    this.child.on('message', this.onWorkerMessage.bind(this));
+    this.child.on('error', this.onError);
+    this.child.on('disconnect', this.onDisconnect);
+    this.child.send({
 
       type: 'init',
       dir: this.projectDir,
@@ -78,6 +90,19 @@ export default class Server {
     });
   }
 
+  onError(e) {
+
+    atom.notifications.addError(`Child process error: ${e}`, {
+
+      dismissable: true
+    });
+	}
+
+	onDisconnect(e) {
+
+    console.log(e);
+	}
+
   request(type, data) {
 
     let requestID = uuid.v1();
@@ -85,8 +110,9 @@ export default class Server {
     return new Promise((resolve, reject) => {
 
       this.resolves[requestID] = resolve;
+      this.rejects[requestID] = reject;
 
-      this.worker.postMessage({
+      this.child.send({
 
         type: type,
         id: requestID,
@@ -99,7 +125,7 @@ export default class Server {
 
     this.request('flush', {}).then(() => {
 
-      atom.notifications.addInfo('All files fetched an analyzed.');
+      atom.notifications.addInfo('All files fetched and analyzed.');
     });
   }
 
@@ -118,56 +144,58 @@ export default class Server {
 
   onWorkerMessage(e) {
 
-    if (!e.data.type) {
+    if (e.error && e.error.isUncaughtException) {
 
-      this.resolves[e.data.id](e.data.data);
-      delete(this.resolves[e.data.id]);
+      atom.notifications.addError(`UncaughtException: ${e.error.message}. Restarting Server...`, {
+
+        dismissable: false
+      });
+
+      for (const key in this.rejects) {
+
+        this.rejects[key]({});
+      }
+
+      this.resolves = {};
+      this.rejects = {};
+
+      this.manager.restartServer();
 
       return;
     }
 
-    if (e.data.type === 'getFile') {
+    const isError = e.error !== 'null' && e.error !== 'undefined';
 
-      let result;
+    if (isError) {
 
-      if (this.dontLoad(e.data.name)) {
+      console.log(e);
+    }
 
-        this.worker.postMessage({
+    if (!e.type && this.resolves[e.id]) {
 
-          type: 'pending',
-          id: e.data.id,
-          data: [null, '']
-        });
+      if (isError) {
+
+        this.rejects[e.id](e.error);
 
       } else {
 
-        fs.readFile(path.resolve(this.projectDir, e.data.name), 'utf8', (err, data) => {
-
-          this.worker.postMessage({
-
-            type: 'pending',
-            id: e.data.id,
-            data: [String(err), data]
-          });
-        });
+        this.resolves[e.id](e.data);
       }
+
+      delete(this.resolves[e.id]);
+      delete(this.rejects[e.id]);
     }
   }
 
   destroy() {
 
-    this.worker.terminate();
-    this.worker = undefined;
-  }
+    if (!this.child) {
 
-  getHomeDir() {
-
-    let homeDir = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE;
-
-    if (homeDir && fs.existsSync(path.resolve(homeDir, '.tern-config'))) {
-
-      this.defaultConfig = this.readProjectFile(path.resolve(homeDir, '.tern-config'));
+      return;
     }
+
+    this.child.disconnect();
+    this.child = undefined;
   }
 
   readJSON(fileName) {
@@ -277,12 +305,6 @@ export default class Server {
     return defs;
   }
 
-  defaultPlugins(config) {
-
-    let result = ['doc_comment'];
-    return result;
-  }
-
   loadPlugins(projectDir, config) {
 
     let plugins = config.plugins;
@@ -328,14 +350,6 @@ export default class Server {
       this.config.pluginImports.push(found);
       options[path.basename(plugin)] = val;
     }
-
-    this.defaultPlugins(config).forEach((name) => {
-
-      if (!plugins.hasOwnProperty(name)) {
-
-        options[name] = true;
-      }
-    });
 
     return options;
   }

@@ -46,7 +46,6 @@ class Reference
     cursor = editor.getLastCursor()
     position = cursor.getBufferPosition()
     @manager.client.update(editor).then (data) =>
-      return if data.isQueried
       @manager.client.refs(atom.project.relativizePath(editor.getURI())[1], {line: position.row, ch: position.column}).then (data) =>
         if !data
           atom.notifications.addInfo('No references found.', { dismissable: false })
@@ -69,7 +68,6 @@ class Reference
       buffer = new TextBuffer({ text: content })
       item.position = buffer.positionForCharacterIndex(item.start)
       item.lineText = buffer.lineForRow(item.position.row)
-      item.lineText = item.lineText.replace(data.name, "<strong>#{data.name}</strong>")
       buffer.destroy()
     data
 

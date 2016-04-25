@@ -1,6 +1,6 @@
 {
   "name": "linter-stylelint",
-  "version": "2.4.0",
+  "version": "2.6.0",
   "private": true,
   "description": "A plugin for Atom Linter providing an interface to stylelint.",
   "main": "lib/index.js",
@@ -36,14 +36,13 @@
     "atom-package-deps": "^4.0.1",
     "cosmiconfig": "^1.1.0",
     "lazy-req": "^1.1.0",
-    "stylelint": "5.4.0",
-    "stylelint-config-standard": "^5.0.0"
+    "stylelint": "6.1.0",
+    "stylelint-config-standard": "^6.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.7.0",
-    "eslint-config-airbnb": "^7.0.0",
-    "eslint-plugin-react": "^4.3.0",
-    "eslint-plugin-jsx-a11y": "^0.6.2"
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb-base": "^1.0.3",
+    "eslint-plugin-import": "^1.5.0"
   },
   "eslintConfig": {
     "rules": {
@@ -51,9 +50,17 @@
         2,
         "never"
       ],
-      "no-console": 0
+      "global-require": 0,
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
     },
-    "extends": "airbnb/base",
+    "extends": "airbnb-base",
     "globals": {
       "atom": true
     },
@@ -74,10 +81,10 @@
   },
   "readme": "# linter-stylelint [![Dependency Status](https://david-dm.org/AtomLinter/linter-stylelint.svg)](https://david-dm.org/AtomLinter/linter-stylelint)\n\nA plugin for [Atom Linter](https://github.com/AtomLinter/atom-linter) providing\nan interface to [stylelint](https://github.com/stylelint/stylelint).\n\n![demo](https://raw.githubusercontent.com/AtomLinter/linter-stylelint/master/demo.png)\n\n## Installation\n\n```ShellSession\napm install linter-stylelint\n```\n\nlinter-stylelint checks both `.css` and `.scss` files. (For `.scss` files, it\nautomatically tells `stylelint` to use the right parser.)\n\n## Configuration\n\nYou can pass configuration to `stylelint` in any of the following ways:\n\n-   Place a config file (`.stylelintrc` or `stylelint.config.js`) in your\n    project's root or upper directories.\n\n-   Add a `stylelint` section in your `package.json`.\n\n-   In the settings, check `Use standard` to automatically use [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard)\n\n`.stylelintrc` is always prioritized. If you have checked `Use standard` in the\nsettings and also have a `.stylelintrc` file, your `.stylelintrc` configuration\nwill extend the preset, using [stylelint's extend functionality](http://stylelint.io/?/docs/user-guide/configuration.md).\n\n## License\n\nMIT: <http://1000ch.mit-license.org/>\n",
   "readmeFilename": "readme.md",
-  "_id": "linter-stylelint@2.4.0",
-  "_shasum": "3227aa73cbb86879b7b5ffeb52634c2a0e3aa285",
-  "_resolved": "file:../d-116319-19838-12vyzgb/package.tgz",
-  "_from": "../d-116319-19838-12vyzgb/package.tgz",
+  "_id": "linter-stylelint@2.6.0",
+  "_shasum": "67a1a37a44ebfea0c9c2ce2c92abca4d3f02aa1e",
+  "_resolved": "file:../d-116325-11818-x258vn/package.tgz",
+  "_from": "../d-116325-11818-x258vn/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -118,13 +125,18 @@
       },
       {
         "name": "sb-exec",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "path": "node_modules/atom-linter/node_modules/sb-exec/lib/index.js"
       },
       {
         "name": "consistent-env",
         "version": "1.1.2",
         "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js"
+      },
+      {
+        "name": "extify",
+        "version": "1.0.0",
+        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/index.js"
       },
       {
         "name": "sb-npm-path",
@@ -248,7 +260,7 @@
       },
       {
         "name": "stylelint",
-        "version": "5.4.0",
+        "version": "6.1.0",
         "path": "node_modules/stylelint/dist/index.js"
       },
       {
@@ -273,7 +285,7 @@
       },
       {
         "name": "balanced-match",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "path": "node_modules/stylelint/node_modules/balanced-match/index.js"
       },
       {
@@ -325,11 +337,6 @@
         "name": "color-diff",
         "version": "0.1.7",
         "path": "node_modules/stylelint/node_modules/colorguard/node_modules/color-diff/lib/index.js"
-      },
-      {
-        "name": "log-symbols",
-        "version": "1.0.2",
-        "path": "node_modules/stylelint/node_modules/colorguard/node_modules/log-symbols/index.js"
       },
       {
         "name": "object-assign",
@@ -722,6 +729,11 @@
         "path": "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/index.js"
       },
       {
+        "name": "balanced-match",
+        "version": "0.3.0",
+        "path": "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js"
+      },
+      {
         "name": "concat-map",
         "version": "0.0.1",
         "path": "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
@@ -767,19 +779,14 @@
         "path": "node_modules/stylelint/node_modules/globjoin/index.js"
       },
       {
-        "name": "is-css-color-name",
-        "version": "0.1.3",
-        "path": "node_modules/stylelint/node_modules/is-css-color-name/lib/index.js"
-      },
-      {
-        "name": "css-color-names",
-        "version": "0.0.2",
-        "path": "node_modules/stylelint/node_modules/is-css-color-name/node_modules/css-color-names/css-color-names.json"
-      },
-      {
         "name": "lodash",
         "version": "4.11.1",
         "path": "node_modules/stylelint/node_modules/lodash/lodash.js"
+      },
+      {
+        "name": "log-symbols",
+        "version": "1.0.2",
+        "path": "node_modules/stylelint/node_modules/log-symbols/index.js"
       },
       {
         "name": "meow",
@@ -1067,6 +1074,11 @@
         "path": "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/index.js"
       },
       {
+        "name": "balanced-match",
+        "version": "0.3.0",
+        "path": "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js"
+      },
+      {
         "name": "concat-map",
         "version": "0.0.1",
         "path": "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
@@ -1088,7 +1100,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.5.3",
+        "version": "0.5.4",
         "path": "node_modules/stylelint/node_modules/postcss/node_modules/source-map/source-map.js"
       },
       {
@@ -1103,18 +1115,13 @@
       },
       {
         "name": "postcss-less",
-        "version": "0.8.0",
+        "version": "0.9.0",
         "path": "node_modules/stylelint/node_modules/postcss-less/index.js"
       },
       {
         "name": "postcss-reporter",
         "version": "1.3.3",
         "path": "node_modules/stylelint/node_modules/postcss-reporter/index.js"
-      },
-      {
-        "name": "log-symbols",
-        "version": "1.0.2",
-        "path": "node_modules/stylelint/node_modules/postcss-reporter/node_modules/log-symbols/index.js"
       },
       {
         "name": "postcss-resolve-nested-selector",
@@ -1172,11 +1179,6 @@
         "path": "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/index.js"
       },
       {
-        "name": "log-symbols",
-        "version": "1.0.2",
-        "path": "node_modules/stylelint/node_modules/stylehacks/node_modules/log-symbols/index.js"
-      },
-      {
         "name": "minimist",
         "version": "1.2.0",
         "path": "node_modules/stylelint/node_modules/stylehacks/node_modules/minimist/index.js"
@@ -1213,12 +1215,72 @@
       },
       {
         "name": "sugarss",
-        "version": "0.1.2",
+        "version": "0.1.3",
         "path": "node_modules/stylelint/node_modules/sugarss/index.js"
       },
       {
+        "name": "table",
+        "version": "3.7.8",
+        "path": "node_modules/stylelint/node_modules/table/dist/index.js"
+      },
+      {
+        "name": "bluebird",
+        "version": "3.3.5",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/bluebird.js"
+      },
+      {
+        "name": "slice-ansi",
+        "version": "0.0.4",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/slice-ansi/index.js"
+      },
+      {
+        "name": "string-width",
+        "version": "1.0.1",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/string-width/index.js"
+      },
+      {
+        "name": "code-point-at",
+        "version": "1.0.0",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at/index.js"
+      },
+      {
+        "name": "number-is-nan",
+        "version": "1.0.0",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at/node_modules/number-is-nan/index.js"
+      },
+      {
+        "name": "is-fullwidth-code-point",
+        "version": "1.0.0",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point/index.js"
+      },
+      {
+        "name": "number-is-nan",
+        "version": "1.0.0",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point/node_modules/number-is-nan/index.js"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "3.0.1",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/strip-ansi/index.js"
+      },
+      {
+        "name": "ansi-regex",
+        "version": "2.0.0",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/strip-ansi/node_modules/ansi-regex/index.js"
+      },
+      {
+        "name": "tv4",
+        "version": "1.2.7",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/tv4/tv4.js"
+      },
+      {
+        "name": "xregexp",
+        "version": "3.1.0",
+        "path": "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/index.js"
+      },
+      {
         "name": "stylelint-config-standard",
-        "version": "5.0.0",
+        "version": "6.0.0",
         "path": "node_modules/stylelint-config-standard/index.js"
       }
     ],
@@ -1239,6 +1301,8 @@
         "node_modules/atom-linter/node_modules/sb-exec/lib/types.js",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/helpers.js",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/helpers.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/index.js",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/helpers.js",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js",
@@ -1349,6 +1413,8 @@
         "node_modules/stylelint/dist/normalizeRuleSettings.js",
         "node_modules/stylelint/dist/postcssPlugin.js",
         "node_modules/stylelint/dist/rules/at-rule-empty-line-before/index.js",
+        "node_modules/stylelint/dist/rules/at-rule-name-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/at-rule-name-case/index.js",
         "node_modules/stylelint/dist/rules/at-rule-no-vendor-prefix/index.js",
         "node_modules/stylelint/dist/rules/at-rule-semicolon-newline-after/index.js",
         "node_modules/stylelint/dist/rules/block-closing-brace-newline-after/index.js",
@@ -1369,6 +1435,8 @@
         "node_modules/stylelint/dist/rules/color-no-invalid-hex/index.js",
         "node_modules/stylelint/dist/rules/comment-empty-line-before/index.js",
         "node_modules/stylelint/dist/rules/comment-whitespace-inside/index.js",
+        "node_modules/stylelint/dist/rules/comment-word-blacklist/__test__/index.js",
+        "node_modules/stylelint/dist/rules/comment-word-blacklist/index.js",
         "node_modules/stylelint/dist/rules/custom-media-pattern/index.js",
         "node_modules/stylelint/dist/rules/custom-property-no-outside-root/index.js",
         "node_modules/stylelint/dist/rules/custom-property-pattern/index.js",
@@ -1401,6 +1469,8 @@
         "node_modules/stylelint/dist/rules/function-linear-gradient-no-nonstandard-direction/index.js",
         "node_modules/stylelint/dist/rules/function-max-empty-lines/__test__/index.js",
         "node_modules/stylelint/dist/rules/function-max-empty-lines/index.js",
+        "node_modules/stylelint/dist/rules/function-name-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/function-name-case/index.js",
         "node_modules/stylelint/dist/rules/function-parentheses-newline-inside/index.js",
         "node_modules/stylelint/dist/rules/function-parentheses-space-inside/index.js",
         "node_modules/stylelint/dist/rules/function-url-data-uris/__test__/index.js",
@@ -1438,6 +1508,8 @@
         "node_modules/stylelint/dist/rules/number-no-trailing-zeros/index.js",
         "node_modules/stylelint/dist/rules/number-zero-length-no-unit/index.js",
         "node_modules/stylelint/dist/rules/property-blacklist/index.js",
+        "node_modules/stylelint/dist/rules/property-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/property-case/index.js",
         "node_modules/stylelint/dist/rules/property-no-vendor-prefix/index.js",
         "node_modules/stylelint/dist/rules/property-unit-blacklist/index.js",
         "node_modules/stylelint/dist/rules/property-unit-whitelist/index.js",
@@ -1447,6 +1519,8 @@
         "node_modules/stylelint/dist/rules/root-no-standard-properties/index.js",
         "node_modules/stylelint/dist/rules/rule-nested-empty-line-before/index.js",
         "node_modules/stylelint/dist/rules/rule-non-nested-empty-line-before/index.js",
+        "node_modules/stylelint/dist/rules/selector-attribute-brackets-space-inside/__test__/index.js",
+        "node_modules/stylelint/dist/rules/selector-attribute-brackets-space-inside/index.js",
         "node_modules/stylelint/dist/rules/selector-class-pattern/index.js",
         "node_modules/stylelint/dist/rules/selector-combinator-space-after/index.js",
         "node_modules/stylelint/dist/rules/selector-combinator-space-before/index.js",
@@ -1462,18 +1536,30 @@
         "node_modules/stylelint/dist/rules/selector-no-type/index.js",
         "node_modules/stylelint/dist/rules/selector-no-universal/index.js",
         "node_modules/stylelint/dist/rules/selector-no-vendor-prefix/index.js",
+        "node_modules/stylelint/dist/rules/selector-pseudo-class-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/selector-pseudo-class-case/index.js",
+        "node_modules/stylelint/dist/rules/selector-pseudo-class-parentheses-space-inside/__test__/index.js",
+        "node_modules/stylelint/dist/rules/selector-pseudo-class-parentheses-space-inside/index.js",
+        "node_modules/stylelint/dist/rules/selector-pseudo-element-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/selector-pseudo-element-case/index.js",
         "node_modules/stylelint/dist/rules/selector-pseudo-element-colon-notation/index.js",
         "node_modules/stylelint/dist/rules/selector-root-no-composition/index.js",
         "node_modules/stylelint/dist/rules/selector-type-case/index.js",
+        "node_modules/stylelint/dist/rules/shorthand-property-no-redundant-values/__test__/index.js",
+        "node_modules/stylelint/dist/rules/shorthand-property-no-redundant-values/index.js",
         "node_modules/stylelint/dist/rules/string-no-newline/index.js",
         "node_modules/stylelint/dist/rules/string-quotes/index.js",
         "node_modules/stylelint/dist/rules/stylelint-disable-reason/__test__/index.js",
         "node_modules/stylelint/dist/rules/stylelint-disable-reason/index.js",
         "node_modules/stylelint/dist/rules/time-no-imperceptible/index.js",
         "node_modules/stylelint/dist/rules/unit-blacklist/index.js",
+        "node_modules/stylelint/dist/rules/unit-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/unit-case/index.js",
         "node_modules/stylelint/dist/rules/unit-no-unknown/__test__/index.js",
         "node_modules/stylelint/dist/rules/unit-no-unknown/index.js",
         "node_modules/stylelint/dist/rules/unit-whitelist/index.js",
+        "node_modules/stylelint/dist/rules/value-keyword-case/__test__/index.js",
+        "node_modules/stylelint/dist/rules/value-keyword-case/index.js",
         "node_modules/stylelint/dist/rules/value-list-comma-newline-after/index.js",
         "node_modules/stylelint/dist/rules/value-list-comma-newline-before/index.js",
         "node_modules/stylelint/dist/rules/value-list-comma-space-after/index.js",
@@ -1597,7 +1683,6 @@
         "node_modules/stylelint/node_modules/colorguard/node_modules/color-diff/lib/diff.js",
         "node_modules/stylelint/node_modules/colorguard/node_modules/color-diff/lib/index.js",
         "node_modules/stylelint/node_modules/colorguard/node_modules/color-diff/lib/palette.js",
-        "node_modules/stylelint/node_modules/colorguard/node_modules/log-symbols/index.js",
         "node_modules/stylelint/node_modules/colorguard/node_modules/object-assign/index.js",
         "node_modules/stylelint/node_modules/colorguard/node_modules/pipetteur/node_modules/onecolor/index.js",
         "node_modules/stylelint/node_modules/colorguard/node_modules/pipetteur/node_modules/onecolor/lib/CMYK.js",
@@ -2230,6 +2315,8 @@
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/minimatch.js",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/example.js",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/index.js",
+        "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/example.js",
+        "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js",
@@ -2241,8 +2328,6 @@
         "node_modules/stylelint/node_modules/globby/node_modules/pinkie-promise/index.js",
         "node_modules/stylelint/node_modules/globby/node_modules/pinkie-promise/node_modules/pinkie/index.js",
         "node_modules/stylelint/node_modules/globjoin/index.js",
-        "node_modules/stylelint/node_modules/is-css-color-name/lib/index.js",
-        "node_modules/stylelint/node_modules/is-css-color-name/node_modules/css-color-names/stringify.js",
         "node_modules/stylelint/node_modules/lodash/_DataView.js",
         "node_modules/stylelint/node_modules/lodash/_Hash.js",
         "node_modules/stylelint/node_modules/lodash/_LazyWrapper.js",
@@ -3183,6 +3268,7 @@
         "node_modules/stylelint/node_modules/lodash/zipObject.js",
         "node_modules/stylelint/node_modules/lodash/zipObjectDeep.js",
         "node_modules/stylelint/node_modules/lodash/zipWith.js",
+        "node_modules/stylelint/node_modules/log-symbols/index.js",
         "node_modules/stylelint/node_modules/meow/index.js",
         "node_modules/stylelint/node_modules/meow/node_modules/camelcase-keys/index.js",
         "node_modules/stylelint/node_modules/meow/node_modules/camelcase-keys/node_modules/camelcase/index.js",
@@ -3259,6 +3345,8 @@
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/minimatch.js",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/example.js",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/index.js",
+        "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/example.js",
+        "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js",
         "node_modules/stylelint/node_modules/normalize-selector/lib/normalize-selector.js",
@@ -3326,10 +3414,14 @@
         "node_modules/stylelint/node_modules/postcss-less/dist/less-tokenize.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/find-end-of-expression.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/find-end-of-expression.min.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/find-unclosed-parenthesis-index.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/find-unclosed-parenthesis-index.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/globals.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/globals.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/is-escaping.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/is-escaping.min.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/is-mixin-name.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/is-mixin-name.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-at-rule.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-at-rule.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-backslash.js",
@@ -3344,6 +3436,10 @@
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-inline-comment.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-multiline-comment.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-multiline-comment.min.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-nested-extend.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-nested-extend.min.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-nested-mixin.js",
+        "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-nested-mixin.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-opened-parenthesis.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-opened-parenthesis.min.js",
         "node_modules/stylelint/node_modules/postcss-less/dist/tokenizer/tokenize-quotes.js",
@@ -3382,7 +3478,6 @@
         "node_modules/stylelint/node_modules/postcss-reporter/lib/formatter.js",
         "node_modules/stylelint/node_modules/postcss-reporter/lib/reporter.js",
         "node_modules/stylelint/node_modules/postcss-reporter/lib/util.js",
-        "node_modules/stylelint/node_modules/postcss-reporter/node_modules/log-symbols/index.js",
         "node_modules/stylelint/node_modules/postcss-resolve-nested-selector/index.js",
         "node_modules/stylelint/node_modules/postcss-scss/lib/scss-parse.js",
         "node_modules/stylelint/node_modules/postcss-scss/lib/scss-parser.js",
@@ -3439,7 +3534,6 @@
         "node_modules/stylelint/node_modules/stylehacks/dist/plugins/trailingSlashComma.js",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/cli.js",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/index.js",
-        "node_modules/stylelint/node_modules/stylehacks/node_modules/log-symbols/index.js",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/minimist/example/parse.js",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/minimist/index.js",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/plur/index.js",
@@ -3460,6 +3554,97 @@
         "node_modules/stylelint/node_modules/sugarss/stringifier.js",
         "node_modules/stylelint/node_modules/sugarss/stringify.js",
         "node_modules/stylelint/node_modules/sugarss/tokenize.js",
+        "node_modules/stylelint/node_modules/table/dist/alignString.js",
+        "node_modules/stylelint/node_modules/table/dist/alignTableData.js",
+        "node_modules/stylelint/node_modules/table/dist/calculateCellHeight.js",
+        "node_modules/stylelint/node_modules/table/dist/calculateCellWidthIndex.js",
+        "node_modules/stylelint/node_modules/table/dist/calculateMaximumColumnWidthIndex.js",
+        "node_modules/stylelint/node_modules/table/dist/calculateRowHeightIndex.js",
+        "node_modules/stylelint/node_modules/table/dist/createStream.js",
+        "node_modules/stylelint/node_modules/table/dist/drawBorder.js",
+        "node_modules/stylelint/node_modules/table/dist/drawRow.js",
+        "node_modules/stylelint/node_modules/table/dist/drawTable.js",
+        "node_modules/stylelint/node_modules/table/dist/getBorderCharacters.js",
+        "node_modules/stylelint/node_modules/table/dist/index.js",
+        "node_modules/stylelint/node_modules/table/dist/makeConfig.js",
+        "node_modules/stylelint/node_modules/table/dist/makeStreamConfig.js",
+        "node_modules/stylelint/node_modules/table/dist/mapDataUsingRowHeightIndex.js",
+        "node_modules/stylelint/node_modules/table/dist/padTableData.js",
+        "node_modules/stylelint/node_modules/table/dist/stringifyTableData.js",
+        "node_modules/stylelint/node_modules/table/dist/table.js",
+        "node_modules/stylelint/node_modules/table/dist/truncateTableData.js",
+        "node_modules/stylelint/node_modules/table/dist/validateConfig.js",
+        "node_modules/stylelint/node_modules/table/dist/validateStreamConfig.js",
+        "node_modules/stylelint/node_modules/table/dist/validateTableData.js",
+        "node_modules/stylelint/node_modules/table/dist/wrapString.js",
+        "node_modules/stylelint/node_modules/table/dist/wrapWord.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/browser/bluebird.core.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/browser/bluebird.core.min.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/browser/bluebird.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/browser/bluebird.min.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/any.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/assert.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/async.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/bind.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/bluebird.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/call_get.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/cancel.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/catch_filter.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/context.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/debuggability.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/direct_resolve.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/each.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/errors.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/es5.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/filter.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/finally.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/generators.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/join.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/map.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/method.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/nodeback.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/nodeify.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/promise.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/promise_array.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/promisify.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/props.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/queue.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/race.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/reduce.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/schedule.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/settle.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/some.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/synchronous_inspection.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/thenables.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/timers.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/using.js",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/js/release/util.js",
+        "node_modules/stylelint/node_modules/table/node_modules/slice-ansi/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at/node_modules/number-is-nan/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point/node_modules/number-is-nan/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/strip-ansi/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/strip-ansi/node_modules/ansi-regex/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/de.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/fr.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/nb.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/pl-PL.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/pt-PT.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/sv-SE.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/lang/zh-CN.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/tv4.async-jquery.js",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/tv4.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/build.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/matchrecursive.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/unicode-base.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/unicode-blocks.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/unicode-categories.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/unicode-properties.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/addons/unicode-scripts.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/index.js",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/src/xregexp.js",
         "node_modules/stylelint/src/buildConfig.js",
         "node_modules/stylelint/src/cli.js",
         "node_modules/stylelint/src/createPlugin.js",
@@ -3472,6 +3657,8 @@
         "node_modules/stylelint/src/normalizeRuleSettings.js",
         "node_modules/stylelint/src/postcssPlugin.js",
         "node_modules/stylelint/src/rules/at-rule-empty-line-before/index.js",
+        "node_modules/stylelint/src/rules/at-rule-name-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/at-rule-name-case/index.js",
         "node_modules/stylelint/src/rules/at-rule-no-vendor-prefix/index.js",
         "node_modules/stylelint/src/rules/at-rule-semicolon-newline-after/index.js",
         "node_modules/stylelint/src/rules/block-closing-brace-newline-after/index.js",
@@ -3492,6 +3679,8 @@
         "node_modules/stylelint/src/rules/color-no-invalid-hex/index.js",
         "node_modules/stylelint/src/rules/comment-empty-line-before/index.js",
         "node_modules/stylelint/src/rules/comment-whitespace-inside/index.js",
+        "node_modules/stylelint/src/rules/comment-word-blacklist/__test__/index.js",
+        "node_modules/stylelint/src/rules/comment-word-blacklist/index.js",
         "node_modules/stylelint/src/rules/custom-media-pattern/index.js",
         "node_modules/stylelint/src/rules/custom-property-no-outside-root/index.js",
         "node_modules/stylelint/src/rules/custom-property-pattern/index.js",
@@ -3524,6 +3713,8 @@
         "node_modules/stylelint/src/rules/function-linear-gradient-no-nonstandard-direction/index.js",
         "node_modules/stylelint/src/rules/function-max-empty-lines/__test__/index.js",
         "node_modules/stylelint/src/rules/function-max-empty-lines/index.js",
+        "node_modules/stylelint/src/rules/function-name-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/function-name-case/index.js",
         "node_modules/stylelint/src/rules/function-parentheses-newline-inside/index.js",
         "node_modules/stylelint/src/rules/function-parentheses-space-inside/index.js",
         "node_modules/stylelint/src/rules/function-url-data-uris/__test__/index.js",
@@ -3561,6 +3752,8 @@
         "node_modules/stylelint/src/rules/number-no-trailing-zeros/index.js",
         "node_modules/stylelint/src/rules/number-zero-length-no-unit/index.js",
         "node_modules/stylelint/src/rules/property-blacklist/index.js",
+        "node_modules/stylelint/src/rules/property-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/property-case/index.js",
         "node_modules/stylelint/src/rules/property-no-vendor-prefix/index.js",
         "node_modules/stylelint/src/rules/property-unit-blacklist/index.js",
         "node_modules/stylelint/src/rules/property-unit-whitelist/index.js",
@@ -3570,6 +3763,8 @@
         "node_modules/stylelint/src/rules/root-no-standard-properties/index.js",
         "node_modules/stylelint/src/rules/rule-nested-empty-line-before/index.js",
         "node_modules/stylelint/src/rules/rule-non-nested-empty-line-before/index.js",
+        "node_modules/stylelint/src/rules/selector-attribute-brackets-space-inside/__test__/index.js",
+        "node_modules/stylelint/src/rules/selector-attribute-brackets-space-inside/index.js",
         "node_modules/stylelint/src/rules/selector-class-pattern/index.js",
         "node_modules/stylelint/src/rules/selector-combinator-space-after/index.js",
         "node_modules/stylelint/src/rules/selector-combinator-space-before/index.js",
@@ -3585,18 +3780,30 @@
         "node_modules/stylelint/src/rules/selector-no-type/index.js",
         "node_modules/stylelint/src/rules/selector-no-universal/index.js",
         "node_modules/stylelint/src/rules/selector-no-vendor-prefix/index.js",
+        "node_modules/stylelint/src/rules/selector-pseudo-class-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/selector-pseudo-class-case/index.js",
+        "node_modules/stylelint/src/rules/selector-pseudo-class-parentheses-space-inside/__test__/index.js",
+        "node_modules/stylelint/src/rules/selector-pseudo-class-parentheses-space-inside/index.js",
+        "node_modules/stylelint/src/rules/selector-pseudo-element-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/selector-pseudo-element-case/index.js",
         "node_modules/stylelint/src/rules/selector-pseudo-element-colon-notation/index.js",
         "node_modules/stylelint/src/rules/selector-root-no-composition/index.js",
         "node_modules/stylelint/src/rules/selector-type-case/index.js",
+        "node_modules/stylelint/src/rules/shorthand-property-no-redundant-values/__test__/index.js",
+        "node_modules/stylelint/src/rules/shorthand-property-no-redundant-values/index.js",
         "node_modules/stylelint/src/rules/string-no-newline/index.js",
         "node_modules/stylelint/src/rules/string-quotes/index.js",
         "node_modules/stylelint/src/rules/stylelint-disable-reason/__test__/index.js",
         "node_modules/stylelint/src/rules/stylelint-disable-reason/index.js",
         "node_modules/stylelint/src/rules/time-no-imperceptible/index.js",
         "node_modules/stylelint/src/rules/unit-blacklist/index.js",
+        "node_modules/stylelint/src/rules/unit-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/unit-case/index.js",
         "node_modules/stylelint/src/rules/unit-no-unknown/__test__/index.js",
         "node_modules/stylelint/src/rules/unit-no-unknown/index.js",
         "node_modules/stylelint/src/rules/unit-whitelist/index.js",
+        "node_modules/stylelint/src/rules/value-keyword-case/__test__/index.js",
+        "node_modules/stylelint/src/rules/value-keyword-case/index.js",
         "node_modules/stylelint/src/rules/value-list-comma-newline-after/index.js",
         "node_modules/stylelint/src/rules/value-list-comma-newline-before/index.js",
         "node_modules/stylelint/src/rules/value-list-comma-space-after/index.js",
@@ -3651,6 +3858,8 @@
         "node_modules/atom-linter/node_modules/named-js-regexp/package.json",
         "node_modules/atom-linter/node_modules/sb-exec/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/package.json",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/.eslintrc.json",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/package.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/package.json",
@@ -3736,6 +3945,7 @@
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-crisp-edges.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-cross-fade.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-default-pseudo.json",
+        "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-descendant-gtgt.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-deviceadaptation.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-element-function.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-exclusions.json",
@@ -3748,6 +3958,7 @@
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-gencontent.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-gradients.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-grid.json",
+        "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-has.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-hyphens.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-image-orientation.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-image-set.json",
@@ -3765,6 +3976,7 @@
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-mediaqueries.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-mixblendmode.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-motion-paths.json",
+        "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-not-sel-list.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-nth-child-of.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-opacity.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/css-optional-pseudo.json",
@@ -3957,6 +4169,7 @@
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/rest-parameters.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/rtcpeerconnection.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/ruby.json",
+        "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/same-site-cookie-attribute.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/screen-orientation.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/script-async.json",
         "node_modules/stylelint/node_modules/autoprefixer/node_modules/caniuse-db/features-json/script-defer.json",
@@ -4287,7 +4500,6 @@
         "node_modules/stylelint/node_modules/chalk/node_modules/supports-color/package.json",
         "node_modules/stylelint/node_modules/chalk/package.json",
         "node_modules/stylelint/node_modules/colorguard/node_modules/color-diff/package.json",
-        "node_modules/stylelint/node_modules/colorguard/node_modules/log-symbols/package.json",
         "node_modules/stylelint/node_modules/colorguard/node_modules/object-assign/package.json",
         "node_modules/stylelint/node_modules/colorguard/node_modules/pipetteur/node_modules/onecolor/package.json",
         "node_modules/stylelint/node_modules/colorguard/node_modules/pipetteur/node_modules/synesthesia/node_modules/css-color-names/css-color-names.json",
@@ -4356,6 +4568,7 @@
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-crisp-edges.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-cross-fade.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-default-pseudo.json",
+        "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-descendant-gtgt.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-deviceadaptation.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-element-function.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-exclusions.json",
@@ -4368,6 +4581,7 @@
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-gencontent.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-gradients.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-grid.json",
+        "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-has.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-hyphens.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-image-orientation.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-image-set.json",
@@ -4385,6 +4599,7 @@
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-mediaqueries.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-mixblendmode.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-motion-paths.json",
+        "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-not-sel-list.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-nth-child-of.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-opacity.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/css-optional-pseudo.json",
@@ -4577,6 +4792,7 @@
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/rest-parameters.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/rtcpeerconnection.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/ruby.json",
+        "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/same-site-cookie-attribute.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/screen-orientation.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/script-async.json",
         "node_modules/stylelint/node_modules/doiuse/node_modules/caniuse-db/features-json/script-defer.json",
@@ -4979,6 +5195,7 @@
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/inflight/package.json",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/inherits/package.json",
+        "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/package.json",
         "node_modules/stylelint/node_modules/globby/node_modules/glob/node_modules/minimatch/package.json",
@@ -4992,10 +5209,8 @@
         "node_modules/stylelint/node_modules/globby/node_modules/pinkie-promise/package.json",
         "node_modules/stylelint/node_modules/globby/package.json",
         "node_modules/stylelint/node_modules/globjoin/package.json",
-        "node_modules/stylelint/node_modules/is-css-color-name/node_modules/css-color-names/css-color-names.json",
-        "node_modules/stylelint/node_modules/is-css-color-name/node_modules/css-color-names/package.json",
-        "node_modules/stylelint/node_modules/is-css-color-name/package.json",
         "node_modules/stylelint/node_modules/lodash/package.json",
+        "node_modules/stylelint/node_modules/log-symbols/package.json",
         "node_modules/stylelint/node_modules/meow/node_modules/camelcase-keys/node_modules/camelcase/package.json",
         "node_modules/stylelint/node_modules/meow/node_modules/camelcase-keys/package.json",
         "node_modules/stylelint/node_modules/meow/node_modules/decamelize/package.json",
@@ -5056,6 +5271,7 @@
         "node_modules/stylelint/node_modules/multimatch/node_modules/array-union/node_modules/array-uniq/package.json",
         "node_modules/stylelint/node_modules/multimatch/node_modules/array-union/package.json",
         "node_modules/stylelint/node_modules/multimatch/node_modules/arrify/package.json",
+        "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/node_modules/brace-expansion/package.json",
         "node_modules/stylelint/node_modules/multimatch/node_modules/minimatch/package.json",
@@ -5068,7 +5284,6 @@
         "node_modules/stylelint/node_modules/postcss/node_modules/supports-color/package.json",
         "node_modules/stylelint/node_modules/postcss/package.json",
         "node_modules/stylelint/node_modules/postcss-less/package.json",
-        "node_modules/stylelint/node_modules/postcss-reporter/node_modules/log-symbols/package.json",
         "node_modules/stylelint/node_modules/postcss-reporter/package.json",
         "node_modules/stylelint/node_modules/postcss-resolve-nested-selector/package.json",
         "node_modules/stylelint/node_modules/postcss-scss/package.json",
@@ -5134,6 +5349,7 @@
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-crisp-edges.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-cross-fade.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-default-pseudo.json",
+        "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-descendant-gtgt.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-deviceadaptation.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-element-function.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-exclusions.json",
@@ -5146,6 +5362,7 @@
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-gencontent.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-gradients.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-grid.json",
+        "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-has.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-hyphens.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-image-orientation.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-image-set.json",
@@ -5163,6 +5380,7 @@
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-mediaqueries.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-mixblendmode.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-motion-paths.json",
+        "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-not-sel-list.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-nth-child-of.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-opacity.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/css-optional-pseudo.json",
@@ -5355,6 +5573,7 @@
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/rest-parameters.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/rtcpeerconnection.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/ruby.json",
+        "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/same-site-cookie-attribute.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/screen-orientation.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/script-async.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/features-json/script-defer.json",
@@ -5673,7 +5892,6 @@
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/region-usage-json/alt-sa.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/node_modules/caniuse-db/region-usage-json/alt-ww.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/browserslist/package.json",
-        "node_modules/stylelint/node_modules/stylehacks/node_modules/log-symbols/package.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/minimist/package.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/plur/node_modules/irregular-plurals/irregular-plurals.json",
         "node_modules/stylelint/node_modules/stylehacks/node_modules/plur/node_modules/irregular-plurals/package.json",
@@ -5684,6 +5902,20 @@
         "node_modules/stylelint/node_modules/stylehacks/node_modules/write-file-stdout/package.json",
         "node_modules/stylelint/node_modules/stylehacks/package.json",
         "node_modules/stylelint/node_modules/sugarss/package.json",
+        "node_modules/stylelint/node_modules/table/dist/schemas/config.json",
+        "node_modules/stylelint/node_modules/table/dist/schemas/streamConfig.json",
+        "node_modules/stylelint/node_modules/table/node_modules/bluebird/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/slice-ansi/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at/node_modules/number-is-nan/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point/node_modules/number-is-nan/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/string-width/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/strip-ansi/node_modules/ansi-regex/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/strip-ansi/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/tv4/package.json",
+        "node_modules/stylelint/node_modules/table/node_modules/xregexp/package.json",
+        "node_modules/stylelint/node_modules/table/package.json",
         "node_modules/stylelint/package.json",
         "node_modules/stylelint-config-standard/package.json",
         "package.json"
@@ -5702,8 +5934,8 @@
           "atom-package-deps": "^4.0.1",
           "cosmiconfig": "^1.1.0",
           "lazy-req": "^1.1.0",
-          "stylelint": "5.4.0",
-          "stylelint-config-standard": "^5.0.0"
+          "stylelint": "6.1.0",
+          "stylelint-config-standard": "^6.0.0"
         }
       },
       {
@@ -5743,6 +5975,7 @@
         ],
         "dependencies": {
           "consistent-env": "^1.0.1",
+          "extify": "^1.0.0",
           "sb-npm-path": "^1.0.0"
         }
       },
@@ -5863,6 +6096,8 @@
           "node_modules/stylelint/dist",
           "node_modules/stylelint/dist/formatters",
           "node_modules/stylelint/dist/rules/at-rule-empty-line-before",
+          "node_modules/stylelint/dist/rules/at-rule-name-case/__test__",
+          "node_modules/stylelint/dist/rules/at-rule-name-case",
           "node_modules/stylelint/dist/rules/at-rule-no-vendor-prefix",
           "node_modules/stylelint/dist/rules/at-rule-semicolon-newline-after",
           "node_modules/stylelint/dist/rules/block-closing-brace-newline-after",
@@ -5882,6 +6117,8 @@
           "node_modules/stylelint/dist/rules/color-no-invalid-hex",
           "node_modules/stylelint/dist/rules/comment-empty-line-before",
           "node_modules/stylelint/dist/rules/comment-whitespace-inside",
+          "node_modules/stylelint/dist/rules/comment-word-blacklist/__test__",
+          "node_modules/stylelint/dist/rules/comment-word-blacklist",
           "node_modules/stylelint/dist/rules/custom-media-pattern",
           "node_modules/stylelint/dist/rules/custom-property-no-outside-root",
           "node_modules/stylelint/dist/rules/custom-property-pattern",
@@ -5913,6 +6150,8 @@
           "node_modules/stylelint/dist/rules/function-linear-gradient-no-nonstandard-direction",
           "node_modules/stylelint/dist/rules/function-max-empty-lines/__test__",
           "node_modules/stylelint/dist/rules/function-max-empty-lines",
+          "node_modules/stylelint/dist/rules/function-name-case/__test__",
+          "node_modules/stylelint/dist/rules/function-name-case",
           "node_modules/stylelint/dist/rules/function-parentheses-newline-inside",
           "node_modules/stylelint/dist/rules/function-parentheses-space-inside",
           "node_modules/stylelint/dist/rules/function-url-data-uris/__test__",
@@ -5950,6 +6189,8 @@
           "node_modules/stylelint/dist/rules/number-no-trailing-zeros",
           "node_modules/stylelint/dist/rules/number-zero-length-no-unit",
           "node_modules/stylelint/dist/rules/property-blacklist",
+          "node_modules/stylelint/dist/rules/property-case/__test__",
+          "node_modules/stylelint/dist/rules/property-case",
           "node_modules/stylelint/dist/rules/property-no-vendor-prefix",
           "node_modules/stylelint/dist/rules/property-unit-blacklist",
           "node_modules/stylelint/dist/rules/property-unit-whitelist",
@@ -5959,6 +6200,8 @@
           "node_modules/stylelint/dist/rules/root-no-standard-properties",
           "node_modules/stylelint/dist/rules/rule-nested-empty-line-before",
           "node_modules/stylelint/dist/rules/rule-non-nested-empty-line-before",
+          "node_modules/stylelint/dist/rules/selector-attribute-brackets-space-inside/__test__",
+          "node_modules/stylelint/dist/rules/selector-attribute-brackets-space-inside",
           "node_modules/stylelint/dist/rules/selector-class-pattern",
           "node_modules/stylelint/dist/rules/selector-combinator-space-after",
           "node_modules/stylelint/dist/rules/selector-combinator-space-before",
@@ -5974,18 +6217,30 @@
           "node_modules/stylelint/dist/rules/selector-no-type",
           "node_modules/stylelint/dist/rules/selector-no-universal",
           "node_modules/stylelint/dist/rules/selector-no-vendor-prefix",
+          "node_modules/stylelint/dist/rules/selector-pseudo-class-case/__test__",
+          "node_modules/stylelint/dist/rules/selector-pseudo-class-case",
+          "node_modules/stylelint/dist/rules/selector-pseudo-class-parentheses-space-inside/__test__",
+          "node_modules/stylelint/dist/rules/selector-pseudo-class-parentheses-space-inside",
+          "node_modules/stylelint/dist/rules/selector-pseudo-element-case/__test__",
+          "node_modules/stylelint/dist/rules/selector-pseudo-element-case",
           "node_modules/stylelint/dist/rules/selector-pseudo-element-colon-notation",
           "node_modules/stylelint/dist/rules/selector-root-no-composition",
           "node_modules/stylelint/dist/rules/selector-type-case",
+          "node_modules/stylelint/dist/rules/shorthand-property-no-redundant-values/__test__",
+          "node_modules/stylelint/dist/rules/shorthand-property-no-redundant-values",
           "node_modules/stylelint/dist/rules/string-no-newline",
           "node_modules/stylelint/dist/rules/string-quotes",
           "node_modules/stylelint/dist/rules/stylelint-disable-reason/__test__",
           "node_modules/stylelint/dist/rules/stylelint-disable-reason",
           "node_modules/stylelint/dist/rules/time-no-imperceptible",
           "node_modules/stylelint/dist/rules/unit-blacklist",
+          "node_modules/stylelint/dist/rules/unit-case/__test__",
+          "node_modules/stylelint/dist/rules/unit-case",
           "node_modules/stylelint/dist/rules/unit-no-unknown/__test__",
           "node_modules/stylelint/dist/rules/unit-no-unknown",
           "node_modules/stylelint/dist/rules/unit-whitelist",
+          "node_modules/stylelint/dist/rules/value-keyword-case/__test__",
+          "node_modules/stylelint/dist/rules/value-keyword-case",
           "node_modules/stylelint/dist/rules/value-list-comma-newline-after",
           "node_modules/stylelint/dist/rules/value-list-comma-newline-before",
           "node_modules/stylelint/dist/rules/value-list-comma-space-after",
@@ -5997,6 +6252,8 @@
           "node_modules/stylelint/src",
           "node_modules/stylelint/src/formatters",
           "node_modules/stylelint/src/rules/at-rule-empty-line-before",
+          "node_modules/stylelint/src/rules/at-rule-name-case/__test__",
+          "node_modules/stylelint/src/rules/at-rule-name-case",
           "node_modules/stylelint/src/rules/at-rule-no-vendor-prefix",
           "node_modules/stylelint/src/rules/at-rule-semicolon-newline-after",
           "node_modules/stylelint/src/rules/block-closing-brace-newline-after",
@@ -6016,6 +6273,8 @@
           "node_modules/stylelint/src/rules/color-no-invalid-hex",
           "node_modules/stylelint/src/rules/comment-empty-line-before",
           "node_modules/stylelint/src/rules/comment-whitespace-inside",
+          "node_modules/stylelint/src/rules/comment-word-blacklist/__test__",
+          "node_modules/stylelint/src/rules/comment-word-blacklist",
           "node_modules/stylelint/src/rules/custom-media-pattern",
           "node_modules/stylelint/src/rules/custom-property-no-outside-root",
           "node_modules/stylelint/src/rules/custom-property-pattern",
@@ -6047,6 +6306,8 @@
           "node_modules/stylelint/src/rules/function-linear-gradient-no-nonstandard-direction",
           "node_modules/stylelint/src/rules/function-max-empty-lines/__test__",
           "node_modules/stylelint/src/rules/function-max-empty-lines",
+          "node_modules/stylelint/src/rules/function-name-case/__test__",
+          "node_modules/stylelint/src/rules/function-name-case",
           "node_modules/stylelint/src/rules/function-parentheses-newline-inside",
           "node_modules/stylelint/src/rules/function-parentheses-space-inside",
           "node_modules/stylelint/src/rules/function-url-data-uris/__test__",
@@ -6084,6 +6345,8 @@
           "node_modules/stylelint/src/rules/number-no-trailing-zeros",
           "node_modules/stylelint/src/rules/number-zero-length-no-unit",
           "node_modules/stylelint/src/rules/property-blacklist",
+          "node_modules/stylelint/src/rules/property-case/__test__",
+          "node_modules/stylelint/src/rules/property-case",
           "node_modules/stylelint/src/rules/property-no-vendor-prefix",
           "node_modules/stylelint/src/rules/property-unit-blacklist",
           "node_modules/stylelint/src/rules/property-unit-whitelist",
@@ -6093,6 +6356,8 @@
           "node_modules/stylelint/src/rules/root-no-standard-properties",
           "node_modules/stylelint/src/rules/rule-nested-empty-line-before",
           "node_modules/stylelint/src/rules/rule-non-nested-empty-line-before",
+          "node_modules/stylelint/src/rules/selector-attribute-brackets-space-inside/__test__",
+          "node_modules/stylelint/src/rules/selector-attribute-brackets-space-inside",
           "node_modules/stylelint/src/rules/selector-class-pattern",
           "node_modules/stylelint/src/rules/selector-combinator-space-after",
           "node_modules/stylelint/src/rules/selector-combinator-space-before",
@@ -6108,18 +6373,30 @@
           "node_modules/stylelint/src/rules/selector-no-type",
           "node_modules/stylelint/src/rules/selector-no-universal",
           "node_modules/stylelint/src/rules/selector-no-vendor-prefix",
+          "node_modules/stylelint/src/rules/selector-pseudo-class-case/__test__",
+          "node_modules/stylelint/src/rules/selector-pseudo-class-case",
+          "node_modules/stylelint/src/rules/selector-pseudo-class-parentheses-space-inside/__test__",
+          "node_modules/stylelint/src/rules/selector-pseudo-class-parentheses-space-inside",
+          "node_modules/stylelint/src/rules/selector-pseudo-element-case/__test__",
+          "node_modules/stylelint/src/rules/selector-pseudo-element-case",
           "node_modules/stylelint/src/rules/selector-pseudo-element-colon-notation",
           "node_modules/stylelint/src/rules/selector-root-no-composition",
           "node_modules/stylelint/src/rules/selector-type-case",
+          "node_modules/stylelint/src/rules/shorthand-property-no-redundant-values/__test__",
+          "node_modules/stylelint/src/rules/shorthand-property-no-redundant-values",
           "node_modules/stylelint/src/rules/string-no-newline",
           "node_modules/stylelint/src/rules/string-quotes",
           "node_modules/stylelint/src/rules/stylelint-disable-reason/__test__",
           "node_modules/stylelint/src/rules/stylelint-disable-reason",
           "node_modules/stylelint/src/rules/time-no-imperceptible",
           "node_modules/stylelint/src/rules/unit-blacklist",
+          "node_modules/stylelint/src/rules/unit-case/__test__",
+          "node_modules/stylelint/src/rules/unit-case",
           "node_modules/stylelint/src/rules/unit-no-unknown/__test__",
           "node_modules/stylelint/src/rules/unit-no-unknown",
           "node_modules/stylelint/src/rules/unit-whitelist",
+          "node_modules/stylelint/src/rules/value-keyword-case/__test__",
+          "node_modules/stylelint/src/rules/value-keyword-case",
           "node_modules/stylelint/src/rules/value-list-comma-newline-after",
           "node_modules/stylelint/src/rules/value-list-comma-newline-before",
           "node_modules/stylelint/src/rules/value-list-comma-space-after",
@@ -6130,7 +6407,7 @@
         ],
         "dependencies": {
           "autoprefixer": "^6.0.0",
-          "balanced-match": "^0.3.0",
+          "balanced-match": "^0.4.0",
           "chalk": "^1.1.1",
           "colorguard": "^1.1.1",
           "cosmiconfig": "^1.1.0",
@@ -6139,13 +6416,13 @@
           "get-stdin": "^5.0.0",
           "globby": "^4.0.0",
           "globjoin": "^0.1.2",
-          "is-css-color-name": "^0.1.1",
           "lodash": "^4.0.0",
+          "log-symbols": "^1.0.2",
           "meow": "^3.3.0",
           "multimatch": "^2.1.0",
           "normalize-selector": "^0.2.0",
           "postcss": "^5.0.4",
-          "postcss-less": "^0.8.0",
+          "postcss-less": "^0.9.0",
           "postcss-reporter": "^1.3.0",
           "postcss-resolve-nested-selector": "^0.1.1",
           "postcss-scss": "^0.1.3",
@@ -6154,7 +6431,8 @@
           "resolve-from": "^2.0.0",
           "specificity": "^0.1.5",
           "stylehacks": "^2.3.0",
-          "sugarss": "^0.1.2"
+          "sugarss": "^0.1.2",
+          "table": "^3.7.8"
         }
       },
       {
@@ -6225,14 +6503,6 @@
           "postcss-reporter": "^1.2.1",
           "text-table": "^0.2.0",
           "yargs": "^1.2.6"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/stylelint/node_modules/colorguard/node_modules/log-symbols"
-        ],
-        "dependencies": {
-          "chalk": "^1.0.0"
         }
       },
       {
@@ -6616,11 +6886,10 @@
       },
       {
         "paths": [
-          "node_modules/stylelint/node_modules/is-css-color-name/lib",
-          "node_modules/stylelint/node_modules/is-css-color-name"
+          "node_modules/stylelint/node_modules/log-symbols"
         ],
         "dependencies": {
-          "css-color-names": "0.0.2"
+          "chalk": "^1.0.0"
         }
       },
       {
@@ -6935,14 +7204,6 @@
       },
       {
         "paths": [
-          "node_modules/stylelint/node_modules/postcss-reporter/node_modules/log-symbols"
-        ],
-        "dependencies": {
-          "chalk": "^1.0.0"
-        }
-      },
-      {
-        "paths": [
           "node_modules/stylelint/node_modules/postcss-scss/lib",
           "node_modules/stylelint/node_modules/postcss-scss"
         ],
@@ -6992,14 +7253,6 @@
       },
       {
         "paths": [
-          "node_modules/stylelint/node_modules/stylehacks/node_modules/log-symbols"
-        ],
-        "dependencies": {
-          "chalk": "^1.0.0"
-        }
-      },
-      {
-        "paths": [
           "node_modules/stylelint/node_modules/stylehacks/node_modules/plur"
         ],
         "dependencies": {
@@ -7020,6 +7273,57 @@
         ],
         "dependencies": {
           "postcss": "^5.0.19"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/stylelint/node_modules/table/dist",
+          "node_modules/stylelint/node_modules/table/dist/schemas",
+          "node_modules/stylelint/node_modules/table"
+        ],
+        "dependencies": {
+          "bluebird": "^3.1.1",
+          "chalk": "^1.1.1",
+          "lodash": "^4.0.0",
+          "slice-ansi": "0.0.4",
+          "string-width": "^1.0.1",
+          "strip-ansi": "^3.0.0",
+          "tv4": "^1.2.7",
+          "xregexp": "^3.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/stylelint/node_modules/table/node_modules/string-width"
+        ],
+        "dependencies": {
+          "code-point-at": "^1.0.0",
+          "is-fullwidth-code-point": "^1.0.0",
+          "strip-ansi": "^3.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/code-point-at"
+        ],
+        "dependencies": {
+          "number-is-nan": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/stylelint/node_modules/table/node_modules/string-width/node_modules/is-fullwidth-code-point"
+        ],
+        "dependencies": {
+          "number-is-nan": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/stylelint/node_modules/table/node_modules/strip-ansi"
+        ],
+        "dependencies": {
+          "ansi-regex": "^2.0.0"
         }
       }
     ]
