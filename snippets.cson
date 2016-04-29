@@ -34,6 +34,22 @@
     'prefix': '_t'
     'body': '__.t(\'${1}\')'
 
+'.source.js.jsx':
+  'describe':
+    'prefix': 'describe'
+    'body': '''
+    describe('${1:...}', () => {
+      ${2}
+    });${3}
+    '''
+  'it':
+    'prefix': 'it'
+    'body': '''
+    it('${1:should }', () => {
+      ${2}
+    });${3}
+    '''
+
 
 # PHP
 '.source.php':
