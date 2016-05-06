@@ -2,13 +2,12 @@
 
 import * as path from 'path';
 
+const lint = require('../lib/main.coffee').provideLinter().lint;
 const goodPath = path.join(__dirname, 'files', 'good.php');
 const badPath = path.join(__dirname, 'files', 'bad.php');
 const emptyPath = path.join(__dirname, 'files', 'empty.php');
 
 describe('The phpcs provider for Linter', () => {
-  const lint = require('../lib/main').provideLinter().lint;
-
   beforeEach(() => {
     atom.workspace.destroyActivePaneItem();
     waitsForPromise(() => {
@@ -31,7 +30,7 @@ describe('The phpcs provider for Linter', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() =>
-        atom.workspace.open(badPath).then(openEditor => {editor = openEditor;})
+        atom.workspace.open(badPath).then(openEditor => { editor = openEditor; })
       );
     });
 
@@ -47,14 +46,16 @@ describe('The phpcs provider for Linter', () => {
       waitsForPromise(() =>
         lint(editor).then(messages => {
           expect(messages[0].type).toBeDefined();
-          expect(messages[0].type).toEqual('ERROR');
-          expect(messages[0].text).toBeDefined();
-          expect(messages[0].text).toEqual('TRUE, FALSE and NULL must be ' +
-            'lowercase; expected "true" but found "TRUE"');
+          expect(messages[0].type).toBe('ERROR');
+          expect(messages[0].html).toBeDefined();
+          expect(messages[0].html).toBe('' +
+            '<span class="badge badge-flexible">Generic.PHP.LowerCaseConstant.Found</span>' +
+            ' TRUE, FALSE and NULL must be lowercase; ' +
+            'expected &quot;true&quot; but found &quot;TRUE&quot;');
           expect(messages[0].filePath).toBeDefined();
           expect(messages[0].filePath).toMatch(/.+bad\.php$/);
           expect(messages[0].range).toBeDefined();
-          expect(messages[0].range.length).toEqual(2);
+          expect(messages[0].range.length).toBe(2);
           expect(messages[0].range).toEqual([[1, 5], [1, 6]]);
         })
       );

@@ -1,3 +1,9 @@
+## [0.2.2](https://github.com/littlebee/git-log-utils.git/compare/0.2.1...0.2.2) (2016-04-93)
+
+
+### Bugs Fixed in this Release
+* [72930e5](https://github.com/littlebee/git-log-utils.git/commit/72930e502afc18bf89288ead5c580c0b5540e2d7)  (unreported) parens in file name cause error.  better escaping for cli.
+
 ## [0.2.1](https://github.com/littlebee/git-log-utils.git/compare/0.2.0...0.2.1) (2016-03-89)
 
 

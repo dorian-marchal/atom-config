@@ -68,7 +68,7 @@ class TodoModel
     ).sort().join(', ')
 
     # Use text before todo if no content after
-    if not matchText and match.all and pos = match.position?[0][1]
+    if not matchText and match.all and pos = match.position?[0]?[1]
       matchText = match.all.substr(0, pos)
       matchText = @stripCommentStart(matchText)
 
@@ -86,7 +86,11 @@ class TodoModel
     # Extract paths and project
     relativePath = atom.project.relativizePath(match.loc)
     match.path = relativePath[1] or ''
-    match.file = path.basename(match.loc)
+
+    if (loc = path.basename(match.loc)) isnt 'undefined'
+      match.file = loc
+    else
+      match.file = 'untitled'
 
     if (project = path.basename(relativePath[0])) isnt 'null'
       match.project = project
@@ -105,5 +109,5 @@ class TodoModel
     text.replace(startRegex, '').trim()
 
   stripCommentEnd: (text = '') ->
-    endRegex = /(\*\/|\?>|-->|#>|-}|\]\])\s*$/
+    endRegex = /(\*\/}?|\?>|-->|#>|-}|\]\])\s*$/
     text.replace(endRegex, '').trim()

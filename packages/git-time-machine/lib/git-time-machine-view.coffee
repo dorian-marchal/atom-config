@@ -8,6 +8,8 @@ GitLog = require 'git-log-utils'
 GitTimeplot = require './git-timeplot'
 GitRevisionView = require './git-revision-view'
 
+NOT_GIT_ERRORS = ['File not a git repository', 'is outside repository', "Not a git repository"]
+
 module.exports =
 class GitTimeMachineView
   constructor: (serializedState, options={}) ->
@@ -18,6 +20,7 @@ class GitTimeMachineView
 
 
   setEditor: (editor) ->
+    return unless editor != @editor
     file = editor?.getPath()
     return unless file? && !str.startsWith(path.basename(file), GitRevisionView.FILE_PREFIX)
     [@editor, @file] = [editor, file]
@@ -57,27 +60,29 @@ class GitTimeMachineView
 
   getElement: ->
     return @$element.get(0)
-  
-  
+
+
   gitCommitHistory: (file=@file)->
     return null unless file?
     try
       commits = GitLog.getCommitHistory file
     catch e
       if e.message?
-        if e.message.match('File not a git repository') || str.weaklyHas(e.message, "is outside repository")
-          atom.notifications.addError "Error: Not in a git repository"
+        if str.weaklyHas(e.message, NOT_GIT_ERRORS)
+          console.warn "#{file} not in a git repository"
           return null
+      
       atom.notifications.addError String e
+      console.error e
       return null
 
     return commits;
-      
+
   _renderPlaceholder: () ->
     @$element.html("<div class='placeholder'>Select a file in the git repo to see timeline</div>")
     return
-    
-    
+
+
   _renderCloseHandle: () ->
     $closeHandle = $("<div class='close-handle'>X</div>")
     @$element.append $closeHandle
@@ -87,13 +92,13 @@ class GitTimeMachineView
       e.stopPropagation()
       # why not? instead of adding callback, our own event...
       atom.commands.dispatch(atom.views.getView(atom.workspace), "git-time-machine:toggle")
-      
-    
+
+
 
   _renderTimeline: (commits) ->
     @timeplot ||= new GitTimeplot(@$element)
     @timeplot.render(@editor, commits)
-    return 
+    return
 
 
   _renderStats: (commits) ->

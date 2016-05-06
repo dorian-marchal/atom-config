@@ -42,11 +42,11 @@ class TodoView extends View
     @on 'click', 'td', @openPath
 
   openPath: =>
-    return unless @todo
+    return unless @todo and @todo.loc
     position = [@todo.position[0][0], @todo.position[0][1]]
     pending = atom.config.get('core.allowPendingPaneItems') or false
 
-    atom.workspace.open(@todo.path, {split: 'left', pending}).then ->
+    atom.workspace.open(@todo.loc, {split: 'left', pending}).then ->
       if textEditor = atom.workspace.getActiveTextEditor()
         textEditor.setCursorBufferPosition(position, autoscroll: false)
         textEditor.scrollToCursorPosition(center: true)

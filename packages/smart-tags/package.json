@@ -1,7 +1,7 @@
 {
   "name": "smart-tags",
   "main": "./lib/smart-tags",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Prevent double input of brackest, curly braces, and quotes as in sublime text",
   "keywords": [
     "sublime",
@@ -24,10 +24,10 @@
     "url": "https://github.com/pudymody/smart-tags/issues"
   },
   "homepage": "https://github.com/pudymody/smart-tags#readme",
-  "_id": "smart-tags@0.1.3",
-  "_shasum": "b98acb2c8fd65994427663bf2ed63963d134d3fd",
-  "_resolved": "file:../d-116325-11827-abixdr/package.tgz",
-  "_from": "../d-116325-11827-abixdr/package.tgz",
+  "_id": "smart-tags@0.1.4",
+  "_shasum": "75c87a94d22e13216449a6f8175d772a0c743ede",
+  "_resolved": "file:../d-11646-14941-1e9ch5w/package.tgz",
+  "_from": "../d-11646-14941-1e9ch5w/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

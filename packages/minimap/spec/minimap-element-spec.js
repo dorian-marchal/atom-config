@@ -517,8 +517,10 @@ describe('MinimapElement', () => {
             nextAnimationFrame()
 
             expect(minimapElement.drawLines).toHaveBeenCalled()
-            expect(minimapElement.drawLines.argsForCall[0][0]).toEqual(100)
-            expect(minimapElement.drawLines.argsForCall[0][1]).toEqual(101)
+
+            const [firstLine, lastLine] = minimapElement.drawLines.argsForCall[0]
+            expect(firstLine).toEqual(100)
+            expect(lastLine === 102 || lastLine === 111).toBeTruthy()
           })
         })
       })
@@ -1495,6 +1497,44 @@ describe('MinimapElement', () => {
           expect(minimapElement.classList.contains('left')).toBeTruthy()
         })
       })
+
+      describe('when minimap.adjustAbsoluteModeHeight setting is true', () => {
+        beforeEach(() => {
+          atom.config.set('minimap.adjustAbsoluteModeHeight', true)
+        })
+        describe('when the content of the minimap is smaller that the editor height', () => {
+          beforeEach(() => {
+            editor.setText(smallSample)
+            editorElement.setHeight(400)
+            minimapElement.measureHeightAndWidth()
+
+            waitsFor('a new animation frame request', () => {
+              return nextAnimationFrame !== noAnimationFrame
+            })
+
+            runs(() => nextAnimationFrame())
+          })
+          it('adjusts the canvas height to the minimap height', () => {
+            expect(minimapElement.shadowRoot.querySelector('canvas').offsetHeight).toEqual(minimap.getHeight())
+          })
+
+          describe('when the content is modified', () => {
+            beforeEach(() => {
+              editor.insertText('foo\n\nbar\n')
+
+              waitsFor('a new animation frame request', () => {
+                return nextAnimationFrame !== noAnimationFrame
+              })
+
+              runs(() => nextAnimationFrame())
+            })
+
+            it('adjusts the canvas height to the new minimap height', () => {
+              expect(minimapElement.shadowRoot.querySelector('canvas').offsetHeight).toEqual(minimap.getHeight())
+            })
+          })
+        })
+      })
     })
 
     describe('when the smoothScrolling setting is disabled', () => {
@@ -1828,7 +1868,7 @@ describe('MinimapElement', () => {
         })
 
         it('creates one list item for each registered plugin', () => {
-          expect(quickSettingsElement.querySelectorAll('li').length).toEqual(5)
+          expect(quickSettingsElement.querySelectorAll('li').length).toEqual(6)
         })
 
         it('selects the first item of the list', () => {
@@ -1882,6 +1922,22 @@ describe('MinimapElement', () => {
               expect(atom.config.get('minimap.absoluteMode')).toEqual(!initial)
             })
           })
+
+          describe('on the adjust absolute mode height item', () => {
+            let [initial] = []
+            beforeEach(() => {
+              initial = atom.config.get('minimap.adjustAbsoluteModeHeight')
+              atom.commands.dispatch(quickSettingsElement, 'core:move-down')
+              atom.commands.dispatch(quickSettingsElement, 'core:move-down')
+              atom.commands.dispatch(quickSettingsElement, 'core:move-down')
+              atom.commands.dispatch(quickSettingsElement, 'core:move-down')
+              atom.commands.dispatch(quickSettingsElement, 'core:confirm')
+            })
+
+            it('toggles the code highlights on the minimap element', () => {
+              expect(atom.config.get('minimap.adjustAbsoluteModeHeight')).toEqual(!initial)
+            })
+          })
         })
 
         describe('core:move-down', () => {
@@ -1925,6 +1981,7 @@ describe('MinimapElement', () => {
 
           describe('reaching a separator', () => {
             beforeEach(() => {
+              atom.commands.dispatch(quickSettingsElement, 'core:move-up')
               atom.commands.dispatch(quickSettingsElement, 'core:move-up')
               atom.commands.dispatch(quickSettingsElement, 'core:move-up')
             })

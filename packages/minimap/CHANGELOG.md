@@ -1,3 +1,44 @@
+<a name="v4.23.5"></a>
+# v4.23.5 (2016-05-06)
+
+## :bug: Bug Fixes
+
+- Fix missing canvas scaling without smooth scrolling ([bff59ea5](https://github.com/atom-minimap/minimap/commit/bff59ea568f2d19b8739fefbd9540fe0fae5931f), [#480](https://github.com/atom-minimap/minimap/issues/480))
+- Fix regression when reading tokens from line in old API ([a10def7c](https://github.com/atom-minimap/minimap/commit/a10def7ccf773e055cfad4be0779cebe74273a66))
+
+<a name="v4.23.4"></a>
+# v4.23.4 (2016-05-05)
+
+## :bug: Bug Fixes
+
+- Fix invisible characters improperly matched ([fee318ad](https://github.com/atom-minimap/minimap/commit/fee318ade62f9800a188621531b82b4331855cfc))
+
+<a name="v4.23.3"></a>
+# v4.23.3 (2016-05-04)
+
+Little refactor to support upcoming Atom text editor feature.
+
+<a name="v4.23.2"></a>
+# v4.23.2 (2016-04-27)
+
+## :bug: Bug Fixes
+
+- Fix decoration event emitted when the text editor is destroyed ([e6aa7433](https://github.com/atom-minimap/minimap/commit/e6aa74339e2da1b90778bc0cc3fb7489e4509fb6), [#477](https://github.com/atom-minimap/minimap/issues/477))
+
+<a name="v4.23.1"></a>
+# v4.23.1 (2016-04-26)
+
+Fix linter issues.
+
+<a name="v4.23.0"></a>
+# v4.23.0 (2016-04-26)
+
+## :sparkles: Features
+
+- Add a quick setting control to switch the adjust absolute mode height setting ([94d3be1a](https://github.com/atom-minimap/minimap/commit/94d3be1aaf52f85b587e8082d49542a0ce08b11c))
+- Add a news setting to adjust the height of canvases in absolute mode ([17e02f42](https://github.com/atom-minimap/minimap/commit/17e02f427cc36c010b9c87febbb776fcbeffa0ca), [#344](https://github.com/atom-minimap/minimap/issues/344))
+- Add support for incoming display layer feature in Atom ([ae7b9bc8](https://github.com/atom-minimap/minimap/commit/ae7b9bc88eb1785a564181eafa46f361244d979c), [#474](https://github.com/atom-minimap/minimap/pull/474))
+
 <a name="v4.22.1"></a>
 # v4.22.1 (2016-04-16)
 

@@ -1,5 +1,32 @@
 
 <a name="1.2.3"></a>
+## [1.5.2](https://github.com/littlebee/git-time-machine/compare/1.5.1...1.5.2) (2016-04-121)
+
+
+### Other Commits
+* [756d05a](https://github.com/littlebee/git-time-machine/commit/756d05a14dc9fb7c74a94c6e95cd189fdcd5e3c1) add horz scroll syncing (#57). config options coming in 2.0
+* [7c35f9b](https://github.com/littlebee/git-time-machine/commit/7c35f9b850e2db989120c6c0a0c3a16a1784f0d1) add trouble shooting section to README
+* [07aa7d1](https://github.com/littlebee/git-time-machine/commit/07aa7d1a71e2acb563e9cfeae21bd280f1f5db50) Adds keyboard shortcut to README.md
+* [0259ad6](https://github.com/littlebee/git-time-machine/commit/0259ad65d873daadf036370d1ba9275521ec202b) update split-diff to 0.7.5. fixes #38
+
+## [1.5.1](https://github.com/littlebee/git-time-machine/compare/1.5.0...1.5.1) (2016-04-116)
+Improvements and upgrades to split-diff, differencing view.  Thank you @DSpeckhals.
+
+## [1.5.0](https://github.com/littlebee/git-time-machine/compare/1.4.1...1.5.0) (2016-04-116)
+Improvements and upgrades to split-diff, differencing view.  Thank you @DSpeckhals.
+
+### Bugs Fixed in this Release
+* [e7e874e](https://github.com/littlebee/git-time-machine/commit/e7e874e5aa9c5e38e249bbd1fb93fd5f21d5966b)  (unreported) fix error on file name containing parens. +show no error on file not in a git repo
+
+### Other Commits
+* [2fbfc94](https://github.com/littlebee/git-time-machine/commit/2fbfc94e1ff84ecde415395ea4bafcda12238b66) fix regression from pr #45.  revision view should sync to initial scroll position. +more sensible colors
+* [c238cd6](https://github.com/littlebee/git-time-machine/commit/c238cd6c6a2d4c5a4e5dcf3fd6f22e3cdc3108a7) Merge branch 'master' of https://github.com/littlebee/git-time-machine into development
+* [143fa0e](https://github.com/littlebee/git-time-machine/commit/143fa0e4ef916d0170e4745d54529ebf822ef309) was able to repro and fix #5
+* [9fd54ae](https://github.com/littlebee/git-time-machine/commit/9fd54ae923092e7295df202a20705ef3f518de85) Merge pull request #45 from DSpeckhals/upgrade-split-diff
+* [b218251](https://github.com/littlebee/git-time-machine/commit/b2182517b324c0b3f5affb2418ecd0d55c26bc13) Upgrade split-diff package, fix blob render error
+* [5056e43](https://github.com/littlebee/git-time-machine/commit/5056e43d8282687b3939a99591301721f3ee931b) Merge pull request #44 from DSpeckhals/optimize-loading
+* [f6de733](https://github.com/littlebee/git-time-machine/commit/f6de733dc17ac33133ee2b01b7337d882797b643) Load Git file data only when timeline is visible
+
 ## [1.4.1](https://github.com/littlebee/git-time-machine/compare/1.4.0...1.4.1) (2016-03-89)
 A few more bug fixes; see below.  
 

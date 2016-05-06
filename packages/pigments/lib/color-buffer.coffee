@@ -4,12 +4,13 @@ Color = require './color'
 ColorMarker = require './color-marker'
 ColorExpression = require './color-expression'
 VariablesCollection = require './variables-collection'
+scopeFromFileName = require './scope-from-file-name'
 
 module.exports =
 class ColorBuffer
   constructor: (params={}) ->
     {@editor, @project, colorMarkers} = params
-    {@id, @displayBuffer} = @editor
+    {@id} = @editor
     @emitter = new Emitter
     @subscriptions = new CompositeDisposable
     @ignoredScopes=[]
@@ -17,9 +18,15 @@ class ColorBuffer
     @colorMarkersByMarkerId = {}
 
     @subscriptions.add @editor.onDidDestroy => @destroy()
-    @subscriptions.add @editor.displayBuffer.onDidTokenize =>
+
+    tokenized = =>
       @getColorMarkers()?.forEach (marker) ->
         marker.checkMarkerScope(true)
+
+    if @editor.onDidTokenize?
+      @subscriptions.add @editor.onDidTokenize(tokenized)
+    else
+      @subscriptions.add @editor.displayBuffer.onDidTokenize(tokenized)
 
     @subscriptions.add @editor.onDidChange =>
       @terminateRunningTask() if @initialized and @variableInitialized
@@ -203,6 +210,8 @@ class ColorBuffer
 
   scanBufferForVariables: ->
     return Promise.reject("This ColorBuffer is already destroyed") if @destroyed
+    return Promise.resolve([]) unless @editor.getPath()
+
     results = []
     taskPath = require.resolve('./tasks/scan-buffer-variables-handler')
     editor = @editor
@@ -210,6 +219,7 @@ class ColorBuffer
     config =
       buffer: @editor.getText()
       registry: @project.getVariableExpressionsRegistry().serialize()
+      scope: scopeFromFileName(@editor.getPath())
 
     new Promise (resolve, reject) =>
       @task = Task.once(

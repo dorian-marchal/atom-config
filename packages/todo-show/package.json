@@ -1,6 +1,6 @@
 {
   "name": "todo-show",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "main": "./lib/show-todo",
   "description": "Finds all the TODOs, FIXMEs, CHANGEDs, etc. in your project.",
   "activationCommands": {
@@ -31,10 +31,10 @@
     "url": "https://github.com/mrodalgaard/atom-todo-show/issues"
   },
   "homepage": "https://github.com/mrodalgaard/atom-todo-show#readme",
-  "_id": "todo-show@1.5.0",
-  "_shasum": "1c9c7b6e9e2ed8fd3d41bedd6dd92feb0cc9bfb8",
-  "_resolved": "file:../d-116325-11834-1qcqc4g/package.tgz",
-  "_from": "../d-116325-11834-1qcqc4g/package.tgz",
+  "_id": "todo-show@1.6.0",
+  "_shasum": "ddd054fd8b248bc16bef52dfcab7019039f0805e",
+  "_resolved": "file:../d-11646-14967-6fz850/package.tgz",
+  "_from": "../d-11646-14967-6fz850/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
