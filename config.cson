@@ -52,6 +52,14 @@
       "trailing-spaces"
       "turbo-javascript"
       "dev-live-reload"
+      "atom-beautify"
+      "color-picker"
+      "linter-jslint"
+      "linter-php"
+      "linter-phpcs"
+      "php-twig"
+      "pigments"
+      "pane-split-moves-tab"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -75,6 +83,7 @@
     per_section_indent: true
     spacer_between_sections: true
   editor:
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
@@ -100,6 +109,7 @@
   linter:
     clearOnChange: true
     lintOnChangeInterval: 500
+    lintOnFly: false
     showErrorPanel: false
     statusBar: "Show all errors"
   "linter-eslint":
