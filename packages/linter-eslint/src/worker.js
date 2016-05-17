@@ -7,10 +7,8 @@ import * as Helpers from './worker-helpers'
 import { create } from 'process-communication'
 import { FindCache } from 'atom-linter'
 
-const ignoredMessageV1 =
+const IGNORED_MESSAGE =
   'File ignored because of your .eslintignore file. Use --no-ignore to override.'
-const ignoredMessageV2 =
-  'File ignored because of a matching ignore pattern. Use --no-ignore to override.'
 
 function lintJob(argv, contents, eslint, configPath, config) {
   if (configPath === null && config.disableWhenNoEslintConfig) {
@@ -18,8 +16,7 @@ function lintJob(argv, contents, eslint, configPath, config) {
   }
   eslint.execute(argv, contents)
   return global.__LINTER_ESLINT_RESPONSE
-    .filter(e => e.message !== ignoredMessageV1)
-    .filter(e => e.message !== ignoredMessageV2)
+    .filter(e => e.message !== IGNORED_MESSAGE)
 }
 function fixJob(argv, eslint) {
   try {
@@ -30,7 +27,7 @@ function fixJob(argv, eslint) {
   }
 }
 
-create().onRequest('job', ({ contents, type, config, filePath }, job) => {
+create().onRequest('job', function ({ contents, type, config, filePath }, job) {
   global.__LINTER_ESLINT_RESPONSE = []
 
   if (config.disableFSCache) {

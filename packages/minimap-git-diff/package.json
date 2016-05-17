@@ -1,7 +1,7 @@
 {
   "name": "minimap-git-diff",
   "main": "./lib/minimap-git-diff",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "description": "A minimap binding for the git diff package",
   "author": {
     "name": "Cédric Néhémie",
@@ -32,10 +32,10 @@
     "url": "https://github.com/atom-minimap/minimap-git-diff/issues"
   },
   "homepage": "https://github.com/atom-minimap/minimap-git-diff#readme",
-  "_id": "minimap-git-diff@4.3.0",
-  "_shasum": "256c75db94deec43ea7af6bf2d9dacda5e1acbf4",
-  "_resolved": "file:../d-116317-16449-171znmn/package.tgz",
-  "_from": "../d-116317-16449-171znmn/package.tgz",
+  "_id": "minimap-git-diff@4.3.1",
+  "_shasum": "351b314abee91e17e3688479ada6b6fd49e94d89",
+  "_resolved": "file:../d-116417-1058-cad54t/package.tgz",
+  "_from": "../d-116417-1058-cad54t/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

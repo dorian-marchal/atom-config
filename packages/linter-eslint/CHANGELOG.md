@@ -1,109 +1,68 @@
-# Changelog
+### v6.0.0
 
-## v7.2.1
+* Rewrite in ES6
+* Refactor the codebase and fix several bugs
 
-*   Only run Fix on Save on supported file types ([#545](https://github.com/AtomLinter/linter-eslint/pull/545))
+### v5.2.7
 
-## v7.2.0
+* Remove timeout from worker spawn
 
-*   Add Fix on Save option ([#508](https://github.com/AtomLinter/linter-eslint/pull/508))
+### v5.2.6
 
-## v7.1.3
+* Fix file exception on Windows resolution (#354)
+* Verify `configFile` is a string before using it (#358)
 
-*   Reliably use `.eslintignore` file if present (#481)
+### v5.2.5
 
-## v7.1.2
+* Fix file import resolution (#340)
+* Fix a bug detecting `.eslintrc.js` configurations (#343)
+* Fix file now uses the same worker as for linting (#307)
 
-*   Skipped due to release difficulties
+### v5.2.4
 
-## v7.1.1
+* Update dependencies to bring in some bug fixes
 
-*   Fix link color in certain themes (#480)
+### v5.2.3
 
-## v7.1.0
+* Fix a typo introduced by last release
 
-*   Add a link to the rule definition page in HTML messages (#476)
-*   Pin the bundled `eslint` to v2.2.0 (#478)
+### v5.2.2
 
-## v7.0.0
+* Allow ignoring the `.eslintignore` file
+* Add `disableWhenNoEslintConfig` config (`true` by default) to only disable the linter if no ESLint config is found in a `package.json`
+or `.eslintrc` file.  This replaces the `disableWhenNoEslintrcFileInPath` config.
+* Add support for ESlint configuration file formats `.eslintrc.js`, `.eslintrc.yaml`, `.eslintrc.yml`, and `.eslintrc.json`
 
-*   Fix finding local `eslint` instance again (#409)
-*   Workaround $PATH bug on OSX (#411)
-*   Support the upcoming linter fix API (#415)
-*   Update bundled `eslint` to v2.2.0 (#451) **Potentially Breaking**
+### v5.2.1
 
-## v6.0.0
+* Support local and absolute paths for eslintRulesDir
+* Handle messages with no line properly
+* Interpolate environment variables in the provided path for the eslint config file
 
-*   Rewrite in ES6
-*   Refactor the codebase and fix several bugs
+### v5.2.0
 
-## v5.2.7
+* Fix a bug where column would be incorrect sometimes
+* Respawn the worker if it crashes
+* Re-add `eslintRulesDir` config
+* Add support for `.eslintignore`
+* Add `eslintRcPath` config
+* Add `linter-eslint:fix-file` command
 
-*   Remove timeout from worker spawn
+### v5.1.0
 
-## v5.2.6
+* Improved error verbosity
+* Show a nice error notification if `npm get prefix` fails
+* Re-add `globalNodePath` config
 
-*   Fix file exception on Windows resolution (#354)
-*   Verify `configFile` is a string before using it (#358)
+### v5.0.2
 
-## v5.2.5
+* Support local ESLint installation
+* Support global ESLint on Windows
 
-*   Fix file import resolution (#340)
-*   Fix a bug detecting `.eslintrc.js` configurations (#343)
-*   Fix file now uses the same worker as for linting (#307)
+### v5.0.1
 
-## v5.2.4
+* Shows a nice notification if the worker process crashed for unknown reasons
 
-*   Update dependencies to bring in some bug fixes
+### v5.0.0
 
-## v5.2.3
-
-*   Fix a typo introduced by last release
-
-## v5.2.2
-
-*   Allow ignoring the `.eslintignore` file
-
-*   Add `disableWhenNoEslintConfig` config (`true` by default) to only disable
-    the linter if no ESLint config is found in a `package.json` or `.eslintrc`
-    file. This replaces the `disableWhenNoEslintrcFileInPath` config.
-
-*   Add support for ESlint configuration file formats `.eslintrc.js`,
-    `.eslintrc.yaml`, `.eslintrc.yml`, and `.eslintrc.json`
-
-## v5.2.1
-
-*   Support local and absolute paths for eslintRulesDir
-
-*   Handle messages with no line properly
-
-*   Interpolate environment variables in the provided path for the eslint
-    config file
-
-## v5.2.0
-
-*   Fix a bug where column would be incorrect sometimes
-*   Respawn the worker if it crashes
-*   Re-add `eslintRulesDir` config
-*   Add support for `.eslintignore`
-*   Add `eslintRcPath` config
-*   Add `linter-eslint:fix-file` command
-
-## v5.1.0
-
-*   Improved error verbosity
-*   Show a nice error notification if `npm get prefix` fails
-*   Re-add `globalNodePath` config
-
-## v5.0.2
-
-*   Support local ESLint installation
-*   Support global ESLint on Windows
-
-## v5.0.1
-
-*   Shows a nice notification if the worker process crashed for unknown reasons
-
-## v5.0.0
-
-*   Rewrote to make use of linting worker
+* Rewrote to make use of linting worker

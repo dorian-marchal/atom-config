@@ -20,8 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 process.title = 'linter-eslint helper';
 
-var ignoredMessageV1 = 'File ignored because of your .eslintignore file. Use --no-ignore to override.';
-var ignoredMessageV2 = 'File ignored because of a matching ignore pattern. Use --no-ignore to override.';
+const IGNORED_MESSAGE = 'File ignored because of your .eslintignore file. Use --no-ignore to override.';
 
 function lintJob(argv, contents, eslint, configPath, config) {
   if (configPath === null && config.disableWhenNoEslintConfig) {
@@ -29,9 +28,7 @@ function lintJob(argv, contents, eslint, configPath, config) {
   }
   eslint.execute(argv, contents);
   return global.__LINTER_ESLINT_RESPONSE.filter(function (e) {
-    return e.message !== ignoredMessageV1;
-  }).filter(function (e) {
-    return e.message !== ignoredMessageV2;
+    return e.message !== IGNORED_MESSAGE;
   });
 }
 function fixJob(argv, eslint) {
@@ -44,10 +41,10 @@ function fixJob(argv, eslint) {
 }
 
 (0, _processCommunication.create)().onRequest('job', function (_ref, job) {
-  var contents = _ref.contents;
-  var type = _ref.type;
-  var config = _ref.config;
-  var filePath = _ref.filePath;
+  let contents = _ref.contents;
+  let type = _ref.type;
+  let config = _ref.config;
+  let filePath = _ref.filePath;
 
   global.__LINTER_ESLINT_RESPONSE = [];
 
@@ -55,12 +52,12 @@ function fixJob(argv, eslint) {
     _atomLinter.FindCache.clear();
   }
 
-  var fileDir = _path2.default.dirname(filePath);
-  var eslint = Helpers.getESLintInstance(fileDir, config);
-  var configPath = Helpers.getConfigPath(fileDir);
-  var relativeFilePath = Helpers.getRelativePath(fileDir, filePath, config);
+  const fileDir = _path2.default.dirname(filePath);
+  const eslint = Helpers.getESLintInstance(fileDir, config);
+  const configPath = Helpers.getConfigPath(fileDir);
+  const relativeFilePath = Helpers.getRelativePath(fileDir, filePath, config);
 
-  var argv = Helpers.getArgv(type, config, relativeFilePath, fileDir, configPath);
+  const argv = Helpers.getArgv(type, config, relativeFilePath, fileDir, configPath);
 
   if (type === 'lint') {
     job.response = lintJob(argv, contents, eslint, configPath, config);

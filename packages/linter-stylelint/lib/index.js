@@ -25,13 +25,37 @@ export const config = {
     description: 'Either .stylelintrc or stylelint.config.js',
     type: 'boolean',
     default: false
+  },
+  enableHtmlLinting: {
+    title: 'Enable linting of styles within html',
+    description: 'Turn on linting of your style tags within html files.',
+    type: 'boolean',
+    default: false
   }
 };
 
 let useStandard;
 let presetConfig;
 let disableWhenNoConfig;
+let enableHtmlLinting;
 let subscriptions;
+const baseScopes = [
+  'source.css',
+  'source.scss',
+  'source.css.scss',
+  'source.less',
+  'source.css.less',
+  'source.css.postcss'
+];
+const embeddedScopes = [
+  'source.css.embedded.html',
+  'source.css.scss.embedded.html',
+  'source.scss.embedded.html',
+  'source.css.postcss.embedded.html',
+  'source.postcss.embedded.html',
+  'source.css.less.embedded.html',
+  'source.less.embedded.html'
+];
 
 function createRange(editor, data) {
   // data.line & data.column might be undefined for non-fatal invalid rules,
@@ -51,6 +75,9 @@ export function activate() {
   }));
   subscriptions.add(atom.config.observe('linter-stylelint.disableWhenNoConfig', value => {
     disableWhenNoConfig = value;
+  }));
+  subscriptions.add(atom.config.observe('linter-stylelint.enableHtmlLinting', value => {
+    enableHtmlLinting = value;
   }));
 }
 
@@ -76,8 +103,8 @@ function runStylelint(editor, options, filePath) {
 
     const warnings = result.warnings.map(warning => ({
       // stylelint only allows 'error' and 'warning' as severity values
-      type: (!warning.severity || warning.severity === 'error') ? 'Error' : 'Warning',
-      severity: (!warning.severity || warning.severity === 'error') ? 'error' : 'warning',
+      type: !warning.severity || warning.severity === 'error' ? 'Error' : 'Warning',
+      severity: !warning.severity || warning.severity === 'error' ? 'error' : 'warning',
       text: warning.text,
       filePath,
       range: createRange(editor, warning)
@@ -110,20 +137,21 @@ function runStylelint(editor, options, filePath) {
 export function provideLinter() {
   return {
     name: 'stylelint',
-    grammarScopes: [
-      'source.css',
-      'source.scss',
-      'source.css.scss',
-      'source.less',
-      'source.css.less',
-      'source.css.postcss'
-    ],
+    grammarScopes: baseScopes.concat(embeddedScopes),
     scope: 'file',
     lintOnFly: true,
     lint: editor => {
+      const scopes = editor.getLastCursor().getScopeDescriptor().getScopesArray();
+
+      // If in an embedded block and linting embedded scopes is disabled return
+      if (!enableHtmlLinting &&
+        scopes.filter((scope) => embeddedScopes.includes(scope)).length > 0
+      ) {
+        return Promise.resolve([]);
+      }
+
       const filePath = editor.getPath();
       const text = editor.getText();
-      const scopes = editor.getLastCursor().getScopeDescriptor().getScopesArray();
 
       if (!text) {
         return Promise.resolve([]);
@@ -140,18 +168,23 @@ export function provideLinter() {
         code: text,
         codeFilename: filePath,
         config: rules,
-        configBasedir: dirname(filePath)
+        configBasedir: dirname(filePath),
+        extractStyleTagsFromHtml: enableHtmlLinting
       };
 
       if (
         scopes.indexOf('source.css.scss') !== -1 ||
-        scopes.indexOf('source.scss') !== -1
+        scopes.indexOf('source.scss') !== -1 ||
+        scopes.indexOf('source.css.scss.embedded.html') !== -1 ||
+        scopes.indexOf('source.scss.embedded.html') !== -1
       ) {
         options.syntax = 'scss';
       }
       if (
         scopes.indexOf('source.css.less') !== -1 ||
-        scopes.indexOf('source.less') !== -1
+        scopes.indexOf('source.less') !== -1 ||
+        scopes.indexOf('source.css.less.embedded.html') !== -1 ||
+        scopes.indexOf('source.less.embedded.html') !== -1
       ) {
         options.syntax = 'less';
       }
