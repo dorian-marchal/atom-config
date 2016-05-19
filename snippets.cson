@@ -50,6 +50,11 @@
     });${4}
     '''
 
+# CSS
+'.source.css':
+  'var':
+    'prefix': 'v'
+    'body': 'var($1);'
 
 # PHP
 '.source.php':

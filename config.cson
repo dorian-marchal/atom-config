@@ -3,6 +3,7 @@
   "atom-autocomplete-php": {}
   "atom-beautify":
     _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
+  "atom-css-unit-converter": {}
   "atom-ctags":
     GotoSymbolKey: [
       "ctrl"
@@ -142,7 +143,8 @@
   "spell-check": {}
   tabs: {}
   "terminal-status": {}
-  "toggle-quotes": {}
+  "toggle-quotes":
+    quoteCharacters: "'\"`"
   "travis-ci-status": {}
   "tree-ignore":
     enabled: false
@@ -158,6 +160,10 @@
 ".attribute-values.js.jsx.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+".css.source":
+  editor:
+    nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?…"
+    tabLength: 4
 ".js.jsx.react.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"

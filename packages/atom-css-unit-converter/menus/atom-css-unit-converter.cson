@@ -1,0 +1,105 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor:not([mini])': [
+    {
+      'label': 'Atom CSS Unit Converter'
+      'submenu': [
+        {
+          'label': 'Convert Pixels'
+          'submenu': [
+            {
+              'label': 'To Ems',
+              'command': 'atom-css-unit-converter:px-to-em'
+            },
+            {
+              'label': 'To Rems',
+              'command': 'atom-css-unit-converter:px-to-rem'
+            }
+          ]
+        },
+        {
+          'label': 'Convert Ems'
+          'submenu': [
+            {
+              'label': 'To Pixels',
+              'command': 'atom-css-unit-converter:em-to-px'
+            },
+            {
+              'label': 'To Rems',
+              'command': 'atom-css-unit-converter:em-to-rem'
+            }
+          ]
+        },
+        {
+          'label': 'Convert Rems'
+          'submenu': [
+            {
+              'label': 'To Pixels',
+              'command': 'atom-css-unit-converter:rem-to-px'
+            },
+            {
+              'label': 'To Ems',
+              'command': 'atom-css-unit-converter:rem-to-em'
+            }
+          ]
+        },
+        {
+          'label': 'Open Converter UI',
+          'command': 'atom-css-unit-converter:converter-ui'
+        }
+      ]
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Atom CSS Unit Converter'
+      'submenu': [
+        {
+          'label': 'Convert Pixels'
+          'submenu': [
+            {
+              'label': 'To Ems',
+              'command': 'atom-css-unit-converter:px-to-em'
+            },
+            {
+              'label': 'To Rems',
+              'command': 'atom-css-unit-converter:px-to-rem'
+            }
+          ]
+        },
+        {
+          'label': 'Convert Ems'
+          'submenu': [
+            {
+              'label': 'To Pixels',
+              'command': 'atom-css-unit-converter:em-to-px'
+            },
+            {
+              'label': 'To Rems',
+              'command': 'atom-css-unit-converter:em-to-rem'
+            }
+          ]
+        },
+        {
+          'label': 'Convert Rems'
+          'submenu': [
+            {
+              'label': 'To Pixels',
+              'command': 'atom-css-unit-converter:rem-to-px'
+            },
+            {
+              'label': 'To Ems',
+              'command': 'atom-css-unit-converter:rem-to-em'
+            }
+          ]
+        },
+        {
+          'label': 'Open Converter UI',
+          'command': 'atom-css-unit-converter:converter-ui'
+        }
+      ]
+    ]
+  }
+]
