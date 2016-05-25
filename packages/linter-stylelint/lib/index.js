@@ -1,61 +1,41 @@
 'use babel';
 
-const lazyReq = require('lazy-req')(require);
-const { dirname } = lazyReq('path')('dirname');
-const stylelint = lazyReq('stylelint');
-const { rangeFromLineNumber } = lazyReq('atom-linter')('rangeFromLineNumber');
-const assignDeep = lazyReq('assign-deep');
-const cosmiconfig = lazyReq('cosmiconfig');
-/**
- * Note that this can't be loaded lazily as `atom` doesn't export it correctly
- * for that, however as this comes from app.asar it is pre-compiled and is
- * essentially "free" as there is no expensive compilation step.
- */
-import { CompositeDisposable } from 'atom';
+import * as path from 'path';
+import * as stylelint from 'stylelint';
+import { rangeFromLineNumber } from 'atom-linter';
+import assign from 'deep-assign';
+import cosmiconfig from 'cosmiconfig';
 
 export const config = {
-  useStandard: {
-    title: 'Use standard',
-    description: 'Use the stylelint-config-standard lint configuration',
+  usePreset: {
+    title: 'Use preset',
+    description: 'Use preset lint config',
     type: 'boolean',
     default: false
+  },
+  presetConfig: {
+    title: 'Preset config',
+    description: 'Select lint style if you select from presets',
+    type: 'string',
+    default: 'stylelint-config-standard',
+    enum: [
+      'stylelint-config-standard',
+      'stylelint-config-suitcss',
+      'stylelint-config-cssrecipes',
+      'stylelint-config-wordpress'
+    ]
   },
   disableWhenNoConfig: {
     title: 'Disable when no config file is found',
     description: 'Either .stylelintrc or stylelint.config.js',
     type: 'boolean',
     default: false
-  },
-  enableHtmlLinting: {
-    title: 'Enable linting of styles within html',
-    description: 'Turn on linting of your style tags within html files.',
-    type: 'boolean',
-    default: false
   }
 };
 
-let useStandard;
+let usePreset;
 let presetConfig;
 let disableWhenNoConfig;
-let enableHtmlLinting;
-let subscriptions;
-const baseScopes = [
-  'source.css',
-  'source.scss',
-  'source.css.scss',
-  'source.less',
-  'source.css.less',
-  'source.css.postcss'
-];
-const embeddedScopes = [
-  'source.css.embedded.html',
-  'source.css.scss.embedded.html',
-  'source.scss.embedded.html',
-  'source.css.postcss.embedded.html',
-  'source.postcss.embedded.html',
-  'source.css.less.embedded.html',
-  'source.less.embedded.html'
-];
 
 function createRange(editor, data) {
   // data.line & data.column might be undefined for non-fatal invalid rules,
@@ -68,55 +48,40 @@ function createRange(editor, data) {
 export function activate() {
   require('atom-package-deps').install('linter-stylelint');
 
-  subscriptions = new CompositeDisposable();
+  usePreset = atom.config.get('linter-stylelint.usePreset');
+  presetConfig = require(atom.config.get('linter-stylelint.presetConfig'));
+  disableWhenNoConfig = atom.config.get('linter-stylelint.disableWhenNoConfig');
 
-  subscriptions.add(atom.config.observe('linter-stylelint.useStandard', value => {
-    useStandard = value;
-  }));
-  subscriptions.add(atom.config.observe('linter-stylelint.disableWhenNoConfig', value => {
+  atom.config.observe('linter-stylelint.usePreset', value => {
+    usePreset = value;
+  });
+  atom.config.observe('linter-stylelint.presetConfig', value => {
+    presetConfig = require(value);
+  });
+  atom.config.observe('linter-stylelint.disableWhenNoConfig', value => {
     disableWhenNoConfig = value;
-  }));
-  subscriptions.add(atom.config.observe('linter-stylelint.enableHtmlLinting', value => {
-    enableHtmlLinting = value;
-  }));
-}
-
-export function deactivate() {
-  subscriptions.dispose();
+  });
 }
 
 function runStylelint(editor, options, filePath) {
-  return stylelint().lint(options).then(data => {
+  return stylelint.lint(options).then(data => {
     const result = data.results.shift();
-    const toReturn = [];
 
     if (!result) {
-      return toReturn;
+      return [];
     }
 
-    const invalidOptions = result.invalidOptionWarnings.map(msg => ({
-      type: 'Error',
-      severity: 'error',
-      text: msg.text,
-      filePath
-    }));
-
-    const warnings = result.warnings.map(warning => ({
-      // stylelint only allows 'error' and 'warning' as severity values
-      type: !warning.severity || warning.severity === 'error' ? 'Error' : 'Warning',
-      severity: !warning.severity || warning.severity === 'error' ? 'error' : 'warning',
+    return result.warnings.map(warning => ({
+      type: (!warning.severity || warning.severity === 'error') ? 'Error' : 'Warning',
       text: warning.text,
       filePath,
       range: createRange(editor, warning)
     }));
-
-    return toReturn.concat(invalidOptions).concat(warnings);
   }, error => {
     // was it a code parsing error?
     if (error.line) {
       return [{
         type: 'Error',
-        severity: 'error',
         text: error.reason || error.message,
         filePath,
         range: createRange(editor, error)
@@ -137,67 +102,44 @@ function runStylelint(editor, options, filePath) {
 export function provideLinter() {
   return {
     name: 'stylelint',
-    grammarScopes: baseScopes.concat(embeddedScopes),
+    grammarScopes: ['source.css', 'source.scss', 'source.css.scss'],
     scope: 'file',
     lintOnFly: true,
     lint: editor => {
-      const scopes = editor.getLastCursor().getScopeDescriptor().getScopesArray();
-
-      // If in an embedded block and linting embedded scopes is disabled return
-      if (!enableHtmlLinting &&
-        scopes.filter((scope) => embeddedScopes.includes(scope)).length > 0
-      ) {
-        return Promise.resolve([]);
-      }
-
       const filePath = editor.getPath();
       const text = editor.getText();
+      const scopes = editor.getLastCursor().getScopeDescriptor().getScopesArray();
 
       if (!text) {
-        return Promise.resolve([]);
+        return [];
       }
 
-      // Require stylelint-config-standard if it hasn't already been loaded
-      if (!presetConfig) {
-        presetConfig = require('stylelint-config-standard');
-      }
-      // setup base config which is based on selected preset if useStandard() is true
-      const rules = useStandard ? assignDeep()({}, presetConfig) : {};
+      // setup base config which is based on selected preset if usePreset() is true
+      const rules = usePreset ? presetConfig : {};
 
       const options = {
         code: text,
         codeFilename: filePath,
         config: rules,
-        configBasedir: dirname(filePath),
-        extractStyleTagsFromHtml: enableHtmlLinting
+        configBasedir: path.dirname(filePath)
       };
 
       if (
         scopes.indexOf('source.css.scss') !== -1 ||
-        scopes.indexOf('source.scss') !== -1 ||
-        scopes.indexOf('source.css.scss.embedded.html') !== -1 ||
-        scopes.indexOf('source.scss.embedded.html') !== -1
+        scopes.indexOf('source.scss') !== -1
       ) {
         options.syntax = 'scss';
       }
-      if (
-        scopes.indexOf('source.css.less') !== -1 ||
-        scopes.indexOf('source.less') !== -1 ||
-        scopes.indexOf('source.css.less.embedded.html') !== -1 ||
-        scopes.indexOf('source.less.embedded.html') !== -1
-      ) {
-        options.syntax = 'less';
-      }
 
-      return cosmiconfig()('stylelint', {
-        cwd: dirname(filePath),
+      return cosmiconfig('stylelint', {
+        cwd: path.dirname(filePath),
 
         // Allow extensions on rc filenames
         rcExtensions: true
       }).then(result => {
         if (result) {
-          options.config = assignDeep()(rules, result.config);
-          options.configBasedir = dirname(result.filepath);
+          options.config = assign(rules, result.config);
+          options.configBasedir = path.dirname(result.filepath);
         }
 
         if (!result && disableWhenNoConfig) {
@@ -207,7 +149,7 @@ export function provideLinter() {
         return runStylelint(editor, options, filePath);
       }, error => {
         // if we got here, cosmiconfig failed to parse the configuration
-        // there's no point of re-linting if useStandard is true, because the user does not have
+        // there's no point of re-linting if usePreset is true, because the user does not have
         // the complete set of desired rules parsed
         atom.notifications.addError('Unable to parse stylelint configuration', {
           detail: error.message,

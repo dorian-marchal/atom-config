@@ -49,6 +49,18 @@
       ${3}
     });${4}
     '''
+  'imp':
+    'prefix': 'imp'
+    'body': 'import $1 from \'${2:$1}\';'
+  'prm':
+    'prefix': 'prm'
+    'body': '''
+    import PureRenderMixin from 'react-addons-pure-render-mixin';
+    constructor(props) {
+      super(props);
+      this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    }
+    '''
 
 # CSS
 '.source.css':
