@@ -1,4 +1,5 @@
 {
+  cmykToRGB
   hexARGBToRGB
   hexRGBAToRGB
   hexToRGB
@@ -7,12 +8,13 @@
   hsvToRGB
   hwbToHSV
   hwbToRGB
-  rgbToHSL
-  rgbToHSV
-  rgbToHWB
+  rgbToCMYK
   rgbToHex
   rgbToHexARGB
   rgbToHexRGBA
+  rgbToHSL
+  rgbToHSV
+  rgbToHWB
 } = require './color-conversions'
 SVGColors = require './svg-colors'
 
@@ -25,6 +27,13 @@ class Color
     ['blue',  2]
     ['alpha', 3]
   ]
+
+  @isValid: (color) ->
+    color? and not color.invalid and
+    color.red? and color.green? and
+    color.blue? and color.alpha? and
+    not isNaN(color.red) and not isNaN(color.green) and
+    not isNaN(color.blue) and not isNaN(color.alpha)
 
   constructor: (r=0,g=0,b=0,a=1) ->
     if typeof r is 'object'
@@ -134,6 +143,14 @@ class Color
     set: (hex) -> [@red, @green, @blue, @alpha] = hexRGBAToRGB(hex)
   }
 
+  Object.defineProperty Color.prototype, 'cmyk', {
+    enumerable: true
+    get: -> rgbToCMYK(@red, @green, @blue, @alpha)
+    set: (cmyk) ->
+      [c,m,y,k] = cmyk
+      [@red, @green, @blue] = cmykToRGB(c,m,y,k)
+  }
+
   Object.defineProperty Color.prototype, 'length', {
     enumerable: true
     get: -> 4
@@ -191,9 +208,7 @@ class Color
   isLiteral: -> not @variables? or @variables.length is 0
 
   isValid: ->
-    !@invalid and
-    @red? and @green? and @blue? and @alpha? and
-    !isNaN(@red) and !isNaN(@green) and !isNaN(@blue) and !isNaN(@alpha)
+    @constructor.isValid(this)
 
   clone: -> new Color(@red, @green, @blue, @alpha)
 

@@ -1,3 +1,12 @@
+# 1.5.0
+* Added SK Modernist Mono
+
+# 1.4.0
+* Added Fixedsys Excelsior with ligatures!
+
+# 1.3.0 - a7madgamal and opatel99
+* Added Mononoki
+
 # 1.0.0
 * Ligatures are here! Hasklig, FiraCode and Monoid are now included and the appropriate text-rendering styles are set automatically.
 

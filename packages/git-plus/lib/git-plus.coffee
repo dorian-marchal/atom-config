@@ -29,12 +29,14 @@ GitStashApply          = require './models/git-stash-apply'
 GitStashDrop           = require './models/git-stash-drop'
 GitStashPop            = require './models/git-stash-pop'
 GitStashSave           = require './models/git-stash-save'
+GitStashSaveMessage    = require './models/git-stash-save-message'
 GitStatus              = require './models/git-status'
 GitTags                = require './models/git-tags'
 GitUnstageFiles        = require './models/git-unstage-files'
 GitRun                 = require './models/git-run'
 GitMerge               = require './models/git-merge'
 GitRebase              = require './models/git-rebase'
+GitOpenChangedFiles    = require './models/git-open-changed-files'
 
 currentFile = (repo) ->
   repo.relativize(atom.workspace.getActiveTextEditor()?.getPath())
@@ -52,14 +54,14 @@ module.exports =
     splitPane:
       title: 'Split pane direction'
       type: 'string'
-      default: 'Right'
+      default: 'Down'
       description: 'Where should new panes go? (Defaults to Right)'
       enum: ['Up', 'Right', 'Down', 'Left']
     wordDiff:
       type: 'boolean'
       default: true
       description: 'Should word diffs be highlighted in diffs?'
-    amountOfCommitsToShow:
+    numberOfCommitsToShow:
       type: 'integer'
       default: 25
       minimum: 1
@@ -76,6 +78,14 @@ module.exports =
       type: 'string'
       default: 'no'
       enum: ['no', 'pull', 'pull --rebase']
+    experimental:
+      description: 'Enable beta features and behavior'
+      type: 'boolean'
+      default: false
+    verboseCommits:
+      description: '(Experimental) Show diffs in commit pane?'
+      type: 'boolean'
+      default: false
 
   subscriptions: null
 
@@ -91,6 +101,7 @@ module.exports =
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:commit-all', -> git.getRepo().then((repo) -> GitCommit(repo, stageChanges: true))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:commit-amend', -> git.getRepo().then((repo) -> new GitCommitAmend(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:add-and-commit', -> git.getRepo().then((repo) -> git.add(repo, file: currentFile(repo)).then -> GitCommit(repo))
+    @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:add-and-commit-and-push', -> git.getRepo().then((repo) -> git.add(repo, file: currentFile(repo)).then -> GitCommit(repo, andPush: true))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:add-all-and-commit', -> git.getRepo().then((repo) -> git.add(repo).then -> GitCommit(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:add-all-commit-and-push', -> git.getRepo().then((repo) -> git.add(repo).then -> GitCommit(repo, andPush: true))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:checkout', -> git.getRepo().then((repo) -> GitBranch.gitBranches(repo))
@@ -118,7 +129,8 @@ module.exports =
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stage-files', -> git.getRepo().then((repo) -> GitStageFiles(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:unstage-files', -> git.getRepo().then((repo) -> GitUnstageFiles(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stage-hunk', -> git.getRepo().then((repo) -> GitStageHunk(repo))
-    @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stash-save-changes', -> git.getRepo().then((repo) -> GitStashSave(repo))
+    @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stash-save', -> git.getRepo().then((repo) -> GitStashSave(repo))
+    @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stash-save-message', -> git.getRepo().then((repo) -> GitStashSaveMessage(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stash-pop', -> git.getRepo().then((repo) -> GitStashPop(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stash-apply', -> git.getRepo().then((repo) -> GitStashApply(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:stash-delete', -> git.getRepo().then((repo) -> GitStashDrop(repo))
@@ -128,6 +140,7 @@ module.exports =
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:merge', -> git.getRepo().then((repo) -> GitMerge(repo))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:merge-remote', -> git.getRepo().then((repo) -> GitMerge(repo, remote: true))
     @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:rebase', -> git.getRepo().then((repo) -> GitRebase(repo))
+    @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:git-open-changed-files', -> git.getRepo().then((repo) -> GitOpenChangedFiles(repo))
 
   deactivate: ->
     @subscriptions.dispose()

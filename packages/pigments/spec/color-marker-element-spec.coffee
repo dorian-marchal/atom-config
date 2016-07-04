@@ -29,7 +29,6 @@ describe 'ColorMarkerElement', ->
     }
     """)
     marker = editor.markBufferRange([[1,9],[4,1]], {
-      type: 'pigments-color'
       invalidate: 'touch'
     })
     color = new Color('#ff0000')
@@ -41,9 +40,10 @@ describe 'ColorMarkerElement', ->
       text
       colorBuffer: {
         editor
+        useNativeDecorations: -> false
         selectColorMarkerAndOpenPicker: jasmine.createSpy('select-color')
         ignoredScopes: []
-        getMarkerLayer: -> editor
+        findValidColorMarkers: -> []
       }
     })
 
@@ -51,6 +51,7 @@ describe 'ColorMarkerElement', ->
     colorMarkerElement = new ColorMarkerElement
     colorMarkerElement.setContainer
       editor: editor
+      useNativeDecorations: -> false
       requestMarkerUpdate: ([marker]) -> marker.render()
 
     colorMarkerElement.setModel(colorMarker)
@@ -69,6 +70,7 @@ describe 'ColorMarkerElement', ->
       colorMarkerElement = new ColorMarkerElement
       colorMarkerElement.setContainer
         editor: editor
+        useNativeDecorations: -> false
         requestMarkerUpdate: ([marker]) -> marker.render()
 
       colorMarkerElement.setModel(colorMarker)
@@ -94,6 +96,7 @@ describe 'ColorMarkerElement', ->
       colorMarkerElement = new ColorMarkerElement
       colorMarkerElement.setContainer
         editor: editor
+        useNativeDecorations: -> false
         requestMarkerUpdate: ([marker]) -> marker.render()
 
       colorMarkerElement.setModel(colorMarker)
@@ -144,6 +147,7 @@ describe 'ColorMarkerElement', ->
       colorMarkerElement = new ColorMarkerElement
       colorMarkerElement.setContainer
         editor: editor
+        useNativeDecorations: -> false
         requestMarkerUpdate: ([marker]) -> marker.render()
 
       colorMarkerElement.setModel(colorMarker)
@@ -194,6 +198,7 @@ describe 'ColorMarkerElement', ->
       colorMarkerElement = new ColorMarkerElement
       colorMarkerElement.setContainer
         editor: editor
+        useNativeDecorations: -> false
         requestMarkerUpdate: ([marker]) -> marker.render()
 
       colorMarkerElement.setModel(colorMarker)
@@ -241,7 +246,6 @@ describe 'ColorMarkerElement', ->
 
     createMarker = (range, color, text) ->
       marker = editor.markBufferRange(range, {
-        type: 'pigments-color'
         invalidate: 'touch'
       })
       color = new Color(color)
@@ -253,11 +257,12 @@ describe 'ColorMarkerElement', ->
         text
         colorBuffer: {
           editor
+          useNativeDecorations: -> false
           project:
             colorPickerAPI:
               open: jasmine.createSpy('color-picker.open')
           ignoredScopes: []
-          getMarkerLayer: -> editor
+          findValidColorMarkers: -> []
         }
       })
 
@@ -284,6 +289,7 @@ describe 'ColorMarkerElement', ->
         colorMarkerElement = new ColorMarkerElement
         colorMarkerElement.setContainer
           editor: editor
+          useNativeDecorations: -> false
           requestMarkerUpdate: ([marker]) -> marker.render()
 
         colorMarkerElement.setModel(colorMarker)
@@ -308,7 +314,6 @@ describe 'ColorMarkerElement', ->
 
     createMarker = (range, color, text) ->
       marker = editor.markBufferRange(range, {
-        type: 'pigments-color'
         invalidate: 'touch'
       })
       color = new Color(color)
@@ -320,11 +325,12 @@ describe 'ColorMarkerElement', ->
         text
         colorBuffer: {
           editor
+          useNativeDecorations: -> false
           project:
             colorPickerAPI:
               open: jasmine.createSpy('color-picker.open')
           ignoredScopes: []
-          getMarkerLayer: -> editor
+          findValidColorMarkers: -> []
         }
       })
 
@@ -351,6 +357,7 @@ describe 'ColorMarkerElement', ->
         colorMarkerElement = new ColorMarkerElement
         colorMarkerElement.setContainer
           editor: editor
+          useNativeDecorations: -> false
           requestMarkerUpdate: ([marker]) -> marker.render()
 
         colorMarkerElement.setModel(colorMarker)

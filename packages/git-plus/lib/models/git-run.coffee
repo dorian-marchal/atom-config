@@ -8,7 +8,7 @@ OutputViewManager = require '../output-view-manager'
 class InputView extends View
   @content: ->
     @div =>
-      @subview 'commandEditor', new TextEditorView(mini: true, placeHolderText: 'Git command and arguments')
+      @subview 'commandEditor', new TextEditorView(mini: true, placeholderText: 'Git command and arguments')
 
   initialize: (@repo) ->
     @disposables = new CompositeDisposable
@@ -25,7 +25,7 @@ class InputView extends View
     @disposables.add atom.commands.add 'atom-text-editor', 'core:confirm', (e) =>
       @disposables.dispose()
       @panel?.destroy()
-      view = OutputViewManager.new()
+      view = OutputViewManager.create()
       args = @commandEditor.getText().split(' ')
       if args[0] is 1 then args.shift()
       git.cmd(args, cwd: @repo.getWorkingDirectory())

@@ -54,7 +54,7 @@ module.exports = {
       default: ''
     },
     disableEslintIgnore: {
-      title: 'Disable using .eslintignore files',
+      title: 'Don\'t use .eslintignore files',
       type: 'boolean',
       default: false
     },
@@ -63,9 +63,15 @@ module.exports = {
       description: 'Paths of node_modules, .eslintignore and others are cached',
       type: 'boolean',
       default: false
+    },
+    fixOnSave: {
+      title: 'Fix errors on save',
+      description: 'Have eslint attempt to fix some errors automatically when saving the file.',
+      type: 'boolean',
+      default: false
     }
   },
-  activate: function () {
+  activate: function activate() {
     var _this = this;
 
     require('atom-package-deps').install();
@@ -75,7 +81,7 @@ module.exports = {
     this.worker = null;
     this.scopes = ['source.js', 'source.jsx', 'source.js.jsx', 'source.babel', 'source.js-semantic'];
 
-    const embeddedScope = 'source.js.embedded.html';
+    var embeddedScope = 'source.js.embedded.html';
     this.subscriptions.add(atom.config.observe('linter-eslint.lintHtmlFiles', function (lintHtmlFiles) {
       if (lintHtmlFiles) {
         _this.scopes.push(embeddedScope);
@@ -85,10 +91,23 @@ module.exports = {
         }
       }
     }));
+    this.subscriptions.add(atom.workspace.observeTextEditors(function (editor) {
+      editor.onDidSave(function () {
+        if (_this.scopes.indexOf(editor.getGrammar().scopeName) !== -1 && atom.config.get('linter-eslint.fixOnSave')) {
+          _this.worker.request('job', {
+            type: 'fix',
+            config: atom.config.get('linter-eslint'),
+            filePath: editor.getPath()
+          }).catch(function (response) {
+            return atom.notifications.addWarning(response);
+          });
+        }
+      });
+    }));
     this.subscriptions.add(atom.commands.add('atom-text-editor', {
-      'linter-eslint:fix-file': function () {
-        const textEditor = atom.workspace.getActiveTextEditor();
-        const filePath = textEditor.getPath();
+      'linter-eslint:fix-file': function linterEslintFixFile() {
+        var textEditor = atom.workspace.getActiveTextEditor();
+        var filePath = textEditor.getPath();
 
         if (!textEditor || textEditor.isModified()) {
           // Abort for invalid or unsaved text editors
@@ -101,18 +120,18 @@ module.exports = {
           config: atom.config.get('linter-eslint'),
           filePath: filePath
         }).then(function (response) {
-          atom.notifications.addSuccess(response);
+          return atom.notifications.addSuccess(response);
         }).catch(function (response) {
-          atom.notifications.addWarning(response);
+          return atom.notifications.addWarning(response);
         });
       }
     }));
 
-    const initializeWorker = function () {
+    var initializeWorker = function initializeWorker() {
       var _spawnWorker = (0, _helpers.spawnWorker)();
 
-      const worker = _spawnWorker.worker;
-      const subscription = _spawnWorker.subscription;
+      var worker = _spawnWorker.worker;
+      var subscription = _spawnWorker.subscription;
 
       _this.worker = worker;
       _this.subscriptions.add(subscription);
@@ -125,26 +144,26 @@ module.exports = {
     };
     initializeWorker();
   },
-  deactivate: function () {
+  deactivate: function deactivate() {
     this.active = false;
     this.subscriptions.dispose();
   },
-  provideLinter: function () {
+  provideLinter: function provideLinter() {
     var _this2 = this;
 
-    const Helpers = require('atom-linter');
+    var Helpers = require('atom-linter');
     return {
       name: 'ESLint',
       grammarScopes: this.scopes,
       scope: 'file',
       lintOnFly: true,
-      lint: function (textEditor) {
-        const text = textEditor.getText();
+      lint: function lint(textEditor) {
+        var text = textEditor.getText();
         if (text.length === 0) {
           return Promise.resolve([]);
         }
-        const filePath = textEditor.getPath();
-        const showRule = atom.config.get('linter-eslint.showRuleIdInMessage');
+        var filePath = textEditor.getPath();
+        var showRule = atom.config.get('linter-eslint.showRuleIdInMessage');
 
         return _this2.worker.request('job', {
           contents: text,
@@ -153,28 +172,43 @@ module.exports = {
           filePath: filePath
         }).then(function (response) {
           return response.map(function (_ref) {
-            let message = _ref.message;
-            let line = _ref.line;
-            let severity = _ref.severity;
-            let ruleId = _ref.ruleId;
-            let column = _ref.column;
+            var message = _ref.message;
+            var line = _ref.line;
+            var severity = _ref.severity;
+            var ruleId = _ref.ruleId;
+            var column = _ref.column;
+            var fix = _ref.fix;
 
-            const range = Helpers.rangeFromLineNumber(textEditor, line - 1);
+            var textBuffer = textEditor.getBuffer();
+            var linterFix = null;
+            if (fix) {
+              var fixRange = new _atom.Range(textBuffer.positionForCharacterIndex(fix.range[0]), textBuffer.positionForCharacterIndex(fix.range[1]));
+              linterFix = {
+                range: fixRange,
+                newText: fix.text
+              };
+            }
+            var range = Helpers.rangeFromLineNumber(textEditor, line - 1);
             if (column) {
               range[0][1] = column - 1;
             }
             if (column > range[1][1]) {
               range[1][1] = column - 1;
             }
-            const ret = {
+            var ret = {
               filePath: filePath,
               type: severity === 1 ? 'Warning' : 'Error',
               range: range
             };
             if (showRule) {
-              ret.html = '<span class="badge badge-flexible">' + (ruleId || 'Fatal') + '</span> ' + (0, _escapeHtml2.default)(message);
+              var elName = ruleId ? 'a' : 'span';
+              var href = ruleId ? ' href=' + (0, _helpers.ruleURI)(ruleId) : '';
+              ret.html = '<' + elName + href + ' class="badge badge-flexible eslint">' + ((ruleId || 'Fatal') + '</' + elName + '> ' + (0, _escapeHtml2.default)(message));
             } else {
               ret.text = message;
+            }
+            if (linterFix) {
+              ret.fix = linterFix;
             }
             return ret;
           });

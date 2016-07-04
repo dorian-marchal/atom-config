@@ -1,7 +1,7 @@
 {
   "name": "atom-ternjs",
   "main": "./lib/atom-ternjs",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "private": false,
   "description": "JavaScript code intelligence for atom with Tern. Adds support for ES5, ES6 (JavaScript 2015), Node.js, jQuery & Angular. Extendable via plugins. Uses suggestion provider by autocomplete-plus.",
   "activationCommands": {},
@@ -21,6 +21,11 @@
     "glob": "3",
     "minimatch": "0.2",
     "node-uuid": "1.4.7"
+  },
+  "devDependencies": {
+    "eslint": "2.12.0",
+    "babel-eslint": "6.0.4",
+    "eslint-plugin-babel": "3.2.0"
   },
   "providedServices": {
     "autocomplete.provider": {
@@ -50,10 +55,10 @@
     "url": "https://github.com/tststs/atom-ternjs/issues"
   },
   "homepage": "https://github.com/tststs/atom-ternjs#readme",
-  "_id": "atom-ternjs@0.14.1",
-  "_shasum": "0349c4449c9b7ab621ed6febab16527ab83be7ba",
-  "_resolved": "file:../d-116325-11786-1etqwe9/package.tgz",
-  "_from": "../d-116325-11786-1etqwe9/package.tgz",
+  "_id": "atom-ternjs@0.14.2",
+  "_shasum": "cf7c15e1e66868c6c2446b53c473de2c0b5dd1c6",
+  "_resolved": "file:../d-11664-20045-wqs3nf/package.tgz",
+  "_from": "../d-11664-20045-wqs3nf/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -176,6 +181,7 @@
         "lib/linter.coffee"
       ],
       ".js": [
+        "lib/atom-ternjs-client.js",
         "lib/atom-ternjs-config.js",
         "lib/atom-ternjs-documentation-view.js",
         "lib/atom-ternjs-documentation.js",

@@ -47,20 +47,19 @@ module.exports = git =
   cmd: (args, options={ env: process.env }) ->
     new Promise (resolve, reject) ->
       output = ''
-      try
-        new BufferedProcess
-          command: atom.config.get('git-plus.gitPath') ? 'git'
-          args: args
-          options: options
-          stdout: (data) -> output += data.toString()
-          stderr: (data) ->
-            output += data.toString()
-          exit: (code) ->
-            if code is 0
-              resolve output
-            else
-              reject output
-      catch
+      process = new BufferedProcess
+        command: atom.config.get('git-plus.gitPath') ? 'git'
+        args: args
+        options: options
+        stdout: (data) -> output += data.toString()
+        stderr: (data) ->
+          output += data.toString()
+        exit: (code) ->
+          if code is 0
+            resolve output
+          else
+            reject output
+      process.onWillThrowError (errorObject) ->
         notifier.addError 'Git Plus is unable to locate the git command. Please ensure process.env.PATH can access git.'
         reject "Couldn't find git"
 
@@ -74,7 +73,7 @@ module.exports = git =
 
   status: (repo) ->
     git.cmd(['status', '--porcelain', '-z'], cwd: repo.getWorkingDirectory())
-    .then (data) -> if data.length > 2 then data.split('\0') else []
+    .then (data) -> if data.length > 2 then data.split('\0')[...-1] else []
 
   refresh: () ->
     atom.project.getRepositories().forEach (repo) ->

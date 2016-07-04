@@ -1,7 +1,7 @@
 {
   "name": "pigments",
   "main": "./lib/pigments",
-  "version": "0.26.3",
+  "version": "0.29.3",
   "description": "A package to display colors in project and files.",
   "keywords": [
     "colors",
@@ -67,10 +67,10 @@
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
   "homepage": "https://github.com/abe33/atom-pigments#readme",
-  "_id": "pigments@0.26.3",
-  "_shasum": "df7d76845903ac29a2e52fb00dfcf274cb03c092",
-  "_resolved": "file:../d-116417-1072-113hyf6/package.tgz",
-  "_from": "../d-116417-1072-113hyf6/package.tgz",
+  "_id": "pigments@0.29.3",
+  "_shasum": "788ee6fa2a37b9504f45e5c4e47b4126e61dc8f0",
+  "_resolved": "file:../d-11664-20699-o2qxdk/package.tgz",
+  "_from": "../d-11664-20699-o2qxdk/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -111,7 +111,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.11",
+        "version": "0.10.12",
         "path": "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -121,7 +121,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.2",
+        "version": "3.1.0",
         "path": "node_modules/atom-utils/node_modules/event-kit/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -201,7 +201,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.8.2",
+        "version": "2.9.1",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -1070,7 +1070,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "~3.0.2"
+          "es6-symbol": "~3.1"
         }
       },
       {
@@ -1093,7 +1093,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.10"
+          "es5-ext": "~0.10.11"
         }
       },
       {

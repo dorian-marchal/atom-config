@@ -445,10 +445,11 @@ export default class CanvasDrawer extends Mixin {
           } else if (displayLayer.isCloseTagCode(tagCode)) {
             scopes.pop()
           } else {
-            tokens.push({
-              value: lineText.substr(textIndex, tagCode).replace(invisibleRegExp, ' '),
-              scopes: scopes.slice()
-            })
+            let value = lineText.substr(textIndex, tagCode)
+            if (invisibleRegExp) {
+              value = value.replace(invisibleRegExp, ' ')
+            }
+            tokens.push({ value: value, scopes: scopes.slice() })
             textIndex += tagCode
           }
         }
@@ -482,11 +483,21 @@ export default class CanvasDrawer extends Mixin {
     const context = this.tokensLayer.context
     const {width: canvasWidth} = this.tokensLayer.getSize()
 
+    if (typeof this.tokenLinesForScreenRows !== 'function') {
+      console.error(`tokenLinesForScreenRows should be a function but it was ${typeof this.tokenLinesForScreenRows}`, this.tokenLinesForScreenRows)
+
+      return
+    }
+
+    const screenRowsTokens = this.tokenLinesForScreenRows(firstRow, lastRow)
+
     let y = offsetRow * lineHeight
-    for (let tokens of this.tokenLinesForScreenRows(firstRow, lastRow)) {
+    for (let i = 0; i < screenRowsTokens.length; i++) {
+      let tokens = screenRowsTokens[i]
       let x = 0
       context.clearRect(x, y, canvasWidth, lineHeight)
-      for (let token of tokens) {
+      for (let j = 0; j < tokens.length; j++) {
+        let token = tokens[j]
         if (/^\s+$/.test(token.value)) {
           x += token.value.length * charWidth
         } else {
@@ -517,7 +528,7 @@ export default class CanvasDrawer extends Mixin {
     if (invisibles.space != null) { regexp.push(invisibles.space) }
     if (invisibles.tab != null) { regexp.push(invisibles.tab) }
 
-    return RegExp(regexp.filter((s) => {
+    return regexp.length === 0 ? null : RegExp(regexp.filter((s) => {
       return typeof s === 'string'
     }).map(_.escapeRegExp).join('|'), 'g')
   }

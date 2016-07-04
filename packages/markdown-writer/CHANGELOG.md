@@ -1,3 +1,11 @@
+## 2.3.5
+
+* Fix menu ordered list command
+
+## 2.3.4
+
+* Minor bug fixes in insert image
+
 ## 2.3.3
 
 * Fix home directory '~' is not recognized in config siteLocalDir

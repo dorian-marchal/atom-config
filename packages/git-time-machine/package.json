@@ -1,7 +1,7 @@
 {
   "name": "git-time-machine",
   "main": "./lib/git-time-machine",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Visually interact with git commit history for a file",
   "keywords": [
     "git",
@@ -28,7 +28,7 @@
     "d3": "^3.5.6",
     "git-log-utils": "0.2.2",
     "moment": "^2.10.6",
-    "split-diff": "git+https://github.com/mupchrch/split-diff.git#v0.7.5",
+    "split-diff": "git+https://github.com/mupchrch/split-diff.git#v0.8.3",
     "underscore-plus": "1.x"
   },
   "devDependencies": {},
@@ -38,10 +38,10 @@
     "url": "https://github.com/littlebee/git-time-machine/issues"
   },
   "homepage": "https://github.com/littlebee/git-time-machine#readme",
-  "_id": "git-time-machine@1.5.2",
-  "_shasum": "1a19439e3e961d23eee009c963c27265a49759c1",
-  "_resolved": "file:../d-11646-14801-5xnebp/package.tgz",
-  "_from": "../d-11646-14801-5xnebp/package.tgz",
+  "_id": "git-time-machine@1.5.3",
+  "_shasum": "6246a892bc6399a0f012c7ffb728273b0edaf79c",
+  "_resolved": "file:../d-11664-20328-r4tfqq/package.tgz",
+  "_from": "../d-11664-20328-r4tfqq/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -82,7 +82,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.11",
+        "version": "0.10.12",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -92,7 +92,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.2",
+        "version": "3.1.0",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -147,12 +147,12 @@
       },
       {
         "name": "moment",
-        "version": "2.13.0",
+        "version": "2.14.1",
         "path": "node_modules/moment/moment.js"
       },
       {
         "name": "diff",
-        "version": "2.2.2",
+        "version": "2.2.3",
         "path": "node_modules/split-diff/node_modules/diff/lib/index.js"
       },
       {
@@ -1054,6 +1054,7 @@
         "node_modules/moment/locale/en-ie.js",
         "node_modules/moment/locale/en-nz.js",
         "node_modules/moment/locale/eo.js",
+        "node_modules/moment/locale/es-do.js",
         "node_modules/moment/locale/es.js",
         "node_modules/moment/locale/et.js",
         "node_modules/moment/locale/eu.js",
@@ -1158,6 +1159,7 @@
         "node_modules/moment/src/lib/duration/iso-string.js",
         "node_modules/moment/src/lib/duration/prototype.js",
         "node_modules/moment/src/lib/format/format.js",
+        "node_modules/moment/src/lib/locale/base-config.js",
         "node_modules/moment/src/lib/locale/calendar.js",
         "node_modules/moment/src/lib/locale/constructor.js",
         "node_modules/moment/src/lib/locale/en.js",
@@ -1202,6 +1204,7 @@
         "node_modules/moment/src/lib/units/minute.js",
         "node_modules/moment/src/lib/units/month.js",
         "node_modules/moment/src/lib/units/offset.js",
+        "node_modules/moment/src/lib/units/priorities.js",
         "node_modules/moment/src/lib/units/quarter.js",
         "node_modules/moment/src/lib/units/second.js",
         "node_modules/moment/src/lib/units/timestamp.js",
@@ -1224,6 +1227,7 @@
         "node_modules/moment/src/lib/utils/is-array.js",
         "node_modules/moment/src/lib/utils/is-date.js",
         "node_modules/moment/src/lib/utils/is-function.js",
+        "node_modules/moment/src/lib/utils/is-object-empty.js",
         "node_modules/moment/src/lib/utils/is-object.js",
         "node_modules/moment/src/lib/utils/is-undefined.js",
         "node_modules/moment/src/lib/utils/keys.js",
@@ -1258,6 +1262,7 @@
         "node_modules/moment/src/locale/en-ie.js",
         "node_modules/moment/src/locale/en-nz.js",
         "node_modules/moment/src/locale/eo.js",
+        "node_modules/moment/src/locale/es-do.js",
         "node_modules/moment/src/locale/es.js",
         "node_modules/moment/src/locale/et.js",
         "node_modules/moment/src/locale/eu.js",
@@ -1630,7 +1635,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "~3.0.2"
+          "es6-symbol": "~3.1"
         }
       },
       {
@@ -1653,7 +1658,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.10"
+          "es5-ext": "~0.10.11"
         }
       },
       {

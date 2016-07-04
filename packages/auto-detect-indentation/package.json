@@ -1,7 +1,7 @@
 {
   "name": "auto-detect-indentation",
   "main": "./lib/auto-detect-indentation",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automatically detect indentation of opened files.",
   "author": {
     "name": "Jason Tokoph",
@@ -32,10 +32,10 @@
     "url": "https://github.com/jtokoph/auto-detect-indentation/issues"
   },
   "homepage": "https://github.com/jtokoph/auto-detect-indentation#readme",
-  "_id": "auto-detect-indentation@1.0.0",
-  "_shasum": "ae865597048be5ad91850cb0805ba26d08c9e247",
-  "_resolved": "file:../d-116215-9974-1i53k02/package.tgz",
-  "_from": "../d-116215-9974-1i53k02/package.tgz",
+  "_id": "auto-detect-indentation@1.1.0",
+  "_shasum": "42cc1b805816121342dde89373b0fa03f806ff6f",
+  "_resolved": "file:../d-11664-20070-17wta56/package.tgz",
+  "_from": "../d-11664-20070-17wta56/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -91,7 +91,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.11",
+        "version": "0.10.12",
         "path": "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
       },
       {
@@ -101,7 +101,7 @@
       },
       {
         "name": "es6-symbol",
-        "version": "3.0.2",
+        "version": "3.1.0",
         "path": "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
@@ -942,7 +942,7 @@
         ],
         "dependencies": {
           "es6-iterator": "2",
-          "es6-symbol": "~3.0.2"
+          "es6-symbol": "~3.1"
         }
       },
       {
@@ -965,7 +965,7 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.10"
+          "es5-ext": "~0.10.11"
         }
       },
       {

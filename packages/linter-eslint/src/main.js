@@ -1,7 +1,7 @@
 'use babel'
 
-import { CompositeDisposable } from 'atom'
-import { spawnWorker, showError } from './helpers'
+import { CompositeDisposable, Range } from 'atom'
+import { spawnWorker, showError, ruleURI } from './helpers'
 import escapeHTML from 'escape-html'
 
 module.exports = {
@@ -47,13 +47,19 @@ module.exports = {
       default: ''
     },
     disableEslintIgnore: {
-      title: 'Disable using .eslintignore files',
+      title: 'Don\'t use .eslintignore files',
       type: 'boolean',
       default: false
     },
     disableFSCache: {
       title: 'Disable FileSystem Cache',
       description: 'Paths of node_modules, .eslintignore and others are cached',
+      type: 'boolean',
+      default: false
+    },
+    fixOnSave: {
+      title: 'Fix errors on save',
+      description: 'Have eslint attempt to fix some errors automatically when saving the file.',
       type: 'boolean',
       default: false
     }
@@ -76,6 +82,20 @@ module.exports = {
         }
       }
     }))
+    this.subscriptions.add(atom.workspace.observeTextEditors((editor) => {
+      editor.onDidSave(() => {
+        if (this.scopes.indexOf(editor.getGrammar().scopeName) !== -1 &&
+            atom.config.get('linter-eslint.fixOnSave')) {
+          this.worker.request('job', {
+            type: 'fix',
+            config: atom.config.get('linter-eslint'),
+            filePath: editor.getPath()
+          }).catch((response) =>
+            atom.notifications.addWarning(response)
+          )
+        }
+      })
+    }))
     this.subscriptions.add(atom.commands.add('atom-text-editor', {
       'linter-eslint:fix-file': () => {
         const textEditor = atom.workspace.getActiveTextEditor()
@@ -91,11 +111,11 @@ module.exports = {
           type: 'fix',
           config: atom.config.get('linter-eslint'),
           filePath
-        }).then(function (response) {
+        }).then((response) =>
           atom.notifications.addSuccess(response)
-        }).catch(function (response) {
+        ).catch((response) =>
           atom.notifications.addWarning(response)
-        })
+        )
       }
     }))
 
@@ -137,8 +157,20 @@ module.exports = {
           type: 'lint',
           config: atom.config.get('linter-eslint'),
           filePath
-        }).then(function (response) {
-          return response.map(function ({ message, line, severity, ruleId, column }) {
+        }).then((response) =>
+          response.map(({ message, line, severity, ruleId, column, fix }) => {
+            const textBuffer = textEditor.getBuffer()
+            let linterFix = null
+            if (fix) {
+              const fixRange = new Range(
+                textBuffer.positionForCharacterIndex(fix.range[0]),
+                textBuffer.positionForCharacterIndex(fix.range[1])
+              )
+              linterFix = {
+                range: fixRange,
+                newText: fix.text
+              }
+            }
             const range = Helpers.rangeFromLineNumber(textEditor, line - 1)
             if (column) {
               range[0][1] = column - 1
@@ -152,14 +184,19 @@ module.exports = {
               range
             }
             if (showRule) {
-              ret.html = '<span class="badge badge-flexible">' + (ruleId || 'Fatal') +
-                '</span> ' + escapeHTML(message)
+              const elName = ruleId ? 'a' : 'span'
+              const href = ruleId ? ` href=${ruleURI(ruleId)}` : ''
+              ret.html = `<${elName}${href} class="badge badge-flexible eslint">` +
+                `${ruleId || 'Fatal'}</${elName}> ${escapeHTML(message)}`
             } else {
               ret.text = message
             }
+            if (linterFix) {
+              ret.fix = linterFix
+            }
             return ret
           })
-        })
+        )
       }
     }
   }

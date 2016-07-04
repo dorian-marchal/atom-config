@@ -1,7 +1,7 @@
 {
   "name": "autocomplete-modules",
   "main": "./src/main",
-  "version": "1.4.1",
+  "version": "1.5.2",
   "description": "Autocomplete for require/import statements",
   "keywords": [
     "javascript",
@@ -22,9 +22,10 @@
     "atom": ">=0.174.0 <2.0.0"
   },
   "dependencies": {
-    "bluebird": "3.3.1",
+    "bluebird": "3.4.0",
     "fuzzaldrin": "2.1.0",
-    "lodash.escaperegexp": "4.1.0"
+    "lodash.escaperegexp": "4.1.1",
+    "lodash.get": "4.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.8",
@@ -38,22 +39,22 @@
       }
     }
   },
-  "readme": "# Atom autocomplete for modules.\n[![Current version](https://img.shields.io/apm/v/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n[![Downloads](https://img.shields.io/apm/dm/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n\nAutocomplete for require/import statements.\n\n![Preview](https://cloud.githubusercontent.com/assets/3505878/7442538/9c1892cc-f11e-11e4-8070-3fa8b79beefc.gif)\n\n## Configuration\n\n**Vendor directories:** A list of directories to search for modules relative to the project\n  root. (*Default:* `node_modules`)\n\nLicense\n-------\n[![MIT License](https://img.shields.io/apm/l/autocomplete-modules.svg)](LICENSE)\n",
+  "readme": "# Atom autocomplete for modules.\n[![Current version](https://img.shields.io/apm/v/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n[![Downloads](https://img.shields.io/apm/dm/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n\nAutocomplete for require/import statements.\n\n![Preview](https://cloud.githubusercontent.com/assets/3505878/7442538/9c1892cc-f11e-11e4-8070-3fa8b79beefc.gif)\n\n## Configuration\n\n**Include file extension:**  Include the file's extension when filling in the completion.\n\n**Vendor directories:** A list of directories to search for modules relative to the project\n  root. (*Default:* `node_modules`)\n\n**Webpack support:** Look for webpack configuration file and add the `resolve.modulesDirectories` paths to the module search scope.\n\n**Webpack configuration filename:** Name of the configuration file to look for. (*Default:* `webpack.config.js`)\n\nLicense\n-------\n[![MIT License](https://img.shields.io/apm/l/autocomplete-modules.svg)](LICENSE)\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/nkt/atom-autocomplete-modules/issues"
   },
   "homepage": "https://github.com/nkt/atom-autocomplete-modules#readme",
-  "_id": "autocomplete-modules@1.4.1",
-  "_shasum": "d6414cd40d8b5f266e307647466f1430385556a6",
-  "_resolved": "file:../d-116314-15756-k6rj8i/package.tgz",
-  "_from": "../d-116314-15756-k6rj8i/package.tgz",
+  "_id": "autocomplete-modules@1.5.2",
+  "_shasum": "9f60c484ca2c2f4197c5995e9f23bba512196371",
+  "_resolved": "file:../d-11664-20095-1f7yziy/package.tgz",
+  "_from": "../d-11664-20095-1f7yziy/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "bluebird",
-        "version": "3.3.1",
+        "version": "3.4.0",
         "path": "node_modules/bluebird/js/release/bluebird.js"
       },
       {
@@ -63,13 +64,28 @@
       },
       {
         "name": "lodash.escaperegexp",
-        "version": "4.1.0",
+        "version": "4.1.1",
         "path": "node_modules/lodash.escaperegexp/index.js"
       },
       {
-        "name": "lodash._root",
-        "version": "3.0.1",
-        "path": "node_modules/lodash.escaperegexp/node_modules/lodash._root/index.js"
+        "name": "lodash.tostring",
+        "version": "4.1.3",
+        "path": "node_modules/lodash.escaperegexp/node_modules/lodash.tostring/index.js"
+      },
+      {
+        "name": "lodash.get",
+        "version": "4.3.0",
+        "path": "node_modules/lodash.get/index.js"
+      },
+      {
+        "name": "lodash._stringtopath",
+        "version": "4.8.0",
+        "path": "node_modules/lodash.get/node_modules/lodash._stringtopath/index.js"
+      },
+      {
+        "name": "lodash._basetostring",
+        "version": "4.12.0",
+        "path": "node_modules/lodash.get/node_modules/lodash._stringtopath/node_modules/lodash._basetostring/index.js"
       }
     ],
     "extensions": {
@@ -120,7 +136,10 @@
         "node_modules/fuzzaldrin/lib/matcher.js",
         "node_modules/fuzzaldrin/lib/scorer.js",
         "node_modules/lodash.escaperegexp/index.js",
-        "node_modules/lodash.escaperegexp/node_modules/lodash._root/index.js",
+        "node_modules/lodash.escaperegexp/node_modules/lodash.tostring/index.js",
+        "node_modules/lodash.get/index.js",
+        "node_modules/lodash.get/node_modules/lodash._stringtopath/index.js",
+        "node_modules/lodash.get/node_modules/lodash._stringtopath/node_modules/lodash._basetostring/index.js",
         "src/completion-provider.js",
         "src/internal-modules.js",
         "src/main.js"
@@ -128,8 +147,11 @@
       ".json": [
         "node_modules/bluebird/package.json",
         "node_modules/fuzzaldrin/package.json",
-        "node_modules/lodash.escaperegexp/node_modules/lodash._root/package.json",
+        "node_modules/lodash.escaperegexp/node_modules/lodash.tostring/package.json",
         "node_modules/lodash.escaperegexp/package.json",
+        "node_modules/lodash.get/node_modules/lodash._stringtopath/node_modules/lodash._basetostring/package.json",
+        "node_modules/lodash.get/node_modules/lodash._stringtopath/package.json",
+        "node_modules/lodash.get/package.json",
         "package.json"
       ]
     },
@@ -140,9 +162,10 @@
           "src"
         ],
         "dependencies": {
-          "bluebird": "3.3.1",
+          "bluebird": "3.4.0",
           "fuzzaldrin": "2.1.0",
-          "lodash.escaperegexp": "4.1.0"
+          "lodash.escaperegexp": "4.1.1",
+          "lodash.get": "4.3.0"
         }
       },
       {
@@ -150,7 +173,23 @@
           "node_modules/lodash.escaperegexp"
         ],
         "dependencies": {
-          "lodash._root": "^3.0.0"
+          "lodash.tostring": "^4.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/lodash.get"
+        ],
+        "dependencies": {
+          "lodash._stringtopath": "~4.8.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/lodash.get/node_modules/lodash._stringtopath"
+        ],
+        "dependencies": {
+          "lodash._basetostring": "~4.12.0"
         }
       }
     ]

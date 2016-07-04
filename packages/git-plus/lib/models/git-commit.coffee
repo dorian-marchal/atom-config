@@ -23,7 +23,7 @@ getTemplate = (cwd) ->
   git.getConfig('commit.template', cwd).then (filePath) ->
     if filePath then fs.readFileSync(Path.get(filePath.trim())).toString().trim() else ''
 
-prepFile = (status, filePath) ->
+prepFile = (status, filePath, diff) ->
   cwd = Path.dirname(filePath)
   git.getConfig('core.commentchar', cwd).then (commentchar) ->
     commentchar = if commentchar then commentchar.trim() else '#'
@@ -36,6 +36,13 @@ prepFile = (status, filePath) ->
         #{commentchar} with '#{commentchar}' will be ignored, and an empty message aborts the commit.
         #{commentchar}
         #{commentchar} #{status}"""
+      if diff isnt ''
+        content +=
+          """\n#{commentchar}
+          #{commentchar} ------------------------ >8 ------------------------
+          #{commentchar} Do not touch the line above.
+          #{commentchar} Everything below will be removed.
+          #{diff}"""
       fs.writeFileSync filePath, content
 
 destroyCommitEditor = ->
@@ -48,8 +55,19 @@ destroyCommitEditor = ->
           paneItem.destroy()
         return true
 
+trimFile = (filePath) ->
+  cwd = Path.dirname(filePath)
+  git.getConfig('core.commentchar', cwd).then (commentchar) ->
+    commentchar = if commentchar is '' then '#'
+    content = fs.readFileSync(Path.get(filePath)).toString()
+    startOfComments = content.indexOf(content.split('\n').find (line) -> line.startsWith commentchar)
+    content = content.substring(0, startOfComments)
+    fs.writeFileSync filePath, content
+
 commit = (directory, filePath) ->
-  git.cmd(['commit', "--cleanup=strip", "--file=#{filePath}"], cwd: directory)
+  trimFile(filePath)
+  .then ->
+    git.cmd(['commit', "--file=#{filePath}"], cwd: directory)
   .then (data) ->
     notifier.addSuccess data
     destroyCommitEditor()
@@ -71,7 +89,14 @@ showFile = (filePath) ->
 module.exports = (repo, {stageChanges, andPush}={}) ->
   filePath = Path.join(repo.getPath(), 'COMMIT_EDITMSG')
   currentPane = atom.workspace.getActivePane()
-  init = -> getStagedFiles(repo).then (status) -> prepFile status, filePath
+  init = -> getStagedFiles(repo).then (status) ->
+    if atom.config.get('git-plus.experimental') and atom.config.get('git-plus.verboseCommits')
+      args = ['diff', '--color=never', '--staged']
+      args.push '--word-diff' if atom.config.get('git-plus.wordDiff')
+      git.cmd(args, cwd: repo.getWorkingDirectory())
+      .then (diff) -> prepFile status, filePath, diff
+    else
+      prepFile status, filePath, ''
   startCommit = ->
     showFile filePath
     .then (textEditor) ->

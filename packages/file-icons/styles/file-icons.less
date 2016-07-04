@@ -10,7 +10,9 @@
 .icon-file-text,
 .icon-file-directory,
 .icon-file-media,
+.icon-file-zip,
 .icon-book,
+.icon-file-symlink-file,
 .icon-file-pdf {
   &:before { text-align: center; }
 }
@@ -34,6 +36,9 @@
 
 .icon-file-directory {
 
+  // Atom
+  &[data-name=".atom"]:before { .atom-icon; }
+
   // Git
   &[data-name=".git"]:before     { .git-icon; }
 
@@ -45,6 +50,12 @@
 
   // Meteor
   &[data-name=".meteor"]:before  { .meteor-icon; }
+
+  // Node Modules
+  &[data-name="node_modules"]:before { .node-icon; .medium-green; }
+
+  // Bower Components
+  &[data-name="bower_components"]:before { .bower-icon; .auto(bower); }
 }
 
 
@@ -58,17 +69,18 @@
 .theme-flatland-dark-ui .icon-book {
 
   &:before {
-    .text-icon;
+    .default-icon;
     font-style: normal !important;
   }
 
   // ABAP
   &[data-name$=".abap"]:before           { .abap-icon;         .medium-orange; }
 
-  // ActionScript
+  // ActionScript / Flash
   &[data-name$=".as"]:before             { .as-icon;              .medium-red; }
   &[data-name$=".jsfl"]:before           { .as-icon;            .auto(yellow); }
   &[data-name$=".swf"]:before            { .as-icon;             .medium-blue; }
+  &[data-name$=".swc"]:before            { .as-icon;                .dark-red; }
 
   // Ada
   &[data-name$=".ada"]:before,
@@ -80,9 +92,24 @@
   &[data-name$=".ait"]:before            { .ai-icon;             .dark-orange; }
   &[data-name$=".psd"]:before            { .psd-icon;            .medium-blue; }
   &[data-name$=".psb"]:before            { .psd-icon;            .dark-purple; }
+  &[data-name$=".aep"]:before            { .ae-icon;               .dark-pink; }
+  &[data-name$=".aet"]:before            { .ae-icon;             .dark-purple; }
+  &[data-name$=".prel"]:before           { .premiere-icon;     .medium-maroon; }
+  &[data-name$=".prproj"]:before         { .premiere-icon;       .dark-purple; }
+  &[data-name$=".psq"]:before            { .premiere-icon;     .medium-purple; }
+  &[data-name$=".indd"]:before           { .indesign-icon;         .dark-pink; }
+  &[data-name$=".indl"]:before           { .indesign-icon;     .medium-purple; }
+  &[data-name$=".indt"]:before           { .indesign-icon;       .dark-purple; }
+  &[data-name$=".indb"]:before           { .indesign-icon;         .dark-blue; }
+  &[data-name$=".inx"]:before            { .indesign-icon;       .dark-purple; }
+  &[data-name$=".idml"]:before           { .indesign-icon;         .dark-pink; }
 
   // Alloy
   &[data-name$=".als"]:before            { .alloy-icon;           .medium-red; }
+
+  // Alpine Linux
+  &[data-name="APKBUILD"]:before,
+  &[data-name$=".APKBUILD"]:before       { .alpine-icon;           .dark-blue; }
 
   // AMPL
   &[data-name$=".ampl"]:before           { .ampl-icon;           .dark-maroon; }
@@ -98,7 +125,7 @@
   &[data-name$=".apib"]:before           { .api-icon;            .medium-blue; }
 
   // APL / Dyalog APL
-  &[data-name$=".apl"]:before            { .apl-icon;               .dark-red; }
+  &[data-name$=".apl"]:before            { .apl-icon;              .dark-cyan; }
   &[data-name$=".apl.history"]:before    { .apl-icon;          .medium-maroon; }
   &[data-name$=".dyalog"]:before         { .dyalog-icon;       .medium-orange; }
 
@@ -157,6 +184,9 @@
   &[data-name$=".hats"]:before           { .ats-icon;            .medium-blue; }
   &[data-name$=".sats"]:before           { .ats-icon;            .dark-yellow; }
 
+  // Audacity
+  &[data-name$=".aup"]:before            { .audacity-icon;     .medium-yellow; }
+
   // Augeas
   &[data-name$=".aug"]:before            { .augeas-icon;         .dark-orange; }
 
@@ -183,6 +213,12 @@
   // Bison
   &[data-name$=".bison"]:before          { .gnu-icon;             .medium-red; }
 
+  // Blender
+  &[data-name$=".blend"]:before          { .blender-icon;      .medium-orange; }
+  &[data-name$=".blend1"]:before,
+  &[data-name$=".blend2"]:before         { .blender-icon;        .dark-orange; }
+  &[data-name$=".bphys"]:before          { .blender-icon;          .dark-blue; }
+
   // Bluespec
   &[data-name$=".bsv"]:before            { .bluespec-icon;         .dark-blue; }
 
@@ -201,16 +237,19 @@
 
   // Bro
   &[data-name$=".bro"]:before            { .bro-icon;              .dark-cyan; }
-  
+
   // BYOND (Dream Maker Script)
   &[data-name$=".dm"]:before             { .byond-icon;          .medium-blue; }
 
   // Cabal
   &[data-name$=".cabal"]:before          { .cabal-icon;          .medium-cyan; }
 
+  // Cake
+  &[data-name$=".cake"]:before           { .cake-icon;         .medium-yellow; }
+
   // Cakefile
-  &[data-name="Cakefile"]:before         { .cake-icon;            .medium-red; }
-  
+  &[data-name="Cakefile"]:before         { .cakefile-icon;        .medium-red; }
+
   // CakePHP
   &[data-name$=".ctp"]:before            { .cakephp-icon;         .medium-red; }
 
@@ -222,6 +261,9 @@
 
   // Checklist
   &[data-name$="TODO"]:before            { .checklist-icon;    .medium-yellow; }
+
+  // Chord
+  &[data-name$=".chord"]:before          { .music-icon;        .medium-orange; }
 
   // ChucK
   &[data-name$=".ck"]:before             { .chuck-icon;         .medium-green; }
@@ -236,7 +278,7 @@
   &[data-name$=".icl"]:before            { .clean-icon;            .dark-cyan; }
   &[data-name$=".dcl"]:before            { .clean-icon;          .medium-cyan; }
   &[data-name$=".abc"]:before            { .clean-icon;          .medium-blue; }
-  
+
   // Click
   &[data-name$=".click"]:before          { .click-icon;        .medium-yellow; }
 
@@ -256,7 +298,6 @@
   // CMake
   &[data-name$=".cmake"]:before          { .cmake-icon;         .medium-green; }
   &[data-name$=".cmake.in"]:before       { .cmake-icon;          .medium-blue; }
-  &[data-name="CMakeLists.txt"]:before   { .cmake-icon;           .medium-red; }
 
   // CoffeeScript
   &[data-name$=".coffee"]:before         { .coffee-icon;       .medium-maroon; }
@@ -268,6 +309,9 @@
   &[data-name$=".cfc"]:before            { .cf-icon;              .light-cyan; }
   &[data-name$=".cfm"]:before            { .cf-icon;             .medium-cyan; }
   &[data-name$=".cfml"]:before           { .cf-icon;             .medium-cyan; }
+
+  // COLLADA
+  &[data-name$=".dae"]:before            { .khronos-icon;      .medium-orange; }
 
   // Component Pascal
   &[data-name$=".cp"]:before             { .cp-icon;           .medium-maroon; }
@@ -287,11 +331,11 @@
   &[data-name$=".lds"]:before            { .config-icon;          .medium-red; }
   &[data-name="ld.script"]:before        { .config-icon;       .medium-orange; }
   &[data-name$=".reek"]:before           { .config-icon;          .medium-red; }
-  &[data-name$=".apl.ascii"]:before      { .config-icon;          .medium-red; }
+  &[data-name$="apl.ascii"]:before       { .config-icon;          .medium-red; }
 
   // Coq
   &[data-name$=".coq"]:before            { .coq-icon;          .medium-maroon; }
-  
+
   // Creole
   &[data-name$=".creole"]:before         { .creole-icon;         .medium-blue; }
 
@@ -302,10 +346,15 @@
   // CSS
   &[data-name$=".less"]:before           { .css3-icon;             .dark-blue; }
   &[data-name$=".css"]:before            { .css3-icon;           .medium-blue; }
-  &[data-name$=".styl"]:before           { .css3-icon;          .medium-green; }
+
+  // Csound
+  &[data-name$=".orc"]:before            { .csound-icon;       .medium-maroon; }
+  &[data-name$=".udo"]:before            { .csound-icon;         .dark-orange; }
+  &[data-name$=".csd"]:before            { .csound-icon;         .dark-maroon; }
+  &[data-name$=".sco"]:before            { .csound-icon;           .dark-blue; }
 
   // Cucumber (Gherkin)
-  &[data-name$=".feature"]:before        { .comment-icon;       .medium-green; }
+  &[data-name$=".feature"]:before        { .cucumber-icon;      .medium-green; }
 
   // CUDA
   &[data-name$=".cu"]:before             { .nvidia-icon;        .medium-green; }
@@ -319,6 +368,9 @@
   // D lang
   &[data-name$=".d"]:before              { .dlang-icon;           .medium-red; }
   &[data-name$=".di"]:before             { .dlang-icon;           .medium-red; }
+
+  // Danmakufu
+  &[data-name$=".dnh"]:before            { .yang-icon;            .medium-red; }
 
   // Darcs Patch
   &[data-name$=".darcspatch"]:before,
@@ -354,11 +406,18 @@
   &[data-name$=".ttl"]:before            { .database-icon;       .medium-cyan; }
   &[data-name$=".rviz"]:before           { .database-icon;         .dark-blue; }
   &[data-name$=".syntax"]:before         { .database-icon;       .medium-blue; }
-  
+
+  // dBASE
+  &[data-name$=".dbf"]:before            { .dbase-icon;           .medium-red; }
+
+  // Debian
+  &[data-name="control"]:before          { .debian-icon;           .dark-cyan; }
+  &[data-name="rules"]:before            { .debian-icon;         .medium-cyan; }
+
   // Diff/Patch
   &[data-name$=".diff"]:before           { .diff-icon;         .medium-orange; }
   &[data-name$=".patch"]:before          { .patch-icon;         .medium-green; }
-  
+
   // DNS Zone / CNAME
   &[data-name$=".zone"]:before           { .earth-icon;          .medium-blue; }
   &[data-name$=".arpa"]:before           { .earth-icon;         .medium-green; }
@@ -373,18 +432,18 @@
 
   // Doxyfile
   &[data-name="Doxyfile"]:before         { .doxygen-icon;        .medium-blue; }
-  
+
   // E
   &[data-name$=".E"]:before              { .e-icon;             .medium-green; }
-  
+
   // Eagle
   &[data-name$=".sch"]:before            { .eagle-icon;           .medium-red; }
   &[data-name$=".brd"]:before            { .eagle-icon;             .dark-red; }
-  
+
   // eC
   &[data-name$=".ec"]:before             { .ec-icon;               .dark-blue; }
   &[data-name$=".eh"]:before             { .ec-icon;             .dark-purple; }
-  
+
   // Ecere project
   &[data-name$=".epj"]:before            { .ecere-icon;          .medium-blue; }
 
@@ -431,20 +490,23 @@
   &[data-name$=".eslintrc.yaml"]:before,
   &[data-name$=".eslintrc.yml"]:before   { .eslint-icon;         .light-purple }
   &[data-name$=".eslintignore"]:before   { .eslint-icon;        .medium-purple }
-  
+
   // Factor
   &[data-name$=".factor"]:before         { .factor-icon;       .medium-orange; }
   &[data-name$=".factor-rc"]:before      { .factor-icon;         .dark-orange; }
   &[data-name$=".factor-boot-rc"]:before { .factor-icon;          .medium-red; }
-  
+
   // Fancy
   &[data-name$=".fy"]:before             { .fancy-icon;            .dark-blue; }
   &[data-name$=".fancypack"]:before      { .fancy-icon;          .medium-blue; }
   &[data-name="Fakefile"]:before         { .fancy-icon;         .medium-green; }
-  
+
   // Fantom
   &[data-name$=".fan"]:before            { .fantom-icon;         .medium-blue; }
-  
+
+  // FBX
+  &[data-name$=".fbx"]:before            { .fbx-icon;          .medium-maroon; }
+
   // Frege
   &[data-name$=".fr"]:before             { .frege-icon;             .dark-red; }
 
@@ -455,35 +517,43 @@
 
   // Flow
   &[data-name$=".flowconfig"]:before     { .flow-icon;         .medium-orange; }
-  
+
   // FLUX
   &[data-name$=".fx"]:before             { .flux-icon;           .medium-blue; }
   &[data-name$=".flux"]:before           { .flux-icon;             .dark-blue; }
 
   // FORTRAN
-  &[data-name$=".f"]:before              { .fortran-icon;      .medium-maroon; }
-  &[data-name$=".f90"]:before            { .fortran-icon;       .medium-green; }
-  &[data-name$=".f03"]:before            { .fortran-icon;         .medium-red; }
-  &[data-name$=".f08"]:before            { .fortran-icon;        .medium-blue; }
-  &[data-name$=".f77"]:before            { .fortran-icon;      .medium-maroon; }
-  &[data-name$=".f95"]:before            { .fortran-icon;          .dark-pink; }
-  &[data-name$=".for"]:before            { .fortran-icon;          .dark-cyan; }
-  &[data-name$=".fpp"]:before            { .fortran-icon;        .dark-yellow; }
-  
+  &[data-name$=".f"]:before,
+  &[data-name$=".F"]:before              { .fortran-icon;      .medium-maroon; }
+  &[data-name$=".f90"]:before,
+  &[data-name$=".F90"]:before            { .fortran-icon;       .medium-green; }
+  &[data-name$=".f03"]:before,
+  &[data-name$=".F03"]:before            { .fortran-icon;         .medium-red; }
+  &[data-name$=".f08"]:before,
+  &[data-name$=".F08"]:before            { .fortran-icon;        .medium-blue; }
+  &[data-name$=".f77"]:before,
+  &[data-name$=".F77"]:before            { .fortran-icon;      .medium-maroon; }
+  &[data-name$=".f95"]:before,
+  &[data-name$=".F95"]:before            { .fortran-icon;          .dark-pink; }
+  &[data-name$=".for"]:before,
+  &[data-name$=".FOR"]:before            { .fortran-icon;          .dark-cyan; }
+  &[data-name$=".fpp"]:before,
+  &[data-name$=".FPP"]:before            { .fortran-icon;        .dark-yellow; }
+
   // FreeMarker
   &[data-name$=".ftl"]:before            { .freemarker-icon;     .medium-blue; }
-  
+
   // GameMaker Language
   &[data-name$=".gml"]:before            { .gml-icon;           .medium-green; }
-  
+
   // GAMS
   &[data-name$=".gms"]:before            { .gams-icon;              .dark-red; }
-  
+
   // GAP
   &[data-name$=".gap"]:before            { .gap-icon;           .auto(yellow); }
   &[data-name$=".gi"]:before             { .gap-icon;              .dark-blue; }
   &[data-name$=".tst"]:before            { .gap-icon;          .medium-orange; }
-  
+
   // GDScript / Godot
   &[data-name$=".gd"]:before             { .godot-icon;          .medium-blue; }
 
@@ -507,6 +577,7 @@
   &[data-name$=".codoopts"]:before       { .gear-icon;         .medium-maroon; }
   &[data-name=".pairs"]:before           { .gear-icon;            .dark-green; }
   &[data-name$=".ctags"]:before          { .gear-icon;           .dark-purple; }
+  &[data-name$=".htmlhintrc"]:before     { .gear-icon;         .medium-orange; }
 
   // Generic format: Audio
   &[data-name$=".mp3"]:before            { .audio-icon;           .medium-red; }
@@ -531,7 +602,9 @@
   &[data-name="configure.ac"]:before     { .code-icon;            .medium-red; }
   &[data-name="Settings.StyleCop"]:before{ .code-icon;          .medium-green; }
   &[data-name$=".4th"]:before            { .code-icon;           .medium-blue; }
+  &[data-name$=".aepx"]:before           { .code-icon;         .medium-purple; }
   &[data-name$=".agda"]:before           { .code-icon;             .dark-cyan; }
+  &[data-name$=".appxmanifest"]:before   { .code-icon;         .medium-orange; }
   &[data-name$=".ash"]:before            { .code-icon;           .medium-cyan; }
   &[data-name$=".axml"]:before           { .code-icon;             .dark-blue; }
   &[data-name$=".befunge"]:before        { .code-icon;         .medium-orange; }
@@ -608,6 +681,8 @@
   &[data-name$=".rl"]:before             { .code-icon;            .medium-red; }
   &[data-name$=".scxml"]:before          { .code-icon;            .light-cyan; }
   &[data-name$=".sed"]:before            { .code-icon;            .dark-green; }
+  &[data-name$=".sgm"]:before            { .code-icon;           .dark-yellow; }
+  &[data-name$=".sgml"]:before           { .code-icon;           .dark-yellow; }
   &[data-name$=".sig"]:before            { .code-icon;          .light-maroon; }
   &[data-name$=".sml"]:before            { .code-icon;            .medium-red; }
   &[data-name$=".smt"]:before            { .code-icon;            .light-blue; }
@@ -636,6 +711,7 @@
   &[data-name$=".xliff"]:before          { .code-icon;            .medium-red; }
   &[data-name$=".xmi"]:before            { .code-icon;          .medium-green; }
   &[data-name$=".xml"]:before            { .code-icon;           .medium-blue; }
+  &[data-name$=".xml.dist"]:before       { .code-icon;           .medium-blue; }
   &[data-name$=".xproj"]:before          { .code-icon;              .dark-red; }
   &[data-name$=".xsd"]:before            { .code-icon;             .dark-blue; }
   &[data-name$=".xsl"]:before            { .code-icon;           .medium-cyan; }
@@ -672,6 +748,7 @@
   &[data-name$=".cd5"]:before            { .image-icon;           .dark-green; }
   &[data-name$=".cpc"]:before            { .image-icon;         .light-yellow; }
   &[data-name$=".dcm"]:before            { .image-icon;          .medium-cyan; }
+  &[data-name$=".dds"]:before            { .image-icon;           .dark-green; }
   &[data-name$=".ecw"]:before            { .image-icon;           .light-blue; }
   &[data-name$=".exr"]:before            { .image-icon;          .dark-yellow; }
   &[data-name$=".fit"]:before            { .image-icon;          .medium-cyan; }
@@ -704,6 +781,26 @@
   &[data-name$=".wbm"]:before            { .image-icon;          .dark-maroon; }
   &[data-name$=".wdp"]:before            { .image-icon;             .dark-red; }
 
+  // Generic format: Text
+	&[data-name$=".ans"]:before            { .text-icon;           .dark-orange; }
+	&[data-name$=".err"]:before            { .text-icon;            .medium-red; }
+	&[data-name$=".etx"]:before            { .text-icon;         .medium-yellow; }
+	&[data-name$=".irclog"]:before         { .text-icon;           .medium-blue; }
+	&[data-name$=".log"]:before            { .text-icon;         .medium-maroon; }
+	&[data-name$=".msg"]:before            { .text-icon;         .medium-orange; }
+	&[data-name$=".nfo"]:before            { .text-icon;             .dark-blue; }
+	&[data-name$=".rtf"]:before            { .text-icon;              .dark-red; }
+	&[data-name$=".srt"]:before            { .text-icon;         .medium-purple; }
+	&[data-name$=".sub"]:before            { .text-icon;           .dark-purple; }
+	&[data-name$=".text"]:before,
+	&[data-name$=".txt"]:before            { .text-icon;           .medium-blue; }
+  &[data-name$=".uof"]:before            { .text-icon;              .dark-red; }
+  &[data-name$=".uop"]:before            { .text-icon;         .medium-purple; }
+  &[data-name$=".uos"]:before            { .text-icon;          .medium-green; }
+  &[data-name$=".uot"]:before            { .text-icon;           .medium-blue; }
+	&[data-name$=".utxt"]:before,
+	&[data-name$=".utf8"]:before           { .text-icon;           .medium-cyan; }
+	&[data-name$=".weechatlog"]:before     { .text-icon;          .medium-green; }
 
   // Generic format: Videos
   &[data-name$="avi"]:before             { .video-icon;          .medium-blue; }
@@ -721,10 +818,10 @@
   &[data-name$="mpeg"]:before            { .video-icon;           .medium-red; }
   &[data-name$="3gpp"]:before            { .video-icon;           .light-blue; }
   &[data-name$="ogm"]:before             { .video-icon;             .dark-red; }
-  
+
   // Genshi
   &[data-name$=".kid"]:before            { .genshi-icon;          .medium-red; }
-  
+
   // Gentoo Linux
   &[data-name$=".ebuild"]:before         { .gentoo-icon;           .dark-cyan; }
   &[data-name$=".eclass"]:before         { .gentoo-icon;         .medium-blue; }
@@ -739,9 +836,17 @@
   &[data-name$=".gitmodules"]:before,
   &[data-name=".mailmap"]:before         { .git-icon;             .medium-red; }
 
+  // Git: Commit
+  &[data-name="COMMIT_EDITMSG"]:before   { .git-commit-icon;      .medium-red; }
+
+  // Git: Merge
+  &[data-name="MERGE_HEAD"]:before,
+  &[data-name="MERGE_MODE"]:before,
+  &[data-name="MERGE_MSG"]:before        { .git-merge-icon;       .medium-red; }
+
   // Glade
   &[data-name$=".glade"]:before          { .glade-icon;         .medium-green; }
-  
+
   // Glyph
   &[data-name$=".glf"]:before            { .pointwise-icon;      .medium-blue; }
 
@@ -750,7 +855,7 @@
   &[data-name$=".plt"]:before,
   &[data-name$=".plot"]:before,
   &[data-name$=".gnuplot"]:before        { .graph-icon;           .medium-red; }
-  
+
   // GNU
   &[data-name$=".gplv2"]:before,         &[data-name$=".GPLv2"]:before,
   &[data-name$=".GPLV2"]:before,         &[data-name$=".gplv3"]:before,
@@ -760,10 +865,10 @@
   // Go
   &[data-name$=".go"]:before             { .go-icon;             .medium-blue; }
   &[data-name$=".gohtml"]:before         { .html5-icon;            .dark-blue; }
-  
+
   // Golo
   &[data-name$=".golo"]:before           { .golo-icon;         .medium-orange; }
-  
+
   // Gosu
   &[data-name$=".gs"]:before             { .gosu-icon;           .medium-blue; }
   &[data-name$=".gst"]:before            { .gosu-icon;          .medium-green; }
@@ -773,15 +878,15 @@
   // Gradle
   &[data-name$=".gradle"]:before         { .gradle-icon;         .medium-blue; }
   &[data-name$="gradlew"]:before         { .gradle-icon;         .dark-purple; }
-  
+
   // GraphQL
   &[data-name$=".graphql"]:before        { .graphql-icon;        .medium-pink; }
   &[data-name$=".gql"]:before            { .graphql-icon;      .medium-purple; }
-  
+
   // Graphviz
   &[data-name$=".gv"]:before             { .graphviz-icon;       .medium-blue; }
   &[data-name$=".dot"]:before            { .graphviz-icon;         .dark-cyan; }
-  
+
   // Grammatical Framework
   &[data-name$=".gf"]:before             { .gf-icon;              .medium-red; }
 
@@ -794,10 +899,10 @@
 
   // Hack
   &[data-name$=".hh"]:before             { .hack-icon;         .medium-orange; }
-  
+
   // Harbour
   &[data-name$=".hb"]:before             { .harbour-icon;          .dark-blue; }
-  
+
   // Hashicorp Configuration Language
   &[data-name$=".hcl"]:before            { .hashicorp-icon;      .dark-purple; }
 
@@ -811,7 +916,7 @@
   &[data-name$=".hx"]:before,
   &[data-name$=".hxsl"]:before           { .haxe-icon;         .medium-orange; }
   &[data-name$=".hxml"]:before           { .checklist-icon;    .medium-orange; }
-  
+
   // Heroku
   &[data-name="Procfile"]:before         { .heroku-icon;       .medium-purple; }
   &[data-name$=".buildpacks"]:before     { .heroku-icon;        .light-purple; }
@@ -831,34 +936,34 @@
   &[data-name$=".scaml"]:before          { .html5-icon;             .dark-red; }
   &[data-name$=".latte"]:before          { .html5-icon;           .medium-red; }
   &[data-name$=".kit"]:before            { .html5-icon;         .medium-green; }
-  
+
   // Hy
   &[data-name$=".hy"]:before             { .hy-icon;               .dark-blue; }
 
   // IDL
   &[data-name$=".dlm"]:before            { .idl-icon;            .medium-blue; }
-  
+
   // Idris
   &[data-name$=".idr"]:before            { .idris-icon;             .dark-red; }
   &[data-name$=".lidr"]:before           { .idris-icon;        .medium-maroon; }
-  
+
   // IGOR Pro
   &[data-name$=".ipf"]:before            { .igorpro-icon;           .dark-red; }
 
   // Inform 7
   &[data-name$=".ni"]:before             { .inform7-icon;        .medium-blue; }
   &[data-name$=".i7x"]:before            { .inform7-icon;          .dark-blue; }
-  
+
   // Inno Setup
   &[data-name$=".iss"]:before            { .inno-icon;             .dark-blue; }
 
   // Isabelle
   &[data-name$=".thy"]:before            { .isabelle-icon;          .dark-red; }
   &[data-name="ROOT"]:before             { .isabelle-icon;         .dark-blue; }
-  
+
   // Io
   &[data-name$=".io"]:before             { .io-icon;             .dark-purple; }
-  
+
   // Ioke
   &[data-name$=".ik"]:before             { .ioke-icon;            .medium-red; }
 
@@ -895,10 +1000,10 @@
 
   // Jinja
   &[data-name$=".jinja"]:before          { .jinja-icon;             .dark-red; }
-  
+
   // JSONiq
   &[data-name$=".jq"]:before             { .sql-icon;            .medium-blue; }
-  
+
   // JSON-LD
   &[data-name$=".jsonld"]:before         { .jsonld-icon;         .medium-blue; }
 
@@ -906,49 +1011,57 @@
   &[data-name$=".jsx"]:before            { .jsx-icon;             .auto(blue); }
   &[data-name$=".tsx"]:before            { .tsx-icon;             .light-blue; }
   &[data-name$=".react.js"]:before       { .react-icon;           .auto(blue); }
-  
+
   // Julia
   &[data-name$=".jl"]:before             { .julia-icon;        .medium-purple; }
-  
+
   // Jupyter Notebook
   &[data-name$=".ipynb"]:before          { .jupyter-icon;        .dark-orange; }
   &[data-name="Notebook"]:before         { .jupyter-icon;          .dark-cyan; }
-  
+
   // Karma
   &[data-name$="karma.conf.js"]:before    { .karma-icon;         .medium-cyan; }
   &[data-name$="karma.conf.coffee"]:before{ .karma-icon;       .medium-maroon; }
-  
+
+  // Keynote (.key extension deliberately omitted)
+  &[data-name$=".keynote"]:before        { .keynote-icon;        .medium-blue; }
+  &[data-name$=".knt"]:before            { .keynote-icon;          .dark-blue; }
+
   // Kivy
   &[data-name$=".kv"]:before             { .kivy-icon;           .dark-maroon; }
-  
+
   // KML (Keyhole Markup Language)
   &[data-name$=".kml"]:before            { .earth-icon;          .medium-green; }
-  
+
   // Kotlin
   &[data-name$=".kt"]:before             { .kotlin-icon;           .dark-blue; }
   &[data-name$=".ktm"]:before            { .kotlin-icon;         .medium-blue; }
   &[data-name$=".kts"]:before            { .kotlin-icon;       .medium-orange; }
-  
+
   // KRL
   &[data-name$=".krl"]:before            { .krl-icon;            .medium-blue; }
 
   // LabVIEW
   &[data-name$=".lvproj"]:before         { .labview-icon;          .dark-blue; }
-  
+
   // Lasso
   &[data-name$=".lasso"]:before          { .lasso-icon;            .dark-blue; }
   &[data-name$=".las"]:before            { .lasso-icon;            .dark-blue; }
   &[data-name$=".lasso8"]:before         { .lasso-icon;          .medium-blue; }
   &[data-name$=".lasso9"]:before         { .lasso-icon;        .medium-purple; }
   &[data-name$=".ldml"]:before           { .lasso-icon;           .medium-red; }
-  
+
   // Lean
   &[data-name$=".lean"]:before           { .lean-icon;           .dark-purple; }
   &[data-name$=".hlean"]:before          { .lean-icon;              .dark-red; }
 
   // Leiningen
   &[data-name$="project.clj"]:before     { .lein-icon; }
-  
+
+  // LightWave 3D
+  &[data-name$=".lwo"]:before            { .lightwave-icon;       .medium-red; }
+  &[data-name$=".lws"]:before            { .lightwave-icon;      .medium-blue; }
+
   // LilyPond
   &[data-name$=".ly"]:before             { .music-icon;         .medium-green; }
   &[data-name$=".ily"]:before            { .music-icon;           .dark-green; }
@@ -974,7 +1087,7 @@
   // LLVM Assembly / Clang
   &[data-name$=".ll"]:before             { .llvm-icon;            .dark-green; }
   &[data-name$=".clang-format"]:before   { .llvm-icon;          .auto(yellow); }
-  
+
   // Logos
   &[data-name$=".xm"]:before             { .mobile-icon;           .dark-blue; }
   &[data-name$=".x"]:before              { .mobile-icon;          .dark-green; }
@@ -983,7 +1096,7 @@
   // Logtalk
   &[data-name$=".logtalk"]:before,
   &[data-name$=".lgt"]:before            { .logtalk-icon;         .medium-red; }
-  
+
   // LookML
   &[data-name$=".lookml"]:before         { .lookml-icon;       .medium-purple; }
 
@@ -1012,7 +1125,7 @@
   &[data-name$=".mms"]:before            { .checklist-icon;      .medium-blue; }
   &[data-name$=".mmk"]:before            { .checklist-icon;       .light-blue; }
   &[data-name$=".pri"]:before            { .checklist-icon;      .dark-purple; }
-  
+
   // Mako
   &[data-name$=".mako"]:before,
   &[data-name$=".mao"]:before            { .mako-icon;             .dark-blue; }
@@ -1034,7 +1147,7 @@
   // Marko
   &[data-name$=".marko"]:before          { .marko-icon;          .medium-blue; }
   &[data-name$=".marko.js"]:before       { .marko-icon;        .medium-maroon; }
-  
+
   // Mathematica
   &[data-name$=".mathematica"]:before    { .mathematica-icon;       .dark-red; }
   &[data-name$=".cdf"]:before            { .mathematica-icon;     .medium-red; }
@@ -1044,7 +1157,7 @@
   &[data-name$=".nbp"]:before            { .mathematica-icon;       .dark-red; }
   &[data-name$=".wl"]:before             { .mathematica-icon;  .medium-yellow; }
   &[data-name$=".wlt"]:before            { .mathematica-icon;    .dark-yellow; }
-  
+
   // Matlab
   &[data-name$=".matlab"]:before         { .matlab-icon;       .medium-yellow; }
 
@@ -1056,9 +1169,17 @@
   &[data-name$=".pat"]:before            { .max-icon;           .medium-green; }
 
   // MAXScript
-  &[data-name$=".ms"]:before,
-  &[data-name$=".mce"]:before,
-  &[data-name$=".mcr"]:before            { .maxscript-icon;        .dark-blue; }
+  &[data-name$=".ms"]:before            { .maxscript-icon;        .dark-blue; }
+  &[data-name$=".mcr"]:before           { .maxscript-icon;      .dark-purple; }
+  &[data-name$=".mce"]:before           { .maxscript-icon;       .medium-red; }
+  &[data-name$=".max"]:before           { .maxscript-icon;        .dark-cyan; }
+  &[data-name$=".3ds"]:before           { .maxscript-icon;      .medium-cyan; }
+
+  // Maya
+  &[data-name$=".mb"]:before            { .maya-icon;             .dark-cyan; }
+  &[data-name$=".mel"]:before           { .maya-icon;             .dark-blue; }
+  &[data-name$=".mcfi"]:before,
+  &[data-name$=".mcfp"]:before          { .maya-icon;           .dark-purple; }
 
   // Manual pages
   &[data-name$=".1"]:before,       &[data-name$=".1b"]:before,
@@ -1094,41 +1215,77 @@
   // MediaWiki
   &[data-name$=".mediawiki"]:before      { .mediawiki-icon;    .medium-yellow; }
   &[data-name$=".wiki"]:before           { .mediawiki-icon;    .medium-orange; }
-  
+
   // Mention-bot config
   &[data-name=".mention-bot"]:before     { .bullhorn-icon;     .medium-orange; }
-  
+
   // Mercury
   &[data-name$=".moo"]:before            { .mercury-icon;        .medium-cyan; }
-  
+
   // Metal
   &[data-name$=".metal"]:before          { .metal-icon;            .dark-cyan; }
-  
+
+  // Microsoft Access
+  &[data-name$=".accda"]:before          { .access-icon;         .dark-maroon; }
+  &[data-name$=".accdb"]:before          { .access-icon;       .medium-maroon; }
+  &[data-name$=".accde"]:before          { .access-icon;        .medium-green; }
+  &[data-name$=".accdr"]:before          { .access-icon;          .medium-red; }
+  &[data-name$=".accdt"]:before          { .access-icon;            .dark-red; }
+  &[data-name$=".adn"]:before            { .access-icon;        .light-maroon; }
+  &[data-name$=".laccdb"]:before         { .access-icon;          .dark-green; }
+  &[data-name$=".mdw"]:before            { .access-icon;         .dark-purple; }
+
+  // Microsoft Excel
+  &[data-name$=".xls"]:before            { .excel-icon;          .dark-orange; }
+  &[data-name$=".xlsx"]:before           { .excel-icon;           .dark-green; }
+  &[data-name$=".xlsm"]:before           { .excel-icon;         .medium-green; }
+  &[data-name$=".xlsb"]:before           { .excel-icon;           .medium-red; }
+  &[data-name$=".xlt"]:before            { .excel-icon;            .dark-cyan; }
+
+  // Microsoft OneNote
+  &[data-name$=".one"]:before            { .onenote-icon;        .dark-purple; }
+
+  // Microsoft PowerPoint
+  &[data-name$=".pps"]:before            { .powerpoint-icon;        .dark-red; }
+  &[data-name$=".ppsx"]:before           { .powerpoint-icon;   .medium-orange; }
+  &[data-name$=".ppt"]:before            { .powerpoint-icon;     .dark-orange; }
+  &[data-name$=".pptx"]:before           { .powerpoint-icon;      .medium-red; }
+  &[data-name$=".potm"]:before           { .powerpoint-icon;   .medium-maroon; }
+
+  // Microsoft Word
+  &[data-name$=".doc"]:before            { .word-icon;           .medium-blue; }
+  &[data-name$=".docx"]:before           { .word-icon;             .dark-blue; }
+  &[data-name$=".docm"]:before           { .word-icon;         .medium-maroon; }
+  &[data-name$=".docxml"]:before         { .word-icon;             .dark-cyan; }
+  &[data-name$=".dotm"]:before           { .word-icon;           .dark-maroon; }
+  &[data-name$=".dotx"]:before           { .word-icon;           .medium-cyan; }
+  &[data-name$=".wri"]:before            { .word-icon;         .medium-orange; }
+
   // Minecraft
   &[data-name="mcmod.info"]:before       { .minecraft-icon;       .dark-green; }
-  
+
   // Mirah
   &[data-name$=".druby"]:before,
   &[data-name$=".duby"]:before           { .mirah-icon;          .medium-blue; }
   &[data-name$=".mir"]:before,
   &[data-name$=".mirah"]:before          { .mirah-icon;           .light-blue; }
-  
+
   // Modelica
   &[data-name$=".mo"]:before             { .circle-icon;           .light-red; }
-  
+
   // Modula-2
   &[data-name$=".MOD"]:before,
   &[data-name$=".mod"]:before            { .modula2-icon;        .medium-blue; }
   &[data-name$=".DEF"]:before,
   &[data-name$=".def"]:before            { .modula2-icon;       .medium-green; }
   &[data-name$=".m2"]:before             { .modula2-icon;         .medium-red; }
-  
+
   // Monkey
   &[data-name$=".monkey"]:before         { .monkey-icon;       .medium-maroon; }
-  
+
   // MoonScript
   &[data-name$=".moon"]:before           { .moon-icon;         .medium-yellow; }
-  
+
   // MuPAD
   &[data-name$=".mu"]:before             { .mupad-icon;           .medium-red; }
 
@@ -1136,28 +1293,34 @@
   &[data-name$=".hbs"]:before,
   &[data-name$=".handlebars"]:before,
   &[data-name$=".mustache"]:before       { .mustache-icon;     .medium-orange; }
-  
+
+  // NAnt
+  &[data-name$=".build"]:before          { .nant-icon;         .medium-orange; }
+
   // NCAR Command Language (NCL)
   &[data-name$=".ncl"]:before            { .earth-icon;         .medium-green; }
 
   // NetLinx (AMX logo)
   &[data-name$=".axs"]:before            { .amx-icon;            .medium-blue; }
   &[data-name$=".axi"]:before            { .amx-icon;              .dark-blue; }
-  
+
   // NetLogo
   &[data-name$=".nlogo"]:before          { .netlogo-icon;         .medium-red; }
 
   // NGINX
   &[data-name="nginx.conf"]:before       { .nginx-icon;           .dark-green; }
   &[data-name$=".nginxconf"]:before      { .nginx-icon;         .medium-green; }
-  
+
+  // Nib
+  &[data-name$=".nib"]:before            { .nib-icon;            .dark-orange; }
+
   // Nimrod
   &[data-name$=".nim"]:before,
   &[data-name$=".nimrod"]:before         { .nimrod-icon;        .medium-green; }
-  
+
   // Nit
   &[data-name$=".nit"]:before            { .nit-icon;             .dark-green; }
-  
+
   // Nix
   &[data-name$=".nix"]:before            { .nix-icon;            .medium-cyan; }
 
@@ -1176,7 +1339,7 @@
   &[data-name=".npmignore"]:before       { .npm-icon;             .medium-red; }
   &[data-name="npm-debug.log"]:before    { .npm-icon;             .medium-red; }
   &[data-name="package.json"]:before     { .npm-icon;             .medium-red; }
-  
+
   // NSIS
   &[data-name$=".nsi"]:before            { .nsis-icon;           .medium-cyan; }
   &[data-name$=".nsh"]:before            { .nsis-icon;             .dark-cyan; }
@@ -1184,7 +1347,7 @@
   // Nu
   &[data-name$=".nu"]:before             { .recycle-icon;        .light-green; }
   &[data-name="Nukefile"]:before         { .recycle-icon;         .dark-green; }
-  
+
   // NumPy
   &[data-name$=".numpy"]:before          { .numpy-icon;            .dark-blue; }
   &[data-name$=".numpyw"]:before         { .numpy-icon;          .medium-blue; }
@@ -1193,7 +1356,7 @@
   // Nunjucks
   &[data-name$=".nunjucks"]:before,
   &[data-name$=".njk"]:before            { .nunjucks-icon;        .dark-green; }
-  
+
   // NuGet
   &[data-name$=".nuspec"]:before         { .nuget-icon;          .medium-blue; }
   &[data-name$=".pkgproj"]:before        { .nuget-icon;          .dark-purple; }
@@ -1222,9 +1385,9 @@
   &[data-name$=".mm"]:before             { .objc-icon;           .medium-blue; }
   &[data-name$=".swift"]:before          { .swift-icon;         .medium-green; }
   &[data-name$=".cs"]:before             { .csharp-icon;          .auto(blue); }
-  &[data-name$=".csx"]:before            { .csharp-icon;           .auto(red); }
+  &[data-name$=".csx"]:before            { .csscript-icon;        .dark-green; }
   &[data-name="config.h.in"]:before      { .c-icon;               .medium-red; }
-  
+
   // Objective-J
   &[data-name$=".j"]:before              { .objj-icon;           .dark-orange; }
   &[data-name$=".sj"]:before             { .objj-icon;              .dark-red; }
@@ -1237,7 +1400,7 @@
   &[data-name$=".ml4"]:before            { .ocaml-icon;         .medium-green; }
   &[data-name$=".mll"]:before            { .ocaml-icon;           .dark-green; }
   &[data-name$=".mly"]:before            { .ocaml-icon;          .dark-yellow; }
-  
+
   // OOC
   &[data-name$=".ooc"]:before            { .ooc-icon;           .medium-green; }
 
@@ -1246,9 +1409,25 @@
 
   // OpenCL
   &[data-name$=".opencl"]:before         { .opencl-icon;          .medium-red; }
-  
+
   // OpenEdge ABL (Progress Software logo)
   &[data-name$=".p"]:before              { .progress-icon;        .medium-red; }
+
+  // OpenDocument formats
+  &[data-name$=".odt"]:before            { .openoffice-icon;     .medium-blue; }
+  &[data-name$=".ott"]:before            { .openoffice-icon;       .dark-blue; }
+  &[data-name$=".fodt"]:before           { .openoffice-icon;     .dark-purple; }
+  &[data-name$=".ods"]:before            { .openoffice-icon;    .medium-green; }
+  &[data-name$=".ots"]:before            { .openoffice-icon;      .dark-green; }
+  &[data-name$=".fods"]:before           { .openoffice-icon;       .dark-cyan; }
+  &[data-name$=".odp"]:before            { .openoffice-icon;   .medium-purple; }
+  &[data-name$=".otp"]:before            { .openoffice-icon;       .dark-pink; }
+  &[data-name$=".fodp"]:before           { .openoffice-icon;     .medium-pink; }
+  &[data-name$=".odg"]:before            { .openoffice-icon;      .medium-red; }
+  &[data-name$=".otg"]:before            { .openoffice-icon;        .dark-red; }
+  &[data-name$=".fodg"]:before           { .openoffice-icon;     .dark-orange; }
+  &[data-name$=".odf"]:before            { .openoffice-icon;   .medium-maroon; }
+  &[data-name$=".odb"]:before            { .openoffice-icon;      .light-pink; }
 
   // OpenSCAD
   &[data-name$=".scad"]:before           { .scad-icon;         .medium-orange; }
@@ -1266,19 +1445,19 @@
   &[data-name$=".ox"]:before             { .ox-icon;              .auto(cyan); }
   &[data-name$=".oxh"]:before            { .ox-icon;             .auto(green); }
   &[data-name$=".oxo"]:before            { .ox-icon;              .auto(blue); }
-  
+
   // Oxygene
   &[data-name$=".oxygene"]:before        { .oxygene-icon;         .auto(cyan); }
-  
+
   // Oz
   &[data-name$=".oz"]:before             { .oz-icon;           .medium-yellow; }
-  
+
   // Pan
   &[data-name$=".pan"]:before            { .pan-icon;             .medium-red; }
-  
+
   // Papyrus
   &[data-name$=".psc"]:before            { .papyrus-icon;       .medium-green; }
-  
+
   // Parrot
   &[data-name$=".parrot"]:before         { .parrot-icon;        .medium-green; }
   &[data-name$=".pasm"]:before           { .parrot-icon;          .dark-green; }
@@ -1323,31 +1502,31 @@
   &[data-name$=".phpt"]:before           { .php-icon;              .dark-blue; }
   &[data-name$=".blade.php"]:before      { .laravel-icon;        .dark-purple; }
   &[data-name^="Phakefile"]:before       { .php-icon;             .dark-green; }
-  
+
   // Pickled Python object
   &[data-name$=".pkl"]:before            { .pickle-icon;           .dark-cyan; }
-  
+
   // Pike
   &[data-name$=".pike"]:before           { .pike-icon;             .dark-cyan; }
   &[data-name$=".pmod"]:before           { .pike-icon;           .medium-blue; }
 
   // POD
   &[data-name$=".pod"]:before            { .pod-icon;            .medium-blue; }
-  
+
   // PogoScript
   &[data-name$=".pogo"]:before           { .pogo-icon;          .auto(orange); }
-  
+
   // Pony
   &[data-name$=".pony"]:before           { .pony-icon;          .light-maroon; }
-  
+
   // Processing
   &[data-name$=".pde"]:before            { .processing-icon;       .dark-blue; }
-  
+
   // Prolog
   &[data-name$=".pro"]:before            { .prolog-icon;         .medium-blue; }
   &[data-name$=".prolog"]:before         { .prolog-icon;         .medium-cyan; }
   &[data-name$=".yap"]:before            { .prolog-icon;       .medium-purple; }
-  
+
   // Propeller Spin
   &[data-name$=".spin"]:before           { .propeller-icon;    .medium-orange; }
 
@@ -1355,11 +1534,11 @@
   &[data-name$=".postcss"]:before,
   &[data-name$=".pcss"]:before           { .postcss-icon;           .dark-red; }
   &[data-name$=".sss"]:before            { .postcss-icon;          .dark-pink; }
-  
+
   // PostScript
   &[data-name$=".ps"]:before             { .postscript-icon;      .medium-red; }
   &[data-name$=".eps"]:before            { .postscript-icon;   .medium-orange; }
-  
+
   // POV-Ray SDL
   &[data-name$=".pov"]:before            { .povray-icon;           .dark-blue; }
 
@@ -1372,7 +1551,7 @@
   // Pug/Jade
   &[data-name$=".pug"]:before            { .pug-icon;             .medium-red; }
   &[data-name$=".jade"]:before           { .jade-icon;            .medium-red; }
-  
+
   // Puppet
   &[data-name$=".pp"]:before             { .puppet-icon;       .medium-purple; }
   &[data-name$="Modulefile"]:before      { .puppet-icon;           .dark-blue; }
@@ -1380,10 +1559,10 @@
   // PureBasic
   &[data-name$=".pb"]:before             { .purebasic-icon;       .medium-red; }
   &[data-name$=".pbi"]:before            { .purebasic-icon;      .dark-orange; }
-  
+
   // Pure Data
   &[data-name$=".pd"]:before             { .music-icon;           .dark-green; }
-  
+
   // PureScript
   &[data-name$=".purs"]:before           { .purescript-icon;     .dark-purple; }
 
@@ -1415,7 +1594,7 @@
   &[data-name$=".Rprofile"]:before,
   &[data-name$=".R"]:before,
   &[data-name$=".r"]:before              { .r-icon;              .medium-blue; }
-  
+
   // Racket
   &[data-name$=".rkt"]:before            { .racket-icon;          .medium-red; }
   &[data-name$=".rktd"]:before           { .racket-icon;         .medium-blue; }
@@ -1424,10 +1603,10 @@
 
   // RAML
   &[data-name$=".raml"]:before           { .raml-icon;           .medium-cyan; }
-  
+
   // RDoc
   &[data-name$=".rdoc"]:before           { .rdoc-icon;            .medium-red; }
-  
+
   // REALbasic
   &[data-name$=".rbbas"]:before          { .xojo-icon;          .medium-green; }
   &[data-name$=".rbfrm"]:before          { .xojo-icon;            .dark-green; }
@@ -1450,26 +1629,30 @@
   &[data-name="changelog"]:before,       &[data-name="NEWS"]:before,
   &[data-name="THANKS"]:before,          &[data-name="PROJECTS"]:before,
   &[data-name="CONTRIBUTING"]:before,    &[data-name="CONTRIBUTORS"]:before,
-  &[data-name="Contributors"]:before     { .book-icon;           .medium-blue; }
-  
+  &[data-name="Contributors"]:before,    &[data-name$=".1ST"]:before,
+  &[data-name$=".1st"]:before            { .book-icon;           .medium-blue; }
+
   // Rebol
   &[data-name$=".rebol"]:before,
   &[data-name$=".reb"]:before            { .rebol-icon;           .dark-green; }
   &[data-name$=".r2"]:before             { .rebol-icon;             .dark-red; }
   &[data-name$=".r3"]:before             { .rebol-icon;            .dark-blue; }
-  
+
   // Red
   &[data-name$=".red"]:before            { .red-icon;             .medium-red; }
   &[data-name$=".reds"]:before           { .red-icon;              .light-red; }
+
+  // Red Hat
+  &[data-name$=".spec"]:before           { .red-hat-icon;           .dark-red; }
 
   // Ren'Py (Python)
   &[data-name$=".rpy"]:before            { .python-icon;         .medium-pink; }
   &[data-name$=".rpyb"]:before           { .binary-icon;          .medium-red; }
   &[data-name$=".rpyc"]:before           { .binary-icon;          .medium-red; }
-  
+
   // RenderScript
   &[data-name$=".rsh"]:before            { .android-icon;        .dark-maroon; }
-  
+
   // reStructuredText
   &[data-name$=".rst"]:before            { .rst-icon;              .dark-blue; }
   &[data-name$=".rest"]:before           { .rst-icon;              .dark-blue; }
@@ -1481,10 +1664,10 @@
 
   // RobotFramework
   &[data-name$=".robot"]:before          { .robot-icon;        .medium-purple; }
-  
+
   // Rouge (Clojure)
   &[data-name$=".rg"]:before             { .clojure-icon;         .medium-red; }
-  
+
   // RSS
   &[data-name$=".rss"]:before            { .rss-icon;          .medium-orange; }
 
@@ -1523,7 +1706,7 @@
   &.title[data-path][data-name$=".rs"]:before,
   &.title[data-path][data-name$=".rs.in"]:before,
   &.title[data-path][data-name$=".rlib"]:before        { vertical-align: -35%; }
-  
+
   // Sage
   &[data-name$=".sage"]:before           { .sage-icon;           .medium-blue; }
   &[data-name$=".sagews"]:before         { .sage-icon;             .dark-blue; }
@@ -1539,13 +1722,13 @@
   &[data-name$=".sc"]:before,
   &[data-name$=".scala"]:before          { .scala-icon;           .medium-red; }
   &[data-name$=".sbt"]:before            { .sbt-icon;            .dark-purple; }
-  
+
   // Scheme
   &[data-name$=".scm"]:before            { .scheme-icon;          .medium-red; }
   &[data-name$=".sld"]:before            { .scheme-icon;         .medium-blue; }
   &[data-name$=".sps"]:before            { .scheme-icon;       .medium-purple; }
   &[data-name$=".ss"]:before             { .scheme-icon;         .medium-pink; }
-  
+
   // Scilab
   &[data-name$=".sci"]:before            { .scilab-icon;         .dark-purple; }
   &[data-name$=".sce"]:before            { .scilab-icon;           .dark-blue; }
@@ -1553,7 +1736,7 @@
 
   // Secret
   &[data-name$=".secret"]:before         { .secret-icon; }
-  
+
   // Self
   &[data-name$=".self"]:before           { .self-icon;             .dark-blue; }
 
@@ -1561,7 +1744,9 @@
   &[data-name$=".csv"]:before            { .graph-icon;            .light-red; }
   &[data-name$=".tab"]:before,
   &[data-name$=".tsv"]:before            { .graph-icon;          .light-green; }
-  
+  &[data-name$=".dif"]:before            { .graph-icon;         .medium-green; }
+  &[data-name$=".slk"]:before            { .graph-icon;          .medium-cyan; }
+
   // Service Fabric
   &[data-name$=".sfproj"]:before         { .sf-icon;            .light-orange; }
 
@@ -1570,7 +1755,6 @@
   &[data-name$=".bats"]:before,
   &[data-name$=".bash"]:before,
   &[data-name$=".tool"]:before,
-  &[data-name$=".install"]:before,
   &[data-name$=".command"]:before,
   &[data-name="install-sh"]:before,
   &[data-name="_osc"]:before,
@@ -1579,7 +1763,6 @@
   &[data-name="bash_logout"]:before,     &[data-name=".bash_logout"]:before,
   &[data-name="bash_profile"]:before,    &[data-name=".bash_profile"]:before,
   &[data-name="bash_history"]:before,    &[data-name=".bash_history"]:before,
-  &[data-name="PKGBUILD"]:before         { .terminal-icon;     .medium-purple; }
   &[data-name$=".ksh"]:before            { .terminal-icon;       .dark-yellow; }
   &[data-name$=".sh-session"]:before     { .terminal-icon;      .auto(yellow); }
   &[data-name="zlogin"]:before,          &[data-name=".zlogin"]:before,
@@ -1587,13 +1770,14 @@
   &[data-name="zprofile"]:before,        &[data-name=".zprofile"]:before,
   &[data-name="zshenv"]:before,          &[data-name=".zshenv"]:before,
   &[data-name="zshrc"]:before,           &[data-name=".zshrc"]:before,
-  &[data-name$=".zsh-theme"]:before,
+  &[data-name$=".zsh-theme"]:before,     &[data-name$=".zsh_history"]:before,
   &[data-name$=".zsh"]:before            { .terminal-icon;       .medium-blue; }
   &[data-name$=".fish"]:before,
   &[data-name=".fishrc"]:before          { .terminal-icon;      .medium-green; }
   &[data-name$=".sh.in"]:before          { .terminal-icon;          .dark-red; }
   &[data-name$=".tmux"]:before           { .terminal-icon;       .medium-blue; }
   &[data-name="configure"]:before,
+  &[data-name="config"]:before,
   &[data-name="config.guess"]:before,
   &[data-name="config.rpath"]:before,
   &[data-name="config.status"]:before,
@@ -1603,22 +1787,22 @@
   &[data-name="compile"]:before          { .terminal-icon;        .medium-red; }
   &[data-name$=".tcsh"]:before           { .terminal-icon;      .medium-green; }
   &[data-name$=".csh"]:before            { .terminal-icon;     .medium-yellow; }
-  
+
   // Shen
   &[data-name$=".shen"]:before           { .shen-icon;             .dark-cyan; }
-  
+
   // Shopify
   &[data-name$=".liquid"]:before         { .shopify-icon;       .medium-green; }
-  
+
   // Sketch
   &[data-name$=".sketch"]:before         { .sketch-icon;       .medium-orange; }
-  
+
   // Slash
   &[data-name$=".sl"]:before             { .slash-icon;            .dark-blue; }
 
   // Smarty
   &[data-name$=".tpl"]:before            { .smarty-icon;        .auto(yellow); }
-  
+
   // Smali
   &[data-name$=".smali"]:before          { .android-icon;       .medium-green; }
 
@@ -1627,11 +1811,11 @@
   &[data-name$=".sp"]:before             { .clojure-icon;       .auto(yellow); }
   &[data-name$=".inc"]:before            { .clojure-icon;       .medium-green; }
   &[data-name$=".pwn"]:before            { .pawn-icon;         .medium-orange; }
-  
+
   // SPARQL
   &[data-name$=".sparql"]:before         { .sparql-icon;         .medium-blue; }
   &[data-name$=".rq"]:before             { .sparql-icon;           .dark-blue; }
-  
+
   // SQF
   &[data-name$=".sqf"]:before            { .sqf-icon;            .dark-maroon; }
   &[data-name$=".hqf"]:before            { .sqf-icon;               .dark-red; }
@@ -1646,10 +1830,11 @@
   &[data-name$=".der"]:before            { .key-icon;          .medium-purple; }
   &[data-name$=".key"]:before            { .key-icon;            .medium-blue; }
   &[data-name$=".crt"]:before            { .key-icon;            .medium-blue; }
-  
+  &[data-name="git-credential-osxkeychain"]:before{ .key-icon;  .medium-green; }
+
   // Stan
   &[data-name$=".stan"]:before           { .stan-icon;            .medium-red; }
-  
+
   // Stata
   &[data-name$=".do"]:before             { .stata-icon;          .medium-blue; }
   &[data-name$=".ado"]:before            { .stata-icon;            .dark-blue; }
@@ -1659,10 +1844,6 @@
   &[data-name$=".matah"]:before          { .stata-icon;           .light-cyan; }
   &[data-name$=".sthlp"]:before          { .stata-icon;        .medium-purple; }
 
-  // Stylelint
-  &[data-name$=".stylelintrc"]:before    { .stylelint-icon;    .medium-purple; }
-  &[data-name$=".stylelintignore"]:before{ .stylelint-icon;        .dark-blue; }
-  
   // SAS
   &[data-name$=".sas"]:before            { .sas-icon;            .medium-blue; }
 
@@ -1685,13 +1866,22 @@
   &[data-name$=".xql"]:before,
   &[data-name$=".xqm"]:before,
   &[data-name$=".xqy"]:before            { .sql-icon;               .dark-red; }
-  
+
   // SQLite
   &[data-name$=".sqlite"]:before         { .sqlite-icon;         .medium-blue; }
   &[data-name$=".sqlite3"]:before        { .sqlite-icon;           .dark-blue; }
   &[data-name$=".db"]:before             { .sqlite-icon;       .medium-purple; }
   &[data-name$=".db3"]:before            { .sqlite-icon;         .dark-purple; }
-  
+
+  // Storyist
+  &[data-name$=".story"]:before          { .storyist-icon;       .medium-blue; }
+
+  // Strings
+  &[data-name$=".strings"]:before        { .strings-icon;         .medium-red; }
+
+  // Stylus
+  &[data-name$=".styl"]:before           { .stylus-icon;        .medium-green; }
+
   // Sublime Text
   &[data-name$=".sublime-build"]:before,
   &[data-name$=".sublime-commands"]:before,
@@ -1717,13 +1907,13 @@
   &[data-name$=".sv"]:before             { .sysverilog-icon;      .auto(blue); }
   &[data-name$=".svh"]:before            { .sysverilog-icon;     .auto(green); }
   &[data-name$=".vh"]:before             { .sysverilog-icon;      .auto(cyan); }
-  
+
   // Tags file (Ctags)
   &[data-name$=".tags"]:before,
   &[data-name$=".TAGS"]:before,
   &[data-name="tags"]:before,
   &[data-name="TAGS"]:before             { .tag-icon;            .medium-blue; }
-  
+
   // Tcl
   &[data-name$=".tcl"]:before            { .tcl-icon;            .dark-orange; }
   &[data-name$=".adp"]:before            { .tcl-icon;          .medium-orange; }
@@ -1760,10 +1950,10 @@
 
   // Text
   &[data-name$=".txt"]:before            { .medium-cyan; }
-  
+
   // Textile
   &[data-name$=".textile"]:before        { .textile-icon;      .medium-orange; }
-  
+
   // TextMate
   &[data-name$=".tmLanguage"]:before     { .textmate-icon;       .dark-purple; }
   &[data-name$=".tmCommand"]:before      { .textmate-icon;       .medium-blue; }
@@ -1772,14 +1962,14 @@
   &[data-name$=".tmTheme"]:before        { .textmate-icon;       .medium-pink; }
   &[data-name$=".JSON-tmLanguage"]:before{ .textmate-icon;     .medium-purple; }
   &[data-name$=".yaml-tmlanguage"]:before{ .textmate-icon;     .medium-orange; }
-  
+
   // Thor
   &[data-name$=".thor"]:before           { .thor-icon;         .medium-orange; }
   &[data-name="Thorfile"]:before         { .thor-icon;           .dark-orange; }
 
   // Travis
   &[data-name^=".travis"]:before         { .travis-icon;          .medium-red; }
-  
+
   // Turing
   &[data-name$=".tu"]:before             { .turing-icon;          .medium-red; }
 
@@ -1788,6 +1978,9 @@
 
   // TXL
   &[data-name$=".txl"]:before            { .txl-icon;          .medium-orange; }
+
+  // TypeDoc
+  &[data-name="typedoc.json"]:before     { .typedoc-icon;        .dark-purple; }
 
   // TypeScript
   &[data-name$=".ts"]:before             { .ts-icon;             .medium-blue; }
@@ -1799,31 +1992,35 @@
   &[data-name$=".meta"]:before           { .unity3d-icon;           .dark-red; }
   &[data-name$=".prefab"]:before         { .unity3d-icon;          .dark-cyan; }
   &[data-name$=".unity"]:before          { .unity3d-icon;        .medium-blue; }
-  
+  &[data-name$=".unityproj"]:before      { .unity3d-icon;      .medium-maroon; }
+
   // Uno
   &[data-name$=".uno"]:before            { .uno-icon;              .dark-blue; }
-  
+
   // UnrealScript
   &[data-name$=".uc"]:before             { .unreal-icon; }
-  
+
+  // URL
+  &[data-name$=".url"]:before            { .link-icon;             .dark-blue; }
+
   // UrWeb
   &[data-name$=".ur"]:before             { .urweb-icon;        .medium-maroon; }
   &[data-name$=".urs"]:before            { .urweb-icon;            .dark-blue; }
-  
+
   // Vagrant
   &[data-name="Vagrantfile"]:before      { .vagrant-icon;        .medium-cyan; }
-  
+
   // Vala
   &[data-name$=".vala"]:before           { .gnome-icon;        .medium-purple; }
   &[data-name$=".vapi"]:before           { .gnome-icon;          .dark-purple; }
-  
+
   // VCL (Varnish Configuration Language)
   &[data-name$=".vcl"]:before            { .varnish-icon;          .dark-blue; }
 
   // Verilog
   &[data-name$=".v"]:before              { .verilog-icon;         .dark-green; }
   &[data-name$=".veo"]:before            { .verilog-icon;         .medium-red; }
-  
+
   // VHDL
   &[data-name$=".vhdl"]:before           { .vhdl-icon;            .dark-green; }
   &[data-name$=".vhd"]:before            { .vhdl-icon;          .medium-green; }
@@ -1838,10 +2035,12 @@
   &[data-name$=".vim"]:before,
   &[data-name$=".nvimrc"]:before,
   &[data-name$=".vimrc"]:before,
+  &[data-name$=".viminfo"]:before,
   &[data-name="_vimrc"]:before,
   &[data-name="gvimrc"]:before,
   &[data-name="nvimrc"]:before,
-  &[data-name="vimrc"]:before            { .vim-icon;           .medium-green; }
+  &[data-name="vimrc"]:before,
+  &[data-name="viminfo"]:before          { .vim-icon;           .medium-green; }
 
   // Visual Studio
   &[data-name$=".vb"]:before,
@@ -1856,15 +2055,20 @@
   &[data-name$=".vcxproj"]:before        { .vb-icon;             .dark-purple; }
   &[data-name$=".vssettings"]:before     { .vb-icon;              .dark-green; }
   &[data-name$=".builds"]:before         { .vb-icon;           .medium-maroon; }
+  &[data-name$=".sln"]:before            { .vb-icon;           .medium-orange; }
 
   // Vue
   &[data-name$=".vue"]:before            { .vue-icon;            .light-green; }
-  
+
   // Web Ontology Language / OWL
   &[data-name$=".owl"]:before            { .owl-icon;              .dark-blue; }
 
   // Webpack
-  &[data-name*="webpack.config."]:before { .webpack-icon;        .medium-blue; }
+  &[data-name*="webpack"] {
+    &[data-name*=".config."]:before      { .webpack-icon;        .medium-blue; }
+  }
+
+  &[data-name="webpackfile.js"]:before   { .webpack-icon;        .medium-blue; }
 
   // Windows-specific
   &[data-name$=".bat"]:before            { .windows-icon;      .medium-purple; }
@@ -1878,24 +2082,24 @@
 
   // XAML
   &[data-name$=".xaml"]:before           { .code-icon;           .medium-blue; }
-  
+
   // X10
   &[data-name$=".x10"]:before            { .x10-icon;           .light-maroon; }
-  
+
   // XC
   &[data-name$=".xc"]:before             { .xmos-icon;         .medium-orange; }
-  
+
   // XPages
   &[data-name$=".xsp-config"]:before     { .xpages-icon;         .medium-blue; }
   &[data-name$=".xsp.metadata"]:before   { .xpages-icon;           .dark-blue; }
-  
+
   // XProc (icon "borrowed" from XC above)
   &[data-name$=".xpl"]:before            { .xmos-icon;             .dark-blue; }
   &[data-name$=".xproc"]:before          { .xmos-icon;         .medium-purple; }
-  
+
   // Xtend
   &[data-name$=".xtend"]:before          { .xtend-icon;          .dark-purple; }
-  
+
   // Xojo
   &[data-name$=".xojo_code"]:before      { .xojo-icon;          .medium-green; }
   &[data-name$=".xojo_menu"]:before      { .xojo-icon;           .medium-blue; }
@@ -1903,18 +2107,27 @@
   &[data-name$=".xojo_script"]:before    { .xojo-icon;            .dark-green; }
   &[data-name$=".xojo_toolbar"]:before   { .xojo-icon;           .dark-purple; }
   &[data-name$=".xojo_window"]:before    { .xojo-icon;             .dark-cyan; }
-  
+
   // YANG
   &[data-name$=".yang"]:before           { .yang-icon;         .medium-yellow; }
-  
+
+  // ZBrush
+  &[data-name$=".zpr"]:before,
+  &[data-name$=".ZPR"]:before            { .zbrush-icon;         .dark-purple; }
+
   // Zephir
   &[data-name$=".zep"]:before            { .zephir-icon;         .medium-pink; }
-  
+
   // Zimpl
   &[data-name$=".zimpl"]:before,
   &[data-name$=".zmpl"]:before,
   &[data-name$=".zpl"]:before            { .zimpl-icon;        .medium-orange; }
 
+  // 3D Models
+  &[data-name$=".obj"]:before            { .model-icon;           .medium-red; }
+  &[data-name$=".mtl"]:before            { .model-icon;            .dark-blue; }
+  &[data-name$=".stl"]:before            { .model-icon;           .dark-green; }
+  &[data-name$=".u3d"]:before            { .model-icon;        .medium-orange; }
 
   /*============================================================================
        THESE RULES MUST BE LISTED LAST TO AVOID BEING OVERRIDDEN BY OTHERS
@@ -1933,11 +2146,19 @@
 
   // Appveyor
   &[data-name="appveyor.yml"]:before     { .appveyor-icon;       .medium-blue; }
-  
+
+  // Arch Linux
+  &[data-name=".install"]:before         { .archlinux-icon;      .dark-purple; }
+  &[data-name=".SRCINFO"]:before         { .archlinux-icon;      .dark-maroon; }
+  &[data-name="pacman.conf"]:before      { .archlinux-icon;      .dark-yellow; }
+  &[data-name="pamac.conf"]:before       { .archlinux-icon;     .light-yellow; }
+  &[data-name="PKGBUILD"]:before         { .archlinux-icon;        .dark-cyan; }
+  &[data-name$="yaourtrc"]:before        { .archlinux-icon;     .light-yellow; }
+
   // Bower
   &[data-name=".bowerrc"]:before         { .bower-icon;                        }
   &[data-name="bower.json"]:before       { .bower-icon;          .auto(bower); }
-  
+
   // Brakeman
   &[data-name$="brakeman.yml"]:before    { .brakeman-icon;        .medium-red; }
   &[data-name="brakeman.ignore"]:before  { .brakeman-icon;          .dark-red; }
@@ -1950,6 +2171,9 @@
   &[data-name$="Cargo.toml"]:before      { .package-icon;       .light-orange; }
   &[data-name$="Cargo.lock"]:before      { .package-icon;        .dark-orange; }
 
+  // CMake
+  &[data-name="CMakeLists.txt"]:before   { .cmake-icon;           .medium-red; }
+
   // Code Climate
   &[data-name=".codeclimate.yml"]:before { .cc-icon;            .medium-green; }
 
@@ -1961,7 +2185,7 @@
   // Configs / Data sources
   &[data-name="METADATA.pb"]:before      { .database-icon;        .medium-red; }
   &[data-name$=".indent.pro"]:before     { .gear-icon;           .medium-blue;
-    
+
     // Prolog's icon offset seems to be inherited here, so reset it
     top: 1px;
     left: 0;
@@ -1974,7 +2198,7 @@
   &[data-name$=".eslintrc.yaml"]:before,
   &[data-name$=".eslintrc.yml"]:before   { .eslint-icon;         .light-purple }
   &[data-name$=".eslintignore"]:before   { .eslint-icon;        .medium-purple }
-  
+
   // ECR/ERB combinations
   &[data-name$=".js.ecr"]:before         { .js-icon;             .medium-cyan; }
   &[data-name$=".js.erb"]:before         { .js-icon;              .medium-red; }
@@ -2007,21 +2231,36 @@
   &[data-name$="GULPFILE.babel.js"]:before,
   &[data-name$="Gulpfile.babel.js"]:before,
   &[data-name$="gulpfile.babel.js"]:before { .gulp-icon;          .medium-red; }
-  
+
   // Manual Pages
   &[data-name^="tmac."]:before             { .manpage-icon;       .dark-green; }
 
   // New Relic
   &[data-name^="newrelic.yml"]:before      { .newrelic-icon;     .medium-cyan; }
 
+  // Protractor
+  &[data-name^="protractor.conf."]:before  { .protractor-icon;    .medium-red; }
+
   // Riemann
   &[data-name="riemann.config"]:before     { .clojure-icon;     .auto(maroon); }
 
+  // Rollup
+  &[data-name^="rollup.config."]:before    { .rollup-icon;         .auto(red); }
+
   // Scrutinizer
   &[data-name$=".scrutinizer.yml"]:before  { .scrutinizer-icon;    .dark-blue; }
-  
+
+  // Stylelint
+  &[data-name^=".stylelintrc"]:before,
+  &[data-name$=".stylelintrc"]:before    { .stylelint-icon;    .medium-purple; }
+  &[data-name$=".stylelintignore"]:before{ .stylelint-icon;        .dark-blue; }
+  &[data-name="stylelint.config.js"]:before{ .stylelint-icon;   .auto(yellow); }
+
   // Swap files
   &[data-name$=".swp"]:before              { .binary-icon;        .dark-green; }
+
+  // Typings
+  &[data-name="typings.json"]:before       { .typings-icon;    .medium-maroon; }
 }
 
 
@@ -2051,7 +2290,8 @@ body.file-icons-force-show-icons {
 
 // Show colours only when files have been modified
 body.file-icons-on-changes {
-  .file.entry.list-item:not(.status-modified) {
+  .file.entry.list-item:not(.status-modified),
+  .directory.entry:not(.status-modified){
     .name.icon:before {
       color: inherit !important;
     }
@@ -2060,7 +2300,7 @@ body.file-icons-on-changes {
 
 
 @{pane-tab-selector}{
-  
+
   // #gh-271: Undo styling applied by Remote-Edit
   &.icon-globe::before{
     display: inline;
@@ -2068,7 +2308,7 @@ body.file-icons-on-changes {
     width: auto;
     height: auto;
   }
-  
+
   // Temporary fix until Mfizz is shot in the head
   &[data-name$=".vala"]:before,
   &[data-name$=".vapi"]:before{
