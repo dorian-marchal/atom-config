@@ -12,3 +12,4 @@ nohup.out
 /blob-store/MAP
 /blob-store/INVKEYS
 /git-time-machine
+/split-diff/split-diff*
