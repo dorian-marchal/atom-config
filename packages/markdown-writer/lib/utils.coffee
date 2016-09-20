@@ -13,7 +13,39 @@ getJSON = (uri, succeed, error) ->
 
 escapeRegExp = (str) ->
   return "" unless str
-  str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+  str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+
+isUpperCase = (str) ->
+  if str.length > 0 then (str[0] >= 'A' && str[0] <= 'Z')
+  else false
+
+# increment the chars: a -> b, z -> aa, az -> ba
+incrementChars = (str) ->
+  return "a" if str.length < 1
+
+  upperCase = isUpperCase(str)
+  str = str.toLowerCase() if upperCase
+
+  chars = str.split("")
+  carry = 1
+  index = chars.length - 1
+
+  while carry != 0 && index >= 0
+    nextCharCode = chars[index].charCodeAt() + carry
+
+    if nextCharCode > "z".charCodeAt()
+      chars[index] = "a"
+      index -= 1
+      carry = 1
+      lowerCase = 1
+    else
+      chars[index] = String.fromCharCode(nextCharCode)
+      carry = 0
+
+  chars.unshift("a") if carry == 1
+
+  str = chars.join("")
+  if upperCase then str.toUpperCase() else str
 
 # https://github.com/epeli/underscore.string/blob/master/cleanDiacritics.js
 cleanDiacritics = (str) ->
@@ -203,24 +235,42 @@ parseImageTag = (input) ->
     img[elem[1]] = elem[3] if elem
   return img
 
+
+# ==================================================
+# Some shared regex basics
+#
+
+# [url|url "title"]
+URL_AND_TITLE = ///
+  (\S*?)                  # a url
+  (?:
+    \ +                   # spaces
+    ["'\\(]?(.*?)["'\\)]? # quoted title
+  )?                      # might not present
+  ///.source
+
+# [image|text]
+IMG_OR_TEXT = /// (!\[.*?\]\(.+?\) | [^\[]+?) ///.source
+# at head or not ![, workaround of no neg-lookbehind in JS
+OPEN_TAG = /// (?:^|[^!])(?=\[) ///.source
+# link id don't contains [ or ]
+LINK_ID = /// [^\[\]]+ ///.source
+
 # ==================================================
 # Image
 #
 
 IMG_REGEX  = ///
-  !\[(.+?)\]               # ![text]
-  \(                       # open (
-  ([^\)\s]+)\s?            # a image path
-  [\"\']?([^)]*?)[\"\']?   # any description
-  \)                       # close )
+  ! \[ (.*?) \]            # ![empty|text]
+    \( #{URL_AND_TITLE} \) # (image path, any description)
   ///
 
 isImage = (input) -> IMG_REGEX.test(input)
 parseImage = (input) ->
   image = IMG_REGEX.exec(input)
 
-  if image && image.length >= 3
-    return alt: image[1], src: image[2], title: image[3]
+  if image && image.length >= 2
+    return alt: image[1], src: image[2], title: image[3] || ""
   else
     return alt: input, src: "", title: ""
 
@@ -234,14 +284,16 @@ isImageFile = (file) ->
 #
 
 INLINE_LINK_REGEX = ///
-  \[(.+?)\]                # [text]
-  \(                       # open (
-  ([^\)\s]+)\s?            # a url
-  [\"\']?([^)]*?)[\"\']?   # any title
-  \)                       # close )
+  \[ #{IMG_OR_TEXT} \]   # [image|text]
+  \( #{URL_AND_TITLE} \) # (url "any title")
   ///
 
-isInlineLink = (input) -> INLINE_LINK_REGEX.test(input) and !isImage(input)
+INLINE_LINK_TEST_REGEX = ///
+  #{OPEN_TAG}
+  #{INLINE_LINK_REGEX.source}
+  ///
+
+isInlineLink = (input) -> INLINE_LINK_TEST_REGEX.test(input)
 parseInlineLink = (input) ->
   link = INLINE_LINK_REGEX.exec(input)
 
@@ -254,38 +306,48 @@ parseInlineLink = (input) ->
 # Reference link
 #
 
+# Match reference link [text][id]
 REFERENCE_LINK_REGEX_OF = (id, opts = {}) ->
   id = escapeRegExp(id) unless opts.noEscape
   ///
-  \[(#{id})\]\ ?\[\]            # [text][]
-  |                             # or
-  \[([^\[\]]+?)\]\ ?\[(#{id})\] # [text][id]
+  \[(#{id})\]\ ?\[\]               # [text][]
+  |                                # or
+  \[#{IMG_OR_TEXT}\]\ ?\[(#{id})\] # [image|text][id]
   ///
+
+# Match reference link definitions [id]: url
+REFERENCE_DEF_REGEX_OF = (id, opts = {}) ->
+  id = escapeRegExp(id) unless opts.noEscape
+  ///
+  ^                             # start of line
+  \ *                           # any leading spaces
+  \[(#{id})\]:\ +               # [id]: followed by spaces
+  #{URL_AND_TITLE}              # link "title"
+  $
+  ///m
 
 # REFERENCE_LINK_REGEX.exec("[text][id]")
 # => ["[text][id]", undefined, "text", "id"]
 #
 # REFERENCE_LINK_REGEX.exec("[text][]")
 # => ["[text][]", "text", undefined, undefined]
-REFERENCE_LINK_REGEX = REFERENCE_LINK_REGEX_OF(".+?", noEscape: true)
+REFERENCE_LINK_REGEX = REFERENCE_LINK_REGEX_OF(LINK_ID, noEscape: true)
+REFERENCE_LINK_TEST_REGEX = ///
+  #{OPEN_TAG}
+  #{REFERENCE_LINK_REGEX.source}
+  ///
 
-REFERENCE_DEF_REGEX_OF = (id, opts = {}) ->
-  id = escapeRegExp(id) unless opts.noEscape
-  /// ^\ *                      # start of line with any spaces
-  \[(#{id})\]:\ +               # [id]: followed by spaces
-  (\S*?)                        # link
-  (?:\ +['"\(]?(.+?)['"\)]?)?   # any "link title"
-  $ ///m
+REFERENCE_DEF_REGEX = REFERENCE_DEF_REGEX_OF(LINK_ID, noEscape: true)
 
-REFERENCE_DEF_REGEX = REFERENCE_DEF_REGEX_OF(".+?", noEscape: true)
-
-isReferenceLink = (input) -> REFERENCE_LINK_REGEX.test(input)
+isReferenceLink = (input) -> REFERENCE_LINK_TEST_REGEX.test(input)
 parseReferenceLink = (input, editor) ->
   link = REFERENCE_LINK_REGEX.exec(input)
   text = link[2] || link[1]
   id   = link[3] || link[1]
+
+  # find definition and definitionRange if editor is given
   def  = undefined
-  editor.buffer.scan REFERENCE_DEF_REGEX_OF(id), (match) -> def = match
+  editor && editor.buffer.scan REFERENCE_DEF_REGEX_OF(id), (match) -> def = match
 
   if def
     id: id, text: text, url: def.match[2], title: def.match[3] || "",
@@ -293,12 +355,17 @@ parseReferenceLink = (input, editor) ->
   else
     id: id, text: text, url: "", title: "", definitionRange: null
 
-isReferenceDefinition = (input) -> REFERENCE_DEF_REGEX.test(input)
+isReferenceDefinition = (input) ->
+  def = REFERENCE_DEF_REGEX.exec(input)
+  !!def && def[1][0] != "^" # not a footnote
+
 parseReferenceDefinition = (input, editor) ->
   def  = REFERENCE_DEF_REGEX.exec(input)
   id   = def[1]
+
+  # find link and linkRange if editor is given
   link = undefined
-  editor.buffer.scan REFERENCE_LINK_REGEX_OF(id), (match) -> link = match
+  editor && editor.buffer.scan REFERENCE_LINK_REGEX_OF(id), (match) -> link = match
 
   if link
     id: id, text: link.match[2] || link.match[1], url: def[2],
@@ -307,19 +374,36 @@ parseReferenceDefinition = (input, editor) ->
     id: id, text: "", url: def[2], title: def[3] || "", linkRange: null
 
 # ==================================================
+# Footnote
+#
+
+FOOTNOTE_REGEX = /// \[ \^ (.+?) \] (:)? ///
+FOOTNOTE_TEST_REGEX = ///
+  #{OPEN_TAG}
+  #{FOOTNOTE_REGEX.source}
+  ///
+
+isFootnote = (input) -> FOOTNOTE_TEST_REGEX.test(input)
+parseFootnote = (input) ->
+  footnote = FOOTNOTE_REGEX.exec(input)
+  label: footnote[1], isDefinition: footnote[2] == ":", content: ""
+
+# ==================================================
 # Table
 #
 
-TABLE_SEPARATOR_REGEX = /// ^
+TABLE_SEPARATOR_REGEX = ///
+  ^
   (\|)?                # starts with an optional |
   (
    (?:\s*(?:-+|:-*:|:-*|-*:)\s*\|)+ # one or more table cell
    (?:\s*(?:-+|:-*:|:-*|-*:)\s*)    # last table cell
   )
   (\|)?                # ends with an optional |
-  $ ///
+  $
+  ///
 
-TABLE_ONE_COLUMN_SEPARATOR_REGEX = /// ^ (\|)(\s*:?-+:?\s*)(\|) $ ///
+TABLE_ONE_COLUMN_SEPARATOR_REGEX = /// ^ (\|) (\s*:?-+:?\s*) (\|) $ ///
 
 isTableSeparator = (line) ->
   line = line.trim()
@@ -351,13 +435,15 @@ parseTableSeparator = (line) ->
         "empty"
   }
 
-TABLE_ROW_REGEX = /// ^
+TABLE_ROW_REGEX = ///
+  ^
   (\|)?                # starts with an optional |
   (.+?\|.+?)           # any content with at least 2 columns
   (\|)?                # ends with an optional |
-  $ ///
+  $
+  ///
 
-TABLE_ONE_COLUMN_ROW_REGEX = /// ^ (\|)([^\|]+?)(\|) $ ///
+TABLE_ONE_COLUMN_ROW_REGEX = /// ^ (\|) (.+?) (\|) $ ///
 
 isTableRow = (line) ->
   line = line.trimRight()
@@ -452,9 +538,11 @@ createTableRow = (columns, options) ->
 #
 
 URL_REGEX = ///
-  ^(?:\w+:)?\/\/
-  ([^\s\.]+\.\S{2}|localhost[\:?\d]*)
-  \S*$
+  ^
+  (?:\w+:)?\/\/                       # any prefix, e.g. http://
+  ([^\s\.]+\.\S{2}|localhost[\:?\d]*) # some domain
+  \S*                                 # path
+  $
   ///i
 
 isUrl = (url) -> URL_REGEX.test(url)
@@ -478,36 +566,82 @@ getScopeDescriptor = (cursor, scopeSelector) ->
   else if scopes.length > 0
     return scopes[0]
 
-# Atom has a bug returning the correct buffer range when cursor is
-# at the end of scope, refer https://github.com/atom/atom/issues/7961
-#
-# This provides a temporary fix for the bug.
 getBufferRangeForScope = (editor, cursor, scopeSelector) ->
   pos = cursor.getBufferPosition()
 
-  range = editor.displayBuffer.bufferRangeForScopeAtPosition(scopeSelector, pos)
+  range = editor.bufferRangeForScopeAtPosition(scopeSelector, pos)
   return range if range
 
-  # HACK if range is undefined, move the cursor position one char forward, and
-  # try to get the buffer range for scope again
-  pos = [pos.row, Math.max(0, pos.column - 1)]
-  editor.displayBuffer.bufferRangeForScopeAtPosition(scopeSelector, pos)
+  # Atom Bug 1: not returning the correct buffer range when cursor is at the end of a link with scope,
+  # refer https://github.com/atom/atom/issues/7961
+  #
+  # HACK move the cursor position one char backward, and try to get the buffer range for scope again
+  unless cursor.isAtBeginningOfLine()
+    range = editor.bufferRangeForScopeAtPosition(scopeSelector, [pos.row, pos.column - 1])
+    return range if range
+
+  # Atom Bug 2: not returning the correct buffer range when cursor is at the head of a list link with scope,
+  # refer https://github.com/atom/atom/issues/12714
+  #
+  # HACK move the cursor position one char forward, and try to get the buffer range for scope again
+  unless cursor.isAtEndOfLine()
+    range = editor.bufferRangeForScopeAtPosition(scopeSelector, [pos.row, pos.column + 1])
+    return range if range
 
 # Get the text buffer range if selection is not empty, or get the
 # buffer range if it is inside a scope selector, or the current word.
 #
-# selection is optional, when not provided, use the last selection
-getTextBufferRange = (editor, scopeSelector, selection) ->
+# selection: optional, when not provided or empty, use the last selection
+# opts["selectBy"]:
+#  - nope: do not use any select by
+#  - nearestWord: try select nearest word, default
+#  - currentLine: try select current line
+getTextBufferRange = (editor, scopeSelector, selection, opts = {}) ->
+  if typeof(selection) == "object"
+    opts = selection
+    selection = undefined
+
   selection ?= editor.getLastSelection()
   cursor = selection.cursor
+  selectBy = opts["selectBy"] || "nearestWord"
 
   if selection.getText()
     selection.getBufferRange()
-  else if (scope = getScopeDescriptor(cursor, scopeSelector))
+  else if scope = getScopeDescriptor(cursor, scopeSelector)
     getBufferRangeForScope(editor, cursor, scope)
-  else
+  else if selectBy == "nearestWord"
     wordRegex = cursor.wordRegExp(includeNonWordCharacters: false)
     cursor.getCurrentWordBufferRange(wordRegex: wordRegex)
+  else if selectBy == "currentLine"
+    cursor.getCurrentLineBufferRange()
+  else
+    selection.getBufferRange()
+
+# Find a possible link tag in the range from editor, return the found link data or nil
+#
+# Data format: { text: "", url: "", title: "", id: null, linkRange: null, definitionRange: null }
+#
+# NOTE: If id is not null, and any of linkRange/definitionRange is null, it means the link is an orphan
+findLinkInRange = (editor, range) ->
+  selection = editor.getTextInRange(range)
+  return if selection == ""
+
+  return text: "", url: selection, title: "" if isUrl(selection)
+  return parseInlineLink(selection) if isInlineLink(selection)
+
+  if isReferenceLink(selection)
+    link = parseReferenceLink(selection, editor)
+    link.linkRange = range
+    return link
+  else if isReferenceDefinition(selection)
+    # HACK correct the definition range, Atom's link scope does not include
+    # definition's title, so normalize to be the range start row
+    selection = editor.lineTextForBufferRow(range.start.row)
+    range = editor.bufferRangeForBufferRow(range.start.row)
+
+    link = parseReferenceDefinition(selection, editor)
+    link.definitionRange = range
+    return link
 
 # ==================================================
 # Exports
@@ -516,6 +650,8 @@ getTextBufferRange = (editor, scopeSelector, selection) ->
 module.exports =
   getJSON: getJSON
   escapeRegExp: escapeRegExp
+  isUpperCase: isUpperCase
+  incrementChars: incrementChars
   slugize: slugize
   normalizeFilePath: normalizeFilePath
 
@@ -545,6 +681,9 @@ module.exports =
   isReferenceDefinition: isReferenceDefinition
   parseReferenceDefinition: parseReferenceDefinition
 
+  isFootnote: isFootnote
+  parseFootnote: parseFootnote
+
   isTableSeparator: isTableSeparator
   parseTableSeparator: parseTableSeparator
   createTableSeparator: createTableSeparator
@@ -556,3 +695,4 @@ module.exports =
   isImageFile: isImageFile
 
   getTextBufferRange: getTextBufferRange
+  findLinkInRange: findLinkInRange

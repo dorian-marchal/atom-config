@@ -47,6 +47,23 @@ describe "config", ->
       expect(config.get("codeblock.before"))
         .toEqual(config.getDefault("codeblock.before"))
 
+  describe ".getFiletype", ->
+    originalgetActiveTextEditor = atom.workspace.getActiveTextEditor
+    afterEach -> atom.workspace.getActiveTextEditor = originalgetActiveTextEditor
+
+    it "get value from filestyle config", ->
+      atom.workspace.getActiveTextEditor = ->
+        getGrammar: -> { scopeName: "source.asciidoc" }
+
+      expect(config.getFiletype("linkInlineTag")).not.toBeNull()
+      expect(config.getFiletype("siteEngine")).not.toBeDefined()
+
+    it "get value from invalid filestyle config", ->
+      atom.workspace.getActiveTextEditor = ->
+        getGrammar: -> { scopeName: null }
+
+      expect(config.getEngine("siteEngine")).not.toBeDefined()
+
   describe ".getEngine", ->
     it "get value from engine config", ->
       config.set("siteEngine", "jekyll")
@@ -72,3 +89,8 @@ describe "config", ->
     it "get empty when file is not found", ->
       config.getProjectConfigFile = -> path.resolve(__dirname, "fixtures", "notfound.cson")
       expect(config.getProject("imageTag")).not.toBeDefined()
+
+  describe ".getSampleConfigFile", ->
+    it "get the config file path", ->
+      configPath = path.join("lib", "config.cson")
+      expect(config.getSampleConfigFile()).toContain(configPath)

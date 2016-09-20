@@ -7,6 +7,21 @@ describe "utils", ->
 # General Utils
 #
 
+  describe ".incrementChars", ->
+    it "increment empty chars", ->
+      expect(utils.incrementChars("")).toEqual("a")
+
+    it "increment 1 char", ->
+      expect(utils.incrementChars("a")).toEqual("b")
+      expect(utils.incrementChars("f")).toEqual("g")
+      expect(utils.incrementChars("y")).toEqual("z")
+      expect(utils.incrementChars("z")).toEqual("aa")
+
+    it "increment 2 char", ->
+      expect(utils.incrementChars("AC")).toEqual("AD")
+      expect(utils.incrementChars("EZ")).toEqual("FA")
+      expect(utils.incrementChars("ZZ")).toEqual("AAA")
+
   describe ".slugize", ->
     it "slugize string", ->
       fixture = "hello world!"
@@ -123,11 +138,21 @@ describe "utils", ->
 # Image
 #
 
-  it "check is valid image", ->
-    fixture = "![text](url)"
-    expect(utils.isImage(fixture)).toBe(true)
+  it "check is not valid image", ->
     fixture = "[text](url)"
     expect(utils.isImage(fixture)).toBe(false)
+
+  it "check is valid image", ->
+    fixture = "![](url)"
+    expect(utils.isImage(fixture)).toBe(true)
+    fixture = '![](url "title")'
+    expect(utils.isImage(fixture)).toBe(true)
+    fixture = "![text]()"
+    expect(utils.isImage(fixture)).toBe(true)
+    fixture = "![text](url)"
+    expect(utils.isImage(fixture)).toBe(true)
+    fixture = "![text](url 'title')"
+    expect(utils.isImage(fixture)).toBe(true)
 
   it "parse valid image", ->
     fixture = "![text](url)"
@@ -148,20 +173,38 @@ describe "utils", ->
     it "check is text invalid inline link", ->
       fixture = "![text](url)"
       expect(utils.isInlineLink(fixture)).toBe(false)
-      fixture = "[text]()"
-      expect(utils.isInlineLink(fixture)).toBe(false)
       fixture = "[text][]"
+      expect(utils.isInlineLink(fixture)).toBe(false)
+      fixture = "[![](image.png)][id]"
+      expect(utils.isInlineLink(fixture)).toBe(false)
+      fixture = "[![image title](image.png)][id]"
       expect(utils.isInlineLink(fixture)).toBe(false)
 
     it "check is text valid inline link", ->
+      fixture = "[text]()"
+      expect(utils.isInlineLink(fixture)).toBe(true)
       fixture = "[text](url)"
       expect(utils.isInlineLink(fixture)).toBe(true)
       fixture = "[text](url title)"
       expect(utils.isInlineLink(fixture)).toBe(true)
       fixture = "[text](url 'title')"
       expect(utils.isInlineLink(fixture)).toBe(true)
+      # link in link text is invalid semantic, but it contains one valid link
+      fixture = "[[link](in_another_link)][]"
+      expect(utils.isInlineLink(fixture)).toBe(true)
+
+    it "check is image link valid inlink link", ->
+      fixture = "[![](image.png)](url)"
+      expect(utils.isInlineLink(fixture)).toBe(true)
+      fixture = "[![text](image.png)](url)"
+      expect(utils.isInlineLink(fixture)).toBe(true)
+      fixture = "[![text](image.png)](url 'title')"
+      expect(utils.isInlineLink(fixture)).toBe(true)
 
   it "parse valid inline link text", ->
+    fixture = "[text]()"
+    expect(utils.parseInlineLink(fixture)).toEqual(
+      {text: "text", url: "", title: ""})
     fixture = "[text](url)"
     expect(utils.parseInlineLink(fixture)).toEqual(
       {text: "text", url: "url", title: ""})
@@ -172,19 +215,44 @@ describe "utils", ->
     expect(utils.parseInlineLink(fixture)).toEqual(
       {text: "text", url: "url", title: "title"})
 
+  it "parse valid image text inline link", ->
+    fixture = "[![](image.png)](url)"
+    expect(utils.parseInlineLink(fixture)).toEqual(
+      {text: "![](image.png)", url: "url", title: ""})
+    fixture = "[![text](image.png)](url)"
+    expect(utils.parseInlineLink(fixture)).toEqual(
+      {text: "![text](image.png)", url: "url", title: ""})
+    fixture = "[![text](image.png 'title')](url 'title')"
+    expect(utils.parseInlineLink(fixture)).toEqual(
+      {text: "![text](image.png 'title')", url: "url", title: "title"})
+
   describe ".isReferenceLink", ->
     it "check is text invalid reference link", ->
       fixture = "![text](url)"
       expect(utils.isReferenceLink(fixture)).toBe(false)
       fixture = "[text](has)"
       expect(utils.isReferenceLink(fixture)).toBe(false)
+      fixture = "[][]"
+      expect(utils.isReferenceLink(fixture)).toBe(false)
+      fixture = "[![](image.png)][]"
+      expect(utils.isReferenceLink(fixture)).toBe(false)
+      fixture = "[![text](image.png)][]"
+      expect(utils.isReferenceLink(fixture)).toBe(false)
 
     it "check is text valid reference link", ->
       fixture = "[text][]"
       expect(utils.isReferenceLink(fixture)).toBe(true)
-
-    it "check is text valid reference link with id", ->
       fixture = "[text][id with space]"
+      expect(utils.isReferenceLink(fixture)).toBe(true)
+
+    it "check is text valid image reference link", ->
+      fixture = "[![](image.png)][]"
+      expect(utils.isReferenceLink(fixture)).toBe(false)
+      fixture = "[![text](image.png)][]"
+      expect(utils.isReferenceLink(fixture)).toBe(false)
+      fixture = "[![](image.png)][id with space]"
+      expect(utils.isReferenceLink(fixture)).toBe(true)
+      fixture = "[![text](image.png)][id with space]"
       expect(utils.isReferenceLink(fixture)).toBe(true)
 
   describe ".parseReferenceLink", ->
@@ -215,9 +283,16 @@ describe "utils", ->
         id: "id", text: "Jekyll", url: "http://jekyll.com", title: "Jekyll Website"
         definitionRange: {start: {row: 3, column: 0}, end: {row: 3, column: 40}}
 
+    it "parse orphan reference link text", ->
+      fixture = "[Jekyll][jekyll]"
+      expect(utils.parseReferenceLink(fixture, editor)).toEqual
+        id: "jekyll", text: "Jekyll", url: "", title: "", definitionRange: null
+
   describe ".isReferenceDefinition", ->
     it "check is text invalid reference definition", ->
       fixture = "[text] http"
+      expect(utils.isReferenceDefinition(fixture)).toBe(false)
+      fixture = "[^text]: http"
       expect(utils.isReferenceDefinition(fixture)).toBe(false)
 
     it "check is text valid reference definition", ->
@@ -228,7 +303,7 @@ describe "utils", ->
       fixture = "  [text]: http 'title not in double quote'"
       expect(utils.isReferenceDefinition(fixture)).toBe(true)
 
-  describe ".parseReferenceLink", ->
+  describe ".parseReferenceDefinition", ->
     editor = null
 
     beforeEach ->
@@ -255,6 +330,36 @@ describe "utils", ->
       expect(utils.parseReferenceDefinition(fixture, editor)).toEqual
         id: "id", text: "Jekyll", url: "http://jekyll.com", title: "Jekyll Website"
         linkRange: {start: {row: 5, column: 48}, end: {row: 5, column: 60}}
+
+    it "parse orphan reference definition text", ->
+      fixture = "[jekyll]: http://jekyll.com \"Jekyll Website\""
+      expect(utils.parseReferenceDefinition(fixture, editor)).toEqual
+        id: "jekyll", text: "", url: "http://jekyll.com", title: "Jekyll Website",
+        linkRange: null
+
+  describe ".isFootnote", ->
+    it "check is text invalid footnote", ->
+      fixture = "[text]"
+      expect(utils.isFootnote(fixture)).toBe(false)
+      fixture = "![abc]"
+      expect(utils.isFootnote(fixture)).toBe(false)
+
+    it "check is text valid footnote", ->
+      fixture = "[^1]"
+      expect(utils.isFootnote(fixture)).toBe(true)
+      fixture = "[^text]"
+      expect(utils.isFootnote(fixture)).toBe(true)
+      fixture = "[^text text]"
+      expect(utils.isFootnote(fixture)).toBe(true)
+      fixture = "[^12]:"
+      expect(utils.isFootnote(fixture)).toBe(true)
+
+  describe ".parseFootnote", ->
+    it "parse valid footnote", ->
+      fixture = "[^1]"
+      expect(utils.parseFootnote(fixture)).toEqual(label: "1", content: "", isDefinition: false)
+      fixture = "[^text]: "
+      expect(utils.parseFootnote(fixture)).toEqual(label: "text", content: "", isDefinition: true)
 
 # ==================================================
 # Table

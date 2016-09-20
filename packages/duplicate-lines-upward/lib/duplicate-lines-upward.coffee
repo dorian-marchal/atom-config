@@ -12,15 +12,12 @@ module.exports =
         selectedBufferRange = selection.getBufferRange()
         if selection.isEmpty()
           {start} = selection.getScreenRange()
-          selection.selectToScreenPosition([start.row + 1, 0])
+          selection.setScreenRange([[start.row, 0], [start.row + 1, 0]], preserveFolds: true)
 
         [startRow, endRow] = selection.getBufferRowRange()
         endRow++
 
-        foldedRowRanges =
-          editor.outermostFoldsInBufferRowRange(startRow, endRow)
-            .map (fold) -> fold.getBufferRowRange()
-
+        intersectingFolds = editor.displayLayer.foldsIntersectingBufferRange([[startRow, 0], [endRow, 0]])
         rangeToDuplicate = [[startRow, 0], [endRow, 0]]
         textToDuplicate = editor.getTextInBufferRange(rangeToDuplicate)
         textToDuplicate = textToDuplicate + '\n' if endRow > editor.getLastBufferRow()
@@ -28,5 +25,7 @@ module.exports =
 
         delta = endRow - startRow
         selection.setBufferRange(selectedBufferRange)
-        for [foldStartRow, foldEndRow] in foldedRowRanges
-          editor.createFold(foldStartRow, foldEndRow)
+        for fold in intersectingFolds
+          foldRange = editor.displayLayer.bufferRangeForFold(fold)
+          editor.displayLayer.foldBufferRange(foldRange.translate([delta, 0]))
+      return

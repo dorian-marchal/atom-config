@@ -6,13 +6,17 @@ const path = require('path');
 const fuzzaldrin = require('fuzzaldrin');
 const escapeRegExp = require('lodash.escaperegexp');
 const get = require('lodash.get');
-const internalModules = require('./internal-modules');
+const findBabelConfig = require('find-babel-config');
+const internalModules = require('./utils/internal-modules');
 
-const LINE_REGEXP = /require|import|export\s+(?:\*|{[a-zA-Z0-9_$,\s]+})+\s+from|}\s*from\s*['"]/;
+const LINE_REGEXP = /require|import|export\s+(?:\*|{?[a-zA-Z0-9_$,\s]+}?)+\s+from|}\s*from\s*['"]/;
 const SELECTOR = [
   '.source.js .string.quoted',
+
   // for babel-language plugin
+  '.source.js .punctuation.definition.string.end',
   '.source.js .punctuation.definition.string.begin',
+
   '.source.ts .string.quoted',
   '.source.coffee .string.quoted'
 ];
@@ -54,6 +58,11 @@ class CompletionProvider {
     const webpack = atom.config.get('autocomplete-modules.webpack');
     if (webpack) {
       promises.push(this.lookupWebpack(realPrefix));
+    }
+
+    const babelPluginModuleResolver = atom.config.get('autocomplete-modules.babelPluginModuleResolver');
+    if (babelPluginModuleResolver) {
+      promises.push(this.lookupbabelPluginModuleResolver(realPrefix));
     }
 
     return Promise.all(promises).then(
@@ -150,13 +159,14 @@ class CompletionProvider {
     const vendors = atom.config.get('autocomplete-modules.vendors');
     const webpackConfig = this.fetchWebpackConfig(projectPath);
 
+    const webpackRoot = get(webpackConfig, 'resolve.root', '');
     let moduleSearchPaths = get(webpackConfig, 'resolve.modulesDirectories', []);
     moduleSearchPaths = moduleSearchPaths.filter(
       (item) => vendors.indexOf(item) === -1
     );
 
     return Promise.all(moduleSearchPaths.map(
-      (searchPath) => this.lookupLocal(prefix, searchPath)
+      (searchPath) => this.lookupLocal(prefix, path.join(webpackRoot, searchPath))
     )).then(
       (suggestions) => [].concat(...suggestions)
     );
@@ -170,6 +180,78 @@ class CompletionProvider {
       return require(webpackConfigPath); // eslint-disable-line
     } catch (error) {
       return {};
+    }
+  }
+
+  lookupbabelPluginModuleResolver(prefix) {
+    const projectPath = atom.project.getPaths()[0];
+    if (projectPath) {
+      return findBabelConfig(projectPath).then(({config}) => {
+        if (config && Array.isArray(config.plugins)) {
+          // Grab the v1 (module-alias) or v2 (module-resolver) plugin configuration
+          const pluginConfig = config.plugins.find(p => p[0] === 'module-alias' || p[0] === 'babel-plugin-module-alias') ||
+            config.plugins.find(p => p[0] === 'module-resolver' || p[0] === 'babel-plugin-module-resolver');
+          if (!pluginConfig) {
+            return [];
+          }
+
+          // Only v2 of the plugin supports custom root directories
+          let rootPromises = [];
+          if (!Array.isArray(pluginConfig[1])) {
+            const rootDirs = pluginConfig[1].root || [];
+            rootPromises = rootPromises.concat(rootDirs.map(r => {
+              const rootDirPath = path.join(projectPath, r);
+              return this.lookupLocal(`./${prefix}`, rootDirPath);
+            }));
+          }
+
+          // determine the right prefix for the alias config
+          // `realPrefix` is the prefix we want to use to find the right file/suggestions
+          // when the prefix is a sub module (eg. module/subfile),
+          // `modulePrefix` will be "module", and `realPrefix` will be "subfile"
+          const prefixSplit = prefix.split('/');
+          const modulePrefix = prefixSplit[0];
+          const realPrefix = prefixSplit.pop();
+          const moduleSearchPath = prefixSplit.join('/');
+
+          // get the alias configs for the specific module
+          const aliasConfig = Array.isArray(pluginConfig[1])
+            // v1 of the plugin is an array
+            ? pluginConfig[1].filter(alias => alias.expose.startsWith(modulePrefix))
+            // otherwise it's v2 (an object)
+            : Object.keys(pluginConfig[1].alias || {})
+              .filter(expose => expose.startsWith(modulePrefix))
+              .map(exp => ({
+                expose: exp,
+                src: pluginConfig[1].alias[exp]
+              }));
+
+          return Promise.all(rootPromises.concat(aliasConfig.map(
+            (alias) => {
+              // The search path is the parent directory of the source directory specified in .babelrc
+              // then we append the `moduleSearchPath` to get the real search path
+              const searchPath = path.join(
+                path.dirname(path.resolve(projectPath, alias.src)),
+                moduleSearchPath
+              );
+
+              return this.lookupLocal(realPrefix, searchPath);
+            }
+          ))).then(
+            (suggestions) => [].concat(...suggestions)
+          ).then(suggestions => {
+            // make sure the suggestions are from the compatible alias
+            if (prefix === realPrefix && aliasConfig.length) {
+              return suggestions.filter(sugg =>
+                aliasConfig.find(a => a.expose === sugg.text)
+              );
+            }
+            return suggestions;
+          });
+        }
+
+        return [];
+      });
     }
   }
 }

@@ -1,3 +1,43 @@
+## 2.6.1
+
+* Fix `bufferRangeForScope` return `undefined` in a specific corner case
+* Improve `jump-to-reference-definition` to handle more cases
+
+## 2.6.0
+
+* Fix Atom deprecation warning in package
+* Bump minimum Atom version to v1.9.0
+* Add command `markdown-writer:open-link-in-browser`
+* Improve cheatsheet format and content
+
+## 2.5.1
+
+* Fix create project config regression bug
+
+## 2.5.0
+
+* Add footnote support, works better with [language-markdown][ed5837b4]
+* Support overwriting existing image when copy image
+
+  [ed5837b4]: https://atom.io/packages/language-markdown "language-markdown package"
+
+## 2.4.0
+
+* Add alpha order list support with `enter` continue list
+* Add [filetype config][304ca626] support
+  * Along with AsciiDoc filetype support
+* Fix parsing image tag in a link
+* Fix events not disposed correctly in views
+* Add `renameImageOnCopy` config when copy image to local directories
+* Add display of copy image destination path in dialog
+
+  [304ca626]: https://github.com/zhuochun/md-writer/pull/156 "How to add your filetype support"
+
+## 2.3.6
+
+* Fix open cheat sheet path in Windows
+* Add `source.gfm.nvatom` grammar support
+
 ## 2.3.5
 
 * Fix menu ordered list command
@@ -33,9 +73,9 @@
 
 * Refactoring frontMatter and template
   * Change to use `{slug}` instead of `{title}` in directory templates
-  * Added config `slugSeparator`
-  * Added config `templateVariables` for custom static variables
-  * Added config `frontMatterDate` for front matter date format
+  * Add config `slugSeparator`
+  * Add config `templateVariables` for custom static variables
+  * Add config `frontMatterDate` for front matter date format
 * Add `language-markdown` package filetype to supported grammars
 * Support customization of link tags using template
 

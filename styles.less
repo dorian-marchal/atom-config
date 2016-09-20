@@ -20,6 +20,10 @@
     &.list-tree.has-collapsable-children .list-nested-item > .list-group > li {
         padding-left: 12px;
     }
+
+    .icon-file-binary[data-name$=".pyc"] {
+        display: none !important;
+    }
 }
 
 atom-pane {
@@ -78,9 +82,24 @@ atom-text-editor::shadow {
     .invisible-character {
         color: transparent;
 
-        &:not(.trailing-whitespace):not(.leading-whitespace):nth-last-child(2) {
-            color: #39F !important;
-        }
+        // &.eol {
+        //     position: relative;
+        //     color: #39F;
+        //     &:after {
+        //         content: ' ';
+        //         position: absolute;
+        //         top: 0;
+        //         left: 0;
+        //         width: 8px;
+        //         height: 100%;
+        //         opacity: 1;
+        //         background-color: #272727 !important;
+        //     }
+        // }
+        // &:not(.trailing-whitespace):not(.leading-whitespace):nth-last-child(2) {
+        //     color: rgba(59, 235, 166, 0.5) !important;
+        //
+        // }
 
         &.hard-tab {
             color: #FFF;

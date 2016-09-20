@@ -3,7 +3,7 @@ utils = require "../utils"
 module.exports =
 class OpenCheatSheet
   trigger: (e) ->
-    e.abortKeyBinding() unless @hasPreview()
+    return e.abortKeyBinding() unless @hasPreview()
 
     atom.workspace.open @cheatsheetURL(),
       split: 'right', searchAllPanes: true
@@ -13,4 +13,4 @@ class OpenCheatSheet
 
   cheatsheetURL: ->
     cheatsheet = utils.getPackagePath("CHEATSHEET.md")
-    "markdown-preview://#{encodeURI(cheatsheet)}"
+    "markdown-preview://#{cheatsheet}"

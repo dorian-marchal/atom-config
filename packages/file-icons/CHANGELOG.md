@@ -4,6 +4,49 @@ All notable changes to the project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+[1.7.19] - 2016-08-28
+---------------------
+### Added
+- **New icons:** FontForge (`.pe`, `.sfd`)
+- **Support:** Emacs Lisp (`.elc`), GNU's readline configuration (`.inputrc`), PostScript (`.afm`, `.pfb`)
+
+### Changed
+- Updated icons in readme's preview image
+
+
+[1.7.18] - 2016-08-05
+---------------------
+### Added
+- **New icons:** CircleCI (`circle.yml`), Tern (`.tern-project`)
+- **Support:** Flow (`.js.flow`), Jinja (`.jinja2`), Mocha (`mocha.opts`), Manpages (`.pic`), mSQL (`.dsql`), NodeJS (`.nvmrc`), Pug (`.pug-lintrc`)
+
+### Changed
+- `.x` files now use Objective-C icon
+
+
+[1.7.17] - 2016-07-14
+---------------------
+### Added
+- **New icons:** Chai, Cordova, D3, Ember, ESLint (new), Mocha
+- **Support:** Assembly (`.agc`), Docker (`.dockerfile`), ESLint (`.eslintcache`)
+
+### Changed
+- Laravel icon is now orange, as per their logo
+
+### Fixed
+- [[`#400`](https://github.com/DanBrooker/file-icons/issues/400)] Laravel icon too small in Atom Material UI
+
+
+[1.7.16] - 2016-07-05
+---------------------
+### Added
+- **New icons:** Akka, ChartJS, CKEditor, CodeMirror, EQ, Fuel UX, GDB, Leaflet, MathJax, Neko, Normalize.css, Sinatra, Spray, TinyMCE, YUI
+- **Support:** BibTeX (`.bst`), NPM (`npm-shrinkwrap.json`), Yeoman (`.yo-rc.json`)
+
+### Changed
+- New procedure for adding icons - a [separate repository](https://github.com/Alhadis/FileIcons) now manages the package's icon-font. Contributors should take heed of the new [submission process]((https://github.com/Alhadis/FileIcons#adding-new-icons).
+
+
 [1.7.15] - 2016-06-17
 ---------------------
 ### Added
@@ -805,7 +848,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Initial release.
 
 
-[Unpublished]: https://github.com/DanBrooker/file-icons/compare/v1.7.15...HEAD
+[Unpublished]: https://github.com/DanBrooker/file-icons/compare/v1.7.19...HEAD
+[1.7.19]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.19
+[1.7.18]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.18
+[1.7.17]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.17
+[1.7.16]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.16
 [1.7.15]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.15
 [1.7.14]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.14
 [1.7.13]: https://github.com/DanBrooker/file-icons/releases/tag/v1.7.13

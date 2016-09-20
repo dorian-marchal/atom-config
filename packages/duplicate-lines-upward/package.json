@@ -1,7 +1,7 @@
 {
   "name": "duplicate-lines-upward",
   "main": "./lib/duplicate-lines-upward",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "This Atom package adds the default Eclipse key bind of Ctrl+Alt+Up to duplicate lines upward.",
   "activationCommands": {
     "atom-text-editor": [
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/harai/duplicate-lines-upward"
+    "url": "git+https://github.com/harai/duplicate-lines-upward.git"
   },
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">1.9.0"
   },
   "dependencies": {},
   "readme": "# duplicate-lines-upward package\n\nThis project is an [Atom](http://atom.io/) package.\n\nThis Atom package adds a default [Eclipse](https://eclipse.org/) key bind of duplicating lines upward, which by default is bound to Ctrl+Alt+Up.\n",
@@ -22,11 +22,11 @@
   "bugs": {
     "url": "https://github.com/harai/duplicate-lines-upward/issues"
   },
-  "homepage": "https://github.com/harai/duplicate-lines-upward",
-  "_id": "duplicate-lines-upward@1.1.2",
-  "_shasum": "f4a4858878c7f716dcfa1e3985d326dcad2106d2",
-  "_resolved": "file:../d-115416-25458-xcz98o/package.tgz",
-  "_from": "../d-115416-25458-xcz98o/package.tgz",
+  "homepage": "https://github.com/harai/duplicate-lines-upward#readme",
+  "_id": "duplicate-lines-upward@1.1.3",
+  "_shasum": "3ef39c69d50d8c95cbedb35582327987be5bd1b6",
+  "_resolved": "file:../d-116716-21081-1fmqsy9/package.tgz",
+  "_from": "../d-116716-21081-1fmqsy9/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

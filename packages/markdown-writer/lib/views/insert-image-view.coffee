@@ -1,3 +1,4 @@
+{CompositeDisposable} = require 'atom'
 {$, View, TextEditorView} = require "atom-space-pen-views"
 path = require "path"
 fs = require "fs-plus"
@@ -36,7 +37,7 @@ class InsertImageView extends View
         @label for: "markdown-writer-copy-image-checkbox", =>
           @input id: "markdown-writer-copy-image-checkbox",
             type:"checkbox", outlet: "copyImageCheckbox"
-          @span "Copy Image to Site Image Directory", class: "side-label"
+          @span "Copy Image to Site Image Directory", class: "side-label", outlet: "copyImageMessage"
       @div class: "image-container", =>
         @img outlet: 'imagePreview'
 
@@ -44,18 +45,29 @@ class InsertImageView extends View
     utils.setTabIndex([@imageEditor, @openImageButton, @titleEditor,
       @widthEditor, @heightEditor, @alignEditor, @copyImageCheckbox])
 
-    @imageEditor.on "blur", => @updateImageSource(@imageEditor.getText().trim())
+    @imageEditor.on "blur", =>
+      file = @imageEditor.getText().trim()
+      @updateImageSource(file)
+      @updateCopyImageDest(file)
+    @titleEditor.on "blur", =>
+      @updateCopyImageDest(@imageEditor.getText().trim())
     @openImageButton.on "click", => @openImageDialog()
 
-    atom.commands.add @element,
-      "core:confirm": => @onConfirm()
-      "core:cancel":  => @detach()
+    @disposables = new CompositeDisposable()
+    @disposables.add(atom.commands.add(
+      @element, {
+        "core:confirm": => @onConfirm(),
+        "core:cancel":  => @detach()
+      }))
 
   onConfirm: ->
     imgSource = @imageEditor.getText().trim()
     return unless imgSource
 
-    callback = => @insertImageTag(); @detach()
+    callback = =>
+      @insertImageTag()
+      @detach()
+
     if !@copyImageCheckbox.hasClass('hidden') && @copyImageCheckbox.prop("checked")
       @copyImage(@resolveImagePath(imgSource), callback)
     else
@@ -72,10 +84,14 @@ class InsertImageView extends View
     @imageEditor.focus()
 
   detach: ->
-    return unless @panel.isVisible()
-    @panel.hide()
-    @previouslyFocusedElement?.focus()
+    if @panel.isVisible()
+      @panel.hide()
+      @previouslyFocusedElement?.focus()
     super
+
+  detached: ->
+    @disposables?.dispose()
+    @disposables = null
 
   setFieldsFromSelection: ->
     @range = utils.getTextBufferRange(@editor, "link")
@@ -110,13 +126,17 @@ class InsertImageView extends View
 
   updateImageSource: (file) ->
     return unless file
-
     @displayImagePreview(file)
 
     if utils.isUrl(file) || @isInSiteDir(@resolveImagePath(file))
       @copyImagePanel.addClass("hidden")
     else
       @copyImagePanel.removeClass("hidden")
+
+  updateCopyImageDest: (file) ->
+    return unless file
+    destFile = @copyImageDestPath(file, @titleEditor.getText())
+    @copyImageMessage.text("Copy Image to #{destFile}")
 
   displayImagePreview: (file) ->
     return if @imageOnPreview == file
@@ -171,14 +191,17 @@ class InsertImageView extends View
     return callback() if utils.isUrl(file) || !fs.existsSync(file)
 
     try
-      destFile = path.join(@siteLocalDir(), @siteImagesDir(), path.basename(file))
+      destFile = @copyImageDestPath(file, @titleEditor.getText())
+      performWrite = true
 
       if fs.existsSync(destFile)
-        atom.confirm
+        confirmation = atom.confirm
           message: "File already exists!"
-          detailedMessage: "Another file already exists at:\n#{destPath}"
-          buttons: ['OK']
-      else
+          detailedMessage: "Another file already exists at:\n#{destFile}\nDo you want to overwrite it?"
+          buttons: ["No", "Yes"]
+        performWrite = (confirmation == 1)
+
+      if performWrite
         fs.copy file, destFile, =>
           @imageEditor.setText(destFile)
           callback()
@@ -200,12 +223,25 @@ class InsertImageView extends View
   # check the file is in the site directory
   isInSiteDir: (file) -> file && file.startsWith(@siteLocalDir())
 
+  # get copy image destination file path
+  copyImageDestPath: (file, title) ->
+    filename = path.basename(file)
+
+    if config.get("renameImageOnCopy") && title
+      extension = path.extname(file)
+      title = utils.slugize(title, config.get('slugSeparator'))
+      filename = "#{title}#{extension}"
+
+    path.join(@siteLocalDir(), @siteImagesDir(), filename)
+
   # try to resolve file to a valid src that could be displayed
   resolveImagePath: (file) ->
     return "" unless file
     return file if utils.isUrl(file) || fs.existsSync(file)
     absolutePath = path.join(@siteLocalDir(), file)
     return absolutePath if fs.existsSync(absolutePath)
+    relativePath = path.join(@currentFileDir(), file)
+    return relativePath if fs.existsSync(relativePath)
     return file # fallback to not resolve
 
   # generate a src that is used in markdown file based on user configuration or file location

@@ -1,31 +1,44 @@
 # linter-stylelint [![Dependency Status](https://david-dm.org/AtomLinter/linter-stylelint.svg)](https://david-dm.org/AtomLinter/linter-stylelint)
 
-A plugin for [Atom Linter](https://github.com/AtomLinter/atom-linter) providing an interface to [stylelint](https://github.com/stylelint/stylelint).
+A plugin for [Atom Linter](https://github.com/AtomLinter/atom-linter) providing
+an interface to [stylelint](https://github.com/stylelint/stylelint).
 
-![demo](https://raw.githubusercontent.com/1000ch/linter-stylelint/master/demo.png)
+![demo](https://raw.githubusercontent.com/AtomLinter/linter-stylelint/master/demo.png)
 
 ## Installation
 
-```bash
-$ apm install linter-stylelint
+```ShellSession
+apm install linter-stylelint
 ```
 
-linter-stylelint checks both `.css` and `.scss` files. (For `.scss` files, it automatically tells stylelint to use the right parser.)
+linter-stylelint runs `stylelint` against your CSS, SCSS, Less, PostCSS,
+and SugarSS files.
 
-## Config
+## Configuration
 
-You can pass configuration to stylelint in the following ways:
+You can pass a configuration to `stylelint` in any of the following ways:
 
-- Place a config file (`.stylelintrc` or `stylelint.config.js`) in your project's root or upper directories.
-- Add a `stylelint` section in your `package.json`.
-- In the settings, check `Use preset` and select one of the following presets:
-    - [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard)
-    - [stylelint-config-cssrecipes](https://github.com/stylelint/stylelint-config-cssrecipes)
-    - [stylelint-config-suitcss](https://github.com/stylelint/stylelint-config-suitcss)
-    - [stylelint-config-wordpress](https://github.com/stylelint/stylelint-config-wordpress)
+-   Place a configuration file (`.stylelintrc` or `stylelint.config.js`) in your
+    project's root folder or in any parent folder.
 
-`.stylelintrc` is always prioritized. If you have checked `Use preset` in the settings and also have a `.stylelintrc` file, your `.stylelintrc` configuration will extend the preset, using [stylelint's extend functionality](http://stylelint.io/?/docs/user-guide/configuration.md).
+-   Add a `stylelint` section in your `package.json`.
+
+-   In the settings, check `Use standard` to automatically use [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard)
+
+`.stylelintrc` is always prioritized. If you have checked `Use standard` in the
+settings and also have a `.stylelintrc` file, your `.stylelintrc` configuration
+will extend the preset, using [stylelint's extend functionality](http://stylelint.io/?/docs/user-guide/configuration.md).
+
+## Notes
+
+As of `stylelint` v7.0.0 the ability to lint embedded style code has been
+removed from core, replaced with the ability for generic processors to handle
+any file format. Currently one has yet to be written for pulling style code
+out of HTML, if you are interested in bringing this functionality back to
+`linter-stylelint`, check out [their documentation](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/processors.md)
+on how to write a processor to handle HTML, and any other files that contain
+style code!
 
 ## License
 
-MIT: http://1000ch.mit-license.org/
+MIT: <http://1000ch.mit-license.org/>

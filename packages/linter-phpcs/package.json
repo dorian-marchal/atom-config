@@ -1,6 +1,6 @@
 {
   "name": "linter-phpcs",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "main": "./lib/main.coffee",
   "description": "Lint PHP on the fly, using phpcs",
   "repository": {
@@ -10,10 +10,79 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "atom": ">=1.0.0 <2.0.0"
+    "atom": ">=1.4.0 <2.0.0"
+  },
+  "configSchema": {
+    "executablePath": {
+      "type": "string",
+      "default": "phpcs",
+      "description": "Enter the path to your phpcs executable.",
+      "order": 1
+    },
+    "disableExecuteTimeout": {
+      "type": "boolean",
+      "default": false,
+      "description": "Disable the 10 second timeout on running phpcs",
+      "order": 2
+    },
+    "codeStandardOrConfigFile": {
+      "type": "string",
+      "default": "PSR2",
+      "description": "Enter path to config file or a coding standard, PSR2 for example.",
+      "order": 3
+    },
+    "disableWhenNoConfigFile": {
+      "type": "boolean",
+      "default": false,
+      "description": "Disable the linter when the default configuration file is not found.",
+      "order": 4
+    },
+    "autoConfigSearch": {
+      "title": "Search for configuration files",
+      "type": "boolean",
+      "default": true,
+      "description": "Automatically search for any `phpcs.xml`, `phpcs.xml.dist`, `phpcs.ruleset.xml` or `ruleset.xml` file to use as configuration. Overrides custom standards defined above.",
+      "order": 5
+    },
+    "ignorePatterns": {
+      "type": "array",
+      "default": [
+        "*.blade.php",
+        "*.twig.php"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Enter filename patterns to ignore when running the linter.",
+      "order": 6
+    },
+    "displayErrorsOnly": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ignore warnings and display errors only.",
+      "order": 7
+    },
+    "warningSeverity": {
+      "type": "integer",
+      "default": 1,
+      "description": "Set the warning severity level. Available when \"Display Errors Only\" is not checked.",
+      "order": 8
+    },
+    "tabWidth": {
+      "type": "integer",
+      "default": 0,
+      "description": "Set the number of spaces that tab characters represent to the linter. Enter 0 to disable this option.",
+      "order": 9
+    },
+    "showSource": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show source in message.",
+      "order": 10
+    }
   },
   "dependencies": {
-    "atom-linter": "^4.6.1",
+    "atom-linter": "^8.0.0",
     "atom-package-deps": "^4.0.1",
     "escape-html": "^1.0.3",
     "minimatch": "^3.0.0"
@@ -21,8 +90,8 @@
   "devDependencies": {
     "coffeelint": "^1.14.2",
     "eslint": "^2.9.0",
-    "eslint-config-airbnb-base": "^2.0.0",
-    "eslint-plugin-import": "^1.6.1"
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-plugin-import": "^1.7.0"
   },
   "package-deps": [
     "linter"
@@ -88,16 +157,16 @@
     "url": "https://github.com/AtomLinter/linter-phpcs/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-phpcs#readme",
-  "_id": "linter-phpcs@1.4.0",
-  "_shasum": "bb6dabac95bb30fce4b38e4db8406c328223f373",
-  "_resolved": "file:../d-11646-14850-o2sghh/package.tgz",
-  "_from": "../d-11646-14850-o2sghh/package.tgz",
+  "_id": "linter-phpcs@1.4.1",
+  "_shasum": "f5a4198de0664e174cfb2a39b6151fc464e8bd97",
+  "_resolved": "file:../d-116820-21229-1i9e043/package.tgz",
+  "_from": "../d-116820-21229-1i9e043/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "atom-linter",
-        "version": "4.7.0",
+        "version": "8.0.0",
         "path": "node_modules/atom-linter/lib/index.js"
       },
       {
@@ -107,22 +176,22 @@
       },
       {
         "name": "sb-exec",
-        "version": "1.0.5",
+        "version": "3.0.3",
         "path": "node_modules/atom-linter/node_modules/sb-exec/lib/index.js"
       },
       {
         "name": "consistent-env",
-        "version": "1.1.2",
+        "version": "1.3.0",
         "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js"
       },
       {
-        "name": "extify",
-        "version": "1.0.0",
-        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/index.js"
+        "name": "lodash.uniq",
+        "version": "4.5.0",
+        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/lodash.uniq/index.js"
       },
       {
         "name": "sb-npm-path",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js"
       },
       {
@@ -132,12 +201,12 @@
       },
       {
         "name": "sb-promisify",
-        "version": "1.3.0",
+        "version": "2.0.1",
         "path": "node_modules/atom-linter/node_modules/sb-promisify/lib/index.js"
       },
       {
         "name": "tmp",
-        "version": "0.0.28",
+        "version": "0.0.29",
         "path": "node_modules/atom-linter/node_modules/tmp/lib/tmp.js"
       },
       {
@@ -147,7 +216,7 @@
       },
       {
         "name": "atom-package-deps",
-        "version": "4.0.1",
+        "version": "4.3.1",
         "path": "node_modules/atom-package-deps/lib/index.js"
       },
       {
@@ -161,23 +230,53 @@
         "path": "node_modules/atom-package-deps/node_modules/atom-package-path/node_modules/sb-callsite/lib/main.js"
       },
       {
+        "name": "sb-exec",
+        "version": "3.0.3",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/lib/index.js"
+      },
+      {
+        "name": "consistent-env",
+        "version": "1.3.0",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/lib/index.js"
+      },
+      {
+        "name": "lodash.uniq",
+        "version": "4.5.0",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/lodash.uniq/index.js"
+      },
+      {
+        "name": "sb-npm-path",
+        "version": "2.0.0",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js"
+      },
+      {
+        "name": "sb-memoize",
+        "version": "1.0.2",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js"
+      },
+      {
+        "name": "sb-promisify",
+        "version": "2.0.1",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-promisify/lib/index.js"
+      },
+      {
         "name": "escape-html",
         "version": "1.0.3",
         "path": "node_modules/escape-html/index.js"
       },
       {
         "name": "minimatch",
-        "version": "3.0.0",
+        "version": "3.0.3",
         "path": "node_modules/minimatch/minimatch.js"
       },
       {
         "name": "brace-expansion",
-        "version": "1.1.4",
+        "version": "1.1.6",
         "path": "node_modules/minimatch/node_modules/brace-expansion/index.js"
       },
       {
         "name": "balanced-match",
-        "version": "0.4.1",
+        "version": "0.4.2",
         "path": "node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js"
       },
       {
@@ -190,55 +289,37 @@
       ".coffee": [
         "lib/main.coffee"
       ],
-      ".js": [
-        "node_modules/atom-linter/lib/helpers.js",
-        "node_modules/atom-linter/lib/index.js",
-        "node_modules/atom-linter/lib/types.js",
-        "node_modules/atom-linter/node_modules/named-js-regexp/lib/named-js-regexp.js",
-        "node_modules/atom-linter/node_modules/sb-exec/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/lib/types.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-promisify/lib/index.js",
-        "node_modules/atom-linter/node_modules/tmp/Gruntfile.js",
-        "node_modules/atom-linter/node_modules/tmp/lib/tmp.js",
-        "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js",
-        "node_modules/atom-package-deps/lib/helpers.js",
-        "node_modules/atom-package-deps/lib/index.js",
-        "node_modules/atom-package-deps/lib/view.js",
-        "node_modules/atom-package-deps/node_modules/atom-package-path/lib/index.js",
-        "node_modules/atom-package-deps/node_modules/atom-package-path/node_modules/sb-callsite/lib/main.js",
-        "node_modules/escape-html/index.js",
-        "node_modules/minimatch/minimatch.js",
-        "node_modules/minimatch/node_modules/brace-expansion/example.js",
-        "node_modules/minimatch/node_modules/brace-expansion/index.js",
-        "node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
-        "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
-        "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
-      ],
       ".json": [
+        "node_modules/atom-linter/.eslintrc.json",
         "node_modules/atom-linter/node_modules/named-js-regexp/package.json",
         "node_modules/atom-linter/node_modules/sb-exec/.eslintrc.json",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/package.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/.eslintrc.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/package.json",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/lodash.uniq/package.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/package.json",
         "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/package.json",
         "node_modules/atom-linter/node_modules/sb-exec/package.json",
+        "node_modules/atom-linter/node_modules/sb-promisify/.eslintrc.json",
         "node_modules/atom-linter/node_modules/sb-promisify/package.json",
         "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/package.json",
         "node_modules/atom-linter/node_modules/tmp/package.json",
         "node_modules/atom-linter/package.json",
+        "node_modules/atom-package-deps/.eslintrc.json",
         "node_modules/atom-package-deps/node_modules/atom-package-path/node_modules/sb-callsite/package.json",
         "node_modules/atom-package-deps/node_modules/atom-package-path/package.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/package.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/lodash.uniq/package.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/package.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-promisify/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-promisify/package.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/package.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/package.json",
         "node_modules/atom-package-deps/package.json",
         "node_modules/escape-html/package.json",
         "node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
@@ -246,6 +327,60 @@
         "node_modules/minimatch/node_modules/brace-expansion/package.json",
         "node_modules/minimatch/package.json",
         "package.json"
+      ],
+      ".js": [
+        "node_modules/atom-linter/decls/atom.js",
+        "node_modules/atom-linter/decls/jasmine.js",
+        "node_modules/atom-linter/lib/helpers.js",
+        "node_modules/atom-linter/lib/index.js",
+        "node_modules/atom-linter/lib/types.js",
+        "node_modules/atom-linter/node_modules/named-js-regexp/lib/named-js-regexp.js",
+        "node_modules/atom-linter/node_modules/sb-exec/decls/jasmine.js",
+        "node_modules/atom-linter/node_modules/sb-exec/lib/helpers.js",
+        "node_modules/atom-linter/node_modules/sb-exec/lib/index.js",
+        "node_modules/atom-linter/node_modules/sb-exec/lib/types.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/decls/jasmine.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/helpers.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/lodash.uniq/index.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/decls/jasmine.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/helpers.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js",
+        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js",
+        "node_modules/atom-linter/node_modules/sb-promisify/decls/jasmine.js",
+        "node_modules/atom-linter/node_modules/sb-promisify/lib/index.js",
+        "node_modules/atom-linter/node_modules/tmp/Gruntfile.js",
+        "node_modules/atom-linter/node_modules/tmp/lib/tmp.js",
+        "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js",
+        "node_modules/atom-package-deps/decls/atom.js",
+        "node_modules/atom-package-deps/decls/jasmine.js",
+        "node_modules/atom-package-deps/decls/package-deps.js",
+        "node_modules/atom-package-deps/lib/helpers.js",
+        "node_modules/atom-package-deps/lib/index.js",
+        "node_modules/atom-package-deps/lib/types.js",
+        "node_modules/atom-package-deps/lib/view.js",
+        "node_modules/atom-package-deps/node_modules/atom-package-path/lib/index.js",
+        "node_modules/atom-package-deps/node_modules/atom-package-path/node_modules/sb-callsite/lib/main.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/decls/jasmine.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/lib/helpers.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/lib/index.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/lib/types.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/decls/jasmine.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/lib/helpers.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/lib/index.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/lodash.uniq/index.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/decls/jasmine.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/lib/helpers.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-promisify/decls/jasmine.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-promisify/lib/index.js",
+        "node_modules/escape-html/index.js",
+        "node_modules/minimatch/minimatch.js",
+        "node_modules/minimatch/node_modules/brace-expansion/index.js",
+        "node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
+        "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
+        "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
       ]
     },
     "folders": [
@@ -256,7 +391,7 @@
           "spec"
         ],
         "dependencies": {
-          "atom-linter": "^4.6.1",
+          "atom-linter": "^8.0.0",
           "atom-package-deps": "^4.0.1",
           "escape-html": "^1.0.3",
           "minimatch": "^3.0.0"
@@ -264,36 +399,48 @@
       },
       {
         "paths": [
-          "node_modules/atom-linter/lib",
-          "node_modules/atom-linter"
+          "node_modules/atom-linter",
+          "node_modules/atom-linter/decls",
+          "node_modules/atom-linter/lib"
         ],
         "dependencies": {
           "named-js-regexp": "^1.3.1",
-          "sb-exec": "^1.0.4",
-          "sb-promisify": "^1.0.0",
+          "sb-exec": "^3.0.1",
+          "sb-promisify": "^2.0.1",
           "tmp": "~0.0.28"
         }
       },
       {
         "paths": [
           "node_modules/atom-linter/node_modules/sb-exec",
+          "node_modules/atom-linter/node_modules/sb-exec/decls",
           "node_modules/atom-linter/node_modules/sb-exec/lib"
         ],
         "dependencies": {
-          "consistent-env": "^1.0.1",
-          "extify": "^1.0.0",
-          "sb-npm-path": "^1.0.0"
+          "consistent-env": "^1.2.0",
+          "lodash.uniq": "^4.5.0",
+          "sb-npm-path": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env",
+          "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/decls",
+          "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib"
+        ],
+        "dependencies": {
+          "lodash.uniq": "^4.5.0"
         }
       },
       {
         "paths": [
           "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path",
-          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib",
-          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/spec"
+          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/decls",
+          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib"
         ],
         "dependencies": {
-          "sb-memoize": "^1.0.1",
-          "sb-promisify": "^1.2.0"
+          "sb-memoize": "^1.0.2",
+          "sb-promisify": "^2.0.1"
         }
       },
       {
@@ -309,11 +456,13 @@
       },
       {
         "paths": [
-          "node_modules/atom-package-deps/lib",
-          "node_modules/atom-package-deps"
+          "node_modules/atom-package-deps",
+          "node_modules/atom-package-deps/decls",
+          "node_modules/atom-package-deps/lib"
         ],
         "dependencies": {
-          "atom-package-path": "^1.1.0"
+          "atom-package-path": "^1.1.0",
+          "sb-exec": "^3.0.1"
         }
       },
       {
@@ -324,6 +473,39 @@
         ],
         "dependencies": {
           "sb-callsite": "^1.1.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-package-deps/node_modules/sb-exec",
+          "node_modules/atom-package-deps/node_modules/sb-exec/decls",
+          "node_modules/atom-package-deps/node_modules/sb-exec/lib"
+        ],
+        "dependencies": {
+          "consistent-env": "^1.2.0",
+          "lodash.uniq": "^4.5.0",
+          "sb-npm-path": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env",
+          "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/decls",
+          "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/consistent-env/lib"
+        ],
+        "dependencies": {
+          "lodash.uniq": "^4.5.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path",
+          "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/decls",
+          "node_modules/atom-package-deps/node_modules/sb-exec/node_modules/sb-npm-path/lib"
+        ],
+        "dependencies": {
+          "sb-memoize": "^1.0.2",
+          "sb-promisify": "^2.0.1"
         }
       },
       {

@@ -4,6 +4,9 @@
   "atom-beautify":
     general:
       _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
+    js:
+      end_with_comma: true
+      indent_size: 2
   "atom-css-unit-converter": {}
   "atom-ctags":
     GotoSymbolKey: [
@@ -18,7 +21,6 @@
     preferredFormat: "HEX"
     randomColor: false
   core:
-    audioBeep: false
     disabledPackages: [
       "remember-session"
       "save-session"
@@ -33,25 +35,10 @@
       "timecop"
       "autosave"
       "atom-bootstrap3"
-      "merge-conflicts"
-      "php-getters-setters"
       "project-manager"
       "travis-ci-status"
       "xml-formatter"
-      "minimap"
-      "minimap-git-diff"
-      "minimap-highlight-selected"
-      "atom-ternjs"
-      "auto-detect-indentation"
-      "css-snippets"
-      "fonts"
-      "javascript-snippets"
-      "linter-jshint"
-      "remote-edit"
       "smart-tags"
-      "todo-show"
-      "trailing-spaces"
-      "turbo-javascript"
       "dev-live-reload"
     ]
     excludeVcsIgnoredPaths: false
@@ -76,6 +63,7 @@
     per_section_indent: true
     spacer_between_sections: true
   editor:
+    fontSize: 20
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
@@ -115,10 +103,16 @@
   "linter-jslint":
     disableWhenNoJslintrcFileInPath: true
     jslintVersion: "2013-08-26"
+  "linter-pep8": {}
   "linter-php": {}
   "linter-phpcs":
     disableWhenNoConfigFile: true
     warningSeverity: 0
+  "linter-pylint": {}
+  "linter-python-pep8":
+    pep8DirToExecutable: "/usr/local/bin/pep8"
+  "linter-stylelint":
+    disableWhenNoConfig: true
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
@@ -130,6 +124,7 @@
       "git-diffDecorationsZIndex": 0
       "highlight-selected": true
       "highlight-selectedDecorationsZIndex": 0
+  navigate: {}
   "one-dark-ui": {}
   "php-getters-setters": {}
   pigments:
@@ -158,6 +153,7 @@
   "tree-view": {}
   welcome:
     showOnStartup: false
+  whitespace: {}
   "xml-formatter": {}
   zentabs:
     manualMode: true
@@ -170,6 +166,19 @@
 ".css.source":
   editor:
     nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?…"
+    tabLength: 4
+".diff.source":
+  editor:
+    tabLength: 4
+".git-commit.text":
+  editor:
+    preferredLineLength: 72
+    tabLength: 4
+".git-config.source":
+  editor:
+    tabLength: 4
+".git-rebase.text":
+  editor:
     tabLength: 4
 ".js.jsx.react.source":
   editor:
