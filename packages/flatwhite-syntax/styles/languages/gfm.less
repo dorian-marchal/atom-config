@@ -1,0 +1,64 @@
+.source.gfm {
+  .markup {
+    &.heading {
+      display: inline-block;
+      .purple;
+
+      .heading { .reset; }
+
+      .marker { .purple-sec; }
+    }
+
+    &.code,
+    &.raw {
+      display: inline-block;
+      .orange;
+
+      .support.function.actionpack,
+      .support.function.viewhelpers,
+      .support.function.activerecord,
+      .support.function.activesupport,
+      .keyword.special-method,
+      .variable.this,
+      .keyword.new,
+      .constant.numeric,
+      .constant.boolean,
+      .constant.nil,
+      .constant.keyword,
+      .string.quoted,
+      .storage.control,
+      .storage.var,
+      .keyword.control,
+      .constant.symbol {
+        .reset;
+      }
+    }
+
+    &.italic { font-style: italic; }
+
+    &.bold { font-weight: bold; }
+
+    &.strike { text-decoration: line-through; }
+  }
+
+  .link {
+    display: inline-block;
+    .blue();
+
+    .link { .reset; }
+
+    .punctuation.definition { .blue-sec; }
+  }
+
+  .comment {
+    display: inline-block;
+    font-style: normal;
+    .green;
+
+
+    .link,
+    .comment { .reset; }
+
+    .support.quote { .green-sec; }
+  }
+}

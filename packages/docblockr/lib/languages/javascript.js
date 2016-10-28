@@ -32,9 +32,15 @@ JsParser.prototype.parse_function = function(line) {
     var preFunction = '^' +
         // '  'var foo = function bar (baz, quaz) {}
         '\\s*' +
-        '(?:export\\s+)?(?:default\\s+)?' +
-        //   'var 'foo = function bar (baz, quaz) {}
-        '(?:(?:var|let|const)\\s+)?' +
+        '(?:' +
+            // 'return' foo = function bar (baz, quaz) {}
+            'return\\s+' +
+            '|' +
+            // 'export default 'var foo = function bar (baz, quaz) {}
+            '(?:export\\s+(?:default\\s+)?)?' +
+            //  export default 'var 'foo = function bar (baz, quaz) {}
+            '(?:(?:var|let|const)\\s+)?' +
+        ')?' +
         '(?:' +
             //   var 'bar.prototype.'foo = function bar (baz, quaz) {}
             '(?:[a-zA-Z_$][a-zA-Z_$0-9.]*\\.)?' +
@@ -45,11 +51,11 @@ JsParser.prototype.parse_function = function(line) {
     var functionRegex = xregexp(
         preFunction +
         // modifiers: static, async
-        '(?:static\\s+)?(?P<promise>async\\s+)?' +
+        '(?:\\bstatic\\s+)?(?P<promise>\\basync\\s+)?' +
         //   var foo = 'function 'bar (baz, quaz) {}
-        '(?:function(:?\\s*\\*)?|get|set)\\s*' +
+        '(?:function(:?(?P<generator>\\s*\\*)|\\s)?|get\\s|set\\s)\\s*' +
         //   var foo = function 'bar '(baz, quaz) {}
-        '(?:\\s+(?P<name2>' + this.settings.fnIdentifier + '))?\\s*' +
+        '(?P<name2>' + this.settings.fnIdentifier + ')?\\s*' +
         //   var foo = function bar '(baz, quaz)' {}
         '\\(\\s*(?P<args>.*?)\\)'
     );
@@ -81,7 +87,13 @@ JsParser.prototype.parse_function = function(line) {
     var args = matches.args || matches.arg || null;
 
     // check for async method to set retval to promise
-    var retval = matches.promise !== undefined ? 'Promise' : null;
+    var retval = null;
+    if (matches.promise) {
+        retval = 'Promise';
+    } else if (matches.generator) {
+        retval = 'Generator';
+    }
+
     return [name, args, retval];
 };
 

@@ -1,0 +1,140 @@
+.base { color: @base1; }
+
+.sec { color: @base2; }
+
+.comment { color: @base3; }
+
+.orange {
+  color: @orange-text;
+	background-color: @orange-bg;
+}
+
+.orange-sec { color: @orange-text-sec; }
+
+.green {
+  color: @green-text;
+	background-color: @green-bg;
+}
+
+.green-sec { color: @green-text-sec; }
+
+.teal {
+  color: @teal-text;
+	background-color: @teal-bg;
+}
+
+.teal-sec { color: @teal-text-sec; }
+
+.blue {
+  color: @blue-text;
+	background-color: @blue-bg;
+}
+
+.blue-sec { color: @blue-text-sec; }
+
+.purple {
+  color: @purple-text;
+	background-color: @purple-bg;
+}
+
+.purple-sec { color: @purple-text-sec; }
+
+
+.reset {
+  color: inherit;
+  background-color: transparent;
+}
+
+.reset_all {
+  .keyword.control,
+  .string.quoted,
+  .string.regexp,
+  .constant.numeric,
+  .constant.keyword,
+  .constant.symbol,
+  .constant.language,
+  .entity.name.tag,
+  .meta.embedded {
+    .reset();
+  }
+
+  .meta.embedded {
+    .punctuation.embedded { .reset; }
+
+    .string.quoted {
+      .punctuation.definition { .reset; }
+    }
+  }
+}
+
+// Global Highlighting
+
+.keyword.control {
+  .purple();
+}
+
+.constant.keyword,
+.constant.symbol {
+  .blue();
+}
+
+.constant.numeric,
+.constant.language {
+  .teal();
+}
+
+.string.quoted,
+.string.regexp {
+  .green();
+  .reset_all();
+
+  .punctuation.definition {
+    color: @green-text-sec;
+  }
+}
+
+.comment {
+  color: @base3;
+  font-style: italic;
+}
+
+.meta.embedded:not(.php) {
+  .settings-embedded-mix();
+}
+
+.bold { font-weight: bold; }
+
+.italic { font-style: italic; }
+
+.invalid {
+  &.deprecated {
+    color: @syntax-deprecated-fg !important;
+    background-color: @syntax-deprecated-bg !important;
+  }
+  &.illegal {
+    color: @syntax-illegal-fg !important;
+    background-color: @syntax-illegal-bg !important;
+  }
+}
+
+// Mixins
+
+.attribute-mix {
+  .sec();
+  font-style: italic;
+}
+
+.embedded-simple-mix {
+  .orange();
+  .reset_all();
+
+  .punctuation.embedded {
+    color: @orange-text-sec;
+  }
+}
+
+.embedded-full-mix {
+  .punctuation.embedded {
+    .orange();
+  }
+}

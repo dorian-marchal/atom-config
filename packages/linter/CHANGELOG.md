@@ -1,3 +1,11 @@
+## 1.11.16
+
+- Follow up to last fix
+
+## 1.11.15
+
+- Fix compatibility with latest coffee upgrade in upcoming Atom v1.12
+
 ## 1.11.14
 
 - Make sure errors are hidden in panel (Atom Beta broke `[hidden]` styles)

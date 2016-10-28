@@ -1,8 +1,59 @@
 {
-  "name": "autocomplete-modules",
-  "main": "./src/main",
-  "version": "1.6.3",
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+        "spec": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-116926-1720-tjfd17"
+    ]
+  ],
+  "_from": "../d-116926-1720-1bz7ogz/package.tgz",
+  "_id": "autocomplete-modules@1.6.7",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/autocomplete-modules",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+    "spec": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-116926-1720-1bz7ogz/package.tgz",
+  "_shasum": "b5c26719bed7c167b773503dc82e633ae38450ca",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-116926-1720-1bz7ogz/package.tgz",
+  "_where": "/tmp/apm-install-dir-116926-1720-tjfd17",
+  "bugs": {
+    "url": "https://github.com/nkt/atom-autocomplete-modules/issues"
+  },
+  "dependencies": {
+    "bluebird": "3.4.6",
+    "find-babel-config": "1.0.1",
+    "fuzzaldrin": "2.1.0",
+    "lodash.escaperegexp": "4.1.2",
+    "lodash.get": "4.4.2"
+  },
   "description": "Autocomplete for require/import statements",
+  "devDependencies": {
+    "eslint": "3.6.1"
+  },
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "homepage": "https://github.com/nkt/atom-autocomplete-modules#readme",
   "keywords": [
     "javascript",
     "require",
@@ -13,26 +64,10 @@
     "npm",
     "node"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nkt/atom-autocomplete-modules.git"
-  },
   "license": "MIT",
-  "engines": {
-    "atom": ">=0.174.0 <2.0.0"
-  },
-  "dependencies": {
-    "bluebird": "3.4.6",
-    "find-babel-config": "^1.0.0",
-    "fuzzaldrin": "2.1.0",
-    "lodash.escaperegexp": "4.1.2",
-    "lodash.get": "4.4.2"
-  },
-  "devDependencies": {
-    "babel-eslint": "^4.1.8",
-    "eslint": "1.10.3",
-    "eslint-config-nkt": "1.0.0"
-  },
+  "main": "./src/main",
+  "name": "autocomplete-modules",
+  "optionalDependencies": {},
   "providedServices": {
     "autocomplete.provider": {
       "versions": {
@@ -40,149 +75,15 @@
       }
     }
   },
-  "readme": "# Atom autocomplete for modules.\n[![Current version](https://img.shields.io/apm/v/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n[![Downloads](https://img.shields.io/apm/dm/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n\nAutocomplete for require/import statements.\n\n![Preview](https://cloud.githubusercontent.com/assets/3505878/7442538/9c1892cc-f11e-11e4-8070-3fa8b79beefc.gif)\n\n## Configuration\n\n**Include file extension:**  Include the file's extension when filling in the completion.\n\n**Vendor directories:** A list of directories to search for modules relative to the project\n  root. (*Default:* `node_modules`)\n\n**Webpack support:** Look for webpack configuration file and add the `resolve.modulesDirectories` paths to the module search scope.\n\n**Webpack configuration filename:** Name of the configuration file to look for. (*Default:* `webpack.config.js`)\n\n**Babel Plugin Module Resolver support:** Look for a [Babel Plugin Module Resolver](https://github.com/tleunen/babel-plugin-module-resolver) configuration and use it for the autocomplete suggestions.\n\nLicense\n-------\n[![MIT License](https://img.shields.io/apm/l/autocomplete-modules.svg)](LICENSE)\n",
+  "readme": "# Atom autocomplete for modules.\n\n[![Build Status](https://circleci.com/gh/nkt/atom-autocomplete-modules/tree/master.svg?style=shield)](https://circleci.com/gh/nkt/atom-autocomplete-modules/tree/master)\n[![Current version](https://img.shields.io/apm/v/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n[![Downloads](https://img.shields.io/apm/dm/autocomplete-modules.svg)](https://atom.io/packages/autocomplete-modules)\n\nAutocomplete for require/import statements.\n\n![Preview](https://cloud.githubusercontent.com/assets/3505878/7442538/9c1892cc-f11e-11e4-8070-3fa8b79beefc.gif)\n\n## Configuration\n\n**Include file extension:**  Include the file's extension when filling in the completion.\n\n**Vendor directories:** A list of directories to search for modules relative to the project\n  root. (*Default:* `node_modules`)\n\n**Webpack support:** Look for webpack configuration file and add the `resolve.modulesDirectories` paths to the module search scope.\n\n**Webpack configuration filename:** Name of the configuration file to look for. (*Default:* `webpack.config.js`)\n\n**Babel Plugin Module Resolver support:** Look for a [Babel Plugin Module Resolver](https://github.com/tleunen/babel-plugin-module-resolver) configuration and use it for the autocomplete suggestions.\n\nLicense\n-------\n[![MIT License](https://img.shields.io/apm/l/autocomplete-modules.svg)](LICENSE)\n",
   "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/nkt/atom-autocomplete-modules/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkt/atom-autocomplete-modules.git"
   },
-  "homepage": "https://github.com/nkt/atom-autocomplete-modules#readme",
-  "_id": "autocomplete-modules@1.6.3",
-  "_shasum": "e46fba3ab5c971d120fd005276c4f8869746f072",
-  "_resolved": "file:../d-116820-21069-xuc150/package.tgz",
-  "_from": "../d-116820-21069-xuc150/package.tgz",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [
-      {
-        "name": "bluebird",
-        "version": "3.4.6",
-        "path": "node_modules/bluebird/js/release/bluebird.js"
-      },
-      {
-        "name": "find-babel-config",
-        "version": "1.0.1",
-        "path": "node_modules/find-babel-config/lib/index.js"
-      },
-      {
-        "name": "json5",
-        "version": "0.5.0",
-        "path": "node_modules/find-babel-config/node_modules/json5/lib/json5.js"
-      },
-      {
-        "name": "path-exists",
-        "version": "3.0.0",
-        "path": "node_modules/find-babel-config/node_modules/path-exists/index.js"
-      },
-      {
-        "name": "fuzzaldrin",
-        "version": "2.1.0",
-        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
-      },
-      {
-        "name": "lodash.escaperegexp",
-        "version": "4.1.2",
-        "path": "node_modules/lodash.escaperegexp/index.js"
-      },
-      {
-        "name": "lodash.get",
-        "version": "4.4.2",
-        "path": "node_modules/lodash.get/index.js"
-      }
-    ],
-    "extensions": {
-      ".js": [
-        "node_modules/bluebird/js/browser/bluebird.core.js",
-        "node_modules/bluebird/js/browser/bluebird.core.min.js",
-        "node_modules/bluebird/js/browser/bluebird.js",
-        "node_modules/bluebird/js/browser/bluebird.min.js",
-        "node_modules/bluebird/js/release/any.js",
-        "node_modules/bluebird/js/release/assert.js",
-        "node_modules/bluebird/js/release/async.js",
-        "node_modules/bluebird/js/release/bind.js",
-        "node_modules/bluebird/js/release/bluebird.js",
-        "node_modules/bluebird/js/release/call_get.js",
-        "node_modules/bluebird/js/release/cancel.js",
-        "node_modules/bluebird/js/release/catch_filter.js",
-        "node_modules/bluebird/js/release/context.js",
-        "node_modules/bluebird/js/release/debuggability.js",
-        "node_modules/bluebird/js/release/direct_resolve.js",
-        "node_modules/bluebird/js/release/each.js",
-        "node_modules/bluebird/js/release/errors.js",
-        "node_modules/bluebird/js/release/es5.js",
-        "node_modules/bluebird/js/release/filter.js",
-        "node_modules/bluebird/js/release/finally.js",
-        "node_modules/bluebird/js/release/generators.js",
-        "node_modules/bluebird/js/release/join.js",
-        "node_modules/bluebird/js/release/map.js",
-        "node_modules/bluebird/js/release/method.js",
-        "node_modules/bluebird/js/release/nodeback.js",
-        "node_modules/bluebird/js/release/nodeify.js",
-        "node_modules/bluebird/js/release/promise.js",
-        "node_modules/bluebird/js/release/promise_array.js",
-        "node_modules/bluebird/js/release/promisify.js",
-        "node_modules/bluebird/js/release/props.js",
-        "node_modules/bluebird/js/release/queue.js",
-        "node_modules/bluebird/js/release/race.js",
-        "node_modules/bluebird/js/release/reduce.js",
-        "node_modules/bluebird/js/release/schedule.js",
-        "node_modules/bluebird/js/release/settle.js",
-        "node_modules/bluebird/js/release/some.js",
-        "node_modules/bluebird/js/release/synchronous_inspection.js",
-        "node_modules/bluebird/js/release/thenables.js",
-        "node_modules/bluebird/js/release/timers.js",
-        "node_modules/bluebird/js/release/using.js",
-        "node_modules/bluebird/js/release/util.js",
-        "node_modules/find-babel-config/lib/index.js",
-        "node_modules/find-babel-config/node_modules/json5/lib/cli.js",
-        "node_modules/find-babel-config/node_modules/json5/lib/json5.js",
-        "node_modules/find-babel-config/node_modules/json5/lib/require.js",
-        "node_modules/find-babel-config/node_modules/path-exists/index.js",
-        "node_modules/fuzzaldrin/lib/filter.js",
-        "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
-        "node_modules/fuzzaldrin/lib/matcher.js",
-        "node_modules/fuzzaldrin/lib/scorer.js",
-        "node_modules/lodash.escaperegexp/index.js",
-        "node_modules/lodash.get/index.js",
-        "src/completion-provider.js",
-        "src/main.js",
-        "src/utils/internal-modules.js"
-      ],
-      ".json": [
-        "node_modules/bluebird/package.json",
-        "node_modules/find-babel-config/node_modules/json5/package.json",
-        "node_modules/find-babel-config/node_modules/path-exists/package.json",
-        "node_modules/find-babel-config/package.json",
-        "node_modules/fuzzaldrin/package.json",
-        "node_modules/lodash.escaperegexp/package.json",
-        "node_modules/lodash.get/package.json",
-        "package.json"
-      ]
-    },
-    "folders": [
-      {
-        "paths": [
-          "",
-          "src",
-          "src/utils"
-        ],
-        "dependencies": {
-          "bluebird": "3.4.6",
-          "find-babel-config": "^1.0.0",
-          "fuzzaldrin": "2.1.0",
-          "lodash.escaperegexp": "4.1.2",
-          "lodash.get": "4.4.2"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/find-babel-config/lib",
-          "node_modules/find-babel-config"
-        ],
-        "dependencies": {
-          "json5": "^0.5.0",
-          "path-exists": "^3.0.0"
-        }
-      }
-    ]
-  }
+  "scripts": {
+    "pretest": "eslint src/",
+    "test": "exit 0"
+  },
+  "version": "1.6.7"
 }

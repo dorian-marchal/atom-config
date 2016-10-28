@@ -1,0 +1,64 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+        "spec": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-116925-14618-10yxl96"
+    ]
+  ],
+  "_from": "../d-116925-14618-1j3ugi/package.tgz",
+  "_id": "visual-studio-dark-syntax@0.1.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/visual-studio-dark-syntax",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+    "spec": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-116925-14618-1j3ugi/package.tgz",
+  "_shasum": "586f7b89a7c26fa4084dac6267efbe8e8454aa9a",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-116925-14618-1j3ugi/package.tgz",
+  "_where": "/tmp/apm-install-dir-116925-14618-10yxl96",
+  "bugs": {
+    "url": "https://github.com/Kromi75/visual-studio-dark-syntax/issues"
+  },
+  "dependencies": {},
+  "description": "Mimics the dark theme of Visual Studio 2015",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=1.0.0"
+  },
+  "homepage": "https://github.com/Kromi75/visual-studio-dark-syntax#readme",
+  "keywords": [
+    "syntax",
+    "theme"
+  ],
+  "license": "MIT",
+  "name": "visual-studio-dark-syntax",
+  "optionalDependencies": {},
+  "readme": "# vs-dark-syntax theme\n\nA theme that mimics the dark theme of Visual Studio 2015.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kromi75/visual-studio-dark-syntax.git"
+  },
+  "theme": "syntax",
+  "version": "0.1.0"
+}

@@ -3172,7 +3172,8 @@
     ],
     "grammars": [
       "JSX",
-      "JavaScript (JSX)"
+      "JavaScript (JSX)",
+      "Babel ES6 JavaScript"
     ],
     "extensions": [
       "jsx",

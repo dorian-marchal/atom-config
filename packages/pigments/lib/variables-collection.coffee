@@ -16,12 +16,8 @@ class VariablesCollection
     Emitter ?= require('atom').Emitter
 
     @emitter = new Emitter
-    @variables = []
-    @variableNames = []
-    @colorVariables = []
-    @variablesByPath = {}
-    @dependencyGraph = {}
 
+    @reset()
     @initialize(state?.content)
 
   onDidChange: (callback) ->
@@ -53,6 +49,13 @@ class VariablesCollection
     iteration =>
       @initialized = true
       @emitter.emit('did-initialize')
+
+  reset: ->
+    @variables = []
+    @variableNames = []
+    @colorVariables = []
+    @variablesByPath = {}
+    @dependencyGraph = {}
 
   getVariables: -> @variables.slice()
 
@@ -156,6 +159,8 @@ class VariablesCollection
 
   add: (variable, batch=false) ->
     [status, previousVariable] = @getVariableStatus(variable)
+
+    variable.default ||= variable.path.match /\/.pigments$/
 
     switch status
       when 'moved'
@@ -474,6 +479,7 @@ class VariablesCollection
 
         res.isAlternate = true if v.isAlternate
         res.noNamePrefix = true if v.noNamePrefix
+        res.default = true if v.default
 
         if v.isColor
           res.isColor = true

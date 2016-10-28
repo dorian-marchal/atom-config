@@ -9,7 +9,7 @@ const get = require('lodash.get');
 const findBabelConfig = require('find-babel-config');
 const internalModules = require('./utils/internal-modules');
 
-const LINE_REGEXP = /require|import|export\s+(?:\*|{?[a-zA-Z0-9_$,\s]+}?)+\s+from|}\s*from\s*['"]/;
+const LINE_REGEXP = /require|import|export\s+(?:\*|{[a-zA-Z0-9_$,\s]+})+\s+from|}\s*from\s*['"]/;
 const SELECTOR = [
   '.source.js .string.quoted',
 
@@ -113,7 +113,7 @@ class CompletionProvider {
     ).map((pathname) => ({
       text: includeExtension ? pathname : this.normalizeLocal(pathname),
       displayText: pathname,
-      type: 'package'
+      type: 'import'
     })).then(
       (suggestions) => this.filterSuggestions(filterPrefix, suggestions)
     );
@@ -144,7 +144,8 @@ class CompletionProvider {
       (libs) => [...internalModules, ...libs]
     ).map((lib) => ({
       text: lib,
-      type: 'package'
+      replacementPrefix: prefix,
+      type: 'import'
     })).then(
       (suggestions) => this.filterSuggestions(prefix, suggestions)
     );

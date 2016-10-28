@@ -5,6 +5,7 @@
  * for that, however as this comes from app.asar it is pre-compiled and is
  * essentially "free" as there is no expensive compilation step.
  */
+// eslint-disable-next-line import/extensions
 import { CompositeDisposable } from 'atom';
 
 const lazyReq = require('lazy-req')(require);
@@ -13,7 +14,6 @@ const { dirname } = lazyReq('path')('dirname');
 const stylelint = lazyReq('stylelint');
 const { rangeFromLineNumber } = lazyReq('atom-linter')('rangeFromLineNumber');
 const assignDeep = lazyReq('assign-deep');
-const cosmiconfig = lazyReq('cosmiconfig');
 const escapeHTML = lazyReq('escape-html');
 
 // Settings
@@ -115,64 +115,75 @@ function generateHTMLMessage(message) {
   );
 }
 
-function runStylelint(editor, options, filePath) {
-  startMeasure('linter-stylelint: Stylelint');
-  return stylelint().lint(options).then((data) => {
-    endMeasure('linter-stylelint: Stylelint');
-    startMeasure('linter-stylelint: Parsing results');
-    const result = data.results.shift();
-
-    if (!result) {
-      endMeasure('linter-stylelint: Parsing results');
-      return [];
-    }
-
-    const invalidOptions = result.invalidOptionWarnings.map(msg => ({
-      type: 'Error',
-      severity: 'error',
-      text: msg.text,
-      filePath
-    }));
-
-    const warnings = result.warnings.map((warning) => {
-      // Stylelint only allows 'error' and 'warning' as severity values
-      const severity = !warning.severity || warning.severity === 'error' ? 'Error' : 'Warning';
-      return {
-        type: severity,
-        severity: severity.toLowerCase(),
-        html: generateHTMLMessage(warning),
-        filePath,
-        range: createRange(editor, warning)
-      };
-    });
-
-    const deprecations = result.deprecations.map(deprecation => ({
-      type: 'Warning',
-      severity: 'warning',
-      html: `${escapeHTML()(deprecation.text)} (<a href="${deprecation.reference}">reference</a>)`,
-      filePath
-    }));
-
-    const ignored = [];
-    if (showIgnored && result.ignored) {
-      ignored.push({
-        type: 'Warning',
-        severity: 'warning',
-        text: 'This file is ignored',
-        filePath
-      });
-    }
-
-    const toReturn = []
-      .concat(invalidOptions)
-      .concat(warnings)
-      .concat(deprecations)
-      .concat(ignored);
-
+const parseResults = (editor, options, results, filePath) => {
+  startMeasure('linter-stylelint: Parsing results');
+  if (options.code !== editor.getText()) {
+    // The editor contents have changed since the lint was requested, tell
+    //   Linter not to update the results
     endMeasure('linter-stylelint: Parsing results');
     endMeasure('linter-stylelint: Lint');
-    return toReturn;
-  }, (error) => {
+    return null;
+  }
+
+  if (!results) {
+    endMeasure('linter-stylelint: Parsing results');
+    endMeasure('linter-stylelint: Lint');
+    return [];
+  }
+
+  const invalidOptions = results.invalidOptionWarnings.map(msg => ({
+    type: 'Error',
+    severity: 'error',
+    text: msg.text,
+    filePath
+  }));
+
+  const warnings = results.warnings.map((warning) => {
+    // Stylelint only allows 'error' and 'warning' as severity values
+    const severity = !warning.severity || warning.severity === 'error' ? 'Error' : 'Warning';
+    return {
+      type: severity,
+      severity: severity.toLowerCase(),
+      html: generateHTMLMessage(warning),
+      filePath,
+      range: createRange(editor, warning)
+    };
+  });
+
+  const deprecations = results.deprecations.map(deprecation => ({
+    type: 'Warning',
+    severity: 'warning',
+    html: `${escapeHTML()(deprecation.text)} (<a href="${deprecation.reference}">reference</a>)`,
+    filePath
+  }));
+
+  const ignored = [];
+  if (showIgnored && results.ignored) {
+    ignored.push({
+      type: 'Warning',
+      severity: 'warning',
+      text: 'This file is ignored',
+      filePath
+    });
+  }
+
+  const toReturn = []
+    .concat(invalidOptions)
+    .concat(warnings)
+    .concat(deprecations)
+    .concat(ignored);
+
+  endMeasure('linter-stylelint: Parsing results');
+  endMeasure('linter-stylelint: Lint');
+  return toReturn;
+};
+
+const runStylelint = async (editor, options, filePath) => {
+  startMeasure('linter-stylelint: Stylelint');
+  let data;
+  try {
+    data = await stylelint().lint(options);
+  } catch (error) {
     endMeasure('linter-stylelint: Stylelint');
     // Was it a code parsing error?
     if (error.line) {
@@ -195,8 +206,12 @@ function runStylelint(editor, options, filePath) {
 
     endMeasure('linter-stylelint: Lint');
     return [];
-  });
-}
+  }
+  endMeasure('linter-stylelint: Stylelint');
+
+  const results = data.results.shift();
+  return parseResults(editor, options, results, filePath);
+};
 
 export function provideLinter() {
   return {
@@ -204,7 +219,7 @@ export function provideLinter() {
     grammarScopes: baseScopes,
     scope: 'file',
     lintOnFly: true,
-    lint: (editor) => {
+    lint: async (editor) => {
       startMeasure('linter-stylelint: Lint');
       const scopes = editor.getLastCursor().getScopeDescriptor().getScopesArray();
 
@@ -213,7 +228,7 @@ export function provideLinter() {
 
       if (!text) {
         endMeasure('linter-stylelint: Lint');
-        return Promise.resolve([]);
+        return [];
       }
 
       // Require stylelint-config-standard if it hasn't already been loaded
@@ -225,13 +240,20 @@ export function provideLinter() {
         rules: {}
       };
 
+      // Base the config in the project directory
+      let [configBasedir] = atom.project.relativizePath(filePath);
+      if (configBasedir === null) {
+        // Falling back to the file directory if no project is found
+        configBasedir = dirname(filePath);
+      }
+
       const rules = useStandard ? assignDeep()({}, presetConfig) : defaultConfig;
 
       const options = {
         code: text,
         codeFilename: filePath,
         config: rules,
-        configBasedir: dirname(filePath)
+        configBasedir
       };
 
       if (scopes.includes('source.css.scss') || scopes.includes('source.scss')) {
@@ -245,38 +267,78 @@ export function provideLinter() {
         // `stylelint-config-standard` isn't fully compatible with SugarSS
         // See here for details:
         // https://github.com/stylelint/stylelint-config-standard#using-the-config-with-sugarss-syntax
+        options.config.rules['block-closing-brace-empty-line-before'] = null;
+        options.config.rules['block-closing-brace-newline-after'] = null;
+        options.config.rules['block-closing-brace-newline-before'] = null;
+        options.config.rules['block-closing-brace-space-before'] = null;
+        options.config.rules['block-opening-brace-newline-after'] = null;
+        options.config.rules['block-opening-brace-space-after'] = null;
+        options.config.rules['block-opening-brace-space-before'] = null;
+        options.config.rules['declaration-block-semicolon-newline-after'] = null;
+        options.config.rules['declaration-block-semicolon-space-after'] = null;
+        options.config.rules['declaration-block-semicolon-space-before'] = null;
+        options.config.rules['declaration-block-trailing-semicolon'] = null;
         options.config.rules['declaration-block-trailing-semicolon'] = null;
       }
 
-      startMeasure('linter-stylelint: Cosmiconfig');
-      return cosmiconfig()('stylelint', {
-        cwd: dirname(filePath),
-        rcExtensions: true // Allow extensions on rc filenames
-      }).then((result) => {
-        if (result) {
-          options.config = assignDeep()(rules, result.config);
-          options.configBasedir = dirname(result.filepath);
-        }
+      startMeasure('linter-stylelint: Create Linter');
+      const stylelintLinter = await stylelint().createLinter();
+      endMeasure('linter-stylelint: Create Linter');
 
-        if (!result && disableWhenNoConfig) {
-          endMeasure('linter-stylelint: Cosmiconfig');
+      startMeasure('linter-stylelint: Config');
+      let foundConfig;
+      try {
+        foundConfig = await stylelintLinter.getConfigForFile(filePath);
+      } catch (error) {
+        if (!/No configuration provided for .+/.test(error.message)) {
+          endMeasure('linter-stylelint: Config');
+          // If we got here, stylelint failed to parse the configuration
+          // there's no point of re-linting if useStandard is true, because the
+          // user does not have the complete set of desired rules parsed
+          atom.notifications.addError('Unable to parse stylelint configuration', {
+            detail: error.message,
+            dismissable: true
+          });
           endMeasure('linter-stylelint: Lint');
           return [];
         }
+      }
+      endMeasure('linter-stylelint: Config');
 
-        endMeasure('linter-stylelint: Cosmiconfig');
-        return runStylelint(editor, options, filePath);
-      }, (error) => {
-        // If we got here, cosmiconfig failed to parse the configuration
-        // there's no point of re-linting if useStandard is true, because the
-        // user does not have the complete set of desired rules parsed
-        atom.notifications.addError('Unable to parse stylelint configuration', {
-          detail: error.message,
-          dismissable: true
-        });
-        endMeasure('linter-stylelint: Cosmiconfig');
+      if (foundConfig) {
+        options.config = assignDeep()(rules, foundConfig.config);
+        options.configBasedir = dirname(foundConfig.filepath);
+      }
+
+      if (!foundConfig && disableWhenNoConfig) {
         endMeasure('linter-stylelint: Lint');
-      }).then(result => result || []);
+        return [];
+      }
+
+      startMeasure('linter-stylelint: Check ignored');
+      let fileIsIgnored;
+      try {
+        fileIsIgnored = await stylelintLinter.isPathIgnored(filePath);
+      } catch (error) {
+        // Do nothing, configuration errors should have already been caught and thrown above
+      }
+      endMeasure('linter-stylelint: Check ignored');
+
+      if (fileIsIgnored) {
+        endMeasure('linter-stylelint: Lint');
+        if (showIgnored) {
+          return [{
+            type: 'Warning',
+            severity: 'warning',
+            text: 'This file is ignored',
+            filePath
+          }];
+        }
+        return [];
+      }
+
+      const results = await runStylelint(editor, options, filePath);
+      return results;
     }
   };
 }

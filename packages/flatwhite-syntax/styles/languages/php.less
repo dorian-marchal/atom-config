@@ -1,0 +1,30 @@
+.php {
+
+  .storage.type.class,
+  .storage.type.function { .purple; }
+
+  .constant.language { .teal; }
+
+  .variable {
+    &.global {
+      .blue;
+      .punctuation.definition { .blue-sec; }
+    }
+
+    .punctuation.definition { .sec; }
+  }
+
+  .support.function.construct { .orange; }
+
+  .punctuation {
+    // &.section.array,
+    &.terminator { .sec; }
+  }
+
+  .meta.embedded {
+    .reset;
+
+    .punctuation.embedded { .orange; }
+  }
+
+}

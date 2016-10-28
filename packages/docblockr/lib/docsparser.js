@@ -85,22 +85,30 @@ DocsParser.prototype.format_var = function(name, val, valType) {
 };
 
 DocsParser.prototype.get_type_info = function(argType, argName) {
-    var typeInfo = '';
+    if(!this.settings.typeInfo) {
+        return '';
+    }
+
     var brace_open, brace_close;
     if(this.settings.curlyTypes) {
         brace_open = '{';
         brace_close = '}';
-    }
-    else {
+    } else {
         brace_open = brace_close = '';
     }
-    if(this.settings.typeInfo) {
-        typeInfo = util.format('%s${1:%s}%s ' , brace_open,
-                                escape(argType || this.guess_type_from_name(argName) || '[type]'),
-                                brace_close
-        );
+
+    if (!argType) {
+        argType = this.guess_type_from_name(argName) || '[type]';
     }
-    return typeInfo;
+    if (!argName) {
+        argName = '[name]';
+    }
+
+    return util.format('%s${1:%s}%s ',
+        brace_open,
+        escape(argType),
+        brace_close
+    );
 };
 
 DocsParser.prototype.format_function = function(name, args, retval, options) {

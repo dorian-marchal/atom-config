@@ -1,0 +1,60 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-116912-17894-81w8dy/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-116912-17894-81w8dy/package.tgz",
+        "spec": "/tmp/d-116912-17894-81w8dy/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-116912-17894-8n5gj"
+    ]
+  ],
+  "_from": "../d-116912-17894-81w8dy/package.tgz",
+  "_id": "language-ejs@0.4.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/language-ejs",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-116912-17894-81w8dy/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-116912-17894-81w8dy/package.tgz",
+    "spec": "/tmp/d-116912-17894-81w8dy/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-116912-17894-81w8dy/package.tgz",
+  "_shasum": "70dd2fdc699f69ff0418257b7cfcd29f23a08be7",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-116912-17894-81w8dy/package.tgz",
+  "_where": "/tmp/apm-install-dir-116912-17894-8n5gj",
+  "bugs": {
+    "url": "https://github.com/darron/language-ejs/issues"
+  },
+  "dependencies": {},
+  "description": "EJS support for Atom.",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "homepage": "https://github.com/darron/language-ejs#readme",
+  "license": "MIT",
+  "name": "language-ejs",
+  "optionalDependencies": {},
+  "private": true,
+  "readme": "# language-ejs package\n\nEJS support for Atom.\n\nConverted from [https://github.com/gregory-m/ejs-tmbundle](https://github.com/gregory-m/ejs-tmbundle).\n\nSelect \"JavaScript Template\" if it's not automatically working.\n\n\n## Screenshot\n\n![screenshot](https://github.com/darron/language-ejs/raw/master/screenshot.png)\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darron/language-ejs.git"
+  },
+  "version": "0.4.0"
+}

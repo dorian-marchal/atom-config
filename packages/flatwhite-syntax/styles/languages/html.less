@@ -1,0 +1,95 @@
+.html {
+
+  .meta.tag {
+    .sec;
+
+    .entity.attribute-name { .attribute-mix; }
+
+    .entity.tag { .purple; }
+
+  }
+
+  &.htmlplus {
+
+    .meta.tag {
+      .entity.tag {
+        .reset;
+        .base;
+      }
+    }
+
+    .string.content { .blue; }
+  }
+
+}
+
+.mustache {
+  .meta.tag.template {
+    .orange;
+    .reset_all;
+
+    .entity.name.tag {
+      .orange-sec;
+
+      .entity.name.function {
+        color: @orange-text;
+      }
+    }
+  }
+}
+
+.htmlbars {
+
+  .meta.tag:not(.html) {
+    .base;
+
+    .punctuation.definition {
+      .sec;
+    }
+  }
+
+  .meta.tag.inline {
+    .punctuation.definition {
+      .reset();
+
+      &.inline {
+        .sec;
+      }
+    }
+  }
+
+  .support.function.builtin { .purple; }
+
+  .string.quoted {
+    .function.inline {
+      .reset;
+    }
+    .punctuation.definition.tag {
+      color: @green-text-sec !important;
+    }
+  }
+
+  .constant.symbol {
+    .reset();
+  }
+}
+
+.haml {
+
+  .meta.tag {
+    .purple;
+    .punctuation.definition { .purple-sec; }
+  }
+
+  .meta.section.attributes {
+    .sec;
+
+    .constant.symbol {
+      .reset;
+      .attribute-mix;
+    }
+  }
+
+  .entity.tag.class { .blue; }
+
+}

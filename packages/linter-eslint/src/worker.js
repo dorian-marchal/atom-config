@@ -1,11 +1,13 @@
 'use babel'
+
 // Note: 'use babel' doesn't work in forked processes
-process.title = 'linter-eslint helper'
 
 import Path from 'path'
-import * as Helpers from './worker-helpers'
 import { create } from 'process-communication'
-import { FindCache } from 'atom-linter'
+import { FindCache, findCached } from 'atom-linter'
+import * as Helpers from './worker-helpers'
+
+process.title = 'linter-eslint helper'
 
 const ignoredMessages = [
   // V1
@@ -29,6 +31,7 @@ function lintJob(argv, contents, eslint, configPath, config) {
   return global.__LINTER_ESLINT_RESPONSE
     .filter(e => !ignoredMessages.includes(e.message))
 }
+
 function fixJob(argv, eslint) {
   try {
     eslint.execute(argv)
@@ -38,7 +41,7 @@ function fixJob(argv, eslint) {
   }
 }
 
-create().onRequest('job', ({ contents, type, config, filePath }, job) => {
+create().onRequest('job', ({ contents, type, config, filePath, projectPath, rules }, job) => {
   global.__LINTER_ESLINT_RESPONSE = []
 
   if (config.disableFSCache) {
@@ -46,16 +49,19 @@ create().onRequest('job', ({ contents, type, config, filePath }, job) => {
   }
 
   const fileDir = Path.dirname(filePath)
-  const eslint = Helpers.getESLintInstance(fileDir, config)
+  const eslint = Helpers.getESLintInstance(fileDir, config, projectPath)
   const configPath = Helpers.getConfigPath(fileDir)
   const relativeFilePath = Helpers.getRelativePath(fileDir, filePath, config)
 
-  const argv = Helpers.getArgv(type, config, relativeFilePath, fileDir, configPath)
+  const argv = Helpers.getArgv(type, config, rules, relativeFilePath, fileDir, configPath)
 
   if (type === 'lint') {
     job.response = lintJob(argv, contents, eslint, configPath, config)
   } else if (type === 'fix') {
     job.response = fixJob(argv, eslint)
+  } else if (type === 'debug') {
+    const modulesDir = Path.dirname(findCached(fileDir, 'node_modules/eslint') || '')
+    job.response = Helpers.findESLintDirectory(modulesDir, config)
   }
 })
 

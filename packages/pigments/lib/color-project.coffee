@@ -175,6 +175,28 @@ class ColorProject
     @emitter.emit 'did-destroy', this
     @emitter.dispose()
 
+  reload: ->
+    @initialize().then =>
+      @variables.reset()
+      @paths = []
+      @loadPathsAndVariables()
+    .then =>
+      if atom.config.get('pigments.notifyReloads')
+        atom.notifications.addSuccess("Pigments successfully reloaded", dismissable: atom.config.get('pigments.dismissableReloadNotifications'), description: """Found:
+        - **#{@paths.length}** path(s)
+        - **#{@getVariables().length}** variables(s) including **#{@getColorVariables().length}** color(s)
+        """)
+      else
+        console.log("""Found:
+        - #{@paths.length} path(s)
+        - #{@getVariables().length} variables(s) including #{@getColorVariables().length} color(s)
+        """)
+    .catch (reason) ->
+      detail = reason.message
+      stack = reason.stack
+      atom.notifications.addError("Pigments couldn't be reloaded", {detail, stack, dismissable: true})
+      console.error reason
+
   loadPathsAndVariables: ->
     destroyed = null
 
