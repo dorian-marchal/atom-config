@@ -1,3 +1,7 @@
+{Point} = require 'atom'
+path = require 'path'
+fs = require 'fs'
+
 # Your init script
 #
 # Atom will evaluate this file each time a new window is opened. It is run
@@ -50,3 +54,91 @@ atom.commands.add 'atom-text-editor', 'my:move-line-down', ->
     atom.config.set('editor.autoIndent', true)
   else
     editor.moveLineDown()
+
+isSpace = (char) -> char is '' or /\s/.test(char)
+getCharAt = (editor, point) -> editor.getTextInBufferRange(
+    [[point.row, point.column], [point.row, point.column + 1]]
+)
+
+# Copy project path with line number
+# atom.commands.add 'atom-text-editor', 'my:copy-path-and-line', ->
+#     editor = atom.workspace.getActiveTextEditor()
+#     file = editor?.buffer.file
+#     filePath = file?.path
+#     console.log atom.project
+#     project = atom.project.getPaths().find((project) => console.log project)
+#     console.log project.path
+
+# Open path under cursor.
+atom.commands.add 'atom-text-editor', 'my:open-path-under-cursor', ->
+    editor = atom.workspace.getActiveTextEditor()
+
+    pathStart = editor.getCursorBufferPosition()
+
+    # Search start of path
+    until isSpace(getCharAt(editor, new Point(pathStart.row, pathStart.column - 1)))
+        pathStart = new Point(pathStart.row, pathStart.column - 1)
+
+    pathEnd = editor.getCursorBufferPosition()
+
+    # Search end of path
+    until isSpace(getCharAt(editor, pathEnd))
+        pathEnd = new Point(pathEnd.row, pathEnd.column + 1)
+
+    path = editor.getTextInBufferRange([pathStart, pathEnd])
+    pathIsValid = (/^[a-zA-Z0-9\/\-:\.]+$/.test path) and (path.indexOf('/') isnt -1)
+
+    console.log path
+
+    if pathIsValid
+
+        # Open file at specific line
+        atom.open {
+            pathsToOpen: ['/data-ssd/jvc-respawn/' + path]
+            newWindow: false
+        }
+
+# Remove char on each side of the selection : '{selection}' -> {selection}.
+atom.commands.add 'atom-text-editor', 'my:unwrap', ->
+    editor = atom.workspace.getActiveTextEditor()
+    selections = editor.getSelections()
+
+    selections.forEach (selection) ->
+        selectedText = selection.getText()
+        selection.insertText('')
+        selection.selectLeft()
+        selection.insertText('')
+        selection.selectRight()
+        selection.insertText('')
+        selection.insertText(selectedText, { select: true })
+
+
+# Moves the selected text in ./query-part.sql.
+# Amélios :
+# - Sélectionne et lance la ligne courante si la sélection est vide
+# - Sélectionne et lance le paragraphe courant si la sélection est vide
+# - Extrait les headers et les prepend à query-part.sql
+# - Pouvoir lancer une requête depuis n'import quel fichier
+
+atom.commands.add 'atom-text-editor', 'my:create-query-part', ->
+    editor = atom.workspace.getActiveTextEditor()
+    filePath = atom.workspace.getActivePaneItem().buffer.file.path
+
+    warn = (message) -> atom.notifications.addWarning message, { dismissable: true }
+
+    # Only in sql files.
+    if not filePath.match(/\.sql$/)
+        return warn 'Not in a .sql file.'
+
+    partFile = "#{path.dirname filePath}/query-part.sql"
+
+    # Only if ./query-part.sql file exists.
+    try
+        if not fs.statSync(partFile).isFile()
+            return warn "'#{partFile}' is not a file"
+    catch
+        return warn "'#{partFile}' doesn't exist"
+
+    selectedText = editor.getSelectedText()
+
+    fs.writeFileSync partFile, "#{selectedText}\n"

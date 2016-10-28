@@ -43,24 +43,28 @@
   'ctrl-k ctrl-g': 'grammar-selector:show'
   'ctrl-f12': 'terminal-status:toggle'
   'ctrl-shift-f2': 'copy-filename:copy-open-file-filename'
-  'ctrl-alt-shift-f2': 'editor:copy-path'
+  'ctrl-alt-shift-f2': 'editor:copy-project-path'
+  'ctrl-k ctrl-alt-shift-f2': 'my:copy-path-and-line'
   'ctrl-up': 'add-line-break:add-line-break-after'
   'ctrl-down': 'add-line-break:add-line-break-before'
   'ctrl-k ctrl-s': 'editor:log-cursor-scope'
   'ctrl-k ctrl-w': 'editor:toggle-soft-wrap'
   'ctrl-k ctrl-h': 'git-time-machine:toggle'
   'ctrl-f2': 'bookmarks:toggle-bookmark'
-  'ctrl-e': 'emmet:expand-abbreviation'
+  'ctrl-e': 'my:create-query-part'
   'ctrl-b': 'blame:toggle'
   'ctrl-enter': 'toggle-markdown-task:toggle'
   'ctrl-shift-O': 'link:open'
+  'ctrl-o': 'my:open-path-under-cursor'
   'ctrl-shift-down': 'symbols-view:go-to-declaration'
   'ctrl-shift-up': 'symbols-view:return-from-declaration'
+  'ctrl-alt-u': 'my:unwrap'
 
 'body':
   'ctrl-q': 'unset!'
   # Avoid overring ctrl+shift+o = open link
   'ctrl-shift-O': 'unset!'
+  'ctrl-o': 'unset!'
   'ctrl-k ctrl-m': 'minimap:toggle'
 
  # Stop emmet from hijacking tab from snippets and autocomplete

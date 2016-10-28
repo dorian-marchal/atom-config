@@ -61,20 +61,20 @@
     deep_indent: true
     extend_double_slash: false
     per_section_indent: true
-    spacer_between_sections: true
+    return_tag: "@returns"
   editor:
-    fontSize: 20
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
-    showInvisibles: true
     tabLength: 4
     zoomFontWhenCtrlScrolling: false
   emmet: {}
   "exception-reporting":
     userId: "3079f2c3-af1f-fc1b-e5c7-6add982dcebc"
   "file-icons": {}
-  "find-and-replace": {}
+  "find-and-replace":
+    liveSearchMinimumCharacters: 2
   fonts:
     fontFamily: "Hasklig"
     preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
@@ -89,6 +89,7 @@
   linter:
     clearOnChange: true
     lintOnChangeInterval: 500
+    lintOnFly: false
     showErrorPanel: false
     statusBar: "Show all errors"
   "linter-eslint":
@@ -136,6 +137,9 @@
   "remote-sync":
     difftoolCommand: "meld"
     logToConsole: true
+  "seti-syntax":
+    dynamicColor: false
+    themeColor: "Steel"
   "spell-check": {}
   "split-diff":
     diffWords: true
@@ -180,6 +184,9 @@
 ".git-rebase.text":
   editor:
     tabLength: 4
+".html.mustache.text":
+  editor:
+    tabLength: 4
 ".js.jsx.react.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
@@ -200,3 +207,6 @@
 ".js.source.subtlegradient":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+".mustache.source.sql":
+  editor:
+    tabLength: 4
