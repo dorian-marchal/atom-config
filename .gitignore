@@ -13,3 +13,4 @@ nohup.out
 /blob-store/INVKEYS
 /git-time-machine
 /split-diff/split-diff*
+/data-atom-connections.cson

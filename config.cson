@@ -52,6 +52,9 @@
       ".tag*"
       "dist"
     ]
+    packagesWithKeymapsDisabled: [
+      "data-atom"
+    ]
     themes: [
       "atom-dark-ui"
       "monokai"
@@ -63,7 +66,6 @@
     per_section_indent: true
     return_tag: "@returns"
   editor:
-    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
