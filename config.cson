@@ -75,6 +75,8 @@
   "exception-reporting":
     userId: "3079f2c3-af1f-fc1b-e5c7-6add982dcebc"
   "file-icons": {}
+  "file-watcher":
+    includeCompareOption: false
   "find-and-replace":
     liveSearchMinimumCharacters: 2
   fonts:
@@ -172,6 +174,9 @@
 ".css.source":
   editor:
     nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?…"
+    tabLength: 4
+".diff":
+  editor:
     tabLength: 4
 ".diff.source":
   editor:
