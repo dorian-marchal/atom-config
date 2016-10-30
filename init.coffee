@@ -118,27 +118,143 @@ atom.commands.add 'atom-text-editor', 'my:unwrap', ->
 # - Sélectionne et lance la ligne courante si la sélection est vide
 # - Sélectionne et lance le paragraphe courant si la sélection est vide
 # - Extrait les headers et les prepend à query-part.sql
-# - Pouvoir lancer une requête depuis n'import quel fichier
+# - Pouvoir lancer une requête depuis n'importe quel fichier
 
 atom.commands.add 'atom-text-editor', 'my:create-query-part', ->
     editor = atom.workspace.getActiveTextEditor()
-    filePath = atom.workspace.getActivePaneItem().buffer.file.path
+    filePath = atom.workspace.getActivePaneItem().buffer.file?.path?
+
+    if not filePath
+        return
 
     warn = (message) -> atom.notifications.addWarning message, { dismissable: true }
 
     # Only in sql files.
-    if not filePath.match(/\.sql$/)
-        return warn 'Not in a .sql file.'
+    if editor.getGrammar().scopeName isnt 'source.sql'
+        return warn 'Not in a `source.sql` file.'
 
     partFile = "#{path.dirname filePath}/query-part.sql"
 
     # Only if ./query-part.sql file exists.
     try
         if not fs.statSync(partFile).isFile()
-            return warn "'#{partFile}' is not a file"
+            return warn "`#{partFile}` is not a file"
     catch
-        return warn "'#{partFile}' doesn't exist"
+        return warn "`#{partFile}` doesn't exist"
 
     selectedText = editor.getSelectedText()
 
     fs.writeFileSync partFile, "#{selectedText}\n"
+
+class SqlTokenizer
+
+    constructor: () ->
+        @scopes =
+            SQL: Symbol('scope_sql')
+            SINGLE_LINE_COMMENT: Symbol('scope_single_line_comment')
+            MULTI_LINE_COMMENT: Symbol('scope_multi_line_comment')
+            SINGLE_QUOTE_STRING: Symbol('scope_single_quote_string')
+            DOUBLE_QUOTE_STRING: Symbol('scope_double_quote_string')
+
+        # Uses "`" because CoffeeScript sucks : object keys cannot be symbols.
+        @nextScopes = `{
+            [this.scopes.SQL]: [
+                { token: '/*', scope: this.scopes.MULTI_LINE_COMMENT },
+                { token: '--', scope: this.scopes.SINGLE_LINE_COMMENT },
+                { token: '\'', scope: this.scopes.SINGLE_QUOTE_STRING },
+                { token: '"', scope: this.scopes.DOUBLE_QUOTE_STRING },
+            ],
+            [this.scopes.SINGLE_LINE_COMMENT]: [
+                { token: '\n', scope: this.scopes.SQL },
+            ],
+            [this.scopes.MULTI_LINE_COMMENT]: [
+                { token: '*/', scope: this.scopes.SQL },
+            ],
+            [this.scopes.SINGLE_QUOTE_STRING]: [
+                { token: '\'', scope: this.scopes.SQL },
+            ],
+            [this.scopes.DOUBLE_QUOTE_STRING]: [
+                { token: '"', scope: this.scopes.SQL },
+            ],
+        }`
+
+    _findNextScope: (text, currentScope) ->
+        nextScope = @nextScopes[currentScope].find((possibleScope) -> text.startsWith(possibleScope.token))
+        return if nextScope then nextScope.scope else currentScope
+
+    tokenize: (sql) ->
+        splittedSql = sql.split(/(?=(?:\/\*|--|\n|\*\/|'|"))/g)
+
+        currentScope = @scopes.SQL
+        return splittedSql.map((text) =>
+            currentScope = @_findNextScope(text, currentScope)
+            return {
+                scope: currentScope
+                text
+            }
+        )
+
+sqlTokenizer = new SqlTokenizer
+
+# Fix SQL case (keywords, placeholders, ...) of current text editor.
+fixSqlCase = ->
+    editor = atom.workspace.getActiveTextEditor()
+    buffer = atom.workspace.getActivePaneItem().buffer
+    text = buffer.getText()
+
+    # Saves cursor position to restore it after text replacement.
+    cursorPositions = editor.getCursorBufferPositions()
+    # Saves selection ranges to restore it after text replacement.
+    selectionRanges = editor.getSelectedBufferRanges()
+
+    uppercase = (text) -> text.toUpperCase()
+
+    patternTransformPairs = [
+        # Placeholders.
+        [/__\w+__/gi, uppercase],
+        # Keywords.
+        [/\b(?:add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|join|key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|select|set|stable|table|then|trigger|true|update|using|values|when|where)\b/gi, uppercase],
+    ]
+
+    tokenizedSql = sqlTokenizer.tokenize text
+
+    transformedSql = tokenizedSql.map((part) =>
+        # Only transform SQL scope.
+        if part.scope isnt sqlTokenizer.scopes.SQL
+            return part
+
+        newText = part.text
+        for [pattern, transform] in patternTransformPairs
+            newText = newText.replace(pattern, transform)
+
+        return { text: newText, scope: part.scope }
+    );
+
+    finalSql = transformedSql.reduce(((res, part) -> res + part.text), '')
+
+    # Does nothing if there is no difference.
+    if text is finalSql
+        return
+
+    buffer.setTextViaDiff(finalSql)
+
+    # Restore cursors.
+    # `set` method overrides all existing cursors.
+    editor.setCursorBufferPosition(cursorPositions[0])
+    # Adds remaining cursors.
+    for cursorPosition in cursorPositions.splice(1)
+        editor.addCursorAtBufferPosition(cursorPosition)
+
+    # Restore selections.
+    editor.setSelectedBufferRanges(selectionRanges)
+
+
+# Binds the execution of `fixSqlCase` on change for all SQL buffers.
+atom.workspace.observeTextEditors((editor) ->
+    editor.onDidStopChanging(->
+        if (editor.getGrammar().scopeName is 'source.sql')
+            fixSqlCase()
+    )
+)
+atom.commands.add 'atom-text-editor', 'my:fix-sql-case', () ->
+    fixSqlCase()
