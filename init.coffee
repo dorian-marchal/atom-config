@@ -1,6 +1,7 @@
 {Point} = require 'atom'
 path = require 'path'
 fs = require 'fs'
+os = require 'os'
 
 # Your init script
 #
@@ -113,16 +114,9 @@ atom.commands.add 'atom-text-editor', 'my:unwrap', ->
         selection.insertText(selectedText, { select: true })
 
 
-# Moves the selected text in ./query-part.sql.
-# Amélios :
-# - Sélectionne et lance la ligne courante si la sélection est vide
-# - Sélectionne et lance le paragraphe courant si la sélection est vide
-# - Extrait les headers et les prepend à query-part.sql
-# - Pouvoir lancer une requête depuis n'importe quel fichier
-
-atom.commands.add 'atom-text-editor', 'my:create-query-part', ->
+createQueryPart = (addExplainAnalyze = false) ->
     editor = atom.workspace.getActiveTextEditor()
-    filePath = atom.workspace.getActivePaneItem().buffer.file?.path?
+    filePath = atom.workspace.getActivePaneItem().buffer.file?.path
 
     if not filePath
         return
@@ -133,18 +127,40 @@ atom.commands.add 'atom-text-editor', 'my:create-query-part', ->
     if editor.getGrammar().scopeName isnt 'source.sql'
         return warn 'Not in a `source.sql` file.'
 
-    partFile = "#{path.dirname filePath}/query-part.sql"
-
-    # Only if ./query-part.sql file exists.
-    try
-        if not fs.statSync(partFile).isFile()
-            return warn "`#{partFile}` is not a file"
-    catch
-        return warn "`#{partFile}` doesn't exist"
+    partFile = "#{os.tmpdir()}/atom-query-part.sql"
 
     selectedText = editor.getSelectedText()
 
-    fs.writeFileSync partFile, "#{selectedText}\n"
+    if selectedText is ''
+        # Select paragraph under cursor.
+        editor.setSelectedBufferRange editor.getCurrentParagraphBufferRange()
+        selectedText = editor.getSelectedText()
+
+    # Extracts and prepends extracted psql headers to query part.
+    headers = editor.getBuffer().getText().match(/^([\s\S]*)-- \/header\n/)?[1]
+
+    if addExplainAnalyze
+        headers = ['\\x off', headers].join '\n'
+
+    sqlPart = [
+        if addExplainAnalyze then 'explain analyze\n' else undefined,
+        headers,
+        selectedText,
+        '\n',
+    ].join ''
+
+    try
+        fs.writeFileSync partFile, sqlPart
+    catch
+        return warn "Can't write in `#{partFile}`"
+
+# Moves the selected text in /tmp/atom-query-part.sql.
+atom.commands.add 'atom-text-editor', 'my:create-query-part', ->
+    createQueryPart()
+
+# Moves the selected text (appended to "explain analyze") in /tmp/atom-query-part.sql.
+atom.commands.add 'atom-text-editor', 'my:create-explain-query-part', ->
+    createQueryPart(true)
 
 class SqlTokenizer
 
@@ -199,7 +215,8 @@ sqlTokenizer = new SqlTokenizer
 # Fix SQL case (keywords, placeholders, ...) of current text editor.
 fixSqlCase = ->
     editor = atom.workspace.getActiveTextEditor()
-    buffer = atom.workspace.getActivePaneItem().buffer
+    buffer = editor.getBuffer()
+
     text = buffer.getText()
 
     # Saves cursor position to restore it after text replacement.
