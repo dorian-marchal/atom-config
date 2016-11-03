@@ -113,6 +113,22 @@ atom.commands.add 'atom-text-editor', 'my:unwrap', ->
         selection.insertText('')
         selection.insertText(selectedText, { select: true })
 
+selectParagraphUnderCursor = ->
+    editor = atom.workspace.getActiveTextEditor()
+    cursor = editor.getLastCursor()
+
+    startRow = endRow = cursor.getBufferRow();
+
+    while editor.lineTextForBufferRow(startRow)
+        startRow--
+
+    while editor.lineTextForBufferRow(endRow)
+        endRow++
+
+    editor.setSelectedBufferRange({
+        start: { row: startRow + 1, column: 0 },
+        end: { row: endRow, column: 0 },
+    })
 
 createQueryPart = (addExplainAnalyze = false) ->
     editor = atom.workspace.getActiveTextEditor()
@@ -132,8 +148,7 @@ createQueryPart = (addExplainAnalyze = false) ->
     selectedText = editor.getSelectedText()
 
     if selectedText is ''
-        # Select paragraph under cursor.
-        editor.setSelectedBufferRange editor.getCurrentParagraphBufferRange()
+        selectParagraphUnderCursor()
         selectedText = editor.getSelectedText()
 
     # Extracts and prepends extracted psql headers to query part.
