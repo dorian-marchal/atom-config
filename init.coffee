@@ -154,6 +154,20 @@ createQueryPart = (addExplainAnalyze = false) ->
     # Extracts and prepends extracted psql headers to query part.
     headers = editor.getBuffer().getText().match(/^([\s\S]*)-- \/header\n/)?[1]
 
+    # Find 'replace:' headers
+    replaceString = /^-- replace: (.*)$/m.exec(headers)
+    try
+        replaceList = JSON.parse replaceString[1]
+    catch
+        console.log 'No replace string.'
+
+    console.log replaceList
+    for source, dest of replaceList
+        console.log source, dest
+        selectedText = selectedText.replace(new RegExp("#{source}", 'gm'), dest)
+
+    console.log selectedText
+
     if addExplainAnalyze
         headers = ['\\x off', headers].join '\n'
 
@@ -228,8 +242,7 @@ class SqlTokenizer
 sqlTokenizer = new SqlTokenizer
 
 # Fix SQL case (keywords, placeholders, ...) of current text editor.
-fixSqlCase = ->
-    editor = atom.workspace.getActiveTextEditor()
+fixSqlCase = (editor) ->
     buffer = editor.getBuffer()
 
     text = buffer.getText()
@@ -244,8 +257,11 @@ fixSqlCase = ->
     patternTransformPairs = [
         # Placeholders.
         [/__\w+__/gi, uppercase],
+        # Placeholders.
+        [/\bint\b/gi, 'integer'],
+        [/\bbool\b/gi, 'boolean'],
         # Keywords.
-        [/\b(?:add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|join|key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|select|set|stable|table|then|trigger|true|update|using|values|when|where)\b/gi, uppercase],
+        [/\b(?:with ?\(|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|join|primary key|foreign key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|select|set|stable|table|then|trigger|true|update|using|values|when|where)\b/gi, uppercase],
     ]
 
     tokenizedSql = sqlTokenizer.tokenize text
@@ -285,8 +301,8 @@ fixSqlCase = ->
 atom.workspace.observeTextEditors((editor) ->
     editor.onDidStopChanging(->
         if (editor.getGrammar().scopeName is 'source.sql')
-            fixSqlCase()
+            fixSqlCase(editor)
     )
 )
 atom.commands.add 'atom-text-editor', 'my:fix-sql-case', () ->
-    fixSqlCase()
+    fixSqlCase(atom.workspace.getActiveTextEditor())
