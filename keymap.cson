@@ -60,6 +60,13 @@
   'ctrl-shift-down': 'symbols-view:go-to-declaration'
   'ctrl-shift-up': 'symbols-view:return-from-declaration'
   'ctrl-alt-u': 'my:unwrap'
+  'ctrl-0': 'editor:unfold-all'
+  'ctrl-1': 'editor:fold-at-indent-level-1'
+  'ctrl-2': 'editor:fold-at-indent-level-2'
+  'ctrl-3': 'editor:fold-at-indent-level-3'
+  'ctrl-4': 'editor:fold-at-indent-level-4'
+  'ctrl-5': 'editor:fold-at-indent-level-5'
+  'ctrl-6': 'editor:fold-at-indent-level-6'
 
 'body':
   'ctrl-q': 'unset!'

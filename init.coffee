@@ -153,20 +153,19 @@ createQueryPart = (addExplainAnalyze = false) ->
 
     # Extracts and prepends extracted psql headers to query part.
     headers = editor.getBuffer().getText().match(/^([\s\S]*)-- \/header\n/)?[1]
+    allReplaceHeaderRegex = /^-- replace: (.*)→(.*)$/gm
+    singleReplaceHeaderRegex = /^-- replace: (.*)→(.*)$/m
 
-    # Find 'replace:' headers
-    replaceString = /^-- replace: (.*)$/m.exec(headers)
-    try
-        replaceList = JSON.parse replaceString[1]
-    catch
-        console.log 'No replace string.'
+    replaceHeaders = headers.match(allReplaceHeaderRegex)
+    console.log replaceHeaders
 
-    console.log replaceList
-    for source, dest of replaceList
-        console.log source, dest
-        selectedText = selectedText.replace(new RegExp("#{source}", 'gm'), dest)
+    replaceList = if replaceHeaders then replaceHeaders.map((header) -> [header.match(singleReplaceHeaderRegex)[1], header.match(singleReplaceHeaderRegex)[2]]) else []
 
-    console.log selectedText
+    for i, [source, dest] of replaceList
+        trimmedSource = source.trim()
+        trimmedDest = dest.trim()
+        console.log trimmedSource, trimmedDest
+        selectedText = selectedText.replace(new RegExp("#{trimmedSource}", 'gm'), trimmedDest)
 
     if addExplainAnalyze
         headers = ['\\x off', headers].join '\n'
@@ -261,7 +260,8 @@ fixSqlCase = (editor) ->
         [/\bint\b/gi, 'integer'],
         [/\bbool\b/gi, 'boolean'],
         # Keywords.
-        [/\b(?:with ?\(|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|join|primary key|foreign key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|select|set|stable|table|then|trigger|true|update|using|values|when|where)\b/gi, uppercase],
+        [/\b(?:select( exists)?|nulls last|delete|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|join|primary key|foreign key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|set|stable|table|then|trigger|true|update|using|values|when|where)\b/gi, uppercase],
+        [/\bwith(?: recursive)? ?\(/gi, uppercase]
     ]
 
     tokenizedSql = sqlTokenizer.tokenize text

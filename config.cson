@@ -66,9 +66,11 @@
     per_section_indent: true
     return_tag: "@returns"
   editor:
+    fontSize: 12
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
+    showInvisibles: true
     tabLength: 4
     zoomFontWhenCtrlScrolling: false
   emmet: {}
