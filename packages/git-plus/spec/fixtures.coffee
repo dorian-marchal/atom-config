@@ -1,19 +1,24 @@
-Path = require 'flavored-path'
-pathToRepoFile = Path.get "~/some/repository/directory/file"
+Path = require 'path'
+Os = require 'os'
+
+homedir = Os.homedir()
+pathToRepoFile = Path.join(homedir, "some/repository/directory/file")
 head = jasmine.createSpyObj('head', ['replace'])
 
 module.exports = mocks =
   pathToRepoFile: pathToRepoFile
-  pathToSampleDir: Path.get "~"
+  pathToSampleDir: homedir
 
   repo:
     getPath: -> Path.join this.getWorkingDirectory(), ".git"
-    getWorkingDirectory: -> Path.get "~/some/repository"
+    getWorkingDirectory: -> Path.join(homedir, "some/repository")
+    getConfigValue: (key) -> 'some-value'
     refreshStatus: -> undefined
-    relativize: (path) -> "directory/file" if path is pathToRepoFile
+    relativize: (path) -> if path is pathToRepoFile then "directory/file" else path
     getReferences: ->
       heads: [head]
     getShortHead: -> 'short head'
+    getUpstreamBranch: -> 'refs/remotes/origin/foo'
     isPathModified: -> false
     repo:
       submoduleForPath: (path) -> undefined

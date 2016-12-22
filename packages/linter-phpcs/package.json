@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
+        "raw": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
-        "spec": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
+        "rawSpec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+        "spec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-116928-5601-leukcp"
+      "/tmp/apm-install-dir-1161122-24919-pkptnr"
     ]
   ],
-  "_from": "../d-116928-5601-1sdxb9r/package.tgz",
-  "_id": "linter-phpcs@1.5.3",
+  "_from": "../d-1161122-24919-18wp7v6/package.tgz",
+  "_id": "linter-phpcs@1.5.4",
   "_inCache": true,
   "_installable": true,
   "_location": "/linter-phpcs",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
+    "raw": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
-    "spec": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
+    "rawSpec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+    "spec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-116928-5601-1sdxb9r/package.tgz",
-  "_shasum": "594a4cd54ad9083840c4b9f213cf7368692b3e70",
+  "_resolved": "file:../d-1161122-24919-18wp7v6/package.tgz",
+  "_shasum": "9329f5ca3def6a0f61c9cc9308b93604e28877ec",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-116928-5601-1sdxb9r/package.tgz",
-  "_where": "/tmp/apm-install-dir-116928-5601-leukcp",
+  "_spec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+  "_where": "/tmp/apm-install-dir-1161122-24919-pkptnr",
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-phpcs/issues"
   },
@@ -81,8 +81,8 @@
     "ignorePatterns": {
       "type": "array",
       "default": [
-        "*.blade.php",
-        "*.twig.php"
+        "**/*.blade.php",
+        "**/*.twig.php"
       ],
       "items": {
         "type": "string"
@@ -152,9 +152,9 @@
   },
   "description": "Lint PHP on the fly, using phpcs",
   "devDependencies": {
-    "eslint": "^3.6.0",
-    "eslint-config-airbnb-base": "^8.0.0",
-    "eslint-plugin-import": "^1.16.0"
+    "eslint": "^3.12.0",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0"
   },
   "engines": {
     "atom": ">=1.8.0 <2.0.0"
@@ -195,7 +195,7 @@
       }
     }
   },
-  "readme": "linter-phpcs\n=========================\n[![Build Status](https://travis-ci.org/AtomLinter/linter-phpcs.svg)](https://travis-ci.org/AtomLinter/linter-phpcs)\n[![Dependency Status](https://david-dm.org/AtomLinter/linter-phpcs.svg)](https://david-dm.org/AtomLinter/linter-phpcs)\n[![apm](https://img.shields.io/apm/v/linter-phpcs.svg)](https://atom.io/packages/linter-phpcs)\n[![apm](https://img.shields.io/apm/dm/linter-phpcs.svg)](https://atom.io/packages/linter-phpcs)\n\nThis linter plugin for [Linter](https://github.com/steelbrain/linter) provides\nan interface to [phpcs](http://pear.php.net/package/PHP_CodeSniffer/). It will\nbe used with files that have the \"PHP\" and \"HTML\" syntax.\n\n### phpcs Installation\nBefore using this plugin, you must ensure that `phpcs` is installed on your system. To install `phpcs`, do the following:\n\n0. Install [php](http://php.net).\n0. Install [pear](http://pear.php.net).\n0. Install `phpcs` by typing the following in a terminal:\n```ShellSession\npear install PHP_CodeSniffer\n```\n\nNow you can proceed to install the linter-phpcs plugin.\n\n### Package Installation\nYou can then install this package either from within Atom or by running the\nfollowing command:\n```ShellSession\n$ apm install linter-phpcs\n```\nNote: If you do not already have the `linter` package installed it will be installed\nfor you to provide an interface for this package.\n",
+  "readme": "# linter-phpcs\n\n[![Build Status][travisci-badge]][travisci]\n[![Dependency Status][dabviddm-badge]][daviddm]\n[![apm](https://img.shields.io/apm/v/linter-phpcs.svg)][linter-phpcs]\n[![apm](https://img.shields.io/apm/dm/linter-phpcs.svg)][linter-phpcs]\n\n## Description\n\nThis is a provider for [Linter][] that provides an interface to\n[PHP_CodeSniffer][PHPCS] (PHPCS). It supports files that have the \"PHP\" and\n\"HTML\" syntax.\n\n## Installation\n\n### PHPCS Installation\n\nBefore using this plugin, you must ensure that `phpcs` is installed and\navailable on your `$PATH`. To install `phpcs`, the following:\n\n1.  Install [PHP](http://php.net).\n2.  Install [Composer](https://getcomposer.org/).\n3.  Install `phpcs` by typing the following in a terminal:\n\n    ```ShellSession\n    composer global require \"squizlabs/php_codesniffer=*\"\n    ```\n\nFull installation steps, including alternate installation methods, can be found\non the PHPCS site [here][phpcs-install].\n\n### Package Installation\n\nYou can then install this package either from within Atom or by running the\nfollowing command:\n\n```ShellSession\n$ apm install linter-phpcs\n```\n\nNote: If you do not already have the Linter package installed it will be\ninstalled for you to provide an interface for this package. If you are using an\nalternative interface simply disable the Linter package.\n\n[travisci]: https://travis-ci.org/AtomLinter/linter-phpcs\n[travisci-badge]: https://travis-ci.org/AtomLinter/linter-phpcs.svg\n[daviddm]: https://david-dm.org/AtomLinter/linter-phpcs\n[dabviddm-badge]: https://david-dm.org/AtomLinter/linter-phpcs.svg\n[linter-phpcs]: https://atom.io/packages/linter-phpcs\n[Linter]: https://github.com/steelbrain/linter\n[PHPCS]: https://github.com/squizlabs/PHP_CodeSniffer\n[phpcs-install]: https://github.com/squizlabs/PHP_CodeSniffer#installation\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
@@ -205,5 +205,5 @@
     "lint": "eslint .",
     "test": "apm test"
   },
-  "version": "1.5.3"
+  "version": "1.5.4"
 }

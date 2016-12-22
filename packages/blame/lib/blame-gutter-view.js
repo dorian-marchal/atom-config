@@ -2,11 +2,12 @@
 
 import gravatar from 'gravatar'
 import open from 'open'
-import moment from 'moment';
+import moment from 'moment'
 import { CompositeDisposable } from 'atom'
 import blame from './utils/blame'
 import getCommit from './utils/get-commit'
 import getCommitLink from './utils/get-commit-link'
+import throttle from './utils/throttle'
 
 class BlameGutterView {
 
@@ -22,6 +23,8 @@ class BlameGutterView {
     this.colors = {}
     this.gutter = this.editor.addGutter({ name: 'blame' })
     this.markers = []
+
+    this.editorElement = atom.views.getView(this.editor)
 
     this.setVisible(true)
   }
@@ -43,7 +46,12 @@ class BlameGutterView {
 
       this.gutter.show()
 
+      this.scrollListener = this.editorElement.onDidChangeScrollTop(
+        throttle(() => this.hideTooltips(), 500)
+      )
+
     } else {
+      if (this.scrollListener) { this.scrollListener.dispose() }
       this.gutter.hide()
 
       if (this.disposables) { this.disposables.dispose() }
@@ -52,9 +60,17 @@ class BlameGutterView {
     }
   }
 
-  update() {
+  hideTooltips() {
+    // Trigger resize event on window to hide tooltips
+    window.dispatchEvent(new Event('resize'))
+  }
 
+  update() {
     blame(this.editor.getPath(), (result) => {
+      if (!this.visible) {
+        return
+      }
+
       this.removeAllMarkers()
 
       var lastHash = null
@@ -63,9 +79,9 @@ class BlameGutterView {
       if (!result) { return }
 
       Object.keys(result).forEach(key => {
-        const line = result[key];
+        const line = result[key]
 
-        var lineStr;
+        var lineStr
         var hash = line.rev.replace(/\s.*/, '')
 
         if (lastHash !== hash) {
@@ -83,15 +99,15 @@ class BlameGutterView {
   }
 
   formatTooltip(hash, line) {
-    var dateFormat = atom.config.get('blame.dateFormat');
+    var dateFormat = atom.config.get('blame.dateFormat')
     var dateStr = moment(line.date, 'YYYY-MM-DD HH:mm:ss')
-      .format(dateFormat);
+      .format(dateFormat)
 
     if (this.isCommited(hash)) {
       return atom.config.get('blame.gutterFormat')
         .replace('{hash}', `<span class="hash">${hash}</span>`)
         .replace('{date}', `<span class="date">${dateStr}</span>`)
-        .replace('{author}', `<span class="author">${line.author}</span>`);
+        .replace('{author}', `<span class="author">${line.author}</span>`)
     }
 
     return `${line.author}`
@@ -116,7 +132,7 @@ class BlameGutterView {
     mm = date.getMonth() + 1
     if (mm < 10) { mm = `0${mm}` }
     dd = date.getDate()
-    if (dd < 10) { dd = `0${dd}`; }
+    if (dd < 10) { dd = `0${dd}` }
 
     return `${yyyy}-${mm}-${dd}`
   }
@@ -249,9 +265,11 @@ class BlameGutterView {
       document.head.appendChild(sheet)
     }
 
+    // TODO remove `::shadow` when  Atom 1.3 is stable
     sheet.innerHTML = `
+      atom-text-editor .gutter[gutter-name="blame"],
       atom-text-editor::shadow .gutter[gutter-name="blame"] {
-        width: ${this.state.width}px;
+        width: ${this.state.width}px
       }
     `
   }
@@ -266,6 +284,10 @@ class BlameGutterView {
       item.setAttribute('data-has-tooltip', true)
 
       getCommit(this.editor.getPath(), hash.replace(/^[\^]/, ''), (msg) => {
+        if (!this.visible) {
+          return
+        }
+
         avatar = gravatar.url(msg.email, { s: 80 })
         this.disposables.add(atom.tooltips.add(item, {
           title: `
@@ -283,13 +305,8 @@ class BlameGutterView {
     }
   }
 
-  triggerEvent(element, eventName) {
-    evObj = document.createEvent('Events')
-    evObj.initEvent(eventName, true, false)
-    element.dispatchEvent(evObj)
-  }
-
   dispose() {
+    this.setVisible(false)
     this.gutter.destroy()
     if (this.disposables) { this.disposables.dispose() }
   }

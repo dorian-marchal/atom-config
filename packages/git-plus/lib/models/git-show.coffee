@@ -10,8 +10,13 @@ git = require '../git'
 showCommitFilePath = (objectHash) ->
   Path.join Os.tmpDir(), "#{objectHash}.diff"
 
+isEmpty = (string) -> string is ''
+
 showObject = (repo, objectHash, file) ->
-  args = ['show', '--color=never', '--format=full']
+  objectHash = if isEmpty objectHash then 'HEAD' else objectHash
+  args = ['show', '--color=never']
+  showFormatOption = atom.config.get 'git-plus.showFormat'
+  args.push "--format=#{showFormatOption}" if showFormatOption != 'none'
   args.push '--word-diff' if atom.config.get 'git-plus.wordDiff'
   args.push objectHash
   args.push '--', file if file?
@@ -39,7 +44,7 @@ showFile = (objectHash) ->
 class InputView extends View
   @content: ->
     @div =>
-      @subview 'objectHash', new TextEditorView(mini: true, placeholderText: 'Commit hash to show')
+      @subview 'objectHash', new TextEditorView(mini: true, placeholderText: 'Commit hash to show. (Defaults to HEAD)')
 
   initialize: (@repo) ->
     @disposables = new CompositeDisposable
@@ -49,8 +54,7 @@ class InputView extends View
     @objectHash.focus()
     @disposables.add atom.commands.add 'atom-text-editor', 'core:cancel': => @destroy()
     @disposables.add atom.commands.add 'atom-text-editor', 'core:confirm': =>
-      text = @objectHash.getModel().getText().split(' ')
-      name = if text.length is 2 then text[1] else text[0]
+      text = @objectHash.getModel().getText().split(' ')[0]
       showObject(@repo, text)
       @destroy()
 

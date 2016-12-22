@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
+        "raw": "/tmp/d-1161122-24814-j12znz/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
-        "spec": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
+        "rawSpec": "/tmp/d-1161122-24814-j12znz/package.tgz",
+        "spec": "/tmp/d-1161122-24814-j12znz/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-116928-5565-yonge5"
+      "/tmp/apm-install-dir-1161122-24814-fm2xat"
     ]
   ],
-  "_from": "../d-116928-5565-1p0i5r8/package.tgz",
-  "_id": "file-icons@1.7.23",
+  "_from": "../d-1161122-24814-j12znz/package.tgz",
+  "_id": "file-icons@1.7.25",
   "_inCache": true,
   "_installable": true,
   "_location": "/file-icons",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
+    "raw": "/tmp/d-1161122-24814-j12znz/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
-    "spec": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
+    "rawSpec": "/tmp/d-1161122-24814-j12znz/package.tgz",
+    "spec": "/tmp/d-1161122-24814-j12znz/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-116928-5565-1p0i5r8/package.tgz",
-  "_shasum": "7ed8a668f91449239916dde8102135b4ecf68eae",
+  "_resolved": "file:../d-1161122-24814-j12znz/package.tgz",
+  "_shasum": "3e363a0422a935a6a27974e7f60c86421f3d3958",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-116928-5565-1p0i5r8/package.tgz",
-  "_where": "/tmp/apm-install-dir-116928-5565-yonge5",
+  "_spec": "/tmp/d-1161122-24814-j12znz/package.tgz",
+  "_where": "/tmp/apm-install-dir-1161122-24814-fm2xat",
   "bugs": {
     "url": "https://github.com/DanBrooker/file-icons/issues"
   },
@@ -57,5 +57,5 @@
     "type": "git",
     "url": "git+https://github.com/DanBrooker/file-icons.git"
   },
-  "version": "1.7.23"
+  "version": "1.7.25"
 }

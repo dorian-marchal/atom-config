@@ -131,6 +131,7 @@ DocsParser.prototype.format_function = function(name, args, retval, options) {
     if(!extra_tag_after)
         out = this.add_extra_tags(out);
 
+    var type_info;
     // if there are arguments, add a @param for each
     if(args) {
         // remove comments inside the argument list.
@@ -155,7 +156,7 @@ DocsParser.prototype.format_function = function(name, args, retval, options) {
     // even then ask language specific parser if it wants it listed
     var ret_type = this.get_function_return_type(name, retval);
     if(ret_type !== null) {
-        var type_info = '';
+        type_info = '';
         if(this.settings.typeInfo)
             //type_info = ' ' + (this.settings.curlyTypes ? '{' : '') + '${1:' + (ret_type || '[type]') + (this.settings.curlyTypes ? '}' : '');
             type_info = util.format(' %s${1:%s}%s', (this.settings.curlyTypes ? '{' : ''),
