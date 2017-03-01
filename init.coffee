@@ -152,13 +152,11 @@ createQueryPart = (addExplainAnalyze = false) ->
         selectedText = editor.getSelectedText()
 
     # Extracts and prepends extracted psql headers to query part.
-    headers = editor.getBuffer().getText().match(/^([\s\S]*)-- \/header\n/)?[1]
+    headers = editor.getBuffer().getText().match(/^([\s\S]*)-- \/header\n/)?[1] or ''
     allReplaceHeaderRegex = /^-- replace: (.*)→(.*)$/gm
     singleReplaceHeaderRegex = /^-- replace: (.*)→(.*)$/m
 
     replaceHeaders = headers.match(allReplaceHeaderRegex)
-    console.log replaceHeaders
-
     replaceList = if replaceHeaders then replaceHeaders.map((header) -> [header.match(singleReplaceHeaderRegex)[1], header.match(singleReplaceHeaderRegex)[2]]) else []
 
     for i, [source, dest] of replaceList
