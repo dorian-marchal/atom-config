@@ -53,6 +53,7 @@
   'ctrl-f2': 'bookmarks:toggle-bookmark'
   'ctrl-e': 'my:create-query-part'
   'ctrl-shift-e': 'my:create-explain-query-part'
+  'ctrl-*': 'my:create-count-query-part'
   'ctrl-b': 'blame:toggle'
   'ctrl-enter': 'toggle-markdown-task:toggle'
   'ctrl-shift-O': 'link:open'
