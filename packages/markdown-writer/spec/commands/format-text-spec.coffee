@@ -5,6 +5,7 @@ describe "FormatText", ->
 
   beforeEach ->
     waitsForPromise -> atom.workspace.open("empty.markdown")
+    waitsForPromise -> atom.packages.activatePackage("language-gfm")
     runs -> editor = atom.workspace.getActiveTextEditor()
 
   describe "correctOrderListNumbers", ->
@@ -76,6 +77,29 @@ describe "FormatText", ->
       text after
       """
 
+    it "correct invalid order list numbers", ->
+      editor.setText """
+      text before
+
+        3. aaa
+      9. bbb
+        a. 11aa
+
+      text after
+      """
+      editor.setCursorBufferPosition([3, 1])
+
+      formatText.trigger()
+      expect(editor.getText()).toBe """
+      text before
+
+        1. aaa
+      1. bbb
+        a. 11aa
+
+      text after
+      """
+
   describe "formatTable", ->
     beforeEach -> formatText = new FormatText("format-table")
 
@@ -119,6 +143,7 @@ describe "FormatText", ->
 
       editor.setCursorBufferPosition([4, 3])
       formatText.trigger()
+      expect(editor.getText()).toBe(expected)
 
       # trigger twice shouldn't change anything
       editor.setCursorBufferPosition([4, 3])
@@ -152,6 +177,7 @@ describe "FormatText", ->
 
       editor.setCursorBufferPosition([4, 3])
       formatText.trigger()
+      expect(editor.getText()).toBe(expected)
 
       # trigger twice shouldn't change anything
       editor.setCursorBufferPosition([4, 3])
@@ -173,6 +199,7 @@ describe "FormatText", ->
 
       editor.setCursorBufferPosition([2, 3])
       formatText.trigger()
+      expect(editor.getText()).toBe(expected)
 
       # trigger twice shouldn't change anything
       editor.setCursorBufferPosition([1, 5])

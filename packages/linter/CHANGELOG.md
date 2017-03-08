@@ -1,3 +1,19 @@
+## 1.11.22
+
+- Use contrast colors in inline tooltip instead of hard-coded white (#1317)
+
+## 1.11.21
+
+- Fix gutter dot alignment issue (#1268)
+
+## 1.11.20
+
+- Fix a bug in linter css for Atom v1.13+
+
+## 1.11.19
+
+- Make linter css future safe for v1.13 compatibility
+
 ## 1.11.16
 
 - Follow up to last fix

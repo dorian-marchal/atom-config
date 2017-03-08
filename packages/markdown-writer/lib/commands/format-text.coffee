@@ -18,11 +18,13 @@ class FormatText
 
       range = @editor.getSelectedBufferRange()
       range = paragraphRange.union(range) if paragraphRange
+      return if range.start.row == range.end.row
 
       text = @editor.getTextInBufferRange(range)
-      return if range.start.row == range.end.row || text.trim() == ""
+      return if text.trim() == ""
 
-      formattedText = @[fn](e, range, text.split("\n"))
+      text = text.split(/\r?\n/)
+      formattedText = @[fn](e, range, text)
       @editor.setTextInBufferRange(range, formattedText) if formattedText
 
   correctOrderListNumbers: (e, range, lines) ->
@@ -38,21 +40,18 @@ class FormatText
 
         if indentStack.length == 0 || indent.length > indentStack[0].length # first ol/sub-ol match
           indentStack.unshift(indent)
-
-          if lineMeta.isList("al")
-            if utils.isUpperCase(lineMeta.head)
-              orderStack.unshift(lineMeta.head.replace(/./g, "A"))
-            else
-              orderStack.unshift(lineMeta.head.replace(/./g, "a"))
-          else
-            orderStack.unshift(1)
+          orderStack.unshift(lineMeta.defaultHead)
         else if indent.length < indentStack[0].length # end of a sub-ol match
           # pop out stack until we are back to the same indent stack
-          while indent.length != indentStack[0].length
+          while indentStack.length > 0 && indent.length != indentStack[0].length
             indentStack.shift()
             orderStack.shift()
 
-          orderStack.unshift(LineMeta.incStr(orderStack.shift()))
+          if orderStack.length == 0 # in case we are back to top level, Issue #188
+            indentStack.unshift(indent)
+            orderStack.unshift(lineMeta.defaultHead)
+          else
+            orderStack.unshift(LineMeta.incStr(orderStack.shift()))
         else # same level ol match
           orderStack.unshift(LineMeta.incStr(orderStack.shift()))
 

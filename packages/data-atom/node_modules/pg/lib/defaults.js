@@ -1,5 +1,13 @@
+/**
+ * Copyright (c) 2010-2016 Brian Carlson (brian.m.carlson@gmail.com)
+ * All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * README.md file in the root directory of this source tree.
+ */
+
 var defaults = module.exports = {
-  // database host defaults to localhost
+  // database host. defaults to localhost
   host: 'localhost',
 
   //database user's name
@@ -10,6 +18,11 @@ var defaults = module.exports = {
 
   //database user's password
   password: null,
+
+  // a Postgres connection string to be used instead of setting individual connection items
+  // NOTE:  Setting this value will cause it to override any other value (such as database or user) defined
+  // in the defaults object.
+  connectionString : undefined,
 
   //database port
   port: 5432,
@@ -30,8 +43,11 @@ var defaults = module.exports = {
   //from the pool and destroyed
   poolIdleTimeout: 30000,
 
-  //frequeny to check for idle clients within the client pool
+  //frequency to check for idle clients within the client pool
   reapIntervalMillis: 1000,
+
+  //if true the most recently released resources will be the first to be allocated
+  returnToHead: false,
 
   //pool log function / boolean
   poolLog: false,
@@ -40,11 +56,19 @@ var defaults = module.exports = {
 
   ssl: false,
 
-  application_name : undefined,
-  fallback_application_name: undefined
+  application_name: undefined,
+  fallback_application_name: undefined,
+
+  parseInputDatesAsUTC: false
 };
+
+var pgTypes = require('pg-types');
+// save default parsers
+var parseBigInteger = pgTypes.getTypeParser(20, 'text');
+var parseBigIntegerArray = pgTypes.getTypeParser(1016, 'text');
 
 //parse int8 so you can get your count values as actual numbers
 module.exports.__defineSetter__("parseInt8", function(val) {
-  require('pg-types').setTypeParser(20, 'text', val ? parseInt : function(val) { return val; });
+  pgTypes.setTypeParser(20, 'text', val ? pgTypes.getTypeParser(23, 'text') : parseBigInteger);
+  pgTypes.setTypeParser(1016, 'text', val ? pgTypes.getTypeParser(1007, 'text') : parseBigIntegerArray);
 });

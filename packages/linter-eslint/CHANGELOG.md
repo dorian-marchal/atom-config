@@ -1,5 +1,25 @@
 # Changelog
 
+## v8.1.2
+
+*   Update `atom-linter` bringing in a fix for #765 ([#817](https://github.com/AtomLinter/linter-eslint/pull/817))
+
+## v8.1.1
+
+*   Exclude `.babelrc` from releases ([#809](https://github.com/AtomLinter/linter-eslint/pull/809))
+*   Use cursor scope instead of file when checking fix-on-save ([#811](https://github.com/AtomLinter/linter-eslint/pull/811))
+*   Handle undefined package path ([#812](https://github.com/AtomLinter/linter-eslint/pull/812))
+*   Temporarily disable an intermittent spec ([#813](https://github.com/AtomLinter/linter-eslint/pull/813))
+*   Remove custom styling on rules ([#814](https://github.com/AtomLinter/linter-eslint/pull/814))
+
+## v8.1.0
+
+*   Handle invalid points gracefully ([#761](https://github.com/AtomLinter/linter-eslint/pull/761))
+*   Warn on partial fixes ([#777](https://github.com/AtomLinter/linter-eslint/pull/777))
+*   Ignore `~/.eslintrc` when determining `disableWhenNoEslintConfig` status ([#778](https://github.com/AtomLinter/linter-eslint/pull/778))
+*   Allow rules to be excluded from fix runs ([#795](https://github.com/AtomLinter/linter-eslint/pull/795))
+
+
 ## v8.0.0
 
 *   Update ESLint to v3.5.0 ([#692](https://github.com/AtomLinter/linter-eslint/pull/692))

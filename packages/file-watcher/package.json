@@ -1,39 +1,60 @@
 {
-  "name": "file-watcher",
-  "main": "./lib/init",
-  "version": "0.4.0",
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-11728-6137-8fzoub/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-11728-6137-8fzoub/package.tgz",
+        "spec": "/tmp/d-11728-6137-8fzoub/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-11728-6137-u679cg"
+    ]
+  ],
+  "_from": "../d-11728-6137-8fzoub/package.tgz",
+  "_id": "file-watcher@1.0.3",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/file-watcher",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-11728-6137-8fzoub/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-11728-6137-8fzoub/package.tgz",
+    "spec": "/tmp/d-11728-6137-8fzoub/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-11728-6137-8fzoub/package.tgz",
+  "_shasum": "31e67ead23f71febc6a575bbceeb81233009e0a0",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-11728-6137-8fzoub/package.tgz",
+  "_where": "/tmp/apm-install-dir-11728-6137-u679cg",
+  "bugs": {
+    "url": "https://github.com/lwblackledge/file-watcher/issues"
+  },
+  "dependencies": {},
   "description": "Notifications when an open file has changed on disk and Atom has pending changes.",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "homepage": "https://github.com/lwblackledge/file-watcher#readme",
+  "license": "MIT",
+  "main": "./lib/init",
+  "name": "file-watcher",
+  "optionalDependencies": {},
+  "readme": "# Atom file-watcher Package\n\nThis package watches open files for conflicts or changes, then uses the Atom confirm feature to prompt to reload each file.\n\nYou can turn the prompts for changes on and off in the package settings.\n\nThere is also a prompt option to open the original file in a new Atom window so that you can compare your current version with the disk version.\n\n## Installation\nEither use `apm`:\n```\n  apm install file-watcher\n```\n\nOr find the package in the Atom registry and install.\n\n## Settings\n\n#### AutoReload\n\nReload without a prompt. Warning: Overrides \"Prompt on Change\" and \"Include the Compare option\", and may cause a loss of work!\n\n#### Include the Compare option\n\nEnable this setting to add the Compare option to the Reload/Ignore prompt, which will open the file in a new editor so you can see the on-disk changes.\nEnabled by default.\n\n#### Prompt on Change\n\nEnable this setting to also show the Reload/Ignore prompt when the file changes on disk, even if there are no unsaved changes in Atom\n\n#### Post-Compare Command\n\nDefine an Atom command to run after the compare is shown e.g. split-diff:toggle\n\n#### Use WatchFile\n\nMounted file systems don't support `inotify` and Atom cannot tell when they change. This option adds polling and should only be enabled if you are using a mounted file system like Samba or SSHFS. There may be a slight delay as it polls every 5 seconds.\n\n## License\n\nMIT License -- Copyright (c) 2015-2017 Laurence Blackledge\n",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lwblackledge/file-watcher.git"
   },
-  "license": "MIT",
-  "engines": {
-    "atom": ">0.50.0"
-  },
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/lwblackledge/file-watcher/issues"
-  },
-  "readme": "# Atom file-watcher Package\n\nThis package watches open files for conflicts or changes, then uses the Atom confirm feature to prompt to reload each file.\n\nYou can turn the prompts for changes on and off in the package settings.\n\nThere is also a prompt option to open the original file in a new Atom window so that you can compare your current version with the disk version.\n\n## Installation\nEither use `apm`:\n```\n  apm install file-watcher\n```\n\nOr find the package in the Atom registry and install.\n\n## Settings\n\n#### Include the Compare option\n\nEnable this setting to add the Compare option to the Reload/Ignore prompt, which will open the file in a new editor so you can see the on-disk changes.\nEnabled by default.\n\n#### Prompt on Change\n\nEnable this setting to also show the Reload/Ignore prompt when the file changes on disk, even if there are no unsaved changes in Atom\n\n## License\n\nMIT License -- Copyright (c) 2015 Laurence Blackledge\n",
-  "homepage": "https://github.com/lwblackledge/file-watcher#readme",
-  "_id": "file-watcher@0.4.0",
-  "_shasum": "7d7fdb674139d5f9764c639f18ea75492ec84216",
-  "_resolved": "file:../d-11595-17336-1seozll/package.tgz",
-  "_from": "../d-11595-17336-1seozll/package.tgz",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [],
-    "extensions": {
-      ".coffee": [
-        "lib/file-watcher.coffee",
-        "lib/init.coffee",
-        "lib/utils.coffee"
-      ],
-      ".json": [
-        "package.json"
-      ]
-    },
-    "folders": []
-  }
+  "version": "1.0.3"
 }

@@ -5,14 +5,14 @@
  * for that, however as this comes from app.asar it is pre-compiled and is
  * essentially "free" as there is no expensive compilation step.
  */
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/extensions, import/no-extraneous-dependencies
 import { CompositeDisposable } from 'atom';
 
 const lazyReq = require('lazy-req')(require);
 
 const { dirname } = lazyReq('path')('dirname');
 const stylelint = lazyReq('stylelint');
-const { rangeFromLineNumber } = lazyReq('atom-linter')('rangeFromLineNumber');
+const { generateRange } = lazyReq('atom-linter')('generateRange');
 const assignDeep = lazyReq('assign-deep');
 const escapeHTML = lazyReq('escape-html');
 
@@ -58,7 +58,7 @@ function createRange(editor, data) {
     return false;
   }
 
-  return rangeFromLineNumber(editor, data.line - 1, data.column - 1);
+  return generateRange(editor, data.line - 1, data.column - 1);
 }
 
 export function activate() {

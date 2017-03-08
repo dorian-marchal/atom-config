@@ -1,8 +1,16 @@
+/**
+ * Copyright (c) 2010-2016 Brian Carlson (brian.m.carlson@gmail.com)
+ * All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * README.md file in the root directory of this source tree.
+ */
+
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
-var Result = require(__dirname + '/result');
-var utils = require(__dirname + '/utils');
+var Result = require('./result');
+var utils = require('./utils');
 
 var Query = function(config, values, callback) {
   // use of "new" optional
@@ -30,10 +38,28 @@ var Query = function(config, values, callback) {
   this._resultsArray = [];
   this.isPreparedStatement = false;
   this._canceledDueToError = false;
+  this._promise = null;
   EventEmitter.call(this);
 };
 
 util.inherits(Query, EventEmitter);
+
+Query.prototype.then = function(onSuccess, onFailure) {
+  return this.promise().then(onSuccess, onFailure);
+};
+
+Query.prototype.catch = function(callback) {
+  return this.promise().catch(callback);
+};
+
+Query.prototype.promise = function() {
+  if (this._promise) return this._promise;
+  this._promise = new Promise(function(resolve, reject) {
+    this.once('end', resolve);
+    this.once('error', reject);
+  }.bind(this));
+  return this._promise;
+};
 
 Query.prototype.requiresPreparation = function() {
   //named queries must always be prepared
@@ -43,11 +69,9 @@ Query.prototype.requiresPreparation = function() {
   if(this.rows) { return true; }
   //don't prepare empty text queries
   if(!this.text) { return false; }
-  //binary should be prepared to specify results should be in binary
-  //unless there are no parameters
-  if(this.binary && !this.values) { return false; }
   //prepare if there are values
-  return (this.values || 0).length > 0;
+  if(!this.values) { return false; }
+  return this.values.length > 0;
 };
 
 
@@ -56,14 +80,13 @@ Query.prototype.requiresPreparation = function() {
 //metadata used when parsing row results
 Query.prototype.handleRowDescription = function(msg) {
   this._result.addFields(msg.fields);
+  this._accumulateRows = this.callback || !this.listeners('row').length;
 };
 
 Query.prototype.handleDataRow = function(msg) {
   var row = this._result.parseRow(msg.fields);
   this.emit('row', row, this._result);
-
-  //if there is a callback collect rows
-  if(this.callback) {
+  if (this._accumulateRows) {
     this._result.addRow(row);
   }
 };
@@ -78,6 +101,15 @@ Query.prototype.handleCommandComplete = function(msg, con) {
   if(this.multiResult) {
     this._resultsArray.push(this._result);
     this._result = new Result(this.rowMode);
+  }
+};
+
+//if a named prepared statement is created with empty query text
+//the backend will send an emptyQuery message but *not* a command complete message
+//execution on the connection will hang until the backend receives a sync message
+Query.prototype.handleEmptyQuery = function(con) {
+  if (this.isPreparedStatement) {
+    con.sync();
   }
 };
 
@@ -146,11 +178,8 @@ Query.prototype.prepare = function(connection) {
     }, true);
   }
 
-  //TODO is there some better way to prepare values for the database?
   if(self.values) {
-    for(var i = 0, len = self.values.length; i < len; i++) {
-      self.values[i] = utils.prepareValue(self.values[i]);
-    }
+    self.values = self.values.map(utils.prepareValue);
   }
 
   //http://developer.postgresql.org/pgdocs/postgres/protocol-flow.html#PROTOCOL-FLOW-EXT-QUERY

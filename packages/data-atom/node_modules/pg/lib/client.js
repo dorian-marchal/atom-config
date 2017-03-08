@@ -1,13 +1,21 @@
+/**
+ * Copyright (c) 2010-2016 Brian Carlson (brian.m.carlson@gmail.com)
+ * All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * README.md file in the root directory of this source tree.
+ */
+
 var crypto = require('crypto');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 var pgPass = require('pgpass');
 var TypeOverrides = require('./type-overrides');
 
-var ConnectionParameters = require(__dirname + '/connection-parameters');
-var Query = require(__dirname + '/query');
-var defaults = require(__dirname + '/defaults');
-var Connection = require(__dirname + '/connection');
+var ConnectionParameters = require('./connection-parameters');
+var Query = require('./query');
+var defaults = require('./defaults');
+var Connection = require('./connection');
 
 var Client = function(config) {
   EventEmitter.call(this);
@@ -25,7 +33,8 @@ var Client = function(config) {
 
   this.connection = c.connection || new Connection({
     stream: c.stream,
-    ssl: this.connectionParameters.ssl
+    ssl: this.connectionParameters.ssl,
+    keepAlive: c.keepAlive || false
   });
   this.queryQueue = [];
   this.binary = c.binary || defaults.binary;
@@ -84,7 +93,7 @@ Client.prototype.connect = function(callback) {
   //password request handling
   con.on('authenticationMD5Password', checkPgPass(function(msg) {
     var inner = Client.md5(self.password + self.user);
-    var outer = Client.md5(inner + msg.salt.toString('binary'));
+    var outer = Client.md5(Buffer.concat([new Buffer(inner), msg.salt]));
     var md5password = "md5" + outer;
     con.password(md5password);
   }));
@@ -111,6 +120,11 @@ Client.prototype.connect = function(callback) {
     //delegate portalSuspended to active query
     con.on('portalSuspended', function(msg) {
       self.activeQuery.handlePortalSuspended(con);
+    });
+
+    //deletagate emptyQuery to active query
+    con.on('emptyQuery', function(msg) {
+      self.activeQuery.handleEmptyQuery(con);
     });
 
     //delegate commandComplete to active query
@@ -322,12 +336,15 @@ Client.prototype.query = function(config, values, callback) {
   return query;
 };
 
-Client.prototype.end = function() {
+Client.prototype.end = function(cb) {
   this.connection.end();
+  if (cb) {
+    this.connection.once('end', cb);
+  }
 };
 
 Client.md5 = function(string) {
-  return crypto.createHash('md5').update(string).digest('hex');
+  return crypto.createHash('md5').update(string, 'utf-8').digest('hex');
 };
 
 // expose a Query constructor

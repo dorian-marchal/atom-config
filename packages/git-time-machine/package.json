@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-1161122-24885-25sfqq/package.tgz",
+        "raw": "/tmp/d-11728-6272-1pgt936/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-1161122-24885-25sfqq/package.tgz",
-        "spec": "/tmp/d-1161122-24885-25sfqq/package.tgz",
+        "rawSpec": "/tmp/d-11728-6272-1pgt936/package.tgz",
+        "spec": "/tmp/d-11728-6272-1pgt936/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-1161122-24885-vdfoeh"
+      "/tmp/apm-install-dir-11728-6272-dvkc83"
     ]
   ],
-  "_from": "../d-1161122-24885-25sfqq/package.tgz",
-  "_id": "git-time-machine@1.5.4",
+  "_from": "../d-11728-6272-1pgt936/package.tgz",
+  "_id": "git-time-machine@1.5.6",
   "_inCache": true,
   "_installable": true,
   "_location": "/git-time-machine",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-1161122-24885-25sfqq/package.tgz",
+    "raw": "/tmp/d-11728-6272-1pgt936/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-1161122-24885-25sfqq/package.tgz",
-    "spec": "/tmp/d-1161122-24885-25sfqq/package.tgz",
+    "rawSpec": "/tmp/d-11728-6272-1pgt936/package.tgz",
+    "spec": "/tmp/d-11728-6272-1pgt936/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-1161122-24885-25sfqq/package.tgz",
-  "_shasum": "d5071a7be3fa83f97b3363a5f6a404342dd2b11c",
+  "_resolved": "file:../d-11728-6272-1pgt936/package.tgz",
+  "_shasum": "c3f02f027cf52a056b76bfde2a520035c4f13500",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-1161122-24885-25sfqq/package.tgz",
-  "_where": "/tmp/apm-install-dir-1161122-24885-vdfoeh",
+  "_spec": "/tmp/d-11728-6272-1pgt936/package.tgz",
+  "_where": "/tmp/apm-install-dir-11728-6272-dvkc83",
   "activationCommands": {
     "atom-workspace": "git-time-machine:toggle"
   },
@@ -48,7 +48,7 @@
     "d3": "3.5.6",
     "git-log-utils": "0.2.3",
     "moment": "2.10.6",
-    "split-diff": "https://github.com/mupchrch/split-diff/archive/v0.8.3.tar.gz",
+    "split-diff": "https://github.com/mupchrch/split-diff/archive/v1.1.1.tar.gz",
     "underscore-plus": "1.x"
   },
   "description": "Visually interact with git commit history for a file",
@@ -75,5 +75,5 @@
     "type": "git",
     "url": "git+https://github.com/littlebee/git-time-machine.git"
   },
-  "version": "1.5.4"
+  "version": "1.5.6"
 }

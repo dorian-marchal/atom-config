@@ -1,8 +1,56 @@
 {
-  "name": "toggle-markdown-task",
-  "main": "./lib/toggle-markdown-task",
-  "version": "0.5.0",
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-11728-7034-4xg2er/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-11728-7034-4xg2er/package.tgz",
+        "spec": "/tmp/d-11728-7034-4xg2er/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-11728-7034-8z53aq"
+    ]
+  ],
+  "_from": "../d-11728-7034-4xg2er/package.tgz",
+  "_id": "toggle-markdown-task@0.6.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/toggle-markdown-task",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-11728-7034-4xg2er/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-11728-7034-4xg2er/package.tgz",
+    "spec": "/tmp/d-11728-7034-4xg2er/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-11728-7034-4xg2er/package.tgz",
+  "_shasum": "2d0fb6fb37bf76fbad6f196168209f92dc70cb62",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-11728-7034-4xg2er/package.tgz",
+  "_where": "/tmp/apm-install-dir-11728-7034-8z53aq",
+  "activationCommands": {
+    "atom-text-editor": [
+      "toggle-markdown-task:toggle"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/jasonrudolph/toggle-markdown-task/issues"
+  },
+  "dependencies": {},
   "description": "Toggle completion of tasks in GitHub-flavored Markdown files",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "homepage": "https://github.com/jasonrudolph/toggle-markdown-task#readme",
   "keywords": [
     "gfm",
     "list",
@@ -10,41 +58,15 @@
     "task",
     "todo"
   ],
-  "activationCommands": {
-    "atom-text-editor": [
-      "toggle-markdown-task:toggle"
-    ]
-  },
+  "license": "MIT",
+  "main": "./lib/toggle-markdown-task",
+  "name": "toggle-markdown-task",
+  "optionalDependencies": {},
+  "readme": "# Toggle Markdown Task: An Atom Package\n\nProvides a command to toggle completion of [tasks in GitHub-flavored Markdown][gfm-task-lists] files.\n\n![demo](https://cloud.githubusercontent.com/assets/2988/9983485/94a87090-5fcb-11e5-9ce6-41d7e9382ade.gif)\n\n## Installation\n\nUsing `apm`:\n\n```\napm install toggle-markdown-task\n```\n\nOr search for `toggle-markdown-task` in the Atom Settings UI.\n\n## Bring your own keymap\n\nTo get the most out of this package, you'll want to use a keyboard shortcut for toggling Markdown tasks. This package does not provide a keyboard shortcut by default, but you can easily [define your own][atom-keymaps]. For example, if you wanted to use `Control-D` (as shown in the demo above), you'd add the following mapping to your `~/.atom/keymap.cson` file:\n\n```cson\n'atom-workspace atom-text-editor:not(.mini)':\n  'ctrl-d': 'toggle-markdown-task:toggle'\n```\n\n## TODO\n\n- [ ] Set up CI\n\n[atom-keymaps]: https://atom.io/docs/v1.0.15/using-atom-basic-customization#customizing-key-bindings\n[gfm-task-lists]: https://help.github.com/articles/writing-on-github/#task-lists\n",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jasonrudolph/toggle-markdown-task.git"
   },
-  "license": "MIT",
-  "engines": {
-    "atom": ">=1.0.0 <2.0.0"
-  },
-  "dependencies": {},
-  "readme": "# Toggle Markdown Task: An Atom Package\n\nProvides a command to toggle completion of [tasks in GitHub-flavored Markdown][gfm-task-lists] files.\n\n![demo](https://cloud.githubusercontent.com/assets/2988/9983485/94a87090-5fcb-11e5-9ce6-41d7e9382ade.gif)\n\n## Installation\n\nUsing `apm`:\n\n```\napm install toggle-markdown-task\n```\n\nOr search for `toggle-markdown-task` in the Atom Settings UI.\n\n## Bring your own keymap\n\nTo get the most out of this package, you'll want to use a keyboard shortcut for toggling Markdown tasks. This package does not provide a keyboard shortcut by default, but you can easily [define your own][atom-keymaps]. For example, if you wanted to use `Control-D` (as shown in the demo above), you'd add the following mapping to your `~/.atom/keymap.cson` file:\n\n```cson\n'atom-workspace atom-text-editor:not(.mini)':\n  'ctrl-d': 'toggle-markdown-task:toggle'\n```\n\n## TODO\n\n- [ ] Set up CI\n\n[atom-keymaps]: https://atom.io/docs/v1.0.15/using-atom-basic-customization#customizing-key-bindings\n[gfm-task-lists]: https://help.github.com/articles/writing-on-github/#task-lists\n",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/jasonrudolph/toggle-markdown-task/issues"
-  },
-  "homepage": "https://github.com/jasonrudolph/toggle-markdown-task#readme",
-  "_id": "toggle-markdown-task@0.5.0",
-  "_shasum": "3660368cb7197bb18f1eb0a25cb5801e65e8c8bb",
-  "_resolved": "file:../d-11597-11196-gjwa64/package.tgz",
-  "_from": "../d-11597-11196-gjwa64/package.tgz",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [],
-    "extensions": {
-      ".coffee": [
-        "lib/toggle-markdown-task.coffee"
-      ],
-      ".json": [
-        "package.json"
-      ]
-    },
-    "folders": []
-  }
+  "version": "0.6.0"
 }

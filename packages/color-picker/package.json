@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
+        "raw": "/tmp/d-11728-6011-5rmu0m/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
-        "spec": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
+        "rawSpec": "/tmp/d-11728-6011-5rmu0m/package.tgz",
+        "spec": "/tmp/d-11728-6011-5rmu0m/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-1161122-24684-10n9l92"
+      "/tmp/apm-install-dir-11728-6011-1vsrrbf"
     ]
   ],
-  "_from": "../d-1161122-24684-1l0oxhh/package.tgz",
-  "_id": "color-picker@2.2.3",
+  "_from": "../d-11728-6011-5rmu0m/package.tgz",
+  "_id": "color-picker@2.2.5",
   "_inCache": true,
   "_installable": true,
   "_location": "/color-picker",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
+    "raw": "/tmp/d-11728-6011-5rmu0m/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
-    "spec": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
+    "rawSpec": "/tmp/d-11728-6011-5rmu0m/package.tgz",
+    "spec": "/tmp/d-11728-6011-5rmu0m/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-1161122-24684-1l0oxhh/package.tgz",
-  "_shasum": "92db8283dc645ad5416d83bcbc528c8bec943b35",
+  "_resolved": "file:../d-11728-6011-5rmu0m/package.tgz",
+  "_shasum": "92c2b23ff05ca222803fbf2955dce4cb9685efd3",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-1161122-24684-1l0oxhh/package.tgz",
-  "_where": "/tmp/apm-install-dir-1161122-24684-10n9l92",
+  "_spec": "/tmp/d-11728-6011-5rmu0m/package.tgz",
+  "_where": "/tmp/apm-install-dir-11728-6011-1vsrrbf",
   "bugs": {
     "url": "https://github.com/thomaslindstrom/color-picker/issues"
   },
@@ -69,5 +69,5 @@
     "type": "git",
     "url": "git+https://github.com/thomaslindstrom/color-picker.git"
   },
-  "version": "2.2.3"
+  "version": "2.2.5"
 }

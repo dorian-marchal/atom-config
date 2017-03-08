@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+        "raw": "/tmp/d-11728-6448-16vhqax/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
-        "spec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+        "rawSpec": "/tmp/d-11728-6448-16vhqax/package.tgz",
+        "spec": "/tmp/d-11728-6448-16vhqax/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-1161122-24919-pkptnr"
+      "/tmp/apm-install-dir-11728-6448-e6f30p"
     ]
   ],
-  "_from": "../d-1161122-24919-18wp7v6/package.tgz",
-  "_id": "linter-phpcs@1.5.4",
+  "_from": "../d-11728-6448-16vhqax/package.tgz",
+  "_id": "linter-phpcs@1.5.10",
   "_inCache": true,
   "_installable": true,
   "_location": "/linter-phpcs",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+    "raw": "/tmp/d-11728-6448-16vhqax/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
-    "spec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
+    "rawSpec": "/tmp/d-11728-6448-16vhqax/package.tgz",
+    "spec": "/tmp/d-11728-6448-16vhqax/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-1161122-24919-18wp7v6/package.tgz",
-  "_shasum": "9329f5ca3def6a0f61c9cc9308b93604e28877ec",
+  "_resolved": "file:../d-11728-6448-16vhqax/package.tgz",
+  "_shasum": "4927858196d45bdffedc6f4ff321f2b9a865d3ff",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-1161122-24919-18wp7v6/package.tgz",
-  "_where": "/tmp/apm-install-dir-1161122-24919-pkptnr",
+  "_spec": "/tmp/d-11728-6448-16vhqax/package.tgz",
+  "_where": "/tmp/apm-install-dir-11728-6448-e6f30p",
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-phpcs/issues"
   },
@@ -145,7 +145,7 @@
     }
   },
   "dependencies": {
-    "atom-linter": "^8.0.0",
+    "atom-linter": "^9.0.1",
     "atom-package-deps": "^4.0.1",
     "escape-html": "^1.0.3",
     "minimatch": "^3.0.2"
@@ -205,5 +205,5 @@
     "lint": "eslint .",
     "test": "apm test"
   },
-  "version": "1.5.4"
+  "version": "1.5.10"
 }

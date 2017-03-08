@@ -8,31 +8,22 @@
 
 'use strict';
 
-/* Dependencies. */
 var trim = require('trim');
+var interrupt = require('../util/interrupt');
 
-/* Expose. */
 module.exports = blockquote;
 
-/* Characters */
 var C_NEWLINE = '\n';
 var C_TAB = '\t';
 var C_SPACE = ' ';
 var C_GT = '>';
 
-/**
- * Tokenise a blockquote.
- *
- * @property {Function} locator.
- * @param {function(string)} eat - Eater.
- * @param {string} value - Rest of content.
- * @param {boolean?} [silent] - Whether this is a dry run.
- * @return {Node?|boolean} - `blockquote` node.
- */
+/* Tokenise a blockquote. */
 function blockquote(eat, value, silent) {
   var self = this;
-  var commonmark = self.options.commonmark;
   var offsets = self.offset;
+  var tokenizers = self.blockTokenizers;
+  var interruptors = self.interruptBlockquote;
   var now = eat.now();
   var currentLine = now.line;
   var length = value.length;
@@ -40,7 +31,6 @@ function blockquote(eat, value, silent) {
   var contents = [];
   var indents = [];
   var add;
-  var tokenizers;
   var index = 0;
   var character;
   var rest;
@@ -69,7 +59,6 @@ function blockquote(eat, value, silent) {
     return true;
   }
 
-  tokenizers = self.blockTokenizers;
   index = 0;
 
   while (index < length) {
@@ -112,27 +101,9 @@ function blockquote(eat, value, silent) {
     if (!prefixed) {
       rest = value.slice(index);
 
-      if (
-        (
-          commonmark &&
-          (
-            tokenizers.indentedCode.call(self, eat, rest, true) ||
-            tokenizers.fencedCode.call(self, eat, rest, true) ||
-            tokenizers.atxHeading.call(self, eat, rest, true) ||
-            tokenizers.setextHeading.call(self, eat, rest, true) ||
-            tokenizers.thematicBreak.call(self, eat, rest, true) ||
-            tokenizers.html.call(self, eat, rest, true) ||
-            tokenizers.list.call(self, eat, rest, true)
-          )
-        ) ||
-        (
-          !commonmark &&
-          (
-            tokenizers.definition.call(self, eat, rest, true) ||
-            tokenizers.footnote.call(self, eat, rest, true)
-          )
-        )
-      ) {
+      /* Check if the following code contains a possible
+       * block. */
+      if (interrupt(interruptors, tokenizers, self, [eat, rest, true])) {
         break;
       }
     }

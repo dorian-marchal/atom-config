@@ -61,7 +61,7 @@ atom-text-editor {
 
 // To style other content in the text editor's shadow DOM, use the ::shadow
 // expression
-atom-text-editor::shadow {
+atom-text-editor.editor {
 
     .indent-guide {
         position: relative;
@@ -123,16 +123,8 @@ atom-text-editor::shadow {
     }
 }
 
-
-// Images
-.image-container-cell img {
-    padding: 20px;
-    border: none;
-    box-shadow: none;
-}
-
 // GFM specific
-atom-text-editor[data-grammar="source gfm"]::shadow {
+atom-text-editor[data-grammar="source gfm"].editor {
 
     .trailing-whitespace {
         background-color: #fff !important;

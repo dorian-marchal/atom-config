@@ -68,6 +68,9 @@
   'ctrl-4': 'editor:fold-at-indent-level-4'
   'ctrl-5': 'editor:fold-at-indent-level-5'
   'ctrl-6': 'editor:fold-at-indent-level-6'
+  'ctrl-+': 'editor:unfold-current-row'
+  'ctrl--': 'editor:fold-current-row'
+  'ctrl-/': 'tree-view:reveal-active-file'
 
 'body':
   'ctrl-q': 'unset!'

@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2010-2016 Brian Carlson (brian.m.carlson@gmail.com)
+ * All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * README.md file in the root directory of this source tree.
+ */
+
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 var utils = require('../utils');
@@ -25,6 +33,23 @@ var NativeQuery = module.exports = function(native) {
 };
 
 util.inherits(NativeQuery, EventEmitter);
+
+NativeQuery.prototype.then = function(onSuccess, onFailure) {
+  return this.promise().then(onSuccess, onFailure);
+};
+
+NativeQuery.prototype.catch = function(callback) {
+  return this.promise().catch(callback);
+};
+
+NativeQuery.prototype.promise = function() {
+  if (this._promise) return this._promise;
+  this._promise = new Promise(function(resolve, reject) {
+    this.once('end', resolve);
+    this.once('error', reject);
+  }.bind(this));
+  return this._promise;
+};
 
 NativeQuery.prototype.handleError = function(err) {
   var self = this;
@@ -85,6 +110,11 @@ NativeQuery.prototype.submit = function(client) {
 
   //named query
   if(this.name) {
+    if (this.name.length > 63) {
+      console.error('Warning! Postgres only supports 63 characters for query names.');
+      console.error('You supplied', this.name, '(', this.name.length, ')');
+      console.error('This can cause conflicts and silent errors executing queries');
+    }
     var values = (this.values||[]).map(utils.prepareValue);
 
     //check if the client has already executed this named query

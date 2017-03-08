@@ -16,7 +16,6 @@ linter-message {
 
 .linter-highlight {
   flex: 0 0 auto;
-  align-self: flex-start;
 }
 
 .linter-message-link {
@@ -128,7 +127,7 @@ linter-bottom-tab {
   }
 }
 
-atom-text-editor::shadow .linter-row {
+atom-text-editor.editor .linter-row {
   /* Take up the full allowed width */
   left: 0;
   right: 0;
@@ -138,14 +137,14 @@ atom-text-editor::shadow .linter-row {
   justify-content: center;
 }
 
-atom-text-editor::shadow .linter-gutter {
-  height: 0.5em !important;
+atom-text-editor.editor .linter-gutter {
   width: 0.5em;
+  height: 0.5em !important;
   border-radius: 50%;
 }
 
 // Styling Error Types
-atom-text-editor::shadow .linter-highlight, .linter-highlight{
+atom-text-editor.editor .linter-highlight, .linter-highlight{
   &.badge {
     border-radius: @component-border-radius;
     overflow: hidden;
@@ -154,7 +153,7 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
   &.error {
     &:not(.line-number){
       background-color: @background-color-error;
-      color: white;
+      color: contrast(@background-color-error);
     }
     .linter-gutter{
       color: @background-color-error;
@@ -166,7 +165,7 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
   &.warning {
     &:not(.line-number){
       background-color: @background-color-warning;
-      color: white;
+      color: contrast(@background-color-warning);
     }
     .linter-gutter{
       color: @background-color-warning;
@@ -178,7 +177,7 @@ atom-text-editor::shadow .linter-highlight, .linter-highlight{
   &.trace, &.info {
     &:not(.line-number){
       background-color: @background-color-info;
-      color: white;
+      color: contrast(@background-color-info);
     }
     .linter-gutter{
       color: @background-color-info;

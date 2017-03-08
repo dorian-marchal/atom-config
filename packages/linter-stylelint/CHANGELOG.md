@@ -1,5 +1,27 @@
 # Change Log
 
+## [v3.8.1](https://github.com/AtomLinter/linter-stylelint/tree/v3.8.1) (2017-02-13)
+[Full Changelog](https://github.com/AtomLinter/linter-stylelint/compare/v3.8.0...v3.8.1)
+
+**Implemented enhancements:**
+
+- Update atom-linter to the latest version 🚀 [\#319](https://github.com/AtomLinter/linter-stylelint/pull/319) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
+
+## [v3.8.0](https://github.com/AtomLinter/linter-stylelint/tree/v3.8.0) (2017-02-07)
+[Full Changelog](https://github.com/AtomLinter/linter-stylelint/compare/v3.7.0...v3.8.0)
+
+**Implemented enhancements:**
+
+- Updated stylelint and config-standard to latest [\#316](https://github.com/AtomLinter/linter-stylelint/pull/316) ([SpainTrain](https://github.com/SpainTrain))
+- Update lazy-req to the latest version 🚀 [\#308](https://github.com/AtomLinter/linter-stylelint/pull/308) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
+
+## [v3.7.0](https://github.com/AtomLinter/linter-stylelint/tree/v3.7.0) (2017-01-07)
+[Full Changelog](https://github.com/AtomLinter/linter-stylelint/compare/v3.6.0...v3.7.0)
+
+**Implemented enhancements:**
+
+- Update dependencies to enable Greenkeeper 🌴 [\#305](https://github.com/AtomLinter/linter-stylelint/pull/305) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
+
 ## [v3.6.0](https://github.com/AtomLinter/linter-stylelint/tree/v3.6.0) (2016-11-21)
 [Full Changelog](https://github.com/AtomLinter/linter-stylelint/compare/v3.5.0...v3.6.0)
 

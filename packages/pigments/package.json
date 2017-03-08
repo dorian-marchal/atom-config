@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-116928-5621-1nr900g/package.tgz",
+        "raw": "/tmp/d-11728-6772-wpbtcy/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-116928-5621-1nr900g/package.tgz",
-        "spec": "/tmp/d-116928-5621-1nr900g/package.tgz",
+        "rawSpec": "/tmp/d-11728-6772-wpbtcy/package.tgz",
+        "spec": "/tmp/d-11728-6772-wpbtcy/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-116928-5621-iwlmq9"
+      "/tmp/apm-install-dir-11728-6772-c9ebrs"
     ]
   ],
-  "_from": "../d-116928-5621-1nr900g/package.tgz",
-  "_id": "pigments@0.37.0",
+  "_from": "../d-11728-6772-wpbtcy/package.tgz",
+  "_id": "pigments@0.39.0",
   "_inCache": true,
   "_installable": true,
   "_location": "/pigments",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-116928-5621-1nr900g/package.tgz",
+    "raw": "/tmp/d-11728-6772-wpbtcy/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-116928-5621-1nr900g/package.tgz",
-    "spec": "/tmp/d-116928-5621-1nr900g/package.tgz",
+    "rawSpec": "/tmp/d-11728-6772-wpbtcy/package.tgz",
+    "spec": "/tmp/d-11728-6772-wpbtcy/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-116928-5621-1nr900g/package.tgz",
-  "_shasum": "2c8e92049614b6c274aad087caee9c3e3658fa18",
+  "_resolved": "file:../d-11728-6772-wpbtcy/package.tgz",
+  "_shasum": "0b489105a6f2e475418cac7355a03b4ba9b7c014",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-116928-5621-1nr900g/package.tgz",
-  "_where": "/tmp/apm-install-dir-116928-5621-iwlmq9",
+  "_spec": "/tmp/d-11728-6772-wpbtcy/package.tgz",
+  "_where": "/tmp/apm-install-dir-11728-6772-c9ebrs",
   "bugs": {
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
@@ -142,6 +142,13 @@
       "type": "boolean",
       "default": false,
       "description": "When enabled, the autocomplete provider will suggests color variables from hexadecimal values."
+    },
+    "maxDecorationsInGutter": {
+      "type": "integer",
+      "default": 100,
+      "min": 1,
+      "max": 100,
+      "description": "Sets a limit on how many decorations can be displayed in the gutter for the same row"
     },
     "markerType": {
       "type": "string",
@@ -250,7 +257,7 @@
     "temp": "~0.8.1"
   },
   "engines": {
-    "atom": ">=1.7.0 <2.0.0"
+    "atom": ">=1.13.0 <2.0.0"
   },
   "homepage": "https://github.com/abe33/atom-pigments#readme",
   "keywords": [
@@ -284,7 +291,7 @@
     "type": "git",
     "url": "git+https://github.com/abe33/atom-pigments.git"
   },
-  "version": "0.37.0",
+  "version": "0.39.0",
   "viewProviders": [
     "pigmentsViewProvider"
   ]

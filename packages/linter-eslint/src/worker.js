@@ -6,6 +6,7 @@ import Path from 'path'
 import { create } from 'process-communication'
 import { FindCache, findCached } from 'atom-linter'
 import * as Helpers from './worker-helpers'
+import { isConfigAtHomeRoot } from './is-config-at-home-root'
 
 process.title = 'linter-eslint helper'
 
@@ -24,7 +25,8 @@ const ignoredMessages = [
 ]
 
 function lintJob(argv, contents, eslint, configPath, config) {
-  if (configPath === null && config.disableWhenNoEslintConfig) {
+  const noProjectConfig = (configPath === null || isConfigAtHomeRoot(configPath))
+  if (noProjectConfig && config.disableWhenNoEslintConfig) {
     return []
   }
   eslint.execute(argv, contents)
@@ -33,12 +35,11 @@ function lintJob(argv, contents, eslint, configPath, config) {
 }
 
 function fixJob(argv, eslint) {
-  try {
-    eslint.execute(argv)
-    return 'Linter-ESLint: Fix Complete'
-  } catch (err) {
-    throw new Error('Linter-ESLint: Fix Attempt Completed, Linting Errors Remain')
+  const exit = eslint.execute(argv)
+  if (exit === 0) {
+    return 'Linter-ESLint: Fix complete.'
   }
+  return 'Linter-ESLint: Fix attempt complete, but linting errors remain.'
 }
 
 create().onRequest('job', ({ contents, type, config, filePath, projectPath, rules }, job) => {

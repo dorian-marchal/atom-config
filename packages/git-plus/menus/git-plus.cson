@@ -1,44 +1,4 @@
 # See https://atom.io/docs/latest/creating-a-package#menus for more details
-'context-menu':
-  'atom-text-editor:not(.mini)': [
-    {
-      'label': 'Git add file'
-      'command': 'git-plus:add'
-    }
-  ]
-  '.tree-view.full-menu .file, .tree-view.full-menu .directory': [
-    { type: 'separator'},
-    'label': 'Git',
-    'submenu': [
-      {
-        label: 'Git add',
-        'command': 'git-plus-context:add'
-      },
-      {
-        label: 'Git add + commit',
-        'command': 'git-plus-context:add-and-commit'
-      },
-      {
-        label: 'Git checkout',
-        'command': 'git-plus-context:checkout-file'
-      },
-      {
-        label: 'Git diff',
-        'command': 'git-plus-context:diff'
-      },
-      {
-        label: 'Git difftool',
-        'command': 'git-plus-context:difftool'
-      },
-      {
-        label: 'Git unstage',
-        'command': 'git-plus-context:unstage-file'
-      },
-    ],
-    { type: 'separator'}
-  ]
-
-
 'menu': [
   {
     'label': 'Packages'
@@ -68,6 +28,14 @@
         {
           'label': 'Diff'
           'command': 'git-plus:diff'
+        },
+        {
+          'label': 'Diff Branches'
+          'command': 'git-plus:diff-branches'
+        },
+        {
+          'label': 'Diff Branche Files'
+          'command': 'git-plus:diff-branch-files'
         },
         {
           'label': 'Difftool'
@@ -117,10 +85,6 @@
               'command': 'git-plus:merge-no-fast-forward'
             }
           ]
-        },
-        {
-          'label': 'Pull Using Rebase'
-          'command': 'git-plus:pull-using-rebase'
         },
         {
           'label': 'Rebase'
