@@ -8,7 +8,9 @@
       end_with_comma: true
       indent_size: 2
     json:
-      end_with_comma: true
+      end_with_newline: true
+      indent_size: 2
+      jslint_happy: true
   "atom-css-unit-converter": {}
   "atom-ctags":
     GotoSymbolKey: [
@@ -121,6 +123,7 @@
     pep8DirToExecutable: "/usr/local/bin/pep8"
   "linter-stylelint":
     disableWhenNoConfig: true
+  "linter-ui-default": {}
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
@@ -153,6 +156,7 @@
     ignoreWhitespace: true
     leftEditorColor: "red"
     rightEditorColor: "green"
+    scrollSyncType: "Vertical + Horizontal"
     syncHorizontalScroll: true
   tabs: {}
   "terminal-status": {}
@@ -207,13 +211,16 @@
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
     preferredLineLength: 80
+    tabLength: 2
 ".js.regexp.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
     preferredLineLength: 80
+    tabLength: 2
 ".js.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+    tabLength: 2
 ".js.source.subtlegradient":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
