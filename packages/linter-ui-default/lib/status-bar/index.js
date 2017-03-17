@@ -33,9 +33,12 @@ export default class StatusBar {
         this.update()
       }
     }))
+    this.subscriptions.add(atom.config.observe('linter-ui-default.showStatusBar', (showStatusBar) => {
+      this.element.setVisibility('config', showStatusBar)
+    }))
     this.subscriptions.add(atom.workspace.observeActivePaneItem((paneItem) => {
       const isTextEditor = atom.workspace.isTextEditor(paneItem)
-      this.element.setVisibility(isTextEditor)
+      this.element.setVisibility('pane', isTextEditor)
       if (isTextEditor && this.statusBarRepresents === 'Current File') {
         this.update()
       }
@@ -85,7 +88,7 @@ export default class StatusBar {
       }
       statusBar = statusBarRegistry[`add${statusBarPosition}Tile`]({
         item: this.element.item,
-        priority: statusBarPosition === 'Left' ? 5 : 1000,
+        priority: statusBarPosition === 'Left' ? 0 : 1000,
       })
     }))
     this.subscriptions.add(function() {

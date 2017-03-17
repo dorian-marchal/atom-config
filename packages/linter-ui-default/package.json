@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117214-26345-1lmva24/package.tgz",
+        "raw": "/tmp/d-117217-1178-11vylt5/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117214-26345-1lmva24/package.tgz",
-        "spec": "/tmp/d-117214-26345-1lmva24/package.tgz",
+        "rawSpec": "/tmp/d-117217-1178-11vylt5/package.tgz",
+        "spec": "/tmp/d-117217-1178-11vylt5/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117214-26345-1htfsug"
+      "/tmp/apm-install-dir-117217-1178-ckhfk0"
     ]
   ],
-  "_from": "../d-117214-26345-1lmva24/package.tgz",
-  "_id": "linter-ui-default@1.1.0",
+  "_from": "../d-117217-1178-11vylt5/package.tgz",
+  "_id": "linter-ui-default@1.2.1",
   "_inCache": true,
   "_installable": true,
   "_location": "/linter-ui-default",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117214-26345-1lmva24/package.tgz",
+    "raw": "/tmp/d-117217-1178-11vylt5/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117214-26345-1lmva24/package.tgz",
-    "spec": "/tmp/d-117214-26345-1lmva24/package.tgz",
+    "rawSpec": "/tmp/d-117217-1178-11vylt5/package.tgz",
+    "spec": "/tmp/d-117217-1178-11vylt5/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117214-26345-1lmva24/package.tgz",
-  "_shasum": "0c5765a8a25e790b6aaf49e37e9ab4ffa939d139",
+  "_resolved": "file:../d-117217-1178-11vylt5/package.tgz",
+  "_shasum": "360548a21e02564da999c83cee3da091b959a07c",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117214-26345-1lmva24/package.tgz",
-  "_where": "/tmp/apm-install-dir-117214-26345-1htfsug",
+  "_spec": "/tmp/d-117217-1178-11vylt5/package.tgz",
+  "_where": "/tmp/apm-install-dir-117217-1178-ckhfk0",
   "bugs": {
     "url": "https://github.com/steelbrain/linter-ui-default/issues"
   },
@@ -48,6 +48,12 @@
     },
     "showTooltip": {
       "description": "Show inline issue tooltips",
+      "type": "boolean",
+      "default": true,
+      "order": 1
+    },
+    "showStatusBar": {
+      "description": "Show status bar with error / warning / info count at the bottom",
       "type": "boolean",
       "default": true,
       "order": 1
@@ -133,7 +139,7 @@
       "order": 2
     },
     "gutterPosition": {
-      "title": "Position of Gutter Highlights",
+      "title": "Gutter Highlights Position",
       "description": "Relative to the line numbers",
       "type": "string",
       "enum": [
@@ -172,7 +178,7 @@
     "react-resizable-box": "^1.8.1",
     "sb-debounce": "^1.0.1",
     "sb-event-kit": "^3.0.0",
-    "sb-react-table": "^1.0.0"
+    "sb-react-table": "^1.0.1"
   },
   "description": "Default UI for the Linter package",
   "devDependencies": {
@@ -220,5 +226,5 @@
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "1.1.0"
+  "version": "1.2.1"
 }

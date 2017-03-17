@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117214-25731-q6d5y2/package.tgz",
+        "raw": "/tmp/d-117217-1141-16owjcs/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117214-25731-q6d5y2/package.tgz",
-        "spec": "/tmp/d-117214-25731-q6d5y2/package.tgz",
+        "rawSpec": "/tmp/d-117217-1141-16owjcs/package.tgz",
+        "spec": "/tmp/d-117217-1141-16owjcs/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117214-25731-nhk4mn"
+      "/tmp/apm-install-dir-117217-1141-14500uy"
     ]
   ],
-  "_from": "../d-117214-25731-q6d5y2/package.tgz",
-  "_id": "linter-eslint@8.1.3",
+  "_from": "../d-117217-1141-16owjcs/package.tgz",
+  "_id": "linter-eslint@8.1.4",
   "_inCache": true,
   "_installable": true,
   "_location": "/linter-eslint",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117214-25731-q6d5y2/package.tgz",
+    "raw": "/tmp/d-117217-1141-16owjcs/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117214-25731-q6d5y2/package.tgz",
-    "spec": "/tmp/d-117214-25731-q6d5y2/package.tgz",
+    "rawSpec": "/tmp/d-117217-1141-16owjcs/package.tgz",
+    "spec": "/tmp/d-117217-1141-16owjcs/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117214-25731-q6d5y2/package.tgz",
-  "_shasum": "1dc5fc5c658c9ad1949b26f8709879f222b37036",
+  "_resolved": "file:../d-117217-1141-16owjcs/package.tgz",
+  "_shasum": "73fad8a3082ebbf00d3b076b8bef5dd69f11099c",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117214-25731-q6d5y2/package.tgz",
-  "_where": "/tmp/apm-install-dir-117214-25731-nhk4mn",
+  "_spec": "/tmp/d-117217-1141-16owjcs/package.tgz",
+  "_where": "/tmp/apm-install-dir-117217-1141-14500uy",
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-eslint/issues"
   },
@@ -221,5 +221,5 @@
     "test": "apm test",
     "watch": "npm run compile -- -w"
   },
-  "version": "8.1.3"
+  "version": "8.1.4"
 }
