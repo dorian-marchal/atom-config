@@ -10,14 +10,44 @@ let instance
 
 export default {
   activate() {
+    greeter = new Greeter()
+
+    const linterConfigs = atom.config.get('linter')
+    // Unset v1 configs
+    const removedV1Configs = [
+      'lintOnFly',
+      'lintOnFlyInterval',
+      'ignoredMessageTypes',
+      'ignoreVCSIgnoredFiles',
+      'ignoreMatchedFiles',
+      'showErrorInline',
+      'inlineTooltipInterval',
+      'gutterEnabled',
+      'gutterPosition',
+      'underlineIssues',
+      'showProviderName',
+      'showErrorPanel',
+      'errorPanelHeight',
+      'alwaysTakeMinimumSpace',
+      'displayLinterInfo',
+      'displayLinterStatus',
+      'showErrorTabLine',
+      'showErrorTabFile',
+      'showErrorTabProject',
+      'statusIconScope',
+      'statusIconPosition',
+    ]
+    if (removedV1Configs.some(config => ({}.hasOwnProperty.call(linterConfigs, config)))) {
+      greeter.showWelcome()
+    }
+    removedV1Configs.forEach((e) => { atom.config.unset(`linter.${e}`) })
+
     if (!atom.inSpecMode()) {
       // eslint-disable-next-line global-require
       require('atom-package-deps').install('linter', true)
     }
-    greeter = new Greeter()
-    instance = new Linter()
 
-    greeter.activate().catch(e => console.error('[Linter-UI-Default] Error', e))
+    instance = new Linter()
   },
   consumeLinter(linter: LinterProvider): Disposable {
     const linters = [].concat(linter)

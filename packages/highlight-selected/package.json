@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-11728-6347-ucxs3t/package.tgz",
+        "raw": "/tmp/d-117228-5470-10by1sx/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-11728-6347-ucxs3t/package.tgz",
-        "spec": "/tmp/d-11728-6347-ucxs3t/package.tgz",
+        "rawSpec": "/tmp/d-117228-5470-10by1sx/package.tgz",
+        "spec": "/tmp/d-117228-5470-10by1sx/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-11728-6347-9zgfoe"
+      "/tmp/apm-install-dir-117228-5470-cs1s8g"
     ]
   ],
-  "_from": "../d-11728-6347-ucxs3t/package.tgz",
-  "_id": "highlight-selected@0.12.0",
+  "_from": "../d-117228-5470-10by1sx/package.tgz",
+  "_id": "highlight-selected@0.13.1",
   "_inCache": true,
   "_installable": true,
   "_location": "/highlight-selected",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-11728-6347-ucxs3t/package.tgz",
+    "raw": "/tmp/d-117228-5470-10by1sx/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-11728-6347-ucxs3t/package.tgz",
-    "spec": "/tmp/d-11728-6347-ucxs3t/package.tgz",
+    "rawSpec": "/tmp/d-117228-5470-10by1sx/package.tgz",
+    "spec": "/tmp/d-117228-5470-10by1sx/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-11728-6347-ucxs3t/package.tgz",
-  "_shasum": "b73bbec5b00d28cb5d54c4fbebbfd4aff41cd331",
+  "_resolved": "file:../d-117228-5470-10by1sx/package.tgz",
+  "_shasum": "8b6ce153f680dfd60ab003835e666266c4420e5f",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-11728-6347-ucxs3t/package.tgz",
-  "_where": "/tmp/apm-install-dir-11728-6347-9zgfoe",
+  "_spec": "/tmp/d-117228-5470-10by1sx/package.tgz",
+  "_where": "/tmp/apm-install-dir-117228-5470-cs1s8g",
   "bugs": {
     "url": "https://github.com/richrace/highlight-selected/issues"
   },
@@ -47,7 +47,7 @@
     }
   },
   "dependencies": {
-    "underscore-plus": "1.x"
+    "grim": "^2.0.1"
   },
   "description": "Highlights the current word selected when double clicking",
   "devDependencies": {
@@ -70,7 +70,8 @@
     "highlightSelected": {
       "description": "Exposes Highlight Selected Events",
       "versions": {
-        "1.0.0": "provideHighlightSelectedV1"
+        "1.0.0": "provideHighlightSelectedV1Deprecated",
+        "2.0.0": "provideHighlightSelectedV2"
       }
     }
   },
@@ -80,5 +81,5 @@
     "type": "git",
     "url": "git+https://github.com/richrace/highlight-selected.git"
   },
-  "version": "0.12.0"
+  "version": "0.13.1"
 }

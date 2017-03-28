@@ -98,8 +98,6 @@
   linter:
     clearOnChange: true
     lintOnChangeInterval: 500
-    lintOnFly: false
-    showErrorPanel: false
     statusBar: "Show all errors"
   "linter-eslint":
     disableEslintIgnore: true

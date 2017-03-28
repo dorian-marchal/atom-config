@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
+        "raw": "/tmp/d-117228-5419-rbawie/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
-        "spec": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
+        "rawSpec": "/tmp/d-117228-5419-rbawie/package.tgz",
+        "spec": "/tmp/d-117228-5419-rbawie/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-1161122-24708-15zajzu"
+      "/tmp/apm-install-dir-117228-5419-66gmbh"
     ]
   ],
-  "_from": "../d-1161122-24708-1pt6zql/package.tgz",
-  "_id": "docblockr@0.9.1",
+  "_from": "../d-117228-5419-rbawie/package.tgz",
+  "_id": "docblockr@0.9.4",
   "_inCache": true,
   "_installable": true,
   "_location": "/docblockr",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
+    "raw": "/tmp/d-117228-5419-rbawie/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
-    "spec": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
+    "rawSpec": "/tmp/d-117228-5419-rbawie/package.tgz",
+    "spec": "/tmp/d-117228-5419-rbawie/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-1161122-24708-1pt6zql/package.tgz",
-  "_shasum": "000e28a066d97d77b08cd9a1768fff4afb4ddde5",
+  "_resolved": "file:../d-117228-5419-rbawie/package.tgz",
+  "_shasum": "a20a576e8dd6904d8484e1cb6ebb31e728c05693",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-1161122-24708-1pt6zql/package.tgz",
-  "_where": "/tmp/apm-install-dir-1161122-24708-15zajzu",
+  "_spec": "/tmp/d-117228-5419-rbawie/package.tgz",
+  "_where": "/tmp/apm-install-dir-117228-5419-66gmbh",
   "atomTestRunner": "./spec/runner",
   "bugs": {
     "url": "https://github.com/nikhilkalige/docblockr/issues"
@@ -71,5 +71,5 @@
   "scripts": {
     "test": "cd ~/.atom/packages; atom --test docblockr/spec"
   },
-  "version": "0.9.1"
+  "version": "0.9.4"
 }

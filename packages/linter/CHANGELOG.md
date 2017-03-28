@@ -1,3 +1,14 @@
+## 2.1.2
+
+- Hotfix release for a regression introduced in last version
+
+## 2.1.1
+
+* Unset no longer available v1 configs
+* Make `linter.name` optional for v1 again
+* Do not show Linter v2 for greeter for new installations
+* Fix a bug where disabling and reenabling `linter-ui-default` would not add previously existent issues to the UI
+
 ## 2.1.0
 
 * Add support for Legacy Indie Providers v1

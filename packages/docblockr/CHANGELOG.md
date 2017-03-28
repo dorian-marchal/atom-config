@@ -1,3 +1,14 @@
+# 0.9.4 (27 Mar 2017)
+* Fixed typo regarding curly types
+
+# 0.9.3 (19 Mar 2017)
+* Fixed Java: Uncaught TypeError: Cannot read property 'search' of undefined
+
+# 0.9.2 (19 Mar 2017)
+* Added/Fixed support for shorthand method definitions
+* Fixed TextEditor.prototype.displayBuffer deprecation
+* Prevent exception if arguments can't be parsed
+
 # 0.9.1 (5 Dec 2016)
 * Fixed exception when adding `/**` to the end of a file (#233)
 
