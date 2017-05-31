@@ -1,6 +1,6 @@
 # global atom
 "use strict"
-pkg = require('../package.json')
+pkg = require('../package')
 
 # Dependencies
 plugin = module.exports
@@ -56,9 +56,10 @@ setCursors = (editor, posArray) ->
 
 # Show beautification progress/loading view
 beautifier.on('beautify::start', ->
-  LoadingView ?= require "./views/loading-view"
-  loadingView ?= new LoadingView()
-  loadingView.show()
+  if atom.config.get("atom-beautify.general.showLoadingView")
+    LoadingView ?= require "./views/loading-view"
+    loadingView ?= new LoadingView()
+    loadingView.show()
 )
 beautifier.on('beautify::end', ->
   loadingView?.hide()
@@ -72,7 +73,7 @@ showError = (error) ->
     atom.notifications?.addError(error.message, {
       stack, detail, dismissable : true})
 
-beautify = ({editor, onSave}) ->
+beautify = ({ editor, onSave, language }) ->
   return new Promise((resolve, reject) ->
 
     plugin.checkUnsupportedOptions()
@@ -116,7 +117,7 @@ beautify = ({editor, onSave}) ->
           else
 
             # console.log "setText"
-            editor.setText text
+            editor.getBuffer().setTextViaDiff(text)
 
           # console.log "setCursors"
           setCursors editor, posArray
@@ -176,7 +177,7 @@ beautify = ({editor, onSave}) ->
 
     # Finally, beautify!
     try
-      beautifier.beautify(text, allOptions, grammarName, editedFilePath, onSave : onSave)
+      beautifier.beautify(text, allOptions, grammarName, editedFilePath, onSave: onSave, language: language)
       .then(beautifyCompleted)
       .catch(beautifyCompleted)
     catch e
@@ -603,7 +604,18 @@ plugin.migrateSettings = ->
     )
     atom.notifications.addSuccess("Successfully migrated options: #{unsupportedOptions.join(', ')}")
 
-plugin.config = _.merge(require('./config.coffee'), defaultLanguageOptions)
+plugin.addLanguageCommands = ->
+  languages = beautifier.languages.languages
+  logger.verbose("languages", languages)
+  for language in languages
+    ((language) =>
+      @subscriptions.add atom.commands.add("atom-workspace", "atom-beautify:beautify-language-#{language.name.toLowerCase()}", () ->
+        logger.verbose("Beautifying language", language)
+        beautify({ language })
+      )
+    )(language)
+
+plugin.config = _.merge(require('./config'), defaultLanguageOptions)
 plugin.activate = ->
   @subscriptions = new CompositeDisposable
   @subscriptions.add handleSaveEvent()
@@ -612,6 +624,7 @@ plugin.activate = ->
   @subscriptions.add atom.commands.add ".tree-view .file .name", "atom-beautify:beautify-file", beautifyFile
   @subscriptions.add atom.commands.add ".tree-view .directory .name", "atom-beautify:beautify-directory", beautifyDirectory
   @subscriptions.add atom.commands.add "atom-workspace", "atom-beautify:migrate-settings", plugin.migrateSettings
+  @addLanguageCommands()
 
 plugin.deactivate = ->
   @subscriptions.dispose()

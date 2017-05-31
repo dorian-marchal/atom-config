@@ -7,7 +7,7 @@ import { visitMessage, openExternally } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { Message } from '../types'
 
-export default class MessageElement extends React.Component {
+class MessageElement extends React.Component {
   props: {
     message: Message,
     delegate: TooltipDelegate,
@@ -77,7 +77,7 @@ export default class MessageElement extends React.Component {
     return (<linter-message class={message.severity}>
       { message.description && (
         <a href="#" onClick={() => this.toggleDescription()}>
-          <span className={`icon linter-icon icon-${this.state.descriptionShow ? 'chevron-down' : 'chevron-right'}`}></span>
+          <span className={`icon linter-icon icon-${this.state.descriptionShow ? 'chevron-down' : 'chevron-right'}`} />
         </a>
       )}
       <linter-excerpt>
@@ -86,15 +86,17 @@ export default class MessageElement extends React.Component {
       </linter-excerpt>{' '}
       { message.reference && message.reference.file && (
         <a href="#" onClick={() => visitMessage(message, true)}>
-          <span className="icon linter-icon icon-alignment-aligned-to"></span>
+          <span className="icon linter-icon icon-alignment-aligned-to" />
         </a>
       )}
-      <a href="#" onClick={() => openExternally(message)}>
-        <span className="icon linter-icon icon-link"></span>
-      </a>
+      { message.url && <a href="#" onClick={() => openExternally(message)}>
+        <span className="icon linter-icon icon-link" />
+      </a>}
       { this.state.descriptionShow && (
-        <div dangerouslySetInnerHTML={{ __html: this.state.description || 'Loading...' }} class="linter-line"></div>
+        <div dangerouslySetInnerHTML={{ __html: this.state.description || 'Loading...' }} className="linter-line" />
       ) }
     </linter-message>)
   }
 }
+
+module.exports = MessageElement

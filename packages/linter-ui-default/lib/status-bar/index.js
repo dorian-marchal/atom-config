@@ -1,17 +1,17 @@
 /* @flow */
 
-import { CompositeDisposable } from 'sb-event-kit'
+import { CompositeDisposable, Disposable } from 'atom'
 
 import Element from './element'
 import { $file } from '../helpers'
 import type { LinterMessage } from '../types'
 
-export default class StatusBar {
+class StatusBar {
   element: Element;
   messages: Array<LinterMessage>;
   subscriptions: CompositeDisposable;
   statusBarRepresents: 'Entire Project' | 'Current File';
-  statusBarClickBehavior: 'Toggle Panel' | 'Jump to next issue';
+  statusBarClickBehavior: 'Toggle Panel' | 'Jump to next issue' | 'Toggle Status Bar Scope';
 
   constructor() {
     this.element = new Element()
@@ -48,6 +48,8 @@ export default class StatusBar {
       const workspaceView = atom.views.getView(atom.workspace)
       if (this.statusBarClickBehavior === 'Toggle Panel') {
         atom.commands.dispatch(workspaceView, 'linter-ui-default:toggle-panel')
+      } else if (this.statusBarClickBehavior === 'Toggle Status Bar Scope') {
+        atom.config.set('linter-ui-default.statusBarRepresents', this.statusBarRepresents === 'Entire Project' ? 'Current File' : 'Entire Project')
       } else {
         const postfix = this.statusBarRepresents === 'Current File' ? '-in-current-file' : ''
         atom.commands.dispatch(workspaceView, `linter-ui-default:next-${type}${postfix}`)
@@ -91,13 +93,15 @@ export default class StatusBar {
         priority: statusBarPosition === 'Left' ? 0 : 1000,
       })
     }))
-    this.subscriptions.add(function() {
+    this.subscriptions.add(new Disposable(function() {
       if (statusBar) {
         statusBar.destroy()
       }
-    })
+    }))
   }
   dispose() {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = StatusBar

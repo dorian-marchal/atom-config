@@ -35,6 +35,7 @@ module.exports = class Beautifiers extends EventEmitter
   ###
   beautifierNames : [
     'uncrustify'
+    'align-yaml'
     'autopep8'
     'coffee-formatter'
     'coffee-fmt'
@@ -52,12 +53,15 @@ module.exports = class Beautifiers extends EventEmitter
     'fortran-beautifier'
     'js-beautify'
     'jscs'
+    'eslint'
     'lua-beautifier'
+    'nginx-beautify'
     'ocp-indent'
     'perltidy'
     'php-cs-fixer'
     'phpcbf'
     'prettydiff'
+    'pybeautifier'
     'pug-beautify'
     'puppet-fix'
     'remark'
@@ -107,11 +111,32 @@ module.exports = class Beautifiers extends EventEmitter
       new Beautifier()
     )
 
+    @options = @loadOptions()
+
+  loadOptions : ->
     try
-      @options = require('../options.json')
-    catch
-      console.warn('Beautifier options not found.')
-      @options = {}
+      options = require('../options.json')
+      options = _.mapValues(options, (lang) ->
+        scope = lang.scope
+        tabLength = atom?.config.get('editor.tabLength', scope: scope) ? 4
+        softTabs = atom?.config.get('editor.softTabs', scope: scope) ? true
+        defaultIndentSize = (if softTabs then tabLength else 1)
+        defaultIndentChar = (if softTabs then " " else "\t")
+        defaultIndentWithTabs = not softTabs
+        if _.has(lang, "properties.indent_size")
+          _.set(lang, "properties.indent_size.default", defaultIndentSize)
+        if _.has(lang, "properties.indent_char")
+          _.set(lang, "properties.indent_char.default", defaultIndentChar)
+        if _.has(lang, "properties.indent_with_tabs")
+          _.set(lang, "properties.indent_with_tabs.default", defaultIndentWithTabs)
+        if _.has(lang, "properties.wrap_attributes_indent_size")
+          _.set(lang, "properties.wrap_attributes_indent_size.default", defaultIndentSize)
+        return lang
+      )
+    catch error
+      console.error("Error loading options", error)
+      options = {}
+    return options
 
   ###
     From https://github.com/atom/notifications/blob/01779ade79e7196f1603b8c1fa31716aa4a33911/lib/notification-issue.coffee#L130
@@ -140,19 +165,31 @@ module.exports = class Beautifiers extends EventEmitter
     ) or beautifiers[0]
     return beautifier
 
-  getLanguage : (grammar, filePath) ->
+  getExtension : (filePath) ->
+    if filePath
+      return path.extname(filePath).substr(1)
+
+  getLanguages : (grammar, filePath) ->
     # Get language
-    fileExtension = path.extname(filePath)
-    # Remove prefix "." (period) in fileExtension
-    fileExtension = fileExtension.substr(1)
-    languages = @languages.getLanguages({grammar, extension: fileExtension})
-    logger.verbose(languages, grammar, fileExtension)
-    # Check if unsupported language
-    if languages.length < 1
-      return null
+    fileExtension = @getExtension(filePath)
+
+    if fileExtension
+      languages = @languages.getLanguages({grammar, extension: fileExtension})
     else
-      # TODO: select appropriate language
+      languages = @languages.getLanguages({grammar})
+
+    logger.verbose(languages, grammar, fileExtension)
+
+    return languages
+
+  getLanguage : (grammar, filePath) ->
+    languages = @getLanguages(grammar, filePath)
+
+    # Check if unsupported language
+    if languages.length > 0
       language = languages[0]
+
+    return language
 
   getOptionsForLanguage : (allOptions, language) ->
     # Options for Language
@@ -217,7 +254,8 @@ module.exports = class Beautifiers extends EventEmitter
   track : (type, payload) ->
     try
       # Check if Analytics is enabled
-      if atom.config.get("atom-beautify.general.analytics")
+      if atom.config.get("core.telemetryConsent") is "limited"
+        logger.info("Analytics is enabled.")
         # Setup Analytics
         unless atom.config.get("atom-beautify.general._analyticsUserId")
           uuid = require("node-uuid")
@@ -230,26 +268,23 @@ module.exports = class Beautifiers extends EventEmitter
           }
         })
         @analytics[type](payload).send()
+      else
+        logger.info("Analytics is disabled.")
     catch error
       logger.error(error)
 
 
-  beautify : (text, allOptions, grammar, filePath, {onSave} = {}) ->
+  beautify : (text, allOptions, grammar, filePath, {onSave, language} = {}) ->
     return Promise.all(allOptions)
     .then((allOptions) =>
       return new Promise((resolve, reject) =>
-        logger.info('beautify', text, allOptions, grammar, filePath, onSave)
+        logger.info('beautify', text, allOptions, grammar, filePath, onSave, language)
         logger.verbose(allOptions)
 
-        # Get language
-        fileExtension = path.extname(filePath)
-        # Remove prefix "." (period) in fileExtension
-        fileExtension = fileExtension.substr(1)
-        languages = @languages.getLanguages({grammar, extension: fileExtension})
-        logger.verbose(languages, grammar, fileExtension)
+        language ?= @getLanguage(grammar, filePath)
 
         # Check if unsupported language
-        if languages.length < 1
+        if !language
           unsupportedGrammar = true
 
           logger.verbose('Unsupported language')
@@ -260,18 +295,13 @@ module.exports = class Beautifiers extends EventEmitter
             # not intended to be beautified
             return resolve( null )
         else
-          # TODO: select appropriate language
-          language = languages[0]
-
           logger.verbose("Language #{language.name} supported")
 
           # Get language config
           langDisabled = atom.config.get("atom-beautify.#{language.namespace}.disabled")
 
-
           # Beautify!
           unsupportedGrammar = false
-
 
           # Check if Language is disabled
           if langDisabled
@@ -370,6 +400,7 @@ module.exports = class Beautifiers extends EventEmitter
           if atom.config.get("atom-beautify.general.muteUnsupportedLanguageErrors")
             return resolve( null )
           else
+            fileExtension = @getExtension(filePath)
             repoBugsUrl = pkg.bugs.url
             title = "Atom Beautify could not find a supported beautifier for this file"
             detail = """

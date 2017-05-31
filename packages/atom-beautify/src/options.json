@@ -116,6 +116,10 @@
     "type": "object",
     "description": "Options for language Bash",
     "collapsed": true,
+    "scope": [
+      "source.sh",
+      "source.bash"
+    ],
     "beautifiers": [
       "beautysh"
     ],
@@ -129,7 +133,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 2,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by beautysh)",
         "title": "Indent size",
@@ -344,7 +348,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Coffee Formatter, coffee-fmt)",
         "title": "Indent size",
@@ -360,7 +364,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Coffee Formatter, coffee-fmt)",
         "title": "Indent char",
         "beautifiers": [
@@ -389,7 +393,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Coffee Formatter, coffee-fmt)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -619,6 +623,25 @@
           "namespace": "js"
         }
       },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by Coffee Formatter)",
+        "title": "End of line",
+        "beautifiers": [
+          "Coffee Formatter"
+        ],
+        "key": "end_of_line",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
       "disabled": {
         "title": "Disable Beautifying Language",
         "order": -3,
@@ -651,6 +674,9 @@
     "type": "object",
     "description": "Options for language Coldfusion",
     "collapsed": true,
+    "scope": [
+      "text.html"
+    ],
     "beautifiers": [
       "Pretty Diff"
     ],
@@ -665,7 +691,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -680,7 +706,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "minimum": 0,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
@@ -766,10 +792,12 @@
       "cpp",
       "cxx",
       "C",
+      "cu",
       "c++",
       "hpp",
       "hxx",
-      "h++"
+      "h++",
+      "cuh"
     ],
     "properties": {
       "configPath": {
@@ -859,6 +887,9 @@
     "type": "object",
     "description": "Options for language CSS",
     "collapsed": true,
+    "scope": [
+      "source.css"
+    ],
     "beautifiers": [
       "CSScomb",
       "JS Beautify",
@@ -874,7 +905,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -890,7 +921,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "minimum": 0,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
@@ -1232,7 +1263,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -1248,7 +1279,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -1277,7 +1308,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -1513,6 +1544,25 @@
           "namespace": "js"
         }
       },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by JS Beautify)",
+        "title": "End of line",
+        "beautifiers": [
+          "JS Beautify"
+        ],
+        "key": "end_of_line",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
       "indent_inner_html": {
         "type": "boolean",
         "default": false,
@@ -1551,9 +1601,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by JS Beautify)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by JS Beautify)",
         "title": "Wrap attributes",
         "beautifiers": [
           "JS Beautify"
@@ -1566,7 +1618,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by JS Beautify)",
         "title": "Wrap attributes indent size",
@@ -1773,7 +1825,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by HTML Beautifier, Pretty Diff)",
         "title": "Indent size",
@@ -1789,7 +1841,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -1902,6 +1954,7 @@
     "type": "object",
     "description": "Options for language gherkin",
     "collapsed": true,
+    "scope": [],
     "beautifiers": [
       "Gherkin formatter"
     ],
@@ -1914,7 +1967,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Gherkin formatter)",
         "title": "Indent size",
@@ -1929,7 +1982,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "minimum": 0,
         "description": "Indentation character (Supported by Gherkin formatter)",
         "title": "Indent char",
@@ -2067,6 +2120,105 @@
       }
     }
   },
+  "gohtml": {
+    "title": "Golang Template",
+    "type": "object",
+    "description": "Options for language Golang Template",
+    "collapsed": true,
+    "beautifiers": [
+      "Pretty Diff"
+    ],
+    "grammars": [
+      "HTML (Go)",
+      "Go Template"
+    ],
+    "extensions": [
+      "gohtml"
+    ],
+    "properties": {
+      "indent_size": {
+        "type": "integer",
+        "default": null,
+        "minimum": 0,
+        "description": "Indentation size/length (Supported by Pretty Diff)",
+        "title": "Indent size",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "indent_size",
+        "language": {
+          "name": "HTML",
+          "namespace": "html"
+        }
+      },
+      "indent_char": {
+        "type": "string",
+        "default": null,
+        "description": "Indentation character (Supported by Pretty Diff)",
+        "title": "Indent char",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "indent_char",
+        "language": {
+          "name": "HTML",
+          "namespace": "html"
+        }
+      },
+      "wrap_line_length": {
+        "type": "integer",
+        "default": 250,
+        "description": "Maximum characters per line (0 disables) (Supported by Pretty Diff)",
+        "title": "Wrap line length",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "wrap_line_length",
+        "language": {
+          "name": "HTML",
+          "namespace": "html"
+        }
+      },
+      "preserve_newlines": {
+        "type": "boolean",
+        "default": true,
+        "description": "Preserve line-breaks (Supported by Pretty Diff)",
+        "title": "Preserve newlines",
+        "beautifiers": [
+          "Pretty Diff"
+        ],
+        "key": "preserve_newlines",
+        "language": {
+          "name": "HTML",
+          "namespace": "html"
+        }
+      },
+      "disabled": {
+        "title": "Disable Beautifying Language",
+        "order": -3,
+        "type": "boolean",
+        "default": false,
+        "description": "Disable Golang Template Beautification"
+      },
+      "default_beautifier": {
+        "title": "Default Beautifier",
+        "order": -2,
+        "type": "string",
+        "default": "Pretty Diff",
+        "description": "Default Beautifier to be used for Golang Template",
+        "enum": [
+          "Pretty Diff"
+        ]
+      },
+      "beautify_on_save": {
+        "title": "Beautify On Save",
+        "order": -1,
+        "type": "boolean",
+        "default": false,
+        "description": "Automatically beautify Golang Template files on save"
+      }
+    }
+  },
   "fortran": {
     "title": "Fortran",
     "type": "object",
@@ -2173,7 +2325,7 @@
       },
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -2189,7 +2341,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -2261,9 +2413,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by JS Beautify)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by JS Beautify)",
         "title": "Wrap attributes",
         "beautifiers": [
           "JS Beautify"
@@ -2276,7 +2430,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by JS Beautify)",
         "title": "Wrap attributes indent size",
@@ -2512,6 +2666,9 @@
     "type": "object",
     "description": "Options for language HTML",
     "collapsed": true,
+    "scope": [
+      "text.html"
+    ],
     "beautifiers": [
       "JS Beautify",
       "Pretty Diff"
@@ -2539,7 +2696,7 @@
       },
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -2555,7 +2712,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -2627,9 +2784,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by JS Beautify)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by JS Beautify)",
         "title": "Wrap attributes",
         "beautifiers": [
           "JS Beautify"
@@ -2642,7 +2801,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by JS Beautify)",
         "title": "Wrap attributes indent size",
@@ -2837,6 +2996,9 @@
     "type": "object",
     "description": "Options for language Jade",
     "collapsed": true,
+    "scope": [
+      "text.jade"
+    ],
     "beautifiers": [
       "Pug Beautify"
     ],
@@ -2851,7 +3013,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pug Beautify)",
         "title": "Indent size",
@@ -2866,7 +3028,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pug Beautify)",
         "title": "Indent char",
         "beautifiers": [
@@ -2964,9 +3126,13 @@
     "type": "object",
     "description": "Options for language JavaScript",
     "collapsed": true,
+    "scope": [
+      "source.js"
+    ],
     "beautifiers": [
       "JS Beautify",
       "JSCS Fixer",
+      "ESLint Fixer",
       "Pretty Diff"
     ],
     "grammars": [
@@ -2978,7 +3144,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -2994,7 +3160,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -3023,7 +3189,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -3259,6 +3425,25 @@
           "namespace": "js"
         }
       },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by JS Beautify)",
+        "title": "End of line",
+        "beautifiers": [
+          "JS Beautify"
+        ],
+        "key": "end_of_line",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
       "disabled": {
         "title": "Disable Beautifying Language",
         "order": -3,
@@ -3275,6 +3460,7 @@
         "enum": [
           "JS Beautify",
           "JSCS Fixer",
+          "ESLint Fixer",
           "Pretty Diff"
         ]
       },
@@ -3305,7 +3491,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -3321,7 +3507,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -3350,7 +3536,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -3581,6 +3767,25 @@
           "Pretty Diff"
         ],
         "key": "end_with_comma",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by JS Beautify)",
+        "title": "End of line",
+        "beautifiers": [
+          "JS Beautify"
+        ],
+        "key": "end_of_line",
         "language": {
           "name": "JavaScript",
           "namespace": "js"
@@ -3633,9 +3838,23 @@
       "js"
     ],
     "properties": {
+      "e4x": {
+        "type": "boolean",
+        "default": true,
+        "description": "Support e4x/jsx syntax (Supported by JS Beautify)",
+        "title": "E4x",
+        "beautifiers": [
+          "JS Beautify"
+        ],
+        "key": "e4x",
+        "language": {
+          "name": "JSX",
+          "namespace": "jsx"
+        }
+      },
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -3651,7 +3870,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -3680,7 +3899,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -3916,6 +4135,25 @@
           "namespace": "js"
         }
       },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by JS Beautify)",
+        "title": "End of line",
+        "beautifiers": [
+          "JS Beautify"
+        ],
+        "key": "end_of_line",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
       "disabled": {
         "title": "Disable Beautifying Language",
         "order": -3,
@@ -3948,19 +4186,31 @@
     "type": "object",
     "description": "Options for language LaTeX",
     "collapsed": true,
+    "scope": [
+      "source.tex"
+    ],
     "beautifiers": [
       "Latex Beautify"
     ],
     "grammars": [
-      "LaTeX"
+      "BibTeX",
+      "LaTeX",
+      "TeX"
     ],
     "extensions": [
-      "tex"
+      "bib",
+      "tex",
+      "sty",
+      "cls",
+      "dtx",
+      "ins",
+      "bbx",
+      "cbx"
     ],
     "properties": {
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Latex Beautify)",
         "title": "Indent char",
         "beautifiers": [
@@ -3974,7 +4224,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": true,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Latex Beautify)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -4060,7 +4310,7 @@
           "name": "LaTeX",
           "namespace": "latex"
         },
-        "description": "undefined (Supported by Latex Beautify)"
+        "description": " (Supported by Latex Beautify)"
       },
       "disabled": {
         "title": "Disable Beautifying Language",
@@ -4106,7 +4356,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -4121,7 +4371,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "minimum": 0,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
@@ -4443,6 +4693,9 @@
     "type": "object",
     "description": "Options for language Marko",
     "collapsed": true,
+    "scope": [
+      "text.marko"
+    ],
     "beautifiers": [
       "Marko Beautifier"
     ],
@@ -4455,7 +4708,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Marko Beautifier)",
         "title": "Indent size",
@@ -4470,7 +4723,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Marko Beautifier)",
         "title": "Indent char",
         "beautifiers": [
@@ -4572,9 +4825,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by Marko Beautifier)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by Marko Beautifier)",
         "title": "Wrap attributes",
         "beautifiers": [
           "Marko Beautifier"
@@ -4587,7 +4842,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by Marko Beautifier)",
         "title": "Wrap attributes indent size",
@@ -4781,7 +5036,8 @@
     "description": "Options for language Mustache",
     "collapsed": true,
     "beautifiers": [
-      "JS Beautify"
+      "JS Beautify",
+      "Pretty Diff"
     ],
     "grammars": [
       "HTML (Mustache)"
@@ -4806,12 +5062,13 @@
       },
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
-        "description": "Indentation size/length (Supported by JS Beautify)",
+        "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "indent_size",
         "language": {
@@ -4821,11 +5078,12 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
-        "description": "Indentation character (Supported by JS Beautify)",
+        "default": null,
+        "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "indent_char",
         "language": {
@@ -4875,10 +5133,11 @@
       "wrap_line_length": {
         "type": "integer",
         "default": 250,
-        "description": "Maximum characters per line (0 disables) (Supported by JS Beautify)",
+        "description": "Maximum characters per line (0 disables) (Supported by JS Beautify, Pretty Diff)",
         "title": "Wrap line length",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "wrap_line_length",
         "language": {
@@ -4891,9 +5150,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by JS Beautify)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by JS Beautify)",
         "title": "Wrap attributes",
         "beautifiers": [
           "JS Beautify"
@@ -4906,7 +5167,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by JS Beautify)",
         "title": "Wrap attributes indent size",
@@ -4922,10 +5183,11 @@
       "preserve_newlines": {
         "type": "boolean",
         "default": true,
-        "description": "Preserve line-breaks (Supported by JS Beautify)",
+        "description": "Preserve line-breaks (Supported by JS Beautify, Pretty Diff)",
         "title": "Preserve newlines",
         "beautifiers": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ],
         "key": "preserve_newlines",
         "language": {
@@ -5080,7 +5342,8 @@
         "default": "JS Beautify",
         "description": "Default Beautifier to be used for Mustache",
         "enum": [
-          "JS Beautify"
+          "JS Beautify",
+          "Pretty Diff"
         ]
       },
       "beautify_on_save": {
@@ -5089,6 +5352,108 @@
         "type": "boolean",
         "default": false,
         "description": "Automatically beautify Mustache files on save"
+      }
+    }
+  },
+  "nginx": {
+    "title": "Nginx",
+    "type": "object",
+    "description": "Options for language Nginx",
+    "collapsed": true,
+    "scope": [
+      "source.conf"
+    ],
+    "beautifiers": [
+      "Nginx Beautify"
+    ],
+    "grammars": [
+      "nginx"
+    ],
+    "extensions": [
+      "conf"
+    ],
+    "properties": {
+      "indent_size": {
+        "type": "integer",
+        "default": null,
+        "minimum": 0,
+        "description": "Indentation size/length (Supported by Nginx Beautify)",
+        "title": "Indent size",
+        "beautifiers": [
+          "Nginx Beautify"
+        ],
+        "key": "indent_size",
+        "language": {
+          "name": "Nginx",
+          "namespace": "nginx"
+        }
+      },
+      "indent_char": {
+        "type": "string",
+        "default": null,
+        "description": "Indentation character (Supported by Nginx Beautify)",
+        "title": "Indent char",
+        "beautifiers": [
+          "Nginx Beautify"
+        ],
+        "key": "indent_char",
+        "language": {
+          "name": "Nginx",
+          "namespace": "nginx"
+        }
+      },
+      "indent_with_tabs": {
+        "type": "boolean",
+        "default": null,
+        "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Nginx Beautify)",
+        "title": "Indent with tabs",
+        "beautifiers": [
+          "Nginx Beautify"
+        ],
+        "key": "indent_with_tabs",
+        "language": {
+          "name": "Nginx",
+          "namespace": "nginx"
+        }
+      },
+      "dontJoinCurlyBracet": {
+        "title": "Don't join curly brackets",
+        "type": "boolean",
+        "default": true,
+        "descriotion": "",
+        "beautifiers": [
+          "Nginx Beautify"
+        ],
+        "key": "dontJoinCurlyBracet",
+        "language": {
+          "name": "Nginx",
+          "namespace": "nginx"
+        },
+        "description": " (Supported by Nginx Beautify)"
+      },
+      "disabled": {
+        "title": "Disable Beautifying Language",
+        "order": -3,
+        "type": "boolean",
+        "default": false,
+        "description": "Disable Nginx Beautification"
+      },
+      "default_beautifier": {
+        "title": "Default Beautifier",
+        "order": -2,
+        "type": "string",
+        "default": "Nginx Beautify",
+        "description": "Default Beautifier to be used for Nginx",
+        "enum": [
+          "Nginx Beautify"
+        ]
+      },
+      "beautify_on_save": {
+        "title": "Beautify On Save",
+        "order": -1,
+        "type": "boolean",
+        "default": false,
+        "description": "Automatically beautify Nginx files on save"
       }
     }
   },
@@ -5112,7 +5477,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -5127,7 +5492,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -5360,7 +5725,11 @@
       "Perl 6"
     ],
     "extensions": [
-      "pl"
+      "pl",
+      "PL",
+      "pm",
+      "pod",
+      "t"
     ],
     "properties": {
       "perltidy_profile": {
@@ -5426,7 +5795,7 @@
         "title": "PHP-CS-Fixer Path",
         "type": "string",
         "default": "",
-        "description": "Path to the `php-cs-fixer` CLI executable (Supported by PHP-CS-Fixer)",
+        "description": "Absolute path to the `php-cs-fixer` CLI executable (Supported by PHP-CS-Fixer)",
         "beautifiers": [
           "PHP-CS-Fixer"
         ],
@@ -5436,10 +5805,42 @@
           "namespace": "php"
         }
       },
+      "cs_fixer_version": {
+        "title": "PHP-CS-Fixer Version",
+        "type": "integer",
+        "default": 2,
+        "enum": [
+          1,
+          2
+        ],
+        "beautifiers": [
+          "PHP-CS-Fixer"
+        ],
+        "key": "cs_fixer_version",
+        "language": {
+          "name": "PHP",
+          "namespace": "php"
+        },
+        "description": " (Supported by PHP-CS-Fixer)"
+      },
+      "cs_fixer_config_file": {
+        "title": "PHP-CS-Fixer Config File",
+        "type": "string",
+        "default": "",
+        "description": "Path to php-cs-fixer config file. Will use local `.php_cs` or `.php_cs.dist` if found in the working directory or project root. (Supported by PHP-CS-Fixer)",
+        "beautifiers": [
+          "PHP-CS-Fixer"
+        ],
+        "key": "cs_fixer_config_file",
+        "language": {
+          "name": "PHP",
+          "namespace": "php"
+        }
+      },
       "fixers": {
         "type": "string",
         "default": "",
-        "description": "Add fixer(s). i.e. linefeed,-short_tag,indentation (Supported by PHP-CS-Fixer)",
+        "description": "Add fixer(s). i.e. linefeed,-short_tag,indentation (PHP-CS-Fixer 1 only) (Supported by PHP-CS-Fixer)",
         "title": "Fixers",
         "beautifiers": [
           "PHP-CS-Fixer"
@@ -5453,7 +5854,7 @@
       "level": {
         "type": "string",
         "default": "",
-        "description": "By default, all PSR-2 fixers and some additional ones are run. (Supported by PHP-CS-Fixer)",
+        "description": "By default, all PSR-2 fixers and some additional ones are run. (PHP-CS-Fixer 1 only) (Supported by PHP-CS-Fixer)",
         "title": "Level",
         "beautifiers": [
           "PHP-CS-Fixer"
@@ -5464,13 +5865,45 @@
           "namespace": "php"
         }
       },
+      "rules": {
+        "type": "string",
+        "default": "",
+        "description": "Add rule(s). i.e. line_ending,-full_opening_tag,@PSR2 (PHP-CS-Fixer 2 only) (Supported by PHP-CS-Fixer)",
+        "title": "Rules",
+        "beautifiers": [
+          "PHP-CS-Fixer"
+        ],
+        "key": "rules",
+        "language": {
+          "name": "PHP",
+          "namespace": "php"
+        }
+      },
+      "allow_risky": {
+        "title": "Allow risky rules",
+        "type": "string",
+        "default": "no",
+        "enum": [
+          "no",
+          "yes"
+        ],
+        "description": "Allow risky rules to be applied (PHP-CS-Fixer 2 only) (Supported by PHP-CS-Fixer)",
+        "beautifiers": [
+          "PHP-CS-Fixer"
+        ],
+        "key": "allow_risky",
+        "language": {
+          "name": "PHP",
+          "namespace": "php"
+        }
+      },
       "phpcbf_path": {
         "title": "PHPCBF Path",
         "type": "string",
         "default": "",
-        "description": "Path to the `phpcbf` CLI executable (Supported by PHP-CS-Fixer)",
+        "description": "Path to the `phpcbf` CLI executable (Supported by PHPCBF)",
         "beautifiers": [
-          "PHP-CS-Fixer"
+          "PHPCBF"
         ],
         "key": "phpcbf_path",
         "language": {
@@ -5478,13 +5911,31 @@
           "namespace": "php"
         }
       },
+      "phpcbf_version": {
+        "title": "PHPCBF Version",
+        "type": "integer",
+        "default": 2,
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "beautifiers": [
+          "PHPCBF"
+        ],
+        "key": "phpcbf_version",
+        "language": {
+          "name": "PHP",
+          "namespace": "php"
+        },
+        "description": " (Supported by PHPCBF)"
+      },
       "standard": {
         "title": "PHPCBF Standard",
         "type": "string",
-        "default": "",
-        "description": "Standard name Squiz, PSR2, PSR1, PHPCS, PEAR, Zend, MySource... or path to CS rules (Supported by PHP-CS-Fixer, PHPCBF)",
+        "default": "PEAR",
+        "description": "Standard name Squiz, PSR2, PSR1, PHPCS, PEAR, Zend, MySource... or path to CS rules. Will use local `phpcs.xml`, `phpcs.xml.dist`, `phpcs.ruleset.xml` or `ruleset.xml` if found in the project root. (Supported by PHPCBF)",
         "beautifiers": [
-          "PHP-CS-Fixer",
           "PHPCBF"
         ],
         "key": "standard",
@@ -5567,8 +6018,12 @@
     "type": "object",
     "description": "Options for language Python",
     "collapsed": true,
+    "scope": [
+      "source.python"
+    ],
     "beautifiers": [
       "autopep8",
+      "pybeautifier",
       "yapf"
     ],
     "grammars": [
@@ -5581,10 +6036,11 @@
       "max_line_length": {
         "type": "integer",
         "default": 79,
-        "description": "set maximum allowed line length (Supported by autopep8)",
+        "description": "set maximum allowed line length (Supported by autopep8, pybeautifier)",
         "title": "Max line length",
         "beautifiers": [
-          "autopep8"
+          "autopep8",
+          "pybeautifier"
         ],
         "key": "max_line_length",
         "language": {
@@ -5594,12 +6050,13 @@
       },
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
-        "description": "Indentation size/length (Supported by autopep8)",
+        "description": "Indentation size/length (Supported by autopep8, pybeautifier)",
         "title": "Indent size",
         "beautifiers": [
-          "autopep8"
+          "autopep8",
+          "pybeautifier"
         ],
         "key": "indent_size",
         "language": {
@@ -5615,12 +6072,47 @@
         "items": {
           "type": "string"
         },
-        "description": "do not fix these errors/warnings (Supported by autopep8)",
+        "description": "do not fix these errors/warnings (Supported by autopep8, pybeautifier)",
         "title": "Ignore",
         "beautifiers": [
-          "autopep8"
+          "autopep8",
+          "pybeautifier"
         ],
         "key": "ignore",
+        "language": {
+          "name": "Python",
+          "namespace": "python"
+        }
+      },
+      "formater": {
+        "type": "string",
+        "default": "autopep8",
+        "enum": [
+          "autopep8",
+          "yapf"
+        ],
+        "description": "formater used by pybeautifier (Supported by autopep8, pybeautifier)",
+        "title": "Formater",
+        "beautifiers": [
+          "autopep8",
+          "pybeautifier"
+        ],
+        "key": "formater",
+        "language": {
+          "name": "Python",
+          "namespace": "python"
+        }
+      },
+      "style_config": {
+        "type": "string",
+        "default": "pep8",
+        "description": "formatting style used by yapf (Supported by autopep8, pybeautifier)",
+        "title": "Style config",
+        "beautifiers": [
+          "autopep8",
+          "pybeautifier"
+        ],
+        "key": "style_config",
         "language": {
           "name": "Python",
           "namespace": "python"
@@ -5629,12 +6121,37 @@
       "sort_imports": {
         "type": "boolean",
         "default": false,
-        "description": "sort imports (requires isort installed) (Supported by autopep8)",
+        "description": "sort imports (requires isort installed) (Supported by autopep8, pybeautifier)",
         "title": "Sort imports",
         "beautifiers": [
-          "autopep8"
+          "autopep8",
+          "pybeautifier"
         ],
         "key": "sort_imports",
+        "language": {
+          "name": "Python",
+          "namespace": "python"
+        }
+      },
+      "multi_line_output": {
+        "type": "string",
+        "default": "Hanging Grid Grouped",
+        "enum": [
+          "Grid",
+          "Vertical",
+          "Hanging Indent",
+          "Vertical Hanging Indent",
+          "Hanging Grid",
+          "Hanging Grid Grouped",
+          "NOQA"
+        ],
+        "description": "defines how from imports wrap (requires isort installed) (Supported by autopep8, pybeautifier)",
+        "title": "Multi line output",
+        "beautifiers": [
+          "autopep8",
+          "pybeautifier"
+        ],
+        "key": "multi_line_output",
         "language": {
           "name": "Python",
           "namespace": "python"
@@ -5655,6 +6172,7 @@
         "description": "Default Beautifier to be used for Python",
         "enum": [
           "autopep8",
+          "pybeautifier",
           "yapf"
         ]
       },
@@ -5672,6 +6190,9 @@
     "type": "object",
     "description": "Options for language R",
     "collapsed": true,
+    "scope": [
+      "text.r"
+    ],
     "beautifiers": [
       "formatR"
     ],
@@ -5685,7 +6206,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "description": "Indentation size/length (Supported by formatR)",
         "title": "Indent size",
         "beautifiers": [
@@ -5741,7 +6262,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -5756,7 +6277,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -5827,6 +6348,9 @@
     "type": "object",
     "description": "Options for language Ruby",
     "collapsed": true,
+    "scope": [
+      "source.ruby"
+    ],
     "beautifiers": [
       "Rubocop",
       "Ruby Beautify"
@@ -5841,7 +6365,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Rubocop, Ruby Beautify)",
         "title": "Indent size",
@@ -5850,6 +6374,24 @@
           "Ruby Beautify"
         ],
         "key": "indent_size",
+        "language": {
+          "name": "Ruby",
+          "namespace": "ruby"
+        }
+      },
+      "indent_char": {
+        "type": "string",
+        "default": null,
+        "description": "Indentation character (Supported by Ruby Beautify)",
+        "enum": [
+          " ",
+          "\t"
+        ],
+        "title": "Indent char",
+        "beautifiers": [
+          "Ruby Beautify"
+        ],
+        "key": "indent_char",
         "language": {
           "name": "Ruby",
           "namespace": "ruby"
@@ -5864,24 +6406,6 @@
           "Rubocop"
         ],
         "key": "rubocop_path",
-        "language": {
-          "name": "Ruby",
-          "namespace": "ruby"
-        }
-      },
-      "indent_char": {
-        "type": "string",
-        "default": " ",
-        "description": "Indentation character (Supported by Ruby Beautify)",
-        "enum": [
-          " ",
-          "\t"
-        ],
-        "title": "Indent char",
-        "beautifiers": [
-          "Ruby Beautify"
-        ],
-        "key": "indent_char",
         "language": {
           "name": "Ruby",
           "namespace": "ruby"
@@ -6030,7 +6554,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -6045,7 +6569,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "minimum": 0,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
@@ -6251,7 +6775,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -6266,7 +6790,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -6337,6 +6861,9 @@
     "type": "object",
     "description": "Options for language SQL",
     "collapsed": true,
+    "scope": [
+      "source.sql"
+    ],
     "beautifiers": [
       "sqlformat"
     ],
@@ -6350,7 +6877,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by sqlformat)",
         "title": "Indent size",
@@ -6446,7 +6973,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -6461,7 +6988,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -6545,7 +7072,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -6560,7 +7087,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -6643,7 +7170,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -6658,7 +7185,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "minimum": 0,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
@@ -6831,7 +7358,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -6846,7 +7373,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -6860,7 +7387,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Pretty Diff)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -6999,7 +7526,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by TypeScript Formatter)",
         "title": "Indent size",
@@ -7014,7 +7541,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by TypeScript Formatter)",
         "title": "Indent char",
         "beautifiers": [
@@ -7042,7 +7569,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by TypeScript Formatter)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -7271,6 +7798,25 @@
           "namespace": "js"
         }
       },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by TypeScript Formatter)",
+        "title": "End of line",
+        "beautifiers": [
+          "TypeScript Formatter"
+        ],
+        "key": "end_of_line",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
       "disabled": {
         "title": "Disable Beautifying Language",
         "order": -3,
@@ -7314,7 +7860,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -7329,7 +7875,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -7468,7 +8014,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Vue Beautifier)",
         "title": "Indent size",
@@ -7483,7 +8029,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Vue Beautifier)",
         "title": "Indent char",
         "beautifiers": [
@@ -7511,7 +8057,7 @@
       },
       "indent_with_tabs": {
         "type": "boolean",
-        "default": false,
+        "default": null,
         "description": "Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by Vue Beautifier)",
         "title": "Indent with tabs",
         "beautifiers": [
@@ -7740,6 +8286,25 @@
           "namespace": "js"
         }
       },
+      "end_of_line": {
+        "type": "string",
+        "default": "System Default",
+        "enum": [
+          "CRLF",
+          "LF",
+          "System Default"
+        ],
+        "description": "Override EOL from line-ending-selector (Supported by Vue Beautifier)",
+        "title": "End of line",
+        "beautifiers": [
+          "Vue Beautifier"
+        ],
+        "key": "end_of_line",
+        "language": {
+          "name": "JavaScript",
+          "namespace": "js"
+        }
+      },
       "indent_inner_html": {
         "type": "boolean",
         "default": false,
@@ -7778,9 +8343,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by Vue Beautifier)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by Vue Beautifier)",
         "title": "Wrap attributes",
         "beautifiers": [
           "Vue Beautifier"
@@ -7793,7 +8360,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by Vue Beautifier)",
         "title": "Wrap attributes indent size",
@@ -7956,7 +8523,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -7971,7 +8538,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -8064,7 +8631,8 @@
       "jsp",
       "gsp",
       "plist",
-      "recipe"
+      "recipe",
+      "config"
     ],
     "properties": {
       "indent_inner_html": {
@@ -8083,7 +8651,7 @@
       },
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent size",
@@ -8099,7 +8667,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by JS Beautify, Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -8171,9 +8739,11 @@
         "default": "auto",
         "enum": [
           "auto",
-          "force"
+          "force",
+          "force-aligned",
+          "force-expand-multiline"
         ],
-        "description": "Wrap attributes to new lines [auto|force] (Supported by JS Beautify)",
+        "description": "Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline] (Supported by JS Beautify)",
         "title": "Wrap attributes",
         "beautifiers": [
           "JS Beautify"
@@ -8186,7 +8756,7 @@
       },
       "wrap_attributes_indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indent wrapped attributes to after N characters (Supported by JS Beautify)",
         "title": "Wrap attributes indent size",
@@ -8393,7 +8963,7 @@
     "properties": {
       "indent_size": {
         "type": "integer",
-        "default": 4,
+        "default": null,
         "minimum": 0,
         "description": "Indentation size/length (Supported by Pretty Diff)",
         "title": "Indent size",
@@ -8408,7 +8978,7 @@
       },
       "indent_char": {
         "type": "string",
-        "default": " ",
+        "default": null,
         "description": "Indentation character (Supported by Pretty Diff)",
         "title": "Indent char",
         "beautifiers": [
@@ -8471,6 +9041,66 @@
         "type": "boolean",
         "default": false,
         "description": "Automatically beautify XTemplate files on save"
+      }
+    }
+  },
+  "yaml": {
+    "title": "YAML",
+    "type": "object",
+    "description": "Options for language YAML",
+    "collapsed": true,
+    "scope": [
+      "source.yaml"
+    ],
+    "beautifiers": [
+      "align-yaml"
+    ],
+    "grammars": [
+      "YAML"
+    ],
+    "extensions": [
+      "yml",
+      "yaml"
+    ],
+    "properties": {
+      "padding": {
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "description": "The amount of padding to add next to each line. (Supported by align-yaml)",
+        "title": "Padding",
+        "beautifiers": [
+          "align-yaml"
+        ],
+        "key": "padding",
+        "language": {
+          "name": "YAML",
+          "namespace": "yaml"
+        }
+      },
+      "disabled": {
+        "title": "Disable Beautifying Language",
+        "order": -3,
+        "type": "boolean",
+        "default": false,
+        "description": "Disable YAML Beautification"
+      },
+      "default_beautifier": {
+        "title": "Default Beautifier",
+        "order": -2,
+        "type": "string",
+        "default": "align-yaml",
+        "description": "Default Beautifier to be used for YAML",
+        "enum": [
+          "align-yaml"
+        ]
+      },
+      "beautify_on_save": {
+        "title": "Beautify On Save",
+        "order": -1,
+        "type": "boolean",
+        "default": false,
+        "description": "Automatically beautify YAML files on save"
       }
     }
   }

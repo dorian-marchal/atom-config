@@ -2,51 +2,42 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
+        "raw": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
-        "spec": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
+        "rawSpec": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
+        "spec": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117214-26394-qhb16u"
+      "/tmp/apm-install-dir-117431-17357-utkxjs.ico5pzaor"
     ]
   ],
-  "_from": "../d-117214-26394-1mvcvd8/package.tgz",
-  "_id": "busy-signal@1.3.0",
+  "_from": "../d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
+  "_id": "busy-signal@1.4.1",
   "_inCache": true,
   "_installable": true,
   "_location": "/busy-signal",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
+    "raw": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
-    "spec": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
+    "rawSpec": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
+    "spec": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117214-26394-1mvcvd8/package.tgz",
-  "_shasum": "710c68576877e637d1da4584a0525302ac550aff",
+  "_resolved": "file:../d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
+  "_shasum": "bea1229c77d3ea332466bc878e52ab4a2a394590",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117214-26394-1mvcvd8/package.tgz",
-  "_where": "/tmp/apm-install-dir-117214-26394-qhb16u",
+  "_spec": "/tmp/d-117431-17357-1qy5keb.kbfx647vi/package.tgz",
+  "_where": "/tmp/apm-install-dir-117431-17357-utkxjs.ico5pzaor",
   "bugs": {
     "url": "https://github.com/steelbrain/busy-signal/issues"
-  },
-  "configSchema": {
-    "itemsToShowInHistory": {
-      "description": "Limit the number of items to show in history",
-      "maximum": 10,
-      "minimum": 1,
-      "type": "integer",
-      "default": 5
-    }
   },
   "consumedServices": {
     "status-bar": {
@@ -58,11 +49,12 @@
   "dependencies": {
     "disposify": "^1.0.0",
     "escape-html": "^1.0.3",
-    "humanize-time": "0.0.2"
+    "ms": "^1.0.0"
   },
   "description": "A package that provides an easy to use API to show your package is performing a task",
   "devDependencies": {
-    "eslint-config-steelbrain": "^2.0.0"
+    "eslint-config-steelbrain": "^3.0.1",
+    "jasmine-fix": "^1.0.1"
   },
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
@@ -83,7 +75,7 @@
       }
     }
   },
-  "readme": "# Busy Signal\n\nBusy Signal is a base package that provides an easy to use API to show your package is performing a task.\n\n## API\n\nPlease head to [`busy-signal` wiki](https://github.com/steelbrain/busy-signal/wiki/Busy-Signal-API) for the API documentation\n\n## Screenshot\n\n![busy-signal](https://cloud.githubusercontent.com/assets/4278113/13898536/079db552-ed92-11e5-9762-dc18499d0895.gif)\n\n## License\n\nThis project is licensed under the terms of MIT License\n",
+  "readme": "# Busy Signal\n\n[![Greenkeeper badge](https://badges.greenkeeper.io/steelbrain/busy-signal.svg)](https://greenkeeper.io/)\n\nBusy Signal is a base package that provides an easy to use API to show your package is performing a task.\n\n## API\n\nPlease head to [`busy-signal` wiki](https://github.com/steelbrain/busy-signal/wiki/Busy-Signal-API) for the API documentation\n\n## Screenshot\n\n![busy-signal](https://cloud.githubusercontent.com/assets/4278113/22865536/0a123074-f188-11e6-8c6e-38574a6fe14c.gif)\n\n## License\n\nThis project is licensed under the terms of MIT License\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
@@ -93,5 +85,61 @@
     "lint": "eslint .",
     "test": "apm test"
   },
-  "version": "1.3.0"
+  "version": "1.4.1",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "disposify",
+        "version": "1.0.0",
+        "path": "node_modules/disposify/lib/index.js"
+      },
+      {
+        "name": "escape-html",
+        "version": "1.0.3",
+        "path": "node_modules/escape-html/index.js"
+      },
+      {
+        "name": "ms",
+        "version": "1.0.0",
+        "path": "node_modules/ms/index.js"
+      }
+    ],
+    "extensions": {
+      ".json": [
+        ".eslintrc.json",
+        "node_modules/disposify/package.json",
+        "node_modules/escape-html/package.json",
+        "node_modules/ms/package.json",
+        "package.json"
+      ],
+      ".js": [
+        "lib/element.js",
+        "lib/helpers.js",
+        "lib/index.js",
+        "lib/main.js",
+        "lib/provider.js",
+        "lib/registry.js",
+        "lib/types.js",
+        "node_modules/disposify/lib/index.js",
+        "node_modules/escape-html/index.js",
+        "node_modules/ms/index.js"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "",
+          "decls",
+          "lib",
+          "spec"
+        ],
+        "dependencies": {
+          "disposify": "^1.0.0",
+          "escape-html": "^1.0.3",
+          "ms": "^1.0.0"
+        }
+      }
+    ]
+  }
 }

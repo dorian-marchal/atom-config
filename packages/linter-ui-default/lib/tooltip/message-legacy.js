@@ -1,14 +1,13 @@
 /* @flow */
 
 import React from 'react'
-import { openExternally } from '../helpers'
 import type TooltipDelegate from './delegate'
 import type { MessageLegacy } from '../types'
 
 const NEWLINE = /\r\n|\n/
 let MESSAGE_NUMBER = 0
 
-export default class Message extends React.Component {
+class MessageElement extends React.Component {
   props: {
     message: MessageLegacy,
     delegate: TooltipDelegate,
@@ -52,13 +51,10 @@ export default class Message extends React.Component {
 
     return (<linter-message class={message.severity}>
       { delegate.showProviderName ? `${message.linterName}: ` : '' }
-      <span id={elementID} dangerouslySetInnerHTML={ !isElement && message.html ? { __html: message.html } : null }>
+      <span id={elementID} dangerouslySetInnerHTML={!isElement && message.html ? { __html: message.html } : null}>
         { message.text }
       </span>
       {' '}
-      <a href="#" onClick={() => openExternally(message)}>
-        <span className="icon icon-link linter-icon"></span>
-      </a>
     </linter-message>)
   }
 
@@ -70,15 +66,14 @@ export default class Message extends React.Component {
 
     return (<linter-message class={message.severity}>
       <a href="#" onClick={() => this.setState({ multiLineShow: !this.state.multiLineShow })}>
-        <span className={`icon linter-icon icon-${this.state.multiLineShow ? 'chevron-down' : 'chevron-right'}`}></span>
+        <span className={`icon linter-icon icon-${this.state.multiLineShow ? 'chevron-down' : 'chevron-right'}`} />
       </a>
       { delegate.showProviderName ? `${message.linterName}: ` : '' }
       { chunks[0] }
       {' '}
-      <a href="#" onClick={() => openExternally(message)}>
-        <span className="icon icon-link linter-icon"></span>
-      </a>
       { this.state.multiLineShow && chunks.slice(1) }
     </linter-message>)
   }
 }
+
+module.exports = MessageElement

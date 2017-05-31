@@ -3,17 +3,30 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
 
+const idleCallbacks = new Set()
+
 const linterUiDefault = {
   instances: new Set(),
   signalRegistry: null,
   statusBarRegistry: null,
   activate() {
-    if (!atom.inSpecMode()) {
-      // eslint-disable-next-line global-require
-      require('atom-package-deps').install('linter-ui-default', true)
+    if (atom.config.get('linter-ui-default.useBusySignal')) {
+      // This is a necessary evil, see steelbrain/linter#1355
+      atom.packages.getLoadedPackage('linter-ui-default').metadata['package-deps'].push('busy-signal')
     }
+
+    const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
+      idleCallbacks.delete(callbackID)
+      if (!atom.inSpecMode()) {
+        // eslint-disable-next-line global-require
+        require('atom-package-deps').install('linter-ui-default')
+      }
+    })
+    idleCallbacks.add(callbackID)
   },
   deactivate() {
+    idleCallbacks.forEach(callbackID => window.cancelIdleCallback(callbackID))
+    idleCallbacks.clear()
     for (const entry of this.instances) {
       entry.dispose()
     }

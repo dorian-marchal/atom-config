@@ -1,9 +1,11 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
-import type { Disposable } from 'sb-event-kit'
+import { CompositeDisposable, Emitter } from 'atom'
+import type { Disposable } from 'atom'
 
-export default class Element {
+import * as Helpers from './helpers'
+
+class Element {
   item: HTMLElement;
   itemErrors: HTMLElement;
   itemWarnings: HTMLElement;
@@ -14,9 +16,9 @@ export default class Element {
 
   constructor() {
     this.item = document.createElement('div')
-    this.itemErrors = document.createElement('span')
-    this.itemWarnings = document.createElement('span')
-    this.itemInfos = document.createElement('span')
+    this.itemErrors = Helpers.getElement('stop')
+    this.itemWarnings = Helpers.getElement('alert')
+    this.itemInfos = Helpers.getElement('info')
 
     this.emitter = new Emitter()
     this.subscriptions = new CompositeDisposable()
@@ -46,32 +48,26 @@ export default class Element {
     }
   }
   update(countErrors: number, countWarnings: number, countInfos: number): void {
-    this.itemErrors.textContent = String(countErrors)
-    this.itemWarnings.textContent = String(countWarnings)
-    this.itemInfos.textContent = String(countInfos)
+    this.itemErrors.childNodes[1].textContent = String(countErrors)
+    this.itemWarnings.childNodes[1].textContent = String(countWarnings)
+    this.itemInfos.childNodes[1].textContent = String(countInfos)
 
     if (countErrors) {
-      this.itemErrors.classList.remove('highlight')
-      this.itemErrors.classList.add('highlight-error')
+      this.itemErrors.classList.add('text-error')
     } else {
-      this.itemErrors.classList.add('highlight')
-      this.itemErrors.classList.remove('highlight-error')
+      this.itemErrors.classList.remove('text-error')
     }
 
     if (countWarnings) {
-      this.itemWarnings.classList.remove('highlight')
-      this.itemWarnings.classList.add('highlight-warning')
+      this.itemWarnings.classList.add('text-warning')
     } else {
-      this.itemWarnings.classList.add('highlight')
-      this.itemWarnings.classList.remove('highlight-warning')
+      this.itemWarnings.classList.remove('text-warning')
     }
 
     if (countInfos) {
-      this.itemInfos.classList.remove('highlight')
-      this.itemInfos.classList.add('highlight-info')
+      this.itemInfos.classList.add('text-info')
     } else {
-      this.itemInfos.classList.add('highlight')
-      this.itemInfos.classList.remove('highlight-info')
+      this.itemInfos.classList.remove('text-info')
     }
   }
   onDidClick(callback: ((type: string) => void)): Disposable {
@@ -81,3 +77,5 @@ export default class Element {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = Element

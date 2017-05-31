@@ -1,8 +1,53 @@
 {
-  "name": "copy-filename",
-  "main": "lib/copy-filename",
-  "version": "1.0.1",
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+        "spec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-117431-17400-xga7xj.i0e5dhd7vi"
+    ]
+  ],
+  "_from": "../d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+  "_id": "copy-filename@1.1.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/copy-filename",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+    "spec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+  "_shasum": "a4e262c6b1ad0e4a2492f9cb8bfb3a986344260c",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
+  "_where": "/tmp/apm-install-dir-117431-17400-xga7xj.i0e5dhd7vi",
+  "bugs": {
+    "url": "https://github.com/mariusrumpf/copy-filename/issues"
+  },
+  "dependencies": {},
   "description": "Add a copy name option to the tree view and a command to copy filename of current file",
+  "devDependencies": {
+    "eslint": "^0.21.2"
+  },
+  "engines": {
+    "atom": ">=1.17.0 <2.0.0"
+  },
+  "homepage": "https://github.com/mariusrumpf/copy-filename",
   "keywords": [
     "copy",
     "filename",
@@ -11,31 +56,21 @@
     "treeview"
   ],
   "license": "MIT",
+  "main": "lib/copy-filename",
+  "name": "copy-filename",
+  "optionalDependencies": {},
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mariusrumpf/copy-filename.git"
-  },
-  "homepage": "https://github.com/mariusrumpf/copy-filename",
-  "bugs": {
-    "url": "https://github.com/mariusrumpf/copy-filename/issues"
-  },
-  "engines": {
-    "atom": ">=0.183.0 <2.0.0"
-  },
-  "scripts": {
-    "test": "npm run lint",
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "eslint": "^0.21.2"
-  },
   "readme": "# Copy filename\n\n> Add a copy name option to the tree view and a command to copy filename of current file\n\n![Demo Animation](https://cloud.githubusercontent.com/assets/2364426/7766926/838267ce-006e-11e5-83bc-2c7df47fb361.gif)\n\n![Screenshot 2](https://cloud.githubusercontent.com/assets/2364426/3539810/9a61c0a4-083d-11e4-9bcf-ebbed164d541.png)\n\n[Atom package](https://atom.io/packages/copy-filename)\n\n## Install\nSettings ➔ Install (Package) ➔ Search for `copy-filename`\n\n_or_\n\n```bash\n$ apm install copy-filename\n```\n\n## Shortcut\n| Keypress  | Command |\n| ------------- | ------------- |\n| ⌥⌃⇧F | Copy filename of current file  |\n\n## License\n\n[MIT](http://opensource.org/licenses/MIT) © [Marius Rumpf](http://mariusrumpf.de)\n",
   "readmeFilename": "README.md",
-  "_id": "copy-filename@1.0.1",
-  "_shasum": "c55e15f45a35a77b3ffde4cd4a0c29927df7d2a2",
-  "_resolved": "file:../d-115422-7589-1efk7k5/package.tgz",
-  "_from": "../d-115422-7589-1efk7k5/package.tgz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariusrumpf/copy-filename.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "version": "1.1.0",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

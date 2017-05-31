@@ -26,6 +26,7 @@ GitDifftool            = require './models/git-difftool'
 GitDifftoolContext     = require './models/context/git-difftool-context'
 GitDiffAll             = require './models/git-diff-all'
 GitFetch               = require './models/git-fetch'
+GitFetchAll            = require './models/git-fetch-all'
 GitFetchPrune          = require './models/git-fetch-prune.coffee'
 GitInit                = require './models/git-init'
 GitLog                 = require './models/git-log'
@@ -60,9 +61,6 @@ currentFile = (repo) ->
   repo.relativize(atom.workspace.getActiveTextEditor()?.getPath())
 
 setDiffGrammar = ->
-  while atom.grammars.grammarForScopeName 'source.diff'
-    atom.grammars.removeGrammarForScopeName 'source.diff'
-
   enableSyntaxHighlighting = atom.config.get('git-plus.diffs.syntaxHighlighting')
   wordDiff = atom.config.get('git-plus.diffs.wordDiff')
   diffGrammar = null
@@ -76,11 +74,9 @@ setDiffGrammar = ->
     baseGrammar = baseLineGrammar
 
   if enableSyntaxHighlighting
+    while atom.grammars.grammarForScopeName 'source.diff'
+      atom.grammars.removeGrammarForScopeName 'source.diff'
     atom.grammars.addGrammar diffGrammar
-  else
-    grammar = atom.grammars.readGrammarSync baseGrammar
-    grammar.packageName = 'git-plus'
-    atom.grammars.addGrammar grammar
 
 getWorkspaceRepos = -> atom.project.getRepositories().filter (r) -> r?
 
@@ -88,6 +84,8 @@ onPathsChanged = (gp) ->
   gp.deactivate?()
   gp.activate?()
   gp.consumeStatusBar?(gp.statusBar) if gp.statusBar
+
+getWorkspaceNode = -> document.querySelector('atom-workspace')
 
 module.exports =
   config: configurations
@@ -134,6 +132,7 @@ module.exports =
       @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:difftool', -> git.getRepo().then((repo) -> GitDifftool(repo, file: currentFile(repo)))
       @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:diff-all', -> git.getRepo().then((repo) -> GitDiffAll(repo))
       @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:fetch', -> git.getRepo().then((repo) -> GitFetch(repo))
+      @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:fetch-all', -> git.getAllRepos().then((repos) -> GitFetchAll(repos))
       @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:fetch-prune', -> git.getRepo().then((repo) -> GitFetchPrune(repo))
       @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:pull', -> git.getRepo().then((repo) -> GitPull(repo))
       @subscriptions.add atom.commands.add 'atom-workspace', 'git-plus:push', -> git.getRepo().then((repo) -> GitPush(repo))
@@ -179,10 +178,18 @@ module.exports =
       @subscriptions.add atom.config.onDidChange 'git-plus.experimental.stageFilesBeta', =>
         @subscriptions.dispose()
         @activate()
+      @subscriptions.add atom.config.observe 'git-plus.experimental.autoFetch', (interval) => @autoFetch(interval)
 
   deactivate: ->
     @subscriptions.dispose()
     @statusBarTile?.destroy()
+    clearInterval @autoFetchInterval
+
+  autoFetch: (interval) ->
+    clearInterval @autoFetchInterval
+    if fetchIntervalMs = (interval * 60) * 1000
+      fetch = => atom.commands.dispatch(getWorkspaceNode(), 'git-plus:fetch-all')
+      @autoFetchInterval = setInterval(fetch, fetchIntervalMs)
 
   consumeAutosave: ({dontSaveIf}) ->
     dontSaveIf (paneItem) -> paneItem.getPath().includes 'COMMIT_EDITMSG'
@@ -206,9 +213,13 @@ module.exports =
     @statusBarTile = statusBar.addRightTile item: div, priority: 0
 
   setupBranchesMenuToggle: (statusBar) ->
-    statusBar.getRightTiles().some ({item}) =>
+    statusBar.getRightTiles().some ({item}) ->
       if item?.classList?.contains? 'git-view'
-        $(item).find('.git-branch').on 'click', ({altKey, shiftKey}) ->
-          unless altKey or shiftKey
-            atom.commands.dispatch(document.querySelector('atom-workspace'), 'git-plus:checkout')
+        $(item).find('.git-branch').on 'click', (e) ->
+          {newBranchKey} = atom.config.get('git-plus.general')
+          pressed = (key) -> e["#{key}Key"]
+          if pressed newBranchKey
+            atom.commands.dispatch(getWorkspaceNode(), 'git-plus:new-branch')
+          else
+            atom.commands.dispatch(getWorkspaceNode(), 'git-plus:checkout')
         return true

@@ -2,9 +2,8 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
-import type { Point, TextEditor } from 'atom'
-import type { Disposable } from 'sb-event-kit'
+import { CompositeDisposable, Emitter } from 'atom'
+import type { Disposable, Point, TextEditor } from 'atom'
 
 import Delegate from './delegate'
 import MessageElement from './message'
@@ -12,7 +11,7 @@ import MessageElementLegacy from './message-legacy'
 import { $range } from '../helpers'
 import type { LinterMessage } from '../types'
 
-export default class TooltipElement {
+class TooltipElement {
   marker: Object;
   element: HTMLElement;
   emitter: Emitter;
@@ -45,8 +44,8 @@ export default class TooltipElement {
       }
       children.push(<MessageElementLegacy key={message.key} delegate={delegate} message={message} />)
       if (message.trace && message.trace.length) {
-        children.push(...message.trace.map((trace, index) =>
-          <MessageElementLegacy key={`${trace.key}:trace:${index}`} delegate={delegate} message={trace} />
+        children.push(...message.trace.map(trace =>
+          <MessageElementLegacy key={`${message.key}:trace:${trace.key}`} delegate={delegate} message={trace} />,
         ))
       }
     })
@@ -64,3 +63,5 @@ export default class TooltipElement {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = TooltipElement

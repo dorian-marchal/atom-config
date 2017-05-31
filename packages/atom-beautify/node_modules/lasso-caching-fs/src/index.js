@@ -83,7 +83,12 @@ function readPackageSync(path) {
     }
 
     if (pkgJSON) {
-        pkg = JSON.parse(pkgJSON);
+        try {
+            pkg = JSON.parse(pkgJSON);
+        } catch(e) {
+            throw new Error('Unable to parse JSON file at path "' + path + '": ' + e);
+        }
+
         pkg.__filename = path;
         pkg.__dirname = nodePath.dirname(path);
     } else {

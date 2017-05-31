@@ -1,28 +1,32 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
+import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
 import { $file, getEditorsMap, filterMessages } from './helpers'
 import type { LinterMessage, MessagesPatch } from './types'
 
-export default class Editors {
-  emitter: Emitter;
+class Editors {
   editors: Set<Editor>;
   messages: Array<LinterMessage>;
   firstRender: bool;
   subscriptions: CompositeDisposable;
 
   constructor() {
-    this.emitter = new Emitter()
     this.editors = new Set()
     this.messages = []
     this.firstRender = true
     this.subscriptions = new CompositeDisposable()
 
-    this.subscriptions.add(this.emitter)
     this.subscriptions.add(atom.workspace.observeTextEditors((textEditor) => {
       this.getEditor(textEditor)
+    }))
+    this.subscriptions.add(atom.workspace.observeActivePaneItem((paneItem) => {
+      this.editors.forEach((editor) => {
+        if (editor.textEditor !== paneItem) {
+          editor.removeTooltip()
+        }
+      })
     }))
   }
   isFirstRender(): boolean {
@@ -82,3 +86,5 @@ export default class Editors {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = Editors

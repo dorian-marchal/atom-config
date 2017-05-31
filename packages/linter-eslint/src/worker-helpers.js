@@ -23,11 +23,21 @@ export function getNodePrefixPath() {
         }).output[1].toString().trim()
     } catch (e) {
       throw new Error(
-        'Unable to execute `npm get prefix`. Please make sure Atom is getting $PATH correctly'
+        'Unable to execute `npm get prefix`. Please make sure Atom is getting $PATH correctly.'
       )
     }
   }
   return Cache.NODE_PREFIX_PATH
+}
+
+function isDirectory(dirPath) {
+  let isDir
+  try {
+    isDir = fs.statSync(dirPath).isDirectory()
+  } catch (e) {
+    isDir = false
+  }
+  return isDir
 }
 
 export function findESLintDirectory(modulesDir, config, projectPath) {
@@ -36,9 +46,10 @@ export function findESLintDirectory(modulesDir, config, projectPath) {
   if (config.useGlobalEslint) {
     locationType = 'global'
     const prefixPath = config.globalNodePath || getNodePrefixPath()
-    if (process.platform === 'win32') {
-      eslintDir = Path.join(prefixPath, 'node_modules', 'eslint')
-    } else {
+    // NPM on Windows and Yarn on all platforms
+    eslintDir = Path.join(prefixPath, 'node_modules', 'eslint')
+    if (!isDirectory(eslintDir)) {
+      // NPM on platforms other than Windows
       eslintDir = Path.join(prefixPath, 'lib', 'node_modules', 'eslint')
     }
   } else if (!config.advancedLocalNodeModules) {
@@ -51,19 +62,13 @@ export function findESLintDirectory(modulesDir, config, projectPath) {
     locationType = 'advanced specified'
     eslintDir = Path.join(projectPath, config.advancedLocalNodeModules, 'eslint')
   }
-  try {
-    if (fs.statSync(eslintDir).isDirectory()) {
-      return {
-        path: eslintDir,
-        type: locationType,
-      }
+  if (isDirectory(eslintDir)) {
+    return {
+      path: eslintDir,
+      type: locationType,
     }
-  } catch (e) {
-    if (config.useGlobalEslint && e.code === 'ENOENT') {
-      throw new Error(
-          'ESLint not found, Please install or make sure Atom is getting $PATH correctly'
-        )
-    }
+  } else if (config.useGlobalEslint) {
+    throw new Error('ESLint not found, please ensure the global Node path is set correctly.')
   }
   return {
     path: Cache.ESLINT_LOCAL_PATH,
@@ -75,15 +80,13 @@ export function getESLintFromDirectory(modulesDir, config, projectPath) {
   const { path: ESLintDirectory } = findESLintDirectory(modulesDir, config, projectPath)
   try {
     // eslint-disable-next-line import/no-dynamic-require
-    return require(Path.join(ESLintDirectory, 'lib', 'cli.js'))
+    return require(ESLintDirectory)
   } catch (e) {
     if (config.useGlobalEslint && e.code === 'MODULE_NOT_FOUND') {
-      throw new Error(
-        'ESLint not found, Please install or make sure Atom is getting $PATH correctly'
-      )
+      throw new Error('ESLint not found, try restarting Atom to clear caches.')
     }
     // eslint-disable-next-line import/no-dynamic-require
-    return require(Path.join(Cache.ESLINT_LOCAL_PATH, 'lib', 'cli.js'))
+    return require(Cache.ESLINT_LOCAL_PATH)
   }
 }
 
@@ -135,24 +138,17 @@ export function getRelativePath(fileDir, filePath, config) {
   return Path.basename(filePath)
 }
 
-export function getArgv(type, config, rules, filePath, fileDir, givenConfigPath) {
-  let configPath
-  if (givenConfigPath === null) {
-    configPath = config.eslintrcPath || null
-  } else configPath = givenConfigPath
-
-  const argv = [
-    process.execPath,
-    'a-b-c' // dummy value for eslint executable
-  ]
-  if (type === 'lint') {
-    argv.push('--stdin')
+export function getCLIEngineOptions(type, config, rules, filePath, fileDir, givenConfigPath) {
+  const cliEngineConfig = {
+    rules,
+    ignore: !config.disableEslintIgnore,
+    warnIgnored: false,
+    fix: type === 'fix'
   }
-  argv.push('--format', Path.join(__dirname, 'reporter.js'))
 
   const ignoreFile = config.disableEslintIgnore ? null : findCached(fileDir, '.eslintignore')
   if (ignoreFile) {
-    argv.push('--ignore-path', ignoreFile)
+    cliEngineConfig.ignorePath = ignoreFile
   }
 
   if (config.eslintRulesDir) {
@@ -161,24 +157,14 @@ export function getArgv(type, config, rules, filePath, fileDir, givenConfigPath)
       rulesDir = findCached(fileDir, rulesDir)
     }
     if (rulesDir) {
-      argv.push('--rulesdir', rulesDir)
+      cliEngineConfig.rulePaths = [rulesDir]
     }
   }
-  if (configPath) {
-    argv.push('--config', resolveEnv(configPath))
-  }
-  if (rules && Object.keys(rules).length > 0) {
-    argv.push('--rule', JSON.stringify(rules))
-  }
-  if (config.disableEslintIgnore) {
-    argv.push('--no-ignore')
-  }
-  if (type === 'lint') {
-    argv.push('--stdin-filename', filePath)
-  } else if (type === 'fix') {
-    argv.push(filePath)
-    argv.push('--fix')
+
+  if (givenConfigPath === null && config.eslintrcPath) {
+    // If we didn't find a configuration use the fallback from the settings
+    cliEngineConfig.configFile = resolveEnv(config.eslintrcPath)
   }
 
-  return argv
+  return cliEngineConfig
 }

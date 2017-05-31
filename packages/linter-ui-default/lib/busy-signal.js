@@ -1,19 +1,24 @@
 /* @flow */
 
-import { CompositeDisposable } from 'sb-event-kit'
+import { CompositeDisposable } from 'atom'
 import type { Linter } from './types'
 
-export default class BusySignal {
+class BusySignal {
   provider: ?Object;
   executing: Set<{
     linter: Linter,
     filePath: ?string,
   }>;
+  useBusySignal: boolean;
   subscriptions: CompositeDisposable;
 
   constructor() {
     this.executing = new Set()
     this.subscriptions = new CompositeDisposable()
+
+    this.subscriptions.add(atom.config.observe('linter-ui-default.useBusySignal', (useBusySignal) => {
+      this.useBusySignal = useBusySignal
+    }))
   }
   attach(registry: Object) {
     this.provider = registry.create()
@@ -21,10 +26,9 @@ export default class BusySignal {
   }
   update() {
     const provider = this.provider
-    if (!provider) {
-      return
-    }
+    if (!provider) return
     provider.clear()
+    if (!this.useBusySignal) return
     const fileMap: Map<?string, Array<string>> = new Map()
 
     for (const { filePath, linter } of this.executing) {
@@ -71,3 +75,5 @@ export default class BusySignal {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = BusySignal

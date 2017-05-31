@@ -2,37 +2,32 @@
 
 import React from 'react'
 import ReactTable from 'sb-react-table'
-import ResizableBox from 'react-resizable-box'
 import { $range, severityNames, sortMessages, visitMessage, openExternally, getPathOfMessage } from '../helpers'
 import type Delegate from './delegate'
 import type { LinterMessage } from '../types'
 
-export default class PanelComponent extends React.Component {
+class PanelComponent extends React.Component {
   props: {
     delegate: Delegate,
   };
   state: {
     messages: Array<LinterMessage>,
-    visibility: boolean,
-    tempHeight: ?number,
-  } = {
-    messages: [],
-    visibility: false,
-    tempHeight: null,
   };
+  constructor(props: Object, context: ?Object) {
+    super(props, context)
+    this.state = {
+      messages: this.props.delegate.filteredMessages,
+    }
+  }
   componentDidMount() {
     this.props.delegate.onDidChangeMessages((messages) => {
       this.setState({ messages })
     })
-    this.props.delegate.onDidChangeVisibility((visibility) => {
-      this.setState({ visibility })
-    })
-    this.props.delegate.onDidChangePanelConfig(() => {
-      this.setState({ tempHeight: null })
-    })
-    this.setState({ messages: this.props.delegate.filteredMessages, visibility: this.props.delegate.visibility })
   }
   onClick = (e: MouseEvent, row: LinterMessage) => {
+    if (e.target.tagName === 'A') {
+      return
+    }
     if (process.platform === 'darwin' ? e.metaKey : e.ctrlKey) {
       if (e.shiftKey) {
         openExternally(row)
@@ -43,55 +38,37 @@ export default class PanelComponent extends React.Component {
       visitMessage(row)
     }
   }
-  onResize = (direction: 'top', size: { width: number, height: number }) => {
-    this.setState({ tempHeight: size.height })
-  }
-  onResizeStop = (direction: 'top', size: { width: number, height: number }) => {
-    this.props.delegate.updatePanelHeight(size.height)
-  }
   render() {
     const { delegate } = this.props
     const columns = [
       { key: 'severity', label: 'Severity', sortable: true },
       { key: 'linterName', label: 'Provider', sortable: true },
-      { key: 'excerpt', label: 'Description' },
+      { key: 'excerpt', label: 'Description', onClick: this.onClick },
       { key: 'line', label: 'Line', sortable: true, onClick: this.onClick },
     ]
     if (delegate.panelRepresents === 'Entire Project') {
       columns.push({ key: 'file', label: 'File', sortable: true, onClick: this.onClick })
     }
 
-    let height
-    const customStyle: Object = { overflowY: 'scroll' }
-    if (this.state.tempHeight) {
-      height = this.state.tempHeight
-    } else if (delegate.panelTakesMinimumHeight) {
-      height = 'auto'
-      customStyle.maxHeight = delegate.panelHeight
-    } else {
-      height = delegate.panelHeight
-    }
-    delegate.setPanelVisibility(this.state.visibility && (!delegate.panelTakesMinimumHeight || !!this.state.messages.length))
+    const customStyle: Object = { overflowY: 'scroll', height: '100%' }
 
     return (
-      <ResizableBox isResizable={{ top: true }} onResize={this.onResize} onResizeStop={this.onResizeStop} height={height} width="auto" customStyle={customStyle}>
-        <div id="linter-panel" tabIndex="-1">
-          <ReactTable
-            rows={this.state.messages}
-            columns={columns}
+      <div id="linter-panel" tabIndex="-1" style={customStyle}>
+        <ReactTable
+          rows={this.state.messages}
+          columns={columns}
 
-            initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }]}
-            sort={sortMessages}
-            rowKey={i => i.key}
+          initialSort={[{ column: 'severity', type: 'desc' }, { column: 'file', type: 'asc' }, { column: 'line', type: 'asc' }]}
+          sort={sortMessages}
+          rowKey={i => i.key}
 
-            renderHeaderColumn={i => i.label}
-            renderBodyColumn={PanelComponent.renderRowColumn}
+          renderHeaderColumn={i => i.label}
+          renderBodyColumn={PanelComponent.renderRowColumn}
 
-            style={{ width: '100%' }}
-            className='linter'
-          />
-        </div>
-      </ResizableBox>
+          style={{ width: '100%' }}
+          className="linter"
+        />
+      </div>
     )
   }
   static renderRowColumn(row: LinterMessage, column: string): string | Object {
@@ -117,3 +94,5 @@ export default class PanelComponent extends React.Component {
     }
   }
 }
+
+module.exports = PanelComponent

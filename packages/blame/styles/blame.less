@@ -5,9 +5,7 @@
 @import "ui-variables";
 @import "octicon-mixins";
 
-// TODO remove `::shadow` when  Atom 1.3 is stable
-atom-text-editor,
-atom-text-editor::shadow {
+atom-text-editor {
   .gutter[gutter-name="blame"] {
     border-right: 1px solid @base-border-color;
   }
@@ -25,6 +23,8 @@ atom-text-editor::shadow {
       overflow-x: hidden;
       width: 100%;
       text-align: left;
+      
+      transition: 0.3s background;
 
       &.blame-odd {
        background-color: rgba(255, 255, 255, 0.02)
@@ -39,6 +39,10 @@ atom-text-editor::shadow {
         .icon {
           display: block;
         }
+      }
+      
+      &.hihlight {
+        background-color: rgba(128, 128, 128, 0.15);
       }
 
       .blame-gutter-handle {

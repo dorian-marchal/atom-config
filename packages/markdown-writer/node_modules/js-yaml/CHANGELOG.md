@@ -1,3 +1,15 @@
+3.8.4 / 2017-05-08
+------------------
+
+- Dumper: prevent space after dash for arrays that wrap, #343.
+
+
+3.8.3 / 2017-04-05
+------------------
+
+- Should not allow numbers to begin and end with underscore, #335.
+
+
 3.8.2 / 2017-03-02
 ------------------
 

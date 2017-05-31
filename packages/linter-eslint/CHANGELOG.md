@@ -1,5 +1,39 @@
 # Changelog
 
+## v8.2.1
+
+*   Prevent users `.babelrc` from breaking building the package ([#922](https://github.com/AtomLinter/linter-eslint/pull/922))
+
+## v8.2.0
+
+*   Linter API v2 ([#855](https://github.com/AtomLinter/linter-eslint/pull/855))
+*   Support global Yarn installs and better errors ([#907](https://github.com/AtomLinter/linter-eslint/pull/907))
+*   Preserve `.eslintcache` on fixes ([#898](https://github.com/AtomLinter/linter-eslint/pull/898))
+*   Handle parse errors better ([#911](https://github.com/AtomLinter/linter-eslint/pull/911))
+*   Move to the Task API ([#889](https://github.com/AtomLinter/linter-eslint/pull/889))
+*   Use Atom's per-package transpilation ([#890](https://github.com/AtomLinter/linter-eslint/pull/890))
+*   Wait on specific Notifications in the specs ([#902](https://github.com/AtomLinter/linter-eslint/pull/902))
+*   Fix builds of Atom beta ([#913](https://github.com/AtomLinter/linter-eslint/pull/913))
+*   Fix embedded HTML scope with custom scopes ([#914](https://github.com/AtomLinter/linter-eslint/pull/914))
+*   Utilize `warnIgnored` instead of filtering messages ([#915](https://github.com/AtomLinter/linter-eslint/pull/915))
+*   Remove attempt to reset cursor position ([#876](https://github.com/AtomLinter/linter-eslint/pull/876))
+*   Add specs for `showRuleIdInMessage` ([#916](https://github.com/AtomLinter/linter-eslint/pull/916))
+
+## v8.1.7
+
+*   Let ESLint handle configuration where possible ([#896](https://github.com/AtomLinter/linter-eslint/pull/896))
+
+## v8.1.6
+
+*   Reduce package activation time ([#875](https://github.com/AtomLinter/linter-eslint/pull/875))
+*   Async-ify the specs ([#878](https://github.com/AtomLinter/linter-eslint/pull/878))
+*   Cancel pending idle callbacks on deactivate ([#880](https://github.com/AtomLinter/linter-eslint/pull/880))
+
+## v8.1.5
+
+*   Move to the `CLIEngine` API ([#873](https://github.com/AtomLinter/linter-eslint/pull/873))
+*   Attempt to restore cursor position after fixing ([#853](https://github.com/AtomLinter/linter-eslint/pull/853))
+
 ## v8.1.4
 
 *   Improve package.json eslintConfig support ([#848](https://github.com/AtomLinter/linter-eslint/pull/848))

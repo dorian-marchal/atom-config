@@ -32,6 +32,7 @@ module.exports = class Languages
     "gherkin"
     "glsl"
     "go"
+    "gohtml"
     "fortran"
     "handlebars"
     "haskell"
@@ -47,6 +48,7 @@ module.exports = class Languages
     "markdown"
     'marko'
     "mustache"
+    "nginx"
     "nunjucks"
     "objective-c"
     "ocaml"
@@ -74,6 +76,7 @@ module.exports = class Languages
     "visualforce"
     "xml"
     "xtemplate"
+    "yaml"
   ]
 
   ###

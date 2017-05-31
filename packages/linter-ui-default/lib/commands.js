@@ -1,21 +1,18 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
+import { CompositeDisposable } from 'atom'
 
 import { $file, $range, visitMessage, sortMessages, sortSolutions, filterMessages, applySolution } from './helpers'
 import type { LinterMessage } from './types'
 
-export default class Commands {
-  emitter: Emitter;
+class Commands {
   messages: Array<LinterMessage>;
   subscriptions: CompositeDisposable;
 
   constructor() {
-    this.emitter = new Emitter()
     this.messages = []
     this.subscriptions = new CompositeDisposable()
 
-    this.subscriptions.add(this.emitter)
     this.subscriptions.add(atom.commands.add('atom-workspace', {
       'linter-ui-default:next': () => this.move(true, true),
       'linter-ui-default:previous': () => this.move(false, true),
@@ -129,3 +126,5 @@ export default class Commands {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = Commands

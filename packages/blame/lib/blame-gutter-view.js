@@ -8,6 +8,7 @@ import blame from './utils/blame'
 import getCommit from './utils/get-commit'
 import getCommitLink from './utils/get-commit-link'
 import throttle from './utils/throttle'
+import Rainbow from 'color-rainbow'
 
 class BlameGutterView {
 
@@ -73,19 +74,36 @@ class BlameGutterView {
 
       this.removeAllMarkers()
 
-      var lastHash = null
-      var commitCount = 0
+      let lastHash = null
+      let commitCount = 0
 
       if (!result) { return }
+      
+      const hashes = Object.keys(result)
+        .reduce((hashes, key) => {
+          const line = result[key]
+          const hash = line.rev.replace(/\s.*/, '')
+
+          if (hashes.indexOf(hash) === -1) {
+            hashes.push(hash)
+          }
+          return hashes
+        }, [])
+      
+      const rainbow = new Rainbow(hashes.length)
+      const hashColors = hashes.reduce((colors, hash) => {
+        colors[hash] = `rgba(${rainbow.next().values.rgb.join(',')}, 0.4)`
+        return colors
+      }, {})
 
       Object.keys(result).forEach(key => {
         const line = result[key]
 
-        var lineStr
-        var hash = line.rev.replace(/\s.*/, '')
+        let lineStr, rowCls
+        const hash = line.rev.replace(/\s.*/, '')
 
         if (lastHash !== hash) {
-          lineStr = this.formatTooltip(hash, line)
+          lineStr = this.formatTooltip(hash, line, hashColors[hash])
           rowCls = `blame-${(commitCount++ % 2 === 0) ? 'even' : 'odd'}`
         } else {
           lineStr= ''
@@ -93,19 +111,20 @@ class BlameGutterView {
 
         lastHash = hash
 
-        this.addMarker(Number(key) - 1, hash, rowCls, lineStr)
+        this.addMarker(Number(key) - 1, hash, rowCls, lineStr, hashColors[hash])
       })
     })
   }
 
-  formatTooltip(hash, line) {
-    var dateFormat = atom.config.get('blame.dateFormat')
-    var dateStr = moment(line.date, 'YYYY-MM-DD HH:mm:ss')
+  formatTooltip(hash, line, color) {
+    const dateFormat = atom.config.get('blame.dateFormat')
+    const dateStr = moment(line.date, 'YYYY-MM-DD HH:mm:ss')
       .format(dateFormat)
 
     if (this.isCommited(hash)) {
       return atom.config.get('blame.gutterFormat')
-        .replace('{hash}', `<span class="hash">${hash}</span>`)
+        .replace('{hash}', `<span class="hash">${hash.substr(0, 8)}</span>`)
+        .replace('{long-hash}', `<span class="hash">${hash}</span>`)
         .replace('{date}', `<span class="date">${dateStr}</span>`)
         .replace('{author}', `<span class="author">${line.author}</span>`)
     }
@@ -128,17 +147,18 @@ class BlameGutterView {
 
   formateDate(date) {
     date = new Date(date)
-    yyyy = date.getFullYear()
-    mm = date.getMonth() + 1
+    const yyyy = date.getFullYear()
+    let mm = date.getMonth() + 1
     if (mm < 10) { mm = `0${mm}` }
-    dd = date.getDate()
+
+    let dd = date.getDate()
     if (dd < 10) { dd = `0${dd}` }
 
     return `${yyyy}-${mm}-${dd}`
   }
 
-  addMarker(lineNo, hash, rowCls, lineStr) {
-    item = this.markerInnerDiv(rowCls)
+  addMarker(lineNo, hash, rowCls, lineStr, color) {
+    const item = this.markerInnerDiv(rowCls, hash, color)
 
     // no need to create objects and events on blank lines
     if (lineStr.length > 0) {
@@ -155,7 +175,7 @@ class BlameGutterView {
 
     item.appendChild(this.resizeHandleDiv())
 
-    marker = this.editor.markBufferRange([[lineNo, 0], [lineNo, 0]])
+    const marker = this.editor.markBufferRange([[lineNo, 0], [lineNo, 0]])
     this.editor.decorateMarker(marker, {
       type: 'gutter',
       gutterName: 'blame',
@@ -165,22 +185,39 @@ class BlameGutterView {
     this.markers.push(marker)
   }
 
-  markerInnerDiv(rowCls) {
-    item = document.createElement('div')
+  markerInnerDiv(rowCls, hash, color) {
+    const item = document.createElement('div')
+    item.style.borderLeft = `6px solid ${color}`
     item.classList.add('blame-gutter-inner')
-    item.classList.add(rowCls)
+    if (rowCls) { item.classList.add(rowCls) }
+    
+    item.dataset.hash = hash
+    
+    item.addEventListener('mouseover', () => this.hilight(hash))
+    item.addEventListener('mouseout', () => this.hilight())
+    
     return item
+  }
+  
+  hilight(hash = null) {
+    [...document.getElementsByClassName('blame-gutter-inner')].forEach((item) => {
+      if (item.dataset.hash === hash) {
+        item.classList.add('hihlight')
+      } else {
+        item.classList.remove('hihlight')
+      }
+    })
   }
 
   resizeHandleDiv() {
-    resizeHandle = document.createElement('div')
+    const resizeHandle = document.createElement('div')
     resizeHandle.addEventListener('mousedown', this.resizeStarted.bind(this))
     resizeHandle.classList.add('blame-gutter-handle')
     return resizeHandle
   }
 
   lineSpan(str, hash) {
-    span = document.createElement('span')
+    const span = document.createElement('span')
     span.innerHTML = str
     return span
   }
@@ -198,7 +235,7 @@ class BlameGutterView {
   }
 
   iconSpan(hash, key, listener) {
-    span = document.createElement('span')
+    const span = document.createElement('span')
     span.setAttribute('data-hash', hash)
     span.classList.add('icon')
     span.classList.add(`icon-${key}`)
@@ -250,7 +287,7 @@ class BlameGutterView {
   }
 
   gutterStyle() {
-    sheet = document.createElement('style')
+    const sheet = document.createElement('style')
     sheet.type = 'text/css'
     sheet.id = 'blame-gutter-style'
     return sheet
@@ -259,16 +296,14 @@ class BlameGutterView {
   setGutterWidth(width) {
     this.state.width = Math.max(50, Math.min(width, 500))
 
-    sheet = document.getElementById('blame-gutter-style')
+    let sheet = document.getElementById('blame-gutter-style')
     if (!sheet) {
       sheet = this.gutterStyle()
       document.head.appendChild(sheet)
     }
 
-    // TODO remove `::shadow` when  Atom 1.3 is stable
     sheet.innerHTML = `
-      atom-text-editor .gutter[gutter-name="blame"],
-      atom-text-editor::shadow .gutter[gutter-name="blame"] {
+      atom-text-editor .gutter[gutter-name="blame"] {
         width: ${this.state.width}px
       }
     `
@@ -288,7 +323,7 @@ class BlameGutterView {
           return
         }
 
-        avatar = gravatar.url(msg.email, { s: 80 })
+        const avatar = gravatar.url(msg.email, { s: 80 })
         this.disposables.add(atom.tooltips.add(item, {
           title: `
             <div class="blame-tooltip">

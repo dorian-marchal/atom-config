@@ -133,9 +133,9 @@ buildOptionsForBeautifiers = function(beautifiers, allLanguages) {
     return _.reduce(languageOptions, (function(result, optionDef, optionName) {
       optionDef.beautifiers = _.uniq(optionDef.beautifiers)
       if (optionDef.beautifiers.length > 0) {
-        optionDef.description = optionDef.description + " (Supported by " + (optionDef.beautifiers.join(', ')) + ")";
+        optionDef.description = (optionDef.description || "") + " (Supported by " + (optionDef.beautifiers.join(', ')) + ")";
       } else {
-        optionDef.description = optionDef.description + " (Not supported by any beautifiers)";
+        optionDef.description = (optionDef.description || "") + " (Not supported by any beautifiers)";
       }
       if (result[optionName] != null) {
         logger.warn("Duplicate option detected: ", optionName, optionDef);
@@ -185,6 +185,7 @@ buildOptionsForBeautifiers = function(beautifiers, allLanguages) {
         type: 'object',
         description: "Options for language " + lang.name,
         collapsed: true,
+        scope: lang.scope,
         beautifiers: [],
         grammars: lang.grammars,
         extensions: lang.extensions,
@@ -215,7 +216,7 @@ buildOptionsForBeautifiers = function(beautifiers, allLanguages) {
     if (_.isArray(objValue)) {
       return _.uniq(objValue.concat(srcValue));
     }
-  } 
+  }
   for (j = 0, len1 = allLanguages.length; j < len1; j++) {
     lang = allLanguages[j];
     namespaceDest = lang.namespace;
@@ -321,7 +322,7 @@ buildOptionsForBeautifiers = function(beautifiers, allLanguages) {
       optionDef = ref16[o];
       optionDef.beautifiers = _.uniq(optionDef.beautifiers)
       if (optionDef.beautifiers.length > 0) {
-        optionDef.description = optionDef.description + " (Supported by " + (optionDef.beautifiers.join(', ')) + ")";
+        optionDef.description = (optionDef.description || "") + " (Supported by " + (optionDef.beautifiers.join(', ')) + ")";
       } else {
         unsupportedOptions.push(g + ".properties." + o);
       }

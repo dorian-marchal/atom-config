@@ -1,17 +1,38 @@
 @import "ui-variables";
 
+.wavy_border(@color) {
+  background-image:
+    linear-gradient(45deg, transparent 65%, @color 80%, transparent 90%),
+    linear-gradient(135deg, transparent 5%, @color 15%, transparent 25%),
+    linear-gradient(135deg, transparent 45%, @color 55%, transparent 65%),
+    linear-gradient(45deg, transparent 25%, @color 35%, transparent 50%);
+  background-size: 8px 2px;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+}
+
 #linter-tooltip {
   margin-top: 3px;
 
   .message-with-severity(@color) {
-    color: contrast(@color);
-    background-color: @color;
+    color: @text-color;
+    background-color: @inset-panel-background-color;
+
+    border-left: 8px solid @color;
+    border-right: 1px solid fade(contrast(@inset-panel-background-color), 5%);
+    &:first-child {
+      border-top: 1px solid fade(contrast(@inset-panel-background-color), 5%);
+    }
+    &:last-child {
+      border-bottom: 1px solid fade(contrast(@inset-panel-background-color), 5%);
+    }
+
     &:last-child::before {
       border-color: transparent transparent @color @color;
     }
 
     a {
-      color: contrast(@color);
+      color: @text-color;
     }
   }
 
@@ -74,7 +95,7 @@ atom-text-editor.editor .linter-row {
 atom-text-editor.editor .linter-highlight, .linter-highlight {
   .error_type(@color, @priority) {
     .region {
-      border-bottom: 1px dotted @color;
+      .wavy_border(@color);
     }
     &.linter-gutter {
       color: @color;
@@ -101,7 +122,7 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
     width: calc(~"100% - 1.8rem");
     height: 100%;
     position: absolute;
-    border-bottom: 1px dotted @color;
+    .wavy_border(@color);
   }
   .linter-info {
     .error_type(@background-color-info);
@@ -119,8 +140,12 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
 }
 
 .linter-status-count {
-  span {
-    padding: 4px 6px;
+  a {
+    padding: 2px;
+  }
+  span.icon::before {
+    font-size: 12px;
+    vertical-align: middle;
   }
   &.hide-config, &.hide-pane {
     display: none;
@@ -129,4 +154,8 @@ atom-text-editor.editor .linter-highlight, .linter-highlight {
 .linter-cursor-line {
   width: 100%;
   padding-left: 0;
+}
+
+linter-decoration {
+  pointer-events: none;
 }

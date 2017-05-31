@@ -32,15 +32,27 @@ DocsParser.prototype.get_name_override = function(){
     return this.name_override;
 };
 
+DocsParser.prototype.format_class = function(name) {
+    var out = [];
+    var temp = util.format('${1:[%s description]}', escape(name));
+    out.push(temp);
+    return out;
+};
+
 DocsParser.prototype.parse = function(line) {
     if(this.editor_settings.simple_mode === true) {
         return null;
     }
-    var out = this.parse_function(line);  // (name, args, retval, options)
+    var out;
+    out = this.parse_class && this.parse_class(line);  // (name)
+    if (out) {
+        return this.format_class.apply(this, out);
+    }
+    out = this.parse_function(line);  // (name, args, retval, options)
     if (out) {
         return this.format_function.apply(this, out);
     }
-    out = this.parse_var(line);
+    out = this.parse_var(line);  // (name, val, valType)
     if (out) {
         return this.format_var.apply(this, out);
     }
@@ -146,6 +158,10 @@ DocsParser.prototype.format_function = function(name, args, retval, options) {
             }
             out.push(util.format(format_str, type_info, escape(arg_name)));
         }
+    }
+
+    if(options.hasOwnProperty('is_constructor') && options.is_constructor) {
+        out.push('@constructor');
     }
 
     // return value type might be already available in some languages but

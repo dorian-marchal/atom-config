@@ -82,12 +82,6 @@ Handlebars.registerHelper('example-config', (key, option, options) ->
 
 Handlebars.registerHelper('language-beautifiers-support', (languageOptions, options) ->
 
-  ###
-  | Language | Supported Beautifiers |
-  | --- | ---- |
-  | JavaScript | Js-Beautify, Pretty Diff |
-  ###
-
   rows = _.map(languageOptions, (val, k) ->
     name = val.title
     defaultBeautifier = _.get(val, "properties.default_beautifier.default")
@@ -150,6 +144,31 @@ Handlebars.registerHelper('language-options-support', (languageOptions, options)
   return new Handlebars.SafeString(results)
 )
 
+
+Handlebars.registerHelper('beautifiers-info', (beautifiers, options) ->
+
+  ###
+  | Beautifier | Is Pre-Installed? | Installation Instructions |
+  | --- | ---- |
+  | Pretty Diff | :white_check_mark: | N/A |
+  | AutoPEP8 | :x: | LINK |
+  ###
+
+  rows = _.map(beautifiers, (beautifier, k) ->
+    name = beautifier.name
+    isPreInstalled = beautifier.isPreInstalled
+    link = beautifier.link
+    installationInstructions = if isPreInstalled then "Nothing!" else "Go to #{link} and follow the instructions."
+    return "| #{name} | #{if isPreInstalled then ':white_check_mark:' else ':x:'} | #{installationInstructions} |"
+  )
+  results = """
+  | Beautifier | Is Pre-Installed? | Installation Instructions |
+  | --- | --- | --- |
+  #{rows.join('\n')}
+  """
+  return new Handlebars.SafeString(results)
+)
+
 sortKeysBy = (obj, comparator) ->
   keys = _.sortBy(_.keys(obj), (key) ->
     return if comparator then comparator(obj[key], key) else key
@@ -176,6 +195,7 @@ context = {
   packageOptions: sortSettings(packageOptions)
   languageOptions: sortSettings(languageOptions)
   beautifierOptions: sortSettings(beautifierOptions)
+  beautifiers: _.sortBy(beautifier.beautifiers, (beautifier) -> beautifier.name.toLowerCase())
 }
 result = template(context)
 readmeResult = readmeTemplate(context)
@@ -187,12 +207,17 @@ fs.writeFileSync(readmePath, readmeResult)
 
 console.log('Updating package.json')
 # Add Language keywords
-ls = _.map(Object.keys(languagesMap), (a)->a.toLowerCase())
+languageNames = _.map(Object.keys(languagesMap), (a)->a.toLowerCase())
 
 # Add Beautifier keywords
-bs = _.map(Object.keys(beautifiersMap), (a)->a.toLowerCase())
-keywords = _.union(pkg.keywords, ls, bs)
+beautifierNames = _.map(Object.keys(beautifiersMap), (a)->a.toLowerCase())
+keywords = _.union(pkg.keywords, languageNames, beautifierNames)
 pkg.keywords = keywords
+
+# Add Language-specific beautify commands
+beautifyLanguageCommands = _.map(languageNames, (languageName) -> "atom-beautify:beautify-language-#{languageName}")
+pkg.activationCommands["atom-workspace"] = _.union(pkg.activationCommands["atom-workspace"], beautifyLanguageCommands)
+
 fs.writeFileSync(path.resolve(__dirname,'../package.json'), JSON.stringify(pkg, undefined, 2))
 
 console.log('Done.')

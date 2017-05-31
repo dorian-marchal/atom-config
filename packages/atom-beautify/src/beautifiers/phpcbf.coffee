@@ -8,18 +8,21 @@ Beautifier = require('./beautifier')
 module.exports = class PHPCBF extends Beautifier
   name: "PHPCBF"
   link: "http://php.net/manual/en/install.php"
+  isPreInstalled: false
 
   options: {
-    _:
-      standard: ["standard", (standard) ->
-        if (standard) then \
-          standard else "PEAR"
-      ]
-    PHP: true
+    PHP:
+      phpcbf_path: true
+      phpcbf_version: true
+      standard: true
   }
 
   beautify: (text, language, options) ->
     @debug('phpcbf', options)
+    standardFiles = ['phpcs.xml', 'phpcs.xml.dist', 'phpcs.ruleset.xml', 'ruleset.xml']
+    standardFile = @findFile(atom.project.getPaths()[0], standardFiles)
+
+    options.standard = standardFile if standardFile
 
     isWin = @isWindows
     if isWin
@@ -45,9 +48,9 @@ module.exports = class PHPCBF extends Beautifier
 
           @run(exec, [
             phpcbfPath unless isExec
-            "--no-patch"
+            "--no-patch" unless options.phpcbf_version is 3
             "--standard=#{options.standard}" if options.standard
-            tempFile = @tempFile("temp", text)
+            tempFile = @tempFile("temp", text, ".php")
             ], {
               ignoreReturnCode: true
               help: {
@@ -73,7 +76,7 @@ module.exports = class PHPCBF extends Beautifier
       )
     else
       @run("phpcbf", [
-        "--no-patch"
+        "--no-patch" unless options.phpcbf_version is 3
         "--standard=#{options.standard}" if options.standard
         tempFile = @tempFile("temp", text)
         ], {

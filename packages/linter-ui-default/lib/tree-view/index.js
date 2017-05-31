@@ -1,12 +1,12 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
+import { CompositeDisposable, Emitter } from 'atom'
 import debounce from 'sb-debounce'
 import disposableEvent from 'disposable-event'
 import { calculateDecorations } from './helpers'
 import type { LinterMessage, TreeViewHighlight } from '../types'
 
-export default class TreeView {
+class TreeView {
   emitter: Emitter;
   messages: Array<LinterMessage>;
   decorations: Object;
@@ -35,21 +35,20 @@ export default class TreeView {
 
     setTimeout(() => {
       const element = TreeView.getElement()
-      if (this.subscriptions.disposed || !element) {
+      if (!element) {
         return
       }
+      // Subscription is only added if the CompositeDisposable hasn't been disposed
       this.subscriptions.add(disposableEvent(element, 'click', debounce(() => {
         this.update()
       })))
     }, 100)
   }
   update(givenMessages: ?Array<LinterMessage> = null) {
-    let messages
     if (Array.isArray(givenMessages)) {
-      messages = this.messages = givenMessages
-    } else {
-      messages = this.messages
+      this.messages = givenMessages
     }
+    const messages = this.messages
 
     const element = TreeView.getElement()
     const decorateOnTreeView = this.decorateOnTreeView
@@ -128,3 +127,5 @@ export default class TreeView {
     return parent.querySelector(`[data-path=${CSS.escape(filePath)}]`)
   }
 }
+
+module.exports = TreeView

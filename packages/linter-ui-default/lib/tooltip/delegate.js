@@ -1,9 +1,9 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
-import type { Disposable } from 'sb-event-kit'
+import { CompositeDisposable, Emitter } from 'atom'
+import type { Disposable } from 'atom'
 
-export default class TooltipDelegate {
+class TooltipDelegate {
   emitter: Emitter;
   expanded: boolean;
   subscriptions: CompositeDisposable;
@@ -32,7 +32,9 @@ export default class TooltipDelegate {
 
         // If bound to a key, collapse when that key is released, just like old times
         if (event.originalEvent && event.originalEvent.isTrusted) {
+          // $FlowIgnore: document.body is never null
           document.body.addEventListener('keyup', function eventListener() {
+            // $FlowIgnore: document.body is never null
             document.body.removeEventListener('keyup', eventListener)
             atom.commands.dispatch(atom.views.getView(atom.workspace), 'linter-ui-default:collapse-tooltip')
           })
@@ -57,3 +59,5 @@ export default class TooltipDelegate {
     this.emitter.dispose()
   }
 }
+
+module.exports = TooltipDelegate

@@ -5,8 +5,8 @@ import Git from 'git-wrapper'
 import configs from '../config/provider'
 
  function parseRemote(remote, config) {
-  for (let exp of config.exps) {
-    let m = remote.match(exp)
+  for (const exp of config.exps) {
+    const m = remote.match(exp)
     if (m) {
       return { protocol: m[1], host: m[2], user: m[3], repo: m[4] }
     }
@@ -23,7 +23,8 @@ function buildLink(remote, hash, config) {
       .replace('{host}', data.host)
       .replace('{user}', data.user)
       .replace('{repo}', data.repo)
-      .replace('{hash}', hash)
+      .replace('{hash}', hash.substr(0, 8))
+      .replace('{long-hash}', hash)
   }
 
   return null
@@ -34,18 +35,20 @@ function getConfig(git, key, callback) {
 }
 
 function getCommitLink(file, hash, callback) {
-  let repoPath = findRepo(file)
+  const repoPath = findRepo(file)
   if (!repoPath) {
     return
   }
 
-  let git = new Git({ 'git-dir': repoPath })
+  const git = new Git({ 'git-dir': repoPath })
+
   getConfig(git, 'atom-blame.browser-url', (error, url) => {
 
     if (url) {
-      let link = url
+      const link = url
         .replace(/(^\s+|\s+$)/g, '')
-        .replace('{hash}', hash)
+        .replace('{hash}', hash.substr(0, 8))
+        .replace('{long-hash}', hash)
 
       if (link) {
         return callback(link)
@@ -58,7 +61,7 @@ function getCommitLink(file, hash, callback) {
 
       remote = remote.replace(/(^\s+|\s+$)/g, '')
 
-      for (let config of configs) {
+      for (const config of configs) {
         link = buildLink(remote, hash, config)
         if (link) {
           return callback(link)
