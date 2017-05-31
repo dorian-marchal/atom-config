@@ -69,7 +69,7 @@
     per_section_indent: true
     return_tag: "@returns"
   editor:
-    fontSize: 12
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
@@ -121,7 +121,8 @@
     pep8DirToExecutable: "/usr/local/bin/pep8"
   "linter-stylelint":
     disableWhenNoConfig: true
-  "linter-ui-default": {}
+  "linter-ui-default":
+    panelHeight: 49
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
@@ -189,6 +190,8 @@
 ".git-commit.text":
   editor:
     preferredLineLength: 72
+    softWrap: false
+    softWrapAtPreferredLineLength: false
     tabLength: 4
 ".git-config.source":
   editor:

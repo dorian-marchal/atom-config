@@ -171,6 +171,3 @@
   'Checkbox':
     'prefix': '-'
     'body': '- [ ] '
-  'Checkbox 2':
-    'prefix': '- '
-    'body': '- [ ] '
