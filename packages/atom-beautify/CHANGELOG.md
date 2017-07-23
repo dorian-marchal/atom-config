@@ -1,6 +1,33 @@
 # Next
 - ...
 
+# v0.30.4 (2017-07-14)
+- Fixes #1732. Improve deprecation message for old options for new Executables
+- Fixes #1751. Fix for latexindent v3
+
+# v0.30.3 (2017-06-21)
+- Improve command not found error message
+- Add goimports beautifier for Go language
+- Fixes [#1728](https://github.com/Glavin001/atom-beautify/issues/1728). Remove Shell-Env from Executable, use Atom's process.env instead. See [#1735](https://github.com/Glavin001/atom-beautify/pull/1735).
+
+# v0.30.2 (2017-06-20)
+- Fixes [#1030](https://github.com/Glavin001/atom-beautify/issues/1030). Add support for alpha versions of autopep8
+- Fixes [#1725](https://github.com/Glavin001/atom-beautify/issues/1725). Fix version parsing of PHP executable
+- Fixes [#1730](https://github.com/Glavin001/atom-beautify/issues/1730). Correctly parse PHPCBF version and improve handling of Executable
+
+# v0.30.1 (2017-06-19)
+- Fix [#1703](https://github.com/Glavin001/atom-beautify/issues/1703). Now Fortran 2003/2008 file extensions are available for Fortran beautifier.
+- Fix [#1030](https://github.com/Glavin001/atom-beautify/issues/1030). Autopep8 Executable did not handle older and newer versions.
+- Fixes [#1725](https://github.com/Glavin001/atom-beautify/issues/1725). Improve PHP-CS-Fixer support with handling script path
+  Detect if the executable path is either .phar (PHP) or not and
+  run the executable PHP-CS-Fixer differently considering.
+
+# v0.30.0 (2017-06-17)
+- Close [#1687](https://github.com/Glavin001/atom-beautify/issues/1687). Introducing Executables with Docker support! Executables wrap any non-preinstalled application, check if it is installed, and provide additional configuration options, including Docker support! See [#1687](https://github.com/Glavin001/atom-beautify/issues/1687) for more information.
+- Fix [#1652](https://github.com/Glavin001/atom-beautify/issues/1652) and [#1653](https://github.com/Glavin001/atom-beautify/issues/1653). Add `.rb` to temp files passed in to the `rubocop` executable so they are not excluded.
+- Fixes [#1361](https://github.com/Glavin001/atom-beautify/issues/1361). Add file extension to temporary files for Uncrustify beautifier
+- Fixed #1613 and #1588. Add EOL, scientific notation, and adjust whitespace support for Lua Beautifier
+
 # v0.29.26 (2017-05-28)
 - Fix #116. Switch from setText to setTextViaDiff, preserve folds
 - Add more perl filetypes (#1603)

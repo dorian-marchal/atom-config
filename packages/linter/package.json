@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
+        "raw": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
-        "spec": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
+        "rawSpec": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
+        "spec": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117431-17559-2fx3if.mtjcv50zfr"
+      "/tmp/apm-install-dir-117622-2800-60rnc3.rm46q7iudi"
     ]
   ],
-  "_from": "../d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
-  "_id": "linter@2.1.4",
+  "_from": "../d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
+  "_id": "linter@2.2.0",
   "_inCache": true,
-  "_installable": true,
   "_location": "/linter",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
+    "raw": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
-    "spec": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
+    "rawSpec": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
+    "spec": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
-  "_shasum": "b54cca4da4749a4eac08368a886d9519004097a8",
+  "_resolved": "file:../d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
+  "_shasum": "58c53b67851cb486e4d3d1d033438122fbf82104",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117431-17559-t3abuo.yd4py6tj4i/package.tgz",
-  "_where": "/tmp/apm-install-dir-117431-17559-2fx3if.mtjcv50zfr",
+  "_spec": "/tmp/d-117622-2800-go0ckg.m3jwhcwhfr/package.tgz",
+  "_where": "/tmp/apm-install-dir-117622-2800-60rnc3.rm46q7iudi",
   "author": {
     "name": "steelbrain"
   },
@@ -112,7 +111,7 @@
   "description": "A Base Linter with Cow Powers",
   "devDependencies": {
     "eslint-config-steelbrain": "^3.0.0",
-    "flow-bin": "^0.44.0",
+    "flow-bin": "^0.46.0",
     "jasmine-fix": "^1.0.0"
   },
   "engines": {
@@ -146,7 +145,7 @@
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "2.1.4",
+  "version": "2.2.0",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -167,12 +166,12 @@
       },
       {
         "name": "balanced-match",
-        "version": "0.4.2",
+        "version": "1.0.0",
         "path": "node_modules/balanced-match/index.js"
       },
       {
         "name": "brace-expansion",
-        "version": "1.1.7",
+        "version": "1.1.8",
         "path": "node_modules/brace-expansion/index.js"
       },
       {
@@ -443,7 +442,7 @@
           "node_modules/brace-expansion"
         ],
         "dependencies": {
-          "balanced-match": "^0.4.1",
+          "balanced-match": "^1.0.0",
           "concat-map": "0.0.1"
         }
       },

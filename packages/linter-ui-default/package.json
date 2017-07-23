@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
+        "raw": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
-        "spec": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
+        "rawSpec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+        "spec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117431-17633-15ia95j.mqp3wvobt9"
+      "/tmp/apm-install-dir-117622-2840-1sr9myp.bgee0l766r"
     ]
   ],
-  "_from": "../d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
-  "_id": "linter-ui-default@1.6.0",
+  "_from": "../d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+  "_id": "linter-ui-default@1.6.3",
   "_inCache": true,
-  "_installable": true,
   "_location": "/linter-ui-default",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
+    "raw": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
-    "spec": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
+    "rawSpec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+    "spec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
-  "_shasum": "4a3d1a571b9edc8ce6ee5fb454dd61b6d5c18bc6",
+  "_resolved": "file:../d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+  "_shasum": "1aa958af941aff923c6d2dd66057c117d7aed3d6",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117431-17633-jdxknn.vbrvp74x6r/package.tgz",
-  "_where": "/tmp/apm-install-dir-117431-17633-15ia95j.mqp3wvobt9",
+  "_spec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+  "_where": "/tmp/apm-install-dir-117622-2840-1sr9myp.bgee0l766r",
   "bugs": {
     "url": "https://github.com/steelbrain/linter-ui-default/issues"
   },
@@ -229,13 +228,13 @@
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "1.6.0",
+  "version": "1.6.3",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "asap",
-        "version": "2.0.5",
+        "version": "2.0.6",
         "path": "node_modules/asap/asap.js"
       },
       {
@@ -259,6 +258,11 @@
         "path": "node_modules/core-js/index.js"
       },
       {
+        "name": "create-react-class",
+        "version": "15.6.0",
+        "path": "node_modules/create-react-class/index.js"
+      },
+      {
         "name": "disposable-event",
         "version": "1.0.3",
         "path": "node_modules/disposable-event/lib/index.js"
@@ -275,7 +279,7 @@
       },
       {
         "name": "iconv-lite",
-        "version": "0.4.17",
+        "version": "0.4.18",
         "path": "node_modules/iconv-lite/lib/index.js"
       },
       {
@@ -295,7 +299,7 @@
       },
       {
         "name": "js-tokens",
-        "version": "3.0.1",
+        "version": "3.0.2",
         "path": "node_modules/js-tokens/index.js"
       },
       {
@@ -315,7 +319,7 @@
       },
       {
         "name": "node-fetch",
-        "version": "1.7.0",
+        "version": "1.7.1",
         "path": "node_modules/node-fetch/index.js"
       },
       {
@@ -325,7 +329,7 @@
       },
       {
         "name": "promise",
-        "version": "7.1.1",
+        "version": "7.3.1",
         "path": "node_modules/promise/index.js"
       },
       {
@@ -335,12 +339,12 @@
       },
       {
         "name": "react",
-        "version": "15.5.4",
+        "version": "15.6.1",
         "path": "node_modules/react/react.js"
       },
       {
         "name": "react-dom",
-        "version": "15.5.4",
+        "version": "15.6.1",
         "path": "node_modules/react-dom/index.js"
       },
       {
@@ -405,7 +409,7 @@
       },
       {
         "name": "ua-parser-js",
-        "version": "0.7.12",
+        "version": "0.7.14",
         "path": "node_modules/ua-parser-js/src/ua-parser.js"
       },
       {
@@ -425,6 +429,7 @@
         "node_modules/consistent-env/package.json",
         "node_modules/core-js/bower.json",
         "node_modules/core-js/package.json",
+        "node_modules/create-react-class/package.json",
         "node_modules/disposable-event/.eslintrc.json",
         "node_modules/disposable-event/package.json",
         "node_modules/encoding/package.json",
@@ -473,8 +478,8 @@
         "node_modules/strip-bom-buf/package.json",
         "node_modules/ua-parser-js/bower.json",
         "node_modules/ua-parser-js/package.json",
-        "node_modules/ua-parser-js/ua-parser-js.jquery.json",
         "node_modules/whatwg-fetch/package.json",
+        "package-lock.json",
         "package.json"
       ],
       ".js": [
@@ -1365,6 +1370,10 @@
         "node_modules/core-js/web/immediate.js",
         "node_modules/core-js/web/index.js",
         "node_modules/core-js/web/timers.js",
+        "node_modules/create-react-class/create-react-class.js",
+        "node_modules/create-react-class/create-react-class.min.js",
+        "node_modules/create-react-class/factory.js",
+        "node_modules/create-react-class/index.js",
         "node_modules/disposable-event/decls/jasmine.js",
         "node_modules/disposable-event/lib/index.js",
         "node_modules/encoding/lib/encoding.js",
@@ -1567,11 +1576,10 @@
         "node_modules/react/lib/React.js",
         "node_modules/react/lib/ReactAddonsDOMDependencies.js",
         "node_modules/react/lib/ReactAddonsDOMDependenciesUMDShim.js",
+        "node_modules/react/lib/ReactBaseClasses.js",
         "node_modules/react/lib/ReactCSSTransitionGroup.js",
         "node_modules/react/lib/ReactCSSTransitionGroupChild.js",
         "node_modules/react/lib/ReactChildren.js",
-        "node_modules/react/lib/ReactClass.js",
-        "node_modules/react/lib/ReactComponent.js",
         "node_modules/react/lib/ReactComponentTreeDevtool.js",
         "node_modules/react/lib/ReactComponentTreeHook.js",
         "node_modules/react/lib/ReactComponentTreeHookUMDShim.js",
@@ -1590,7 +1598,6 @@
         "node_modules/react/lib/ReactPropTypeLocations.js",
         "node_modules/react/lib/ReactPropTypes.js",
         "node_modules/react/lib/ReactPropTypesSecret.js",
-        "node_modules/react/lib/ReactPureComponent.js",
         "node_modules/react/lib/ReactStateSetters.js",
         "node_modules/react/lib/ReactTransitionChildMapping.js",
         "node_modules/react/lib/ReactTransitionEvents.js",
@@ -1602,11 +1609,13 @@
         "node_modules/react/lib/ReactWithAddonsUMDEntry.js",
         "node_modules/react/lib/canDefineProperty.js",
         "node_modules/react/lib/checkReactTypeSpec.js",
+        "node_modules/react/lib/createClass.js",
         "node_modules/react/lib/deprecated.js",
         "node_modules/react/lib/flattenChildren.js",
         "node_modules/react/lib/getIteratorFn.js",
         "node_modules/react/lib/getNextDebugID.js",
         "node_modules/react/lib/getNextDebugIDUMDShim.js",
+        "node_modules/react/lib/lowPriorityWarning.js",
         "node_modules/react/lib/onlyChild.js",
         "node_modules/react/lib/reactProdInvariant.js",
         "node_modules/react/lib/shallowCompare.js",
@@ -1774,9 +1783,11 @@
         "node_modules/react-dom/lib/getTestDocument.js",
         "node_modules/react-dom/lib/getTextContentAccessor.js",
         "node_modules/react-dom/lib/getVendorPrefixedEventName.js",
+        "node_modules/react-dom/lib/inputValueTracking.js",
         "node_modules/react-dom/lib/instantiateReactComponent.js",
         "node_modules/react-dom/lib/isEventSupported.js",
         "node_modules/react-dom/lib/isTextInputElement.js",
+        "node_modules/react-dom/lib/lowPriorityWarning.js",
         "node_modules/react-dom/lib/quoteAttributeValueForBrowser.js",
         "node_modules/react-dom/lib/reactComponentExpect.js",
         "node_modules/react-dom/lib/reactProdInvariant.js",
@@ -1874,6 +1885,16 @@
       },
       {
         "paths": [
+          "node_modules/create-react-class"
+        ],
+        "dependencies": {
+          "fbjs": "^0.8.9",
+          "loose-envify": "^1.3.1",
+          "object-assign": "^4.1.1"
+        }
+      },
+      {
+        "paths": [
           "node_modules/disposable-event",
           "node_modules/disposable-event/decls",
           "node_modules/disposable-event/lib"
@@ -1967,10 +1988,11 @@
           "node_modules/react"
         ],
         "dependencies": {
+          "create-react-class": "^15.6.0",
           "fbjs": "^0.8.9",
           "loose-envify": "^1.1.0",
           "object-assign": "^4.1.0",
-          "prop-types": "^15.5.7"
+          "prop-types": "^15.5.10"
         }
       },
       {
@@ -1983,7 +2005,7 @@
           "fbjs": "^0.8.9",
           "loose-envify": "^1.1.0",
           "object-assign": "^4.1.0",
-          "prop-types": "~15.5.7"
+          "prop-types": "^15.5.10"
         }
       },
       {

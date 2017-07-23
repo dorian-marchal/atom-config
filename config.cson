@@ -17,6 +17,8 @@
       "ctrl"
       "shift"
     ]
+  "atom-import-sort":
+    sortOnSave: true
   "autocomplete-modules": {}
   "autocomplete-plus": {}
   blame: {}
@@ -122,7 +124,7 @@
   "linter-stylelint":
     disableWhenNoConfig: true
   "linter-ui-default":
-    panelHeight: 49
+    panelHeight: 81
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":

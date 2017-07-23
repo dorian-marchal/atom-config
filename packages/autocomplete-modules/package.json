@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
+        "raw": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
-        "spec": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
+        "rawSpec": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
+        "spec": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117431-17304-1yw64lm.atob76i529"
+      "/tmp/apm-install-dir-117619-2972-1spnmdw.v320k0ggb9"
     ]
   ],
-  "_from": "../d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
+  "_from": "../d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
   "_id": "autocomplete-modules@1.6.10",
   "_inCache": true,
-  "_installable": true,
   "_location": "/autocomplete-modules",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
+    "raw": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
-    "spec": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
+    "rawSpec": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
+    "spec": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
+  "_resolved": "file:../d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
   "_shasum": "86b49a8784fd8e0cf6a6b9aefbc63af1d3bed49e",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117431-17304-c7v5db.ohwx4aq0k9/package.tgz",
-  "_where": "/tmp/apm-install-dir-117431-17304-1yw64lm.atob76i529",
+  "_spec": "/tmp/d-117619-2972-x4qoeg.9bffwm6lxr/package.tgz",
+  "_where": "/tmp/apm-install-dir-117619-2972-1spnmdw.v320k0ggb9",
   "activationHooks": [
     "language-javascript:grammar-used",
     "language-babel:grammar-used",

@@ -124,6 +124,267 @@ Show loading view when beautifying
 2. Go into *Packages* and search for "*Atom Beautify*" package.
 3. Find the option "*Show Loading View*" and change it to your desired configuration.
 
+####  [Executables](#executables) 
+
+**Description**:
+
+Configure executables used by beautifiers.
+
+#####  [autopep8](#autopep8) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for autopep8 executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*autopep8*" and change it to your desired configuration.
+
+#####  [beautysh](#beautysh) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for beautysh executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*beautysh*" and change it to your desired configuration.
+
+#####  [ClangFormat](#clangformat) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for ClangFormat executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*ClangFormat*" and change it to your desired configuration.
+
+#####  [Crystal](#crystal) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for Crystal executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*Crystal*" and change it to your desired configuration.
+
+#####  [Dfmt](#dfmt) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for Dfmt executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*Dfmt*" and change it to your desired configuration.
+
+#####  [elm-format](#elm-format) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for elm-format executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*elm-format*" and change it to your desired configuration.
+
+#####  [Emacs](#emacs) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for Emacs executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*Emacs*" and change it to your desired configuration.
+
+#####  [goimports](#goimports) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for goimports executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*goimports*" and change it to your desired configuration.
+
+#####  [isort](#isort) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for isort executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*isort*" and change it to your desired configuration.
+
+#####  [PHP](#php) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for PHP executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*PHP*" and change it to your desired configuration.
+
+#####  [PHP-CS-Fixer](#php-cs-fixer) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for PHP-CS-Fixer executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*PHP-CS-Fixer*" and change it to your desired configuration.
+
+#####  [PHPCBF](#phpcbf) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for PHPCBF executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*PHPCBF*" and change it to your desired configuration.
+
+#####  [Rscript](#rscript) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for Rscript executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*Rscript*" and change it to your desired configuration.
+
+#####  [SassConvert](#sassconvert) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for SassConvert executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*SassConvert*" and change it to your desired configuration.
+
+#####  [Uncrustify](#uncrustify) 
+
+**Important**: This option is only configurable from within Atom Beautify's setting panel.
+
+**Type**: `object`
+
+**Description**:
+
+Options for Uncrustify executable.
+
+**How to Configure**
+
+1. You can open the [Settings View](https://github.com/atom/settings-view) by navigating to
+*Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
+2. Go into *Packages* and search for "*Atom Beautify*" package.
+3. Find the option "*Uncrustify*" and change it to your desired configuration.
+
 
 ## Language Options
 
@@ -1718,7 +1979,7 @@ If lists of assignments or properties should be vertically aligned for faster an
 
 **Description**:
 
-Path to custom CSScomb config file, used in absense of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
+Path to custom CSScomb config file, used in absence of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -1922,7 +2183,7 @@ Add a newline between CSS rules (Supported by JS Beautify, Pretty Diff)
 
 **Description**:
 
-If in CSS values leading 0s immediately preceeding a decimal should be removed or prevented. (Supported by Pretty Diff)
+If in CSS values leading 0s immediately preceding a decimal should be removed or prevented. (Supported by Pretty Diff)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -3676,13 +3937,13 @@ Path to clang-format config file. i.e. clang-format.cfg (Supported by clang-form
 
 ####  [Go](#go) 
 
-**Supported Beautifiers**:  [`gofmt`](#gofmt) 
+**Supported Beautifiers**:  [`gofmt`](#gofmt)  [`goimports`](#goimports) 
 
-| Option | gofmt |
-| --- | --- |
-| `disabled` | :white_check_mark: |
-| `default_beautifier` | :white_check_mark: |
-| `beautify_on_save` | :white_check_mark: |
+| Option | gofmt | goimports |
+| --- | --- | --- |
+| `disabled` | :white_check_mark: | :white_check_mark: |
+| `default_beautifier` | :white_check_mark: | :white_check_mark: |
+| `beautify_on_save` | :white_check_mark: | :white_check_mark: |
 
 **Description**:
 
@@ -3713,7 +3974,7 @@ Disable Go Beautification
 
 **Type**: `string`
 
-**Enum**:  `gofmt` 
+**Enum**:  `gofmt`  `goimports` 
 
 **Description**:
 
@@ -7074,7 +7335,7 @@ Automatically beautify LaTeX files on save
 
 **Description**:
 
- (Supported by Latex Beautify)
+Aligns columns by the alignment tabs for environments specified (Supported by Latex Beautify)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -7179,7 +7440,7 @@ Indentation character (Supported by Latex Beautify)
 
 **Description**:
 
-Indent the preable (Supported by Latex Beautify)
+Indent the preamble (Supported by Latex Beautify)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -7356,7 +7617,7 @@ If lists of assignments or properties should be vertically aligned for faster an
 
 **Description**:
 
-Path to custom CSScomb config file, used in absense of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
+Path to custom CSScomb config file, used in absence of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -7536,7 +7797,7 @@ Add a newline between CSS rules (Supported by Pretty Diff)
 
 **Description**:
 
-If in CSS values leading 0s immediately preceeding a decimal should be removed or prevented. (Supported by Pretty Diff)
+If in CSS values leading 0s immediately preceding a decimal should be removed or prevented. (Supported by Pretty Diff)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -7633,6 +7894,7 @@ Maximum amount of characters per line (0 = disable) (Supported by Pretty Diff)
 | `disabled` | :white_check_mark: |
 | `default_beautifier` | :white_check_mark: |
 | `beautify_on_save` | :white_check_mark: |
+| `end_of_line` | :white_check_mark: |
 
 **Description**:
 
@@ -7692,6 +7954,34 @@ Automatically beautify Lua files on save
 *Edit > Preferences (Linux)*, *Atom > Preferences (OS X)*, or *File > Preferences (Windows)*.
 2. Go into *Packages* and search for "*Atom Beautify*" package.
 3. Find the option "*Beautify On Save*" and change it to your desired configuration.
+
+#####  [End of line](#end-of-line) 
+
+**Namespace**: `lua`
+
+**Key**: `end_of_line`
+
+**Default**: `System Default`
+
+**Type**: `string`
+
+**Enum**:  `CRLF`  `LF`  `System Default` 
+
+**Supported Beautifiers**:  [`Lua beautifier`](#lua-beautifier) 
+
+**Description**:
+
+Override EOL from line-ending-selector (Supported by Lua beautifier)
+
+**Example `.jsbeautifyrc` Configuration**
+
+```json
+{
+    "lua": {
+        "end_of_line": "System Default"
+    }
+}
+```
 
 ####  [Markdown](#markdown) 
 
@@ -10055,7 +10345,7 @@ Automatically beautify Python files on save
 
 **Description**:
 
-formater used by pybeautifier (Supported by autopep8, pybeautifier)
+formatter used by pybeautifier (Supported by autopep8, pybeautifier)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -10928,7 +11218,7 @@ If lists of assignments or properties should be vertically aligned for faster an
 
 **Description**:
 
-Path to custom CSScomb config file, used in absense of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
+Path to custom CSScomb config file, used in absence of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -11108,7 +11398,7 @@ Add a newline between CSS rules (Supported by Pretty Diff)
 
 **Description**:
 
-If in CSS values leading 0s immediately preceeding a decimal should be removed or prevented. (Supported by Pretty Diff)
+If in CSS values leading 0s immediately preceding a decimal should be removed or prevented. (Supported by Pretty Diff)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -12152,7 +12442,7 @@ Add a newline between CSS rules (Supported by Pretty Diff)
 
 **Description**:
 
-If in CSS values leading 0s immediately preceeding a decimal should be removed or prevented. (Supported by Pretty Diff)
+If in CSS values leading 0s immediately preceding a decimal should be removed or prevented. (Supported by Pretty Diff)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -15162,7 +15452,7 @@ Supported options for each beautifier.
 
 **Description**:
 
-Path to custom CSScomb config file, used in absense of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
+Path to custom CSScomb config file, used in absence of a `.csscomb.json` or `.csscomb.cson` at the root of your project. (Supported by CSScomb)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -16713,7 +17003,7 @@ Indentation uses tabs, overrides `Indent Size` and `Indent Char` (Supported by L
 
 **Description**:
 
-Indent the preable (Supported by Latex Beautify)
+Indent the preamble (Supported by Latex Beautify)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -16813,7 +17103,7 @@ Remove trailing whitespace (Supported by Latex Beautify)
 
 **Description**:
 
- (Supported by Latex Beautify)
+Aligns columns by the alignment tabs for environments specified (Supported by Latex Beautify)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -16826,6 +17116,37 @@ Remove trailing whitespace (Supported by Latex Beautify)
             "bmatrix",
             "pmatrix"
         ]
+    }
+}
+```
+
+
+### Lua beautifier
+
+#####  [End of line](#end-of-line) 
+
+**Namespace**: `lua`
+
+**Key**: `end_of_line`
+
+**Default**: `System Default`
+
+**Type**: `string`
+
+**Enum**:  `CRLF`  `LF`  `System Default` 
+
+**Supported Beautifiers**:  [`Lua beautifier`](#lua-beautifier) 
+
+**Description**:
+
+Override EOL from line-ending-selector (Supported by Lua beautifier)
+
+**Example `.jsbeautifyrc` Configuration**
+
+```json
+{
+    "lua": {
+        "end_of_line": "System Default"
     }
 }
 ```
@@ -17913,7 +18234,7 @@ If lists of assignments or properties should be vertically aligned for faster an
 
 **Description**:
 
-If in CSS values leading 0s immediately preceeding a decimal should be removed or prevented. (Supported by Pretty Diff)
+If in CSS values leading 0s immediately preceding a decimal should be removed or prevented. (Supported by Pretty Diff)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -19677,7 +19998,7 @@ do not fix these errors/warnings (Supported by autopep8, pybeautifier)
 
 **Description**:
 
-formater used by pybeautifier (Supported by autopep8, pybeautifier)
+formatter used by pybeautifier (Supported by autopep8, pybeautifier)
 
 **Example `.jsbeautifyrc` Configuration**
 
@@ -20030,7 +20351,7 @@ do not fix these errors/warnings (Supported by autopep8, pybeautifier)
 
 **Description**:
 
-formater used by pybeautifier (Supported by autopep8, pybeautifier)
+formatter used by pybeautifier (Supported by autopep8, pybeautifier)
 
 **Example `.jsbeautifyrc` Configuration**
 

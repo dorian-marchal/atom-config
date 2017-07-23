@@ -4,6 +4,10 @@ beautifier = new Beautifiers()
 fs = require "fs"
 path = require "path"
 JsDiff = require('diff')
+shellEnv = require('shell-env')
+
+# Fix https://discuss.atom.io/t/specs-do-not-load-shell-environment-variables-activationhooks-core-loaded-shell-environment/44199
+process.env = shellEnv.sync()
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
@@ -14,6 +18,25 @@ JsDiff = require('diff')
 isWindows = process.platform is 'win32' or
   process.env.OSTYPE is 'cygwin' or
   process.env.OSTYPE is 'msys'
+
+unsupportedLangs = {
+  all: [
+  ]
+  windows: [
+    "ocaml"
+    "r"
+    "clojure"
+    # Broken
+    "apex"
+    "bash"
+    "csharp"
+    "d"
+    "elm"
+    "java"
+    "objectivec"
+    "opencl"
+  ]
+}
 
 describe "BeautifyLanguages", ->
 
@@ -53,9 +76,8 @@ describe "BeautifyLanguages", ->
       pack = atom.packages.getLoadedPackage("atom-beautify")
       pack.activateNow()
       # Need more debugging on Windows
-      if isWindows
-        # Change logger level
-        atom.config.set('atom-beautify._loggerLevel', 'verbose')
+      # Change logger level
+      atom.config.set('atom-beautify.general.loggerLevel', 'info')
       # Return promise
       return activationPromise
 
@@ -95,9 +117,12 @@ describe "BeautifyLanguages", ->
           langNames = fs.readdirSync(langsDir)
           for lang in langNames
 
-            # FIXME: Skip testing ocaml in Windows
-            if isWindows && lang == 'ocaml'
-              continue
+            shouldSkipLang = false
+            if unsupportedLangs.all.indexOf(lang) isnt -1
+              shouldSkipLang = true
+            if isWindows and unsupportedLangs.windows.indexOf(lang) isnt -1
+              console.warn("Tests for Windows do not support #{lang}")
+              shouldSkipLang = true
 
             do (lang) ->
               # Generate the path to where al of the tests are
@@ -119,7 +144,7 @@ describe "BeautifyLanguages", ->
                   fs.mkdirSync(expectedDir)
 
                 # Language group tests
-                describe "when beautifying language '#{lang}'", ->
+                describe "#{if shouldSkipLang then '#' else ''}when beautifying language '#{lang}'", ->
 
                   # All tests for language
                   testNames = fs.readdirSync(originalDir)
@@ -128,11 +153,12 @@ describe "BeautifyLanguages", ->
                       ext = path.extname(testFileName)
                       testName = path.basename(testFileName, ext)
                       # If prefixed with underscore (_) then this is a hidden test
+                      shouldSkip = false
                       if testFileName[0] is '_'
                         # Do not show this test
-                        return
+                        shouldSkip = true
                       # Confirm this is a test
-                      it "#{testName} #{testFileName}", ->
+                      it "#{if shouldSkip then '# ' else ''}#{testName} #{testFileName}", ->
 
                         # Generate paths to test files
                         originalTestPath = path.resolve(originalDir, testFileName)
@@ -162,7 +188,7 @@ describe "BeautifyLanguages", ->
                         beautifyCompleted = false
                         completionFun = (text) ->
                           try
-                            expect(text instanceof Error).not.toEqual(true, text)
+                            expect(text instanceof Error).not.toEqual(true, text.message or text.toString())
                             return beautifyCompleted = true if text instanceof Error
                           #   logger.verbose(expectedTestPath, text) if ext is ".less"
                           #   if text instanceof Error

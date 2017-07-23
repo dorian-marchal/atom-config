@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
+        "raw": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
-        "spec": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
+        "rawSpec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+        "spec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117431-17601-m26bnz.1mqvgyzaor"
+      "/tmp/apm-install-dir-117623-16207-1w78ugg.0icu15rk9"
     ]
   ],
-  "_from": "../d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
-  "_id": "linter-stylelint@3.10.0",
+  "_from": "../d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+  "_id": "linter-stylelint@3.12.0",
   "_inCache": true,
-  "_installable": true,
   "_location": "/linter-stylelint",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
+    "raw": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
-    "spec": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
+    "rawSpec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+    "spec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
-  "_shasum": "f31bb830f233453aabcfdb367e35d9ec19612623",
+  "_resolved": "file:../d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+  "_shasum": "6097f306c99ce87f3a39d9bfddaa58c40e6aadb2",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117431-17601-sswg9b.d57u45z5mi/package.tgz",
-  "_where": "/tmp/apm-install-dir-117431-17601-m26bnz.1mqvgyzaor",
+  "_spec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+  "_where": "/tmp/apm-install-dir-117623-16207-1w78ugg.0icu15rk9",
   "author": {
     "name": "1000ch",
     "email": "shogo.sensui@gmail.com",
@@ -65,18 +64,18 @@
   },
   "dependencies": {
     "assign-deep": "^0.4.5",
-    "atom-linter": "^9.0.0",
+    "atom-linter": "^10.0.0",
     "atom-package-deps": "^4.0.1",
     "escape-html": "^1.0.3",
-    "lazy-req": "^2.0.0",
-    "stylelint": "7.10.1",
+    "stylelint": "7.13.0",
     "stylelint-config-standard": "^16.0.0"
   },
   "description": "A plugin for Atom Linter providing an interface to stylelint.",
   "devDependencies": {
     "eslint": "^3.12.0",
     "eslint-config-airbnb-base": "^11.0.0",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "jasmine-fix": "^1.0.1"
   },
   "engines": {
     "atom": ">=1.7.0 <2.0.0"
@@ -138,7 +137,7 @@
     "lint": "eslint .",
     "test": "apm test"
   },
-  "version": "3.10.0",
+  "version": "3.12.0",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -179,7 +178,7 @@
       },
       {
         "name": "arr-flatten",
-        "version": "1.0.3",
+        "version": "1.1.0",
         "path": "node_modules/arr-flatten/index.js"
       },
       {
@@ -224,13 +223,18 @@
       },
       {
         "name": "atom-linter",
-        "version": "9.0.1",
+        "version": "10.0.0",
         "path": "node_modules/atom-linter/lib/index.js"
       },
       {
         "name": "atom-package-deps",
         "version": "4.6.0",
         "path": "node_modules/atom-package-deps/lib/index.js"
+      },
+      {
+        "name": "sb-exec",
+        "version": "3.1.0",
+        "path": "node_modules/atom-package-deps/node_modules/sb-exec/lib/index.js"
       },
       {
         "name": "atom-package-path",
@@ -249,8 +253,13 @@
       },
       {
         "name": "brace-expansion",
-        "version": "1.1.7",
+        "version": "1.1.8",
         "path": "node_modules/brace-expansion/index.js"
+      },
+      {
+        "name": "balanced-match",
+        "version": "1.0.0",
+        "path": "node_modules/brace-expansion/node_modules/balanced-match/index.js"
       },
       {
         "name": "braces",
@@ -279,12 +288,22 @@
       },
       {
         "name": "chalk",
-        "version": "1.1.3",
+        "version": "2.0.1",
         "path": "node_modules/chalk/index.js"
       },
       {
-        "name": "supports-color",
+        "name": "ansi-styles",
+        "version": "3.1.0",
+        "path": "node_modules/chalk/node_modules/ansi-styles/index.js"
+      },
+      {
+        "name": "has-flag",
         "version": "2.0.0",
+        "path": "node_modules/chalk/node_modules/has-flag/index.js"
+      },
+      {
+        "name": "supports-color",
+        "version": "4.2.1",
         "path": "node_modules/chalk/node_modules/supports-color/index.js"
       },
       {
@@ -318,9 +337,19 @@
         "path": "node_modules/code-point-at/index.js"
       },
       {
+        "name": "color-convert",
+        "version": "1.9.0",
+        "path": "node_modules/color-convert/index.js"
+      },
+      {
         "name": "color-diff",
         "version": "0.1.7",
         "path": "node_modules/color-diff/lib/index.js"
+      },
+      {
+        "name": "color-name",
+        "version": "1.1.3",
+        "path": "node_modules/color-name/index.js"
       },
       {
         "name": "colorguard",
@@ -328,9 +357,19 @@
         "path": "node_modules/colorguard/index.js"
       },
       {
+        "name": "chalk",
+        "version": "1.1.3",
+        "path": "node_modules/colorguard/node_modules/chalk/index.js"
+      },
+      {
         "name": "postcss-reporter",
         "version": "1.4.1",
         "path": "node_modules/colorguard/node_modules/postcss-reporter/index.js"
+      },
+      {
+        "name": "supports-color",
+        "version": "2.0.0",
+        "path": "node_modules/colorguard/node_modules/supports-color/index.js"
       },
       {
         "name": "concat-map",
@@ -349,7 +388,7 @@
       },
       {
         "name": "cosmiconfig",
-        "version": "2.1.3",
+        "version": "2.2.1",
         "path": "node_modules/cosmiconfig/index.js"
       },
       {
@@ -424,7 +463,7 @@
       },
       {
         "name": "electron-to-chromium",
-        "version": "1.3.13",
+        "version": "1.3.16",
         "path": "node_modules/electron-to-chromium/index.js"
       },
       {
@@ -444,7 +483,7 @@
       },
       {
         "name": "esprima",
-        "version": "3.1.3",
+        "version": "4.0.0",
         "path": "node_modules/esprima/dist/esprima.js"
       },
       {
@@ -564,12 +603,12 @@
       },
       {
         "name": "hosted-git-info",
-        "version": "2.4.2",
+        "version": "2.5.0",
         "path": "node_modules/hosted-git-info/index.js"
       },
       {
         "name": "html-tags",
-        "version": "1.1.1",
+        "version": "2.0.0",
         "path": "node_modules/html-tags/index.js"
       },
       {
@@ -609,7 +648,7 @@
       },
       {
         "name": "irregular-plurals",
-        "version": "1.2.0",
+        "version": "1.3.0",
         "path": "node_modules/irregular-plurals/irregular-plurals.json"
       },
       {
@@ -734,7 +773,7 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.8.4",
+        "version": "3.9.0",
         "path": "node_modules/js-yaml/index.js"
       },
       {
@@ -769,13 +808,8 @@
       },
       {
         "name": "known-css-properties",
-        "version": "0.0.7",
+        "version": "0.2.0",
         "path": "node_modules/known-css-properties/index.js"
-      },
-      {
-        "name": "lazy-req",
-        "version": "2.0.0",
-        "path": "node_modules/lazy-req/index.js"
       },
       {
         "name": "lcid",
@@ -808,6 +842,16 @@
         "path": "node_modules/log-symbols/index.js"
       },
       {
+        "name": "chalk",
+        "version": "1.1.3",
+        "path": "node_modules/log-symbols/node_modules/chalk/index.js"
+      },
+      {
+        "name": "supports-color",
+        "version": "2.0.0",
+        "path": "node_modules/log-symbols/node_modules/supports-color/index.js"
+      },
+      {
         "name": "loud-rejection",
         "version": "1.6.0",
         "path": "node_modules/loud-rejection/index.js"
@@ -816,6 +860,11 @@
         "name": "map-obj",
         "version": "1.0.1",
         "path": "node_modules/map-obj/index.js"
+      },
+      {
+        "name": "mathml-tag-names",
+        "version": "2.0.1",
+        "path": "node_modules/mathml-tag-names/index.json"
       },
       {
         "name": "meow",
@@ -864,7 +913,7 @@
       },
       {
         "name": "normalize-package-data",
-        "version": "2.3.8",
+        "version": "2.4.0",
         "path": "node_modules/normalize-package-data/lib/normalize.js"
       },
       {
@@ -988,6 +1037,16 @@
         "path": "node_modules/postcss/lib/postcss.js"
       },
       {
+        "name": "chalk",
+        "version": "1.1.3",
+        "path": "node_modules/postcss/node_modules/chalk/index.js"
+      },
+      {
+        "name": "supports-color",
+        "version": "2.0.0",
+        "path": "node_modules/postcss/node_modules/chalk/node_modules/supports-color/index.js"
+      },
+      {
         "name": "postcss-less",
         "version": "0.14.0",
         "path": "node_modules/postcss-less/dist/less-syntax.js"
@@ -1001,6 +1060,16 @@
         "name": "postcss-reporter",
         "version": "3.0.0",
         "path": "node_modules/postcss-reporter/index.js"
+      },
+      {
+        "name": "chalk",
+        "version": "1.1.3",
+        "path": "node_modules/postcss-reporter/node_modules/chalk/index.js"
+      },
+      {
+        "name": "supports-color",
+        "version": "2.0.0",
+        "path": "node_modules/postcss-reporter/node_modules/supports-color/index.js"
       },
       {
         "name": "postcss-resolve-nested-selector",
@@ -1029,8 +1098,23 @@
       },
       {
         "name": "randomatic",
-        "version": "1.1.6",
+        "version": "1.1.7",
         "path": "node_modules/randomatic/index.js"
+      },
+      {
+        "name": "is-number",
+        "version": "3.0.0",
+        "path": "node_modules/randomatic/node_modules/is-number/index.js"
+      },
+      {
+        "name": "kind-of",
+        "version": "3.2.2",
+        "path": "node_modules/randomatic/node_modules/is-number/node_modules/kind-of/index.js"
+      },
+      {
+        "name": "kind-of",
+        "version": "4.0.0",
+        "path": "node_modules/randomatic/node_modules/kind-of/index.js"
       },
       {
         "name": "read-file-stdin",
@@ -1064,7 +1148,7 @@
       },
       {
         "name": "remove-trailing-separator",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "path": "node_modules/remove-trailing-separator/index.js"
       },
       {
@@ -1089,7 +1173,7 @@
       },
       {
         "name": "resolve-from",
-        "version": "2.0.0",
+        "version": "3.0.0",
         "path": "node_modules/resolve-from/index.js"
       },
       {
@@ -1104,7 +1188,7 @@
       },
       {
         "name": "sb-exec",
-        "version": "3.1.0",
+        "version": "4.0.0",
         "path": "node_modules/sb-exec/lib/index.js"
       },
       {
@@ -1164,7 +1248,7 @@
       },
       {
         "name": "specificity",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "path": "node_modules/specificity/specificity.js"
       },
       {
@@ -1189,13 +1273,23 @@
       },
       {
         "name": "string-width",
-        "version": "2.0.0",
+        "version": "2.1.1",
         "path": "node_modules/string-width/index.js"
+      },
+      {
+        "name": "ansi-regex",
+        "version": "3.0.0",
+        "path": "node_modules/string-width/node_modules/ansi-regex/index.js"
       },
       {
         "name": "is-fullwidth-code-point",
         "version": "2.0.0",
         "path": "node_modules/string-width/node_modules/is-fullwidth-code-point/index.js"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "4.0.0",
+        "path": "node_modules/string-width/node_modules/strip-ansi/index.js"
       },
       {
         "name": "strip-ansi",
@@ -1233,13 +1327,23 @@
         "path": "node_modules/stylehacks/dist/index.js"
       },
       {
+        "name": "chalk",
+        "version": "1.1.3",
+        "path": "node_modules/stylehacks/node_modules/chalk/index.js"
+      },
+      {
         "name": "postcss-reporter",
         "version": "1.4.1",
         "path": "node_modules/stylehacks/node_modules/postcss-reporter/index.js"
       },
       {
+        "name": "supports-color",
+        "version": "2.0.0",
+        "path": "node_modules/stylehacks/node_modules/supports-color/index.js"
+      },
+      {
         "name": "stylelint",
-        "version": "7.10.1",
+        "version": "7.13.0",
         "path": "node_modules/stylelint/lib/index.js"
       },
       {
@@ -1271,6 +1375,16 @@
         "name": "table",
         "version": "4.0.1",
         "path": "node_modules/table/dist/index.js"
+      },
+      {
+        "name": "chalk",
+        "version": "1.1.3",
+        "path": "node_modules/table/node_modules/chalk/index.js"
+      },
+      {
+        "name": "supports-color",
+        "version": "2.0.0",
+        "path": "node_modules/table/node_modules/supports-color/index.js"
       },
       {
         "name": "text-table",
@@ -1360,6 +1474,7 @@
     ],
     "extensions": {
       ".js": [
+        "lib/helpers.js",
         "lib/index.js",
         "node_modules/JSONStream/examples/all_docs.js",
         "node_modules/JSONStream/index.js",
@@ -1473,6 +1588,10 @@
         "node_modules/atom-package-deps/lib/index.js",
         "node_modules/atom-package-deps/lib/types.js",
         "node_modules/atom-package-deps/lib/view.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/decls/jasmine.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/lib/helpers.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/lib/index.js",
+        "node_modules/atom-package-deps/node_modules/sb-exec/lib/types.js",
         "node_modules/atom-package-path/lib/index.js",
         "node_modules/autoprefixer/data/prefixes.js",
         "node_modules/autoprefixer/lib/at-rule.js",
@@ -1535,6 +1654,7 @@
         "node_modules/autoprefixer/lib/value.js",
         "node_modules/balanced-match/index.js",
         "node_modules/brace-expansion/index.js",
+        "node_modules/brace-expansion/node_modules/balanced-match/index.js",
         "node_modules/braces/index.js",
         "node_modules/browserslist/cli.js",
         "node_modules/browserslist/index.js",
@@ -1543,7 +1663,11 @@
         "node_modules/camelcase/index.js",
         "node_modules/camelcase-keys/index.js",
         "node_modules/chalk/index.js",
+        "node_modules/chalk/node_modules/ansi-styles/index.js",
+        "node_modules/chalk/node_modules/has-flag/index.js",
+        "node_modules/chalk/node_modules/supports-color/browser.js",
         "node_modules/chalk/node_modules/supports-color/index.js",
+        "node_modules/chalk/templates.js",
         "node_modules/circular-json/build/circular-json.js",
         "node_modules/circular-json/build/circular-json.max.js",
         "node_modules/circular-json/build/circular-json.node.js",
@@ -1552,17 +1676,24 @@
         "node_modules/clone-regexp/index.js",
         "node_modules/co/index.js",
         "node_modules/code-point-at/index.js",
+        "node_modules/color-convert/conversions.js",
+        "node_modules/color-convert/index.js",
+        "node_modules/color-convert/route.js",
         "node_modules/color-diff/lib/convert.js",
         "node_modules/color-diff/lib/diff.js",
         "node_modules/color-diff/lib/index.js",
         "node_modules/color-diff/lib/palette.js",
+        "node_modules/color-name/index.js",
+        "node_modules/color-name/test.js",
         "node_modules/colorguard/index.js",
         "node_modules/colorguard/lib/colorguard.js",
         "node_modules/colorguard/lib/formatter.js",
+        "node_modules/colorguard/node_modules/chalk/index.js",
         "node_modules/colorguard/node_modules/postcss-reporter/index.js",
         "node_modules/colorguard/node_modules/postcss-reporter/lib/formatter.js",
         "node_modules/colorguard/node_modules/postcss-reporter/lib/reporter.js",
         "node_modules/colorguard/node_modules/postcss-reporter/lib/util.js",
+        "node_modules/colorguard/node_modules/supports-color/index.js",
         "node_modules/concat-map/example/map.js",
         "node_modules/concat-map/index.js",
         "node_modules/consistent-env/lib/helpers.js",
@@ -1676,6 +1807,7 @@
         "node_modules/hosted-git-info/git-host.js",
         "node_modules/hosted-git-info/index.js",
         "node_modules/html-tags/index.js",
+        "node_modules/html-tags/void.js",
         "node_modules/ignore/ignore.js",
         "node_modules/imurmurhash/imurmurhash.js",
         "node_modules/imurmurhash/imurmurhash.min.js",
@@ -1762,8 +1894,8 @@
         "node_modules/jsonparse/examples/twitterfeed.js",
         "node_modules/jsonparse/jsonparse.js",
         "node_modules/kind-of/index.js",
+        "node_modules/known-css-properties/.eslintrc.js",
         "node_modules/known-css-properties/index.js",
-        "node_modules/lazy-req/index.js",
         "node_modules/lcid/index.js",
         "node_modules/ldjson-stream/index.js",
         "node_modules/ldjson-stream/test.js",
@@ -2819,6 +2951,8 @@
         "node_modules/lodash/zipWith.js",
         "node_modules/lodash.uniq/index.js",
         "node_modules/log-symbols/index.js",
+        "node_modules/log-symbols/node_modules/chalk/index.js",
+        "node_modules/log-symbols/node_modules/supports-color/index.js",
         "node_modules/loud-rejection/api.js",
         "node_modules/loud-rejection/index.js",
         "node_modules/loud-rejection/register.js",
@@ -2917,6 +3051,8 @@
         "node_modules/postcss/lib/vendor.js",
         "node_modules/postcss/lib/warn-once.js",
         "node_modules/postcss/lib/warning.js",
+        "node_modules/postcss/node_modules/chalk/index.js",
+        "node_modules/postcss/node_modules/chalk/node_modules/supports-color/index.js",
         "node_modules/postcss-less/dist/find-extend-rule.js",
         "node_modules/postcss-less/dist/find-extend-rule.min.js",
         "node_modules/postcss-less/dist/is-mixin-token.js",
@@ -2975,6 +3111,8 @@
         "node_modules/postcss-reporter/lib/formatter.js",
         "node_modules/postcss-reporter/lib/reporter.js",
         "node_modules/postcss-reporter/lib/util.js",
+        "node_modules/postcss-reporter/node_modules/chalk/index.js",
+        "node_modules/postcss-reporter/node_modules/supports-color/index.js",
         "node_modules/postcss-resolve-nested-selector/index.js",
         "node_modules/postcss-scss/lib/nested-declaration.js",
         "node_modules/postcss-scss/lib/scss-parse.js",
@@ -3012,6 +3150,9 @@
         "node_modules/preserve/index.js",
         "node_modules/preserve/test.js",
         "node_modules/randomatic/index.js",
+        "node_modules/randomatic/node_modules/is-number/index.js",
+        "node_modules/randomatic/node_modules/is-number/node_modules/kind-of/index.js",
+        "node_modules/randomatic/node_modules/kind-of/index.js",
         "node_modules/read-file-stdin/index.js",
         "node_modules/read-pkg/index.js",
         "node_modules/read-pkg-up/index.js",
@@ -3036,7 +3177,6 @@
         "node_modules/rimraf/bin.js",
         "node_modules/rimraf/rimraf.js",
         "node_modules/sb-callsite/lib/main.js",
-        "node_modules/sb-exec/decls/jasmine.js",
         "node_modules/sb-exec/lib/helpers.js",
         "node_modules/sb-exec/lib/index.js",
         "node_modules/sb-exec/lib/types.js",
@@ -3077,7 +3217,9 @@
         "node_modules/sprintf-js/src/sprintf.js",
         "node_modules/stream-combiner/index.js",
         "node_modules/string-width/index.js",
+        "node_modules/string-width/node_modules/ansi-regex/index.js",
         "node_modules/string-width/node_modules/is-fullwidth-code-point/index.js",
+        "node_modules/string-width/node_modules/strip-ansi/index.js",
         "node_modules/string_decoder/index.js",
         "node_modules/strip-ansi/index.js",
         "node_modules/strip-bom/index.js",
@@ -3108,10 +3250,12 @@
         "node_modules/stylehacks/dist/plugins/slash9.js",
         "node_modules/stylehacks/dist/plugins/starHtml.js",
         "node_modules/stylehacks/dist/plugins/trailingSlashComma.js",
+        "node_modules/stylehacks/node_modules/chalk/index.js",
         "node_modules/stylehacks/node_modules/postcss-reporter/index.js",
         "node_modules/stylehacks/node_modules/postcss-reporter/lib/formatter.js",
         "node_modules/stylehacks/node_modules/postcss-reporter/lib/reporter.js",
         "node_modules/stylehacks/node_modules/postcss-reporter/lib/util.js",
+        "node_modules/stylehacks/node_modules/supports-color/index.js",
         "node_modules/stylelint/bin/stylelint.js",
         "node_modules/stylelint/decls/postcss.js",
         "node_modules/stylelint/decls/stylelint.js",
@@ -3219,6 +3363,7 @@
         "node_modules/stylelint/lib/rules/function-url-data-uris/index.js",
         "node_modules/stylelint/lib/rules/function-url-no-scheme-relative/index.js",
         "node_modules/stylelint/lib/rules/function-url-quotes/index.js",
+        "node_modules/stylelint/lib/rules/function-url-scheme-blacklist/index.js",
         "node_modules/stylelint/lib/rules/function-url-scheme-whitelist/index.js",
         "node_modules/stylelint/lib/rules/function-whitelist/index.js",
         "node_modules/stylelint/lib/rules/function-whitespace-after/index.js",
@@ -3285,9 +3430,15 @@
         "node_modules/stylelint/lib/rules/selector-list-comma-newline-before/index.js",
         "node_modules/stylelint/lib/rules/selector-list-comma-space-after/index.js",
         "node_modules/stylelint/lib/rules/selector-list-comma-space-before/index.js",
+        "node_modules/stylelint/lib/rules/selector-max-attribute/index.js",
+        "node_modules/stylelint/lib/rules/selector-max-class/index.js",
+        "node_modules/stylelint/lib/rules/selector-max-combinators/index.js",
         "node_modules/stylelint/lib/rules/selector-max-compound-selectors/index.js",
         "node_modules/stylelint/lib/rules/selector-max-empty-lines/index.js",
+        "node_modules/stylelint/lib/rules/selector-max-id/index.js",
         "node_modules/stylelint/lib/rules/selector-max-specificity/index.js",
+        "node_modules/stylelint/lib/rules/selector-max-type/index.js",
+        "node_modules/stylelint/lib/rules/selector-max-universal/index.js",
         "node_modules/stylelint/lib/rules/selector-nested-pattern/index.js",
         "node_modules/stylelint/lib/rules/selector-no-attribute/index.js",
         "node_modules/stylelint/lib/rules/selector-no-combinator/index.js",
@@ -3334,6 +3485,7 @@
         "node_modules/stylelint/lib/testUtils/createRuleTester.js",
         "node_modules/stylelint/lib/testUtils/mergeTestDescriptions.js",
         "node_modules/stylelint/lib/utils/FileCache.js",
+        "node_modules/stylelint/lib/utils/addEmptyLineBefore.js",
         "node_modules/stylelint/lib/utils/atRuleParamIndex.js",
         "node_modules/stylelint/lib/utils/beforeBlockString.js",
         "node_modules/stylelint/lib/utils/blockString.js",
@@ -3352,6 +3504,8 @@
         "node_modules/stylelint/lib/utils/getCacheFile.js",
         "node_modules/stylelint/lib/utils/getIsFileIgnored.js",
         "node_modules/stylelint/lib/utils/getModulePath.js",
+        "node_modules/stylelint/lib/utils/getOsEol.js",
+        "node_modules/stylelint/lib/utils/getSchemeFromUrl.js",
         "node_modules/stylelint/lib/utils/getUnitFromValueNode.js",
         "node_modules/stylelint/lib/utils/hasBlock.js",
         "node_modules/stylelint/lib/utils/hasEmptyBlock.js",
@@ -3364,6 +3518,7 @@
         "node_modules/stylelint/lib/utils/isAutoprefixable.js",
         "node_modules/stylelint/lib/utils/isCounterIncrementCustomIdentValue.js",
         "node_modules/stylelint/lib/utils/isCounterResetCustomIdentValue.js",
+        "node_modules/stylelint/lib/utils/isCustomElement.js",
         "node_modules/stylelint/lib/utils/isCustomMediaQuery.js",
         "node_modules/stylelint/lib/utils/isCustomProperty.js",
         "node_modules/stylelint/lib/utils/isCustomPropertySet.js",
@@ -3395,6 +3550,7 @@
         "node_modules/stylelint/lib/utils/optionsMatches.js",
         "node_modules/stylelint/lib/utils/parseSelector.js",
         "node_modules/stylelint/lib/utils/rawNodeString.js",
+        "node_modules/stylelint/lib/utils/removeEmptyLinesBefore.js",
         "node_modules/stylelint/lib/utils/report.js",
         "node_modules/stylelint/lib/utils/ruleMessages.js",
         "node_modules/stylelint/lib/utils/validateObjectWithStringArrayProps.js",
@@ -3439,6 +3595,8 @@
         "node_modules/table/dist/validateTableData.js",
         "node_modules/table/dist/wrapString.js",
         "node_modules/table/dist/wrapWord.js",
+        "node_modules/table/node_modules/chalk/index.js",
+        "node_modules/table/node_modules/supports-color/index.js",
         "node_modules/text-table/example/align.js",
         "node_modules/text-table/example/center.js",
         "node_modules/text-table/example/dotalign.js",
@@ -3520,10 +3678,13 @@
         "node_modules/atom-linter/.eslintrc.json",
         "node_modules/atom-linter/package.json",
         "node_modules/atom-package-deps/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/.eslintrc.json",
+        "node_modules/atom-package-deps/node_modules/sb-exec/package.json",
         "node_modules/atom-package-deps/package.json",
         "node_modules/atom-package-path/package.json",
         "node_modules/autoprefixer/package.json",
         "node_modules/balanced-match/package.json",
+        "node_modules/brace-expansion/node_modules/balanced-match/package.json",
         "node_modules/brace-expansion/package.json",
         "node_modules/braces/package.json",
         "node_modules/browserslist/package.json",
@@ -3574,6 +3735,7 @@
         "node_modules/caniuse-db/features-json/comparedocumentposition.json",
         "node_modules/caniuse-db/features-json/console-basic.json",
         "node_modules/caniuse-db/features-json/const.json",
+        "node_modules/caniuse-db/features-json/constraint-validation.json",
         "node_modules/caniuse-db/features-json/contenteditable.json",
         "node_modules/caniuse-db/features-json/contentsecuritypolicy.json",
         "node_modules/caniuse-db/features-json/contentsecuritypolicy2.json",
@@ -3718,6 +3880,8 @@
         "node_modules/caniuse-db/features-json/eot.json",
         "node_modules/caniuse-db/features-json/es5.json",
         "node_modules/caniuse-db/features-json/es6-class.json",
+        "node_modules/caniuse-db/features-json/es6-module-dynamic-import.json",
+        "node_modules/caniuse-db/features-json/es6-module-nomodule.json",
         "node_modules/caniuse-db/features-json/es6-module.json",
         "node_modules/caniuse-db/features-json/es6-number.json",
         "node_modules/caniuse-db/features-json/eventsource.json",
@@ -3752,6 +3916,7 @@
         "node_modules/caniuse-db/features-json/getrandomvalues.json",
         "node_modules/caniuse-db/features-json/hardwareconcurrency.json",
         "node_modules/caniuse-db/features-json/hashchange.json",
+        "node_modules/caniuse-db/features-json/heif.json",
         "node_modules/caniuse-db/features-json/hevc.json",
         "node_modules/caniuse-db/features-json/hidden.json",
         "node_modules/caniuse-db/features-json/high-resolution-time.json",
@@ -3778,6 +3943,7 @@
         "node_modules/caniuse-db/features-json/input-email-tel-url.json",
         "node_modules/caniuse-db/features-json/input-event.json",
         "node_modules/caniuse-db/features-json/input-file-accept.json",
+        "node_modules/caniuse-db/features-json/input-file-directory.json",
         "node_modules/caniuse-db/features-json/input-file-multiple.json",
         "node_modules/caniuse-db/features-json/input-inputmode.json",
         "node_modules/caniuse-db/features-json/input-minlength.json",
@@ -3810,6 +3976,7 @@
         "node_modules/caniuse-db/features-json/link-rel-prefetch.json",
         "node_modules/caniuse-db/features-json/link-rel-preload.json",
         "node_modules/caniuse-db/features-json/link-rel-prerender.json",
+        "node_modules/caniuse-db/features-json/localecompare.json",
         "node_modules/caniuse-db/features-json/matchesselector.json",
         "node_modules/caniuse-db/features-json/matchmedia.json",
         "node_modules/caniuse-db/features-json/mathml.json",
@@ -3874,6 +4041,7 @@
         "node_modules/caniuse-db/features-json/rem.json",
         "node_modules/caniuse-db/features-json/requestanimationframe.json",
         "node_modules/caniuse-db/features-json/requestidlecallback.json",
+        "node_modules/caniuse-db/features-json/resizeobserver.json",
         "node_modules/caniuse-db/features-json/resource-timing.json",
         "node_modules/caniuse-db/features-json/rest-parameters.json",
         "node_modules/caniuse-db/features-json/rtcpeerconnection.json",
@@ -4216,6 +4384,8 @@
         "node_modules/caniuse-db/region-usage-json/alt-oc.json",
         "node_modules/caniuse-db/region-usage-json/alt-sa.json",
         "node_modules/caniuse-db/region-usage-json/alt-ww.json",
+        "node_modules/chalk/node_modules/ansi-styles/package.json",
+        "node_modules/chalk/node_modules/has-flag/package.json",
         "node_modules/chalk/node_modules/supports-color/package.json",
         "node_modules/chalk/package.json",
         "node_modules/circular-json/package.json",
@@ -4224,8 +4394,13 @@
         "node_modules/clone-regexp/package.json",
         "node_modules/co/package.json",
         "node_modules/code-point-at/package.json",
+        "node_modules/color-convert/package.json",
         "node_modules/color-diff/package.json",
+        "node_modules/color-name/.eslintrc.json",
+        "node_modules/color-name/package.json",
+        "node_modules/colorguard/node_modules/chalk/package.json",
         "node_modules/colorguard/node_modules/postcss-reporter/package.json",
+        "node_modules/colorguard/node_modules/supports-color/package.json",
         "node_modules/colorguard/package.json",
         "node_modules/concat-map/package.json",
         "node_modules/consistent-env/.eslintrc.json",
@@ -4291,6 +4466,7 @@
         "node_modules/has-ansi/package.json",
         "node_modules/has-flag/package.json",
         "node_modules/hosted-git-info/package.json",
+        "node_modules/html-tags/html-tags-void.json",
         "node_modules/html-tags/html-tags.json",
         "node_modules/html-tags/package.json",
         "node_modules/ignore/package.json",
@@ -4340,16 +4516,19 @@
         "node_modules/kind-of/package.json",
         "node_modules/known-css-properties/data/all.json",
         "node_modules/known-css-properties/package.json",
-        "node_modules/lazy-req/package.json",
         "node_modules/lcid/lcid.json",
         "node_modules/lcid/package.json",
         "node_modules/ldjson-stream/package.json",
         "node_modules/load-json-file/package.json",
         "node_modules/lodash/package.json",
         "node_modules/lodash.uniq/package.json",
+        "node_modules/log-symbols/node_modules/chalk/package.json",
+        "node_modules/log-symbols/node_modules/supports-color/package.json",
         "node_modules/log-symbols/package.json",
         "node_modules/loud-rejection/package.json",
         "node_modules/map-obj/package.json",
+        "node_modules/mathml-tag-names/index.json",
+        "node_modules/mathml-tag-names/package.json",
         "node_modules/meow/package.json",
         "node_modules/micromatch/package.json",
         "node_modules/minimatch/package.json",
@@ -4385,15 +4564,22 @@
         "node_modules/pinkie-promise/package.json",
         "node_modules/pipetteur/package.json",
         "node_modules/plur/package.json",
+        "node_modules/postcss/node_modules/chalk/node_modules/supports-color/package.json",
+        "node_modules/postcss/node_modules/chalk/package.json",
         "node_modules/postcss/package.json",
         "node_modules/postcss-less/package.json",
         "node_modules/postcss-media-query-parser/package.json",
+        "node_modules/postcss-reporter/node_modules/chalk/package.json",
+        "node_modules/postcss-reporter/node_modules/supports-color/package.json",
         "node_modules/postcss-reporter/package.json",
         "node_modules/postcss-resolve-nested-selector/package.json",
         "node_modules/postcss-scss/package.json",
         "node_modules/postcss-selector-parser/package.json",
         "node_modules/postcss-value-parser/package.json",
         "node_modules/preserve/package.json",
+        "node_modules/randomatic/node_modules/is-number/node_modules/kind-of/package.json",
+        "node_modules/randomatic/node_modules/is-number/package.json",
+        "node_modules/randomatic/node_modules/kind-of/package.json",
         "node_modules/randomatic/package.json",
         "node_modules/read-file-stdin/package.json",
         "node_modules/read-pkg/package.json",
@@ -4430,7 +4616,9 @@
         "node_modules/sprintf-js/bower.json",
         "node_modules/sprintf-js/package.json",
         "node_modules/stream-combiner/package.json",
+        "node_modules/string-width/node_modules/ansi-regex/package.json",
         "node_modules/string-width/node_modules/is-fullwidth-code-point/package.json",
+        "node_modules/string-width/node_modules/strip-ansi/package.json",
         "node_modules/string-width/package.json",
         "node_modules/string_decoder/package.json",
         "node_modules/strip-ansi/package.json",
@@ -4439,7 +4627,9 @@
         "node_modules/strip-indent/node_modules/get-stdin/package.json",
         "node_modules/strip-indent/package.json",
         "node_modules/style-search/package.json",
+        "node_modules/stylehacks/node_modules/chalk/package.json",
         "node_modules/stylehacks/node_modules/postcss-reporter/package.json",
+        "node_modules/stylehacks/node_modules/supports-color/package.json",
         "node_modules/stylehacks/package.json",
         "node_modules/stylelint/package.json",
         "node_modules/stylelint-config-standard/package.json",
@@ -4450,6 +4640,8 @@
         "node_modules/synesthesia/package.json",
         "node_modules/table/dist/schemas/config.json",
         "node_modules/table/dist/schemas/streamConfig.json",
+        "node_modules/table/node_modules/chalk/package.json",
+        "node_modules/table/node_modules/supports-color/package.json",
         "node_modules/table/package.json",
         "node_modules/text-table/package.json",
         "node_modules/through/package.json",
@@ -4480,11 +4672,10 @@
         ],
         "dependencies": {
           "assign-deep": "^0.4.5",
-          "atom-linter": "^9.0.0",
+          "atom-linter": "^10.0.0",
           "atom-package-deps": "^4.0.1",
           "escape-html": "^1.0.3",
-          "lazy-req": "^2.0.0",
-          "stylelint": "7.10.1",
+          "stylelint": "7.13.0",
           "stylelint-config-standard": "^16.0.0"
         }
       },
@@ -4550,7 +4741,7 @@
         ],
         "dependencies": {
           "named-js-regexp": "^1.3.1",
-          "sb-exec": "^3.1.0",
+          "sb-exec": "^4.0.0",
           "sb-promisify": "^2.0.1",
           "tmp": "~0.0.28"
         }
@@ -4565,6 +4756,18 @@
           "sb-exec": "^3.0.1",
           "sb-fs": "^3.0.0",
           "semver": "^5.3.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-package-deps/node_modules/sb-exec",
+          "node_modules/atom-package-deps/node_modules/sb-exec/decls",
+          "node_modules/atom-package-deps/node_modules/sb-exec/lib"
+        ],
+        "dependencies": {
+          "consistent-env": "^1.2.0",
+          "lodash.uniq": "^4.5.0",
+          "sb-npm-path": "^2.0.0"
         }
       },
       {
@@ -4598,7 +4801,7 @@
           "node_modules/brace-expansion"
         ],
         "dependencies": {
-          "balanced-match": "^0.4.1",
+          "balanced-match": "^1.0.0",
           "concat-map": "0.0.1"
         }
       },
@@ -4635,11 +4838,25 @@
           "node_modules/chalk"
         ],
         "dependencies": {
-          "ansi-styles": "^2.2.1",
-          "escape-string-regexp": "^1.0.2",
-          "has-ansi": "^2.0.0",
-          "strip-ansi": "^3.0.0",
-          "supports-color": "^2.0.0"
+          "ansi-styles": "^3.1.0",
+          "escape-string-regexp": "^1.0.5",
+          "supports-color": "^4.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chalk/node_modules/ansi-styles"
+        ],
+        "dependencies": {
+          "color-convert": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/chalk/node_modules/supports-color"
+        ],
+        "dependencies": {
+          "has-flag": "^2.0.0"
         }
       },
       {
@@ -4673,6 +4890,14 @@
       },
       {
         "paths": [
+          "node_modules/color-convert"
+        ],
+        "dependencies": {
+          "color-name": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
           "node_modules/colorguard",
           "node_modules/colorguard/lib"
         ],
@@ -4687,6 +4912,18 @@
           "postcss-reporter": "^1.2.1",
           "text-table": "^0.2.0",
           "yargs": "^1.2.6"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/colorguard/node_modules/chalk"
+        ],
+        "dependencies": {
+          "ansi-styles": "^2.2.1",
+          "escape-string-regexp": "^1.0.2",
+          "has-ansi": "^2.0.0",
+          "strip-ansi": "^3.0.0",
+          "supports-color": "^2.0.0"
         }
       },
       {
@@ -5102,7 +5339,7 @@
         ],
         "dependencies": {
           "argparse": "^1.0.7",
-          "esprima": "^3.1.1"
+          "esprima": "^4.0.0"
         }
       },
       {
@@ -5181,6 +5418,18 @@
         ],
         "dependencies": {
           "chalk": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/log-symbols/node_modules/chalk"
+        ],
+        "dependencies": {
+          "ansi-styles": "^2.2.1",
+          "escape-string-regexp": "^1.0.2",
+          "has-ansi": "^2.0.0",
+          "strip-ansi": "^3.0.0",
+          "supports-color": "^2.0.0"
         }
       },
       {
@@ -5383,6 +5632,18 @@
       },
       {
         "paths": [
+          "node_modules/postcss/node_modules/chalk"
+        ],
+        "dependencies": {
+          "ansi-styles": "^2.2.1",
+          "escape-string-regexp": "^1.0.2",
+          "has-ansi": "^2.0.0",
+          "strip-ansi": "^3.0.0",
+          "supports-color": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
           "node_modules/postcss-less/dist",
           "node_modules/postcss-less/dist/tokenizer",
           "node_modules/postcss-less"
@@ -5401,6 +5662,18 @@
           "lodash": "^4.1.0",
           "log-symbols": "^1.0.2",
           "postcss": "^5.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/postcss-reporter/node_modules/chalk"
+        ],
+        "dependencies": {
+          "ansi-styles": "^2.2.1",
+          "escape-string-regexp": "^1.0.2",
+          "has-ansi": "^2.0.0",
+          "strip-ansi": "^3.0.0",
+          "supports-color": "^2.0.0"
         }
       },
       {
@@ -5429,8 +5702,32 @@
           "node_modules/randomatic"
         ],
         "dependencies": {
-          "is-number": "^2.0.2",
+          "is-number": "^3.0.0",
+          "kind-of": "^4.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/randomatic/node_modules/is-number"
+        ],
+        "dependencies": {
           "kind-of": "^3.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/randomatic/node_modules/is-number/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.1.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/randomatic/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.1.5"
         }
       },
       {
@@ -5509,7 +5806,6 @@
       {
         "paths": [
           "node_modules/sb-exec",
-          "node_modules/sb-exec/decls",
           "node_modules/sb-exec/lib"
         ],
         "dependencies": {
@@ -5571,7 +5867,15 @@
         ],
         "dependencies": {
           "is-fullwidth-code-point": "^2.0.0",
-          "strip-ansi": "^3.0.0"
+          "strip-ansi": "^4.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/string-width/node_modules/strip-ansi"
+        ],
+        "dependencies": {
+          "ansi-regex": "^3.0.0"
         }
       },
       {
@@ -5625,6 +5929,18 @@
           "read-file-stdin": "^0.2.1",
           "text-table": "^0.2.0",
           "write-file-stdout": "0.0.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/stylehacks/node_modules/chalk"
+        ],
+        "dependencies": {
+          "ansi-styles": "^2.2.1",
+          "escape-string-regexp": "^1.0.2",
+          "has-ansi": "^2.0.0",
+          "strip-ansi": "^3.0.0",
+          "supports-color": "^2.0.0"
         }
       },
       {
@@ -5720,6 +6036,7 @@
           "node_modules/stylelint/lib/rules/function-url-data-uris",
           "node_modules/stylelint/lib/rules/function-url-no-scheme-relative",
           "node_modules/stylelint/lib/rules/function-url-quotes",
+          "node_modules/stylelint/lib/rules/function-url-scheme-blacklist",
           "node_modules/stylelint/lib/rules/function-url-scheme-whitelist",
           "node_modules/stylelint/lib/rules/function-whitelist",
           "node_modules/stylelint/lib/rules/function-whitespace-after",
@@ -5782,9 +6099,15 @@
           "node_modules/stylelint/lib/rules/selector-list-comma-newline-before",
           "node_modules/stylelint/lib/rules/selector-list-comma-space-after",
           "node_modules/stylelint/lib/rules/selector-list-comma-space-before",
+          "node_modules/stylelint/lib/rules/selector-max-attribute",
+          "node_modules/stylelint/lib/rules/selector-max-class",
+          "node_modules/stylelint/lib/rules/selector-max-combinators",
           "node_modules/stylelint/lib/rules/selector-max-compound-selectors",
           "node_modules/stylelint/lib/rules/selector-max-empty-lines",
+          "node_modules/stylelint/lib/rules/selector-max-id",
           "node_modules/stylelint/lib/rules/selector-max-specificity",
+          "node_modules/stylelint/lib/rules/selector-max-type",
+          "node_modules/stylelint/lib/rules/selector-max-universal",
           "node_modules/stylelint/lib/rules/selector-nested-pattern",
           "node_modules/stylelint/lib/rules/selector-no-attribute",
           "node_modules/stylelint/lib/rules/selector-no-combinator",
@@ -5829,7 +6152,7 @@
         "dependencies": {
           "autoprefixer": "^6.0.0",
           "balanced-match": "^0.4.0",
-          "chalk": "^1.1.1",
+          "chalk": "^2.0.1",
           "colorguard": "^1.2.0",
           "cosmiconfig": "^2.1.1",
           "debug": "^2.6.0",
@@ -5839,15 +6162,17 @@
           "get-stdin": "^5.0.0",
           "globby": "^6.0.0",
           "globjoin": "^0.1.4",
-          "html-tags": "^1.1.1",
+          "html-tags": "^2.0.0",
           "ignore": "^3.2.0",
           "imurmurhash": "^0.1.4",
-          "known-css-properties": "^0.0.7",
+          "known-css-properties": "^0.2.0",
           "lodash": "^4.17.4",
           "log-symbols": "^1.0.2",
+          "mathml-tag-names": "^2.0.0",
           "meow": "^3.3.0",
           "micromatch": "^2.3.11",
           "normalize-selector": "^0.2.0",
+          "pify": "^2.3.0",
           "postcss": "^5.0.20",
           "postcss-less": "^0.14.0",
           "postcss-media-query-parser": "^0.2.0",
@@ -5856,7 +6181,7 @@
           "postcss-scss": "^0.4.0",
           "postcss-selector-parser": "^2.1.1",
           "postcss-value-parser": "^3.1.1",
-          "resolve-from": "^2.0.0",
+          "resolve-from": "^3.0.0",
           "specificity": "^0.3.0",
           "string-width": "^2.0.0",
           "style-search": "^0.1.0",
@@ -5906,6 +6231,18 @@
           "lodash": "^4.0.0",
           "slice-ansi": "0.0.4",
           "string-width": "^2.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/table/node_modules/chalk"
+        ],
+        "dependencies": {
+          "ansi-styles": "^2.2.1",
+          "escape-string-regexp": "^1.0.2",
+          "has-ansi": "^2.0.0",
+          "strip-ansi": "^3.0.0",
+          "supports-color": "^2.0.0"
         }
       },
       {
