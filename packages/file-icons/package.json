@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
+        "raw": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
-        "spec": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
+        "rawSpec": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
+        "spec": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117622-2947-1yjn24j.uloby8ehfr"
+      "/tmp/apm-install-dir-11778-21629-1fws7g2.vjsvfmkj4i"
     ]
   ],
-  "_from": "../d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
-  "_id": "file-icons@2.1.9",
+  "_from": "../d-11778-21629-evvju0.mdexapds4i/package.tgz",
+  "_id": "file-icons@2.1.10",
   "_inCache": true,
   "_location": "/file-icons",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
+    "raw": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
-    "spec": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
+    "rawSpec": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
+    "spec": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
-  "_shasum": "e1b373415541e4cf60fb3143a4701c546b9fd90a",
+  "_resolved": "file:../d-11778-21629-evvju0.mdexapds4i/package.tgz",
+  "_shasum": "19aadfd40ab66484ad582e7d06976a63c972d9a7",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117622-2947-hwiro5.hqqag7gb9/package.tgz",
-  "_where": "/tmp/apm-install-dir-117622-2947-1yjn24j.uloby8ehfr",
+  "_spec": "/tmp/d-11778-21629-evvju0.mdexapds4i/package.tgz",
+  "_where": "/tmp/apm-install-dir-11778-21629-1fws7g2.vjsvfmkj4i",
   "atomTestRunner": "atom-mocha",
   "bugs": {
     "url": "https://github.com/file-icons/atom/issues"
@@ -152,7 +152,7 @@
     "type": "git",
     "url": "git+https://github.com/file-icons/atom.git"
   },
-  "version": "2.1.9",
+  "version": "2.1.10",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -213,7 +213,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/base/node_modules/kind-of/index.js"
       },
       {
@@ -243,7 +243,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/class-utils/node_modules/kind-of/index.js"
       },
       {
@@ -288,7 +288,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/expand-brackets/node_modules/kind-of/index.js"
       },
       {
@@ -313,7 +313,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/extglob/node_modules/kind-of/index.js"
       },
       {
@@ -393,7 +393,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/is-descriptor/node_modules/kind-of/index.js"
       },
       {
@@ -493,7 +493,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/object-copy/node_modules/is-descriptor/node_modules/kind-of/index.js"
       },
       {
@@ -583,7 +583,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/snapdragon/node_modules/kind-of/index.js"
       },
       {
@@ -638,7 +638,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/static-extend/node_modules/kind-of/index.js"
       },
       {
@@ -668,7 +668,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/to-regex/node_modules/kind-of/index.js"
       },
       {
@@ -708,7 +708,7 @@
       },
       {
         "name": "kind-of",
-        "version": "5.0.0",
+        "version": "5.0.2",
         "path": "node_modules/use/node_modules/kind-of/index.js"
       }
     ],

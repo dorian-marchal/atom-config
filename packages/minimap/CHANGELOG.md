@@ -1,5 +1,28 @@
+<a name="v4.29.3"></a>
+# v4.39.2 (2017-07-27)
+
+## :bug: Bug Fixes
+
+- Guard against service usage after package is disabled in the same Atom session ([2f787bc7](https://github.com/atom-minimap/minimap/commit/2f787bc7649577df3fa9976b5b833018ac4bdccc), [#605](https://github.com/atom-minimap/minimap/issues/605))
+
+<a name="v4.29.2"></a>
+# v4.29.2 (2017-07-24)
+
+## :bug: Bug Fixes
+
+- Properly fix the issue with deprecated scroll method ([0552856a](https://github.com/atom-minimap/minimap/commit/0552856ae4250557a43bcd6dd58e84df9e24545e))
+- Fix error when redispatching scroll event ([b269eb87](https://github.com/atom-minimap/minimap/commit/b269eb87949b41a84b685f0db775f083ed44566f), [#614](https://github.com/atom-minimap/minimap/issues/614))
+- Fix independent minimap no longer working on latest atom version ([29bd6b35](https://github.com/atom-minimap/minimap/commit/29bd6b35c0e1c03ceac0ae97a6c8e493a7219f92))
+
+<a name="v4.29.1"></a>
+# v4.29.1 (2017-07-24)
+
+## :bug: Bug Fixes
+
+- Fix call of soon to be deprecated method ([1b761f2a](https://github.com/atom-minimap/minimap/commit/1b761f2ab5242bfc25652978506749fbdb75bcf2), [#598](https://github.com/atom-minimap/minimap/issues/598))
+
 <a name="v4.29.0"></a>
-# v4.29.0 (2017-05-02)
+# v4.29.0 (2017-07-19)
 
 Remove Kite promotion.
 

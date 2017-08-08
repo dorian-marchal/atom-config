@@ -74,6 +74,7 @@
 
 'body':
   'ctrl-q': 'unset!'
+  'ctrl-w': 'unset!'
   # Avoid overring ctrl+shift+o = open link
   'ctrl-shift-O': 'unset!'
   'ctrl-o': 'unset!'

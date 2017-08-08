@@ -1,3 +1,24 @@
+<a name="v0.40.1"></a>
+# v0.40.1 (2017-07-27)
+
+## Bug Fixes
+
+- Guard against error raised when trying to destroy a gutter on editor destruction ([e17f0cad](https://github.com/abe33/atom-pigments/commit/e17f0cadf7290463a0caa8abccb5a9c8d92bb673))
+- Guard against weird error raised when update gutter decorations ([e0340089](https://github.com/abe33/atom-pigments/commit/e03400896774306ddc16196cec91075c40ae3af8))
+- Fix inconsistent styling of text decorations ([114b05d6](https://github.com/abe33/atom-pigments/commit/114b05d69ecb7da6447f0c15d7788b2afa92c538), [#321](https://github.com/abe33/atom-pigments/issues/321))
+
+<a name="v0.40.0"></a>
+# v0.40.0 (2017-07-25)
+
+## Bug Fixes
+
+- Fix pigments icon size ([477e7d66](https://github.com/abe33/atom-pigments/commit/477e7d66bb4715ccbaa613c12a9521393f52ccac))
+
+## Dependencies Update
+
+- Bump Atom requirements ([573a309f](https://github.com/abe33/atom-pigments/commit/573a309f3c94ed1f3f1151ce8d44adc38d19afa6))
+- Bump serialized data versions ([864ed265](https://github.com/abe33/atom-pigments/commit/864ed26599637d1cb384dea61526d55164fcb080))
+
 <a name="v0.39.0"></a>
 # v0.39.0 (2017-01-24)
 
