@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
+        "raw": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
-        "spec": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
+        "rawSpec": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
+        "spec": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-11778-21849-1khw9tx.r9g5t81tt9"
+      "/tmp/apm-install-dir-117718-18594-wt6wx0.nfpeva38fr"
     ]
   ],
-  "_from": "../d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
-  "_id": "pigments@0.40.1",
+  "_from": "../d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
+  "_id": "pigments@0.40.2",
   "_inCache": true,
   "_location": "/pigments",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
+    "raw": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
-    "spec": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
+    "rawSpec": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
+    "spec": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
-  "_shasum": "31cc432046bf5274795e87ff79cecf359673bc00",
+  "_resolved": "file:../d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
+  "_shasum": "0afb452bf2adf0955cf43b985b2f2a490b8a7d2f",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-11778-21849-1e7pnm5.p9nn9rizfr/package.tgz",
-  "_where": "/tmp/apm-install-dir-11778-21849-1khw9tx.r9g5t81tt9",
+  "_spec": "/tmp/d-117718-18594-187pd31.tptfs6pqfr/package.tgz",
+  "_where": "/tmp/apm-install-dir-117718-18594-wt6wx0.nfpeva38fr",
   "bugs": {
     "url": "https://github.com/abe33/atom-pigments/issues"
   },
@@ -285,7 +285,7 @@
     "type": "git",
     "url": "git+https://github.com/abe33/atom-pigments.git"
   },
-  "version": "0.40.1",
+  "version": "0.40.2",
   "viewProviders": [
     "pigmentsViewProvider"
   ],
@@ -374,7 +374,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.26",
+        "version": "0.10.29",
         "path": "node_modules/es5-ext/index.js"
       },
       {
@@ -604,12 +604,6 @@
         "lib/pigments-provider.coffee",
         "lib/pigments.coffee",
         "lib/regexes.coffee",
-        "lib/renderers/background.coffee",
-        "lib/renderers/dot.coffee",
-        "lib/renderers/outline.coffee",
-        "lib/renderers/region-renderer.coffee",
-        "lib/renderers/square-dot.coffee",
-        "lib/renderers/underline.coffee",
         "lib/scope-from-file-name.coffee",
         "lib/sticky-title.coffee",
         "lib/svg-colors.coffee",
@@ -728,6 +722,7 @@
         "node_modules/es5-ext/array/#/indexes-of.js",
         "node_modules/es5-ext/array/#/intersection.js",
         "node_modules/es5-ext/array/#/is-copy.js",
+        "node_modules/es5-ext/array/#/is-empty.js",
         "node_modules/es5-ext/array/#/is-uniq.js",
         "node_modules/es5-ext/array/#/keys/implement.js",
         "node_modules/es5-ext/array/#/keys/index.js",
@@ -951,6 +946,8 @@
         "node_modules/es5-ext/object/copy.js",
         "node_modules/es5-ext/object/count.js",
         "node_modules/es5-ext/object/create.js",
+        "node_modules/es5-ext/object/ensure-array.js",
+        "node_modules/es5-ext/object/ensure-finite-number.js",
         "node_modules/es5-ext/object/ensure-natural-number-value.js",
         "node_modules/es5-ext/object/ensure-natural-number.js",
         "node_modules/es5-ext/object/ensure-promise.js",
@@ -969,6 +966,7 @@
         "node_modules/es5-ext/object/is-copy-deep.js",
         "node_modules/es5-ext/object/is-copy.js",
         "node_modules/es5-ext/object/is-empty.js",
+        "node_modules/es5-ext/object/is-finite-number.js",
         "node_modules/es5-ext/object/is-number-value.js",
         "node_modules/es5-ext/object/is-object.js",
         "node_modules/es5-ext/object/is-plain-object.js",
@@ -1085,6 +1083,7 @@
         "node_modules/es5-ext/string/raw/index.js",
         "node_modules/es5-ext/string/raw/is-implemented.js",
         "node_modules/es5-ext/string/raw/shim.js",
+        "node_modules/es5-ext/to-short-string-representation.js",
         "node_modules/es6-iterator/#/chain.js",
         "node_modules/es6-iterator/array.js",
         "node_modules/es6-iterator/for-of.js",
@@ -1153,7 +1152,6 @@
         "paths": [
           "",
           "lib",
-          "lib/renderers",
           "lib/tasks",
           "spec",
           "spec/fixtures",

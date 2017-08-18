@@ -79,6 +79,8 @@
   'ctrl-shift-O': 'unset!'
   'ctrl-o': 'unset!'
   'ctrl-k ctrl-m': 'minimap:toggle'
+  'ctrl-k left': 'pane:split-left-and-move-active-item'
+  'ctrl-k right': 'pane:split-right-and-move-active-item'
 
  # Stop emmet from hijacking tab from snippets and autocomplete
 'atom-text-editor.autocomplete-active:not([mini])':

@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+        "raw": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
-        "spec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+        "rawSpec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+        "spec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117622-2840-1sr9myp.bgee0l766r"
+      "/tmp/apm-install-dir-117718-18546-6twlhc.yu89cc8fr"
     ]
   ],
-  "_from": "../d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
-  "_id": "linter-ui-default@1.6.3",
+  "_from": "../d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+  "_id": "linter-ui-default@1.6.7",
   "_inCache": true,
   "_location": "/linter-ui-default",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+    "raw": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
-    "spec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
+    "rawSpec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+    "spec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
-  "_shasum": "1aa958af941aff923c6d2dd66057c117d7aed3d6",
+  "_resolved": "file:../d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+  "_shasum": "07403d5721893afd753faf415a43345538154ca9",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117622-2840-ata47q.xwa4ipmn29/package.tgz",
-  "_where": "/tmp/apm-install-dir-117622-2840-1sr9myp.bgee0l766r",
+  "_spec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+  "_where": "/tmp/apm-install-dir-117718-18546-6twlhc.yu89cc8fr",
   "bugs": {
     "url": "https://github.com/steelbrain/linter-ui-default/issues"
   },
@@ -187,7 +187,7 @@
   "description": "Default UI for the Linter package",
   "devDependencies": {
     "eslint-config-steelbrain": "^3.0.0",
-    "flow-bin": "^0.46.0",
+    "flow-bin": "^0.52.0",
     "jasmine-fix": "^1.0.1",
     "rimraf": "^2.5.4"
   },
@@ -228,7 +228,7 @@
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "1.6.3",
+  "version": "1.6.7",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -274,7 +274,7 @@
       },
       {
         "name": "fbjs",
-        "version": "0.8.12",
+        "version": "0.8.14",
         "path": "node_modules/fbjs/index.js"
       },
       {
@@ -319,7 +319,7 @@
       },
       {
         "name": "node-fetch",
-        "version": "1.7.1",
+        "version": "1.7.2",
         "path": "node_modules/node-fetch/index.js"
       },
       {
@@ -394,7 +394,7 @@
       },
       {
         "name": "semver",
-        "version": "5.3.0",
+        "version": "5.4.1",
         "path": "node_modules/semver/semver.js"
       },
       {

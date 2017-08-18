@@ -27,8 +27,8 @@ const removeOverlayStyle = () => {
 const updateOverlayStyle = (basis) => {
   if (overlayStyle) {
     overlayStyle.textContent = `
-    atom-text-editor[with-minimap]::shadow atom-overlay,
-    atom-text-editor[with-minimap] atom-overlay {
+    atom-text-editor[with-minimap].editor > div,
+    atom-text-editor[with-minimap] > div {
       margin-left: ${basis}px;
     }
     `
@@ -227,6 +227,7 @@ class MinimapElement {
           ? ensureOverlayStyle()
           : removeOverlayStyle()
         this.updateMinimapFlexPosition()
+        this.measureHeightAndWidth(true, true)
       },
 
       'minimap.minimapScrollIndicator': (minimapScrollIndicator) => {
@@ -343,7 +344,7 @@ class MinimapElement {
    * @access private
    */
   attachedCallback () {
-    if (atom.views.pollDocument) {
+    if (typeof atom.views.pollDocument === 'function') {
       this.subscriptions.add(atom.views.pollDocument(() => { this.pollDOM() }))
     } else {
       this.intersectionObserver = new IntersectionObserver((entries) => {
@@ -714,7 +715,9 @@ class MinimapElement {
 
     this.subscriptions.add(this.minimap.onDidChangeDecorationRange((change) => {
       const {type} = change
-      if (type === 'line' || type === 'highlight-under' || type === 'background-custom') {
+      if (type === 'line' ||
+          type === 'highlight-under' ||
+          type === 'background-custom') {
         this.pendingBackDecorationChanges.push(change)
       } else {
         this.pendingFrontDecorationChanges.push(change)

@@ -103,7 +103,7 @@ class Editor {
       let lastEmpty
       const handlePositionChange = ({ start, end }) => {
         const gutter = this.gutter
-        if (!gutter) return
+        if (!gutter || this.subscriptions.disposed) return
         // We need that Range.fromObject hack below because when we focus index 0 on multi-line selection
         // end.column is the column of the last line but making a range out of two and then accesing
         // the end seems to fix it (black magic?)
@@ -151,7 +151,7 @@ class Editor {
     const editorElement = atom.views.getView(this.textEditor)
 
     return disposableEvent(editorElement, 'mousemove', debounce((event) => {
-      if (!editorElement.component || !hasParent(event.target, 'div.scroll-view')) {
+      if (!editorElement.component || this.subscriptions.disposed || !hasParent(event.target, 'div.scroll-view')) {
         return
       }
       const tooltip = this.tooltip

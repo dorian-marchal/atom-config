@@ -37,7 +37,6 @@
       "jshint"
       "indent-guide-improved"
       "background-tips"
-      "timecop"
       "autosave"
       "atom-bootstrap3"
       "project-manager"
@@ -47,6 +46,9 @@
       "dev-live-reload"
       "github"
       "remote-sync"
+      "react"
+      "git-plus"
+      "timecop"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -82,7 +84,8 @@
   emmet: {}
   "exception-reporting":
     userId: "3079f2c3-af1f-fc1b-e5c7-6add982dcebc"
-  "file-icons": {}
+  "file-icons":
+    strategies: {}
   "file-watcher":
     includeCompareOption: false
   "find-and-replace":
@@ -102,6 +105,8 @@
     clearOnChange: true
     lintOnChange: false
     lintOnChangeInterval: 500
+    lintOnOpen: false
+    lintPreviewTabs: false
     statusBar: "Show all errors"
   "linter-eslint":
     disableEslintIgnore: true
@@ -185,6 +190,9 @@
   editor:
     nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?-…"
     tabLength: 4
+".css.source.styled":
+  editor:
+    nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?-…"
 ".diff":
   editor:
     tabLength: 4
@@ -212,6 +220,7 @@
 ".js.jsx.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+    tabLength: 2
 ".js.regexp.replacement.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
