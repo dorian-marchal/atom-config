@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+        "raw": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
-        "spec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+        "rawSpec": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
+        "spec": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117623-16207-1w78ugg.0icu15rk9"
+      "/tmp/apm-install-dir-117723-13632-1pyyqj2.7awxwrvn29"
     ]
   ],
-  "_from": "../d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+  "_from": "../d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
   "_id": "linter-stylelint@3.12.0",
   "_inCache": true,
   "_location": "/linter-stylelint",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+    "raw": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
-    "spec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+    "rawSpec": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
+    "spec": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
+  "_resolved": "file:../d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
   "_shasum": "6097f306c99ce87f3a39d9bfddaa58c40e6aadb2",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117623-16207-1qkcspx.zdb2tvs4i/package.tgz",
-  "_where": "/tmp/apm-install-dir-117623-16207-1w78ugg.0icu15rk9",
+  "_spec": "/tmp/d-117723-13632-m365dd.krtfi7wrk9/package.tgz",
+  "_where": "/tmp/apm-install-dir-117723-13632-1pyyqj2.7awxwrvn29",
   "author": {
     "name": "1000ch",
     "email": "shogo.sensui@gmail.com",
@@ -213,7 +213,7 @@
       },
       {
         "name": "assign-deep",
-        "version": "0.4.5",
+        "version": "0.4.6",
         "path": "node_modules/assign-deep/index.js"
       },
       {
@@ -288,12 +288,12 @@
       },
       {
         "name": "chalk",
-        "version": "2.0.1",
+        "version": "2.1.0",
         "path": "node_modules/chalk/index.js"
       },
       {
         "name": "ansi-styles",
-        "version": "3.1.0",
+        "version": "3.2.0",
         "path": "node_modules/chalk/node_modules/ansi-styles/index.js"
       },
       {
@@ -308,7 +308,7 @@
       },
       {
         "name": "circular-json",
-        "version": "0.3.1",
+        "version": "0.3.3",
         "path": "node_modules/circular-json/build/circular-json.node.js"
       },
       {
@@ -388,7 +388,7 @@
       },
       {
         "name": "cosmiconfig",
-        "version": "2.2.1",
+        "version": "2.2.2",
         "path": "node_modules/cosmiconfig/index.js"
       },
       {
@@ -463,7 +463,7 @@
       },
       {
         "name": "electron-to-chromium",
-        "version": "1.3.16",
+        "version": "1.3.18",
         "path": "node_modules/electron-to-chromium/index.js"
       },
       {
@@ -712,6 +712,11 @@
         "path": "node_modules/is-number/index.js"
       },
       {
+        "name": "kind-of",
+        "version": "3.2.2",
+        "path": "node_modules/is-number/node_modules/kind-of/index.js"
+      },
+      {
         "name": "is-path-cwd",
         "version": "1.0.0",
         "path": "node_modules/is-path-cwd/index.js"
@@ -773,7 +778,7 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.9.0",
+        "version": "3.9.1",
         "path": "node_modules/js-yaml/index.js"
       },
       {
@@ -803,7 +808,7 @@
       },
       {
         "name": "kind-of",
-        "version": "3.2.2",
+        "version": "5.0.2",
         "path": "node_modules/kind-of/index.js"
       },
       {
@@ -875,6 +880,11 @@
         "name": "micromatch",
         "version": "2.3.11",
         "path": "node_modules/micromatch/index.js"
+      },
+      {
+        "name": "kind-of",
+        "version": "3.2.2",
+        "path": "node_modules/micromatch/node_modules/kind-of/index.js"
       },
       {
         "name": "minimatch",
@@ -1148,7 +1158,7 @@
       },
       {
         "name": "remove-trailing-separator",
-        "version": "1.0.2",
+        "version": "1.1.0",
         "path": "node_modules/remove-trailing-separator/index.js"
       },
       {
@@ -1213,7 +1223,7 @@
       },
       {
         "name": "semver",
-        "version": "5.3.0",
+        "version": "5.4.1",
         "path": "node_modules/semver/semver.js"
       },
       {
@@ -1228,7 +1238,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.5.6",
+        "version": "0.5.7",
         "path": "node_modules/source-map/source-map.js"
       },
       {
@@ -1408,7 +1418,7 @@
       },
       {
         "name": "tmp",
-        "version": "0.0.31",
+        "version": "0.0.33",
         "path": "node_modules/tmp/lib/tmp.js"
       },
       {
@@ -1830,6 +1840,7 @@
         "node_modules/is-fullwidth-code-point/index.js",
         "node_modules/is-glob/index.js",
         "node_modules/is-number/index.js",
+        "node_modules/is-number/node_modules/kind-of/index.js",
         "node_modules/is-path-cwd/index.js",
         "node_modules/is-path-in-cwd/index.js",
         "node_modules/is-path-inside/index.js",
@@ -2963,6 +2974,7 @@
         "node_modules/micromatch/lib/expand.js",
         "node_modules/micromatch/lib/glob.js",
         "node_modules/micromatch/lib/utils.js",
+        "node_modules/micromatch/node_modules/kind-of/index.js",
         "node_modules/minimatch/minimatch.js",
         "node_modules/minimist/example/parse.js",
         "node_modules/minimist/index.js",
@@ -3754,8 +3766,10 @@
         "node_modules/caniuse-db/features-json/css-boxdecorationbreak.json",
         "node_modules/caniuse-db/features-json/css-boxshadow.json",
         "node_modules/caniuse-db/features-json/css-canvas.json",
+        "node_modules/caniuse-db/features-json/css-caret-color.json",
         "node_modules/caniuse-db/features-json/css-case-insensitive.json",
         "node_modules/caniuse-db/features-json/css-clip-path.json",
+        "node_modules/caniuse-db/features-json/css-conic-gradients.json",
         "node_modules/caniuse-db/features-json/css-containment.json",
         "node_modules/caniuse-db/features-json/css-counters.json",
         "node_modules/caniuse-db/features-json/css-crisp-edges.json",
@@ -3880,6 +3894,7 @@
         "node_modules/caniuse-db/features-json/eot.json",
         "node_modules/caniuse-db/features-json/es5.json",
         "node_modules/caniuse-db/features-json/es6-class.json",
+        "node_modules/caniuse-db/features-json/es6-generators.json",
         "node_modules/caniuse-db/features-json/es6-module-dynamic-import.json",
         "node_modules/caniuse-db/features-json/es6-module-nomodule.json",
         "node_modules/caniuse-db/features-json/es6-module.json",
@@ -3991,6 +4006,7 @@
         "node_modules/caniuse-db/features-json/midi.json",
         "node_modules/caniuse-db/features-json/minmaxwh.json",
         "node_modules/caniuse-db/features-json/mp3.json",
+        "node_modules/caniuse-db/features-json/mpeg-dash.json",
         "node_modules/caniuse-db/features-json/mpeg4.json",
         "node_modules/caniuse-db/features-json/multibackgrounds.json",
         "node_modules/caniuse-db/features-json/multicolumn.json",
@@ -4006,6 +4022,7 @@
         "node_modules/caniuse-db/features-json/object-observe.json",
         "node_modules/caniuse-db/features-json/objectrtc.json",
         "node_modules/caniuse-db/features-json/offline-apps.json",
+        "node_modules/caniuse-db/features-json/offscreencanvas.json",
         "node_modules/caniuse-db/features-json/ogg-vorbis.json",
         "node_modules/caniuse-db/features-json/ogv.json",
         "node_modules/caniuse-db/features-json/ol-reversed.json",
@@ -4489,6 +4506,7 @@
         "node_modules/is-finite/package.json",
         "node_modules/is-fullwidth-code-point/package.json",
         "node_modules/is-glob/package.json",
+        "node_modules/is-number/node_modules/kind-of/package.json",
         "node_modules/is-number/package.json",
         "node_modules/is-path-cwd/package.json",
         "node_modules/is-path-in-cwd/package.json",
@@ -4530,6 +4548,7 @@
         "node_modules/mathml-tag-names/index.json",
         "node_modules/mathml-tag-names/package.json",
         "node_modules/meow/package.json",
+        "node_modules/micromatch/node_modules/kind-of/package.json",
         "node_modules/micromatch/package.json",
         "node_modules/minimatch/package.json",
         "node_modules/minimist/package.json",
@@ -4731,7 +4750,7 @@
         "dependencies": {
           "assign-symbols": "^0.1.1",
           "is-primitive": "^2.0.0",
-          "kind-of": "^3.0.2"
+          "kind-of": "^5.0.2"
         }
       },
       {
@@ -4848,7 +4867,7 @@
           "node_modules/chalk/node_modules/ansi-styles"
         ],
         "dependencies": {
-          "color-convert": "^1.0.0"
+          "color-convert": "^1.9.0"
         }
       },
       {
@@ -5304,6 +5323,14 @@
       },
       {
         "paths": [
+          "node_modules/is-number/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.1.5"
+        }
+      },
+      {
+        "paths": [
           "node_modules/is-path-in-cwd"
         ],
         "dependencies": {
@@ -5373,14 +5400,6 @@
         "dependencies": {
           "jsonparse": "0.0.5",
           "through": ">=2.2.7 <3"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/kind-of"
-        ],
-        "dependencies": {
-          "is-buffer": "^1.1.5"
         }
       },
       {
@@ -5477,6 +5496,14 @@
           "object.omit": "^2.0.0",
           "parse-glob": "^3.0.4",
           "regex-cache": "^0.4.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/micromatch/node_modules/kind-of"
+        ],
+        "dependencies": {
+          "is-buffer": "^1.1.5"
         }
       },
       {
@@ -6272,7 +6299,7 @@
           "node_modules/tmp"
         ],
         "dependencies": {
-          "os-tmpdir": "~1.0.1"
+          "os-tmpdir": "~1.0.2"
         }
       },
       {

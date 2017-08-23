@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
+        "raw": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
-        "spec": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
+        "rawSpec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+        "spec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117718-18507-13nsxzy.oltqu59udi"
+      "/tmp/apm-install-dir-117723-13398-zz6r49.a0nssdzpvi"
     ]
   ],
-  "_from": "../d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
-  "_id": "language-babel@2.71.0",
+  "_from": "../d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+  "_id": "language-babel@2.72.0",
   "_inCache": true,
   "_location": "/language-babel",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
+    "raw": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
-    "spec": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
+    "rawSpec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+    "spec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
-  "_shasum": "77b3f1d65fe4f9006e6eaacfd9cba6bea2b4a200",
+  "_resolved": "file:../d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+  "_shasum": "f095f9d0fed54a74273e23d6d8ca0e090cd728b2",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117718-18507-19hz0f6.z9prza1yvi/package.tgz",
-  "_where": "/tmp/apm-install-dir-117718-18507-13nsxzy.oltqu59udi",
+  "_spec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+  "_where": "/tmp/apm-install-dir-117723-13398-zz6r49.a0nssdzpvi",
   "activationCommands": [],
   "bugs": {
     "url": "https://github.com/gandm/language-babel/issues"
@@ -193,7 +193,7 @@
     "type": "git",
     "url": "git+https://github.com/gandm/language-babel.git"
   },
-  "version": "2.71.0",
+  "version": "2.72.0",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -489,7 +489,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.5.6",
+        "version": "0.5.7",
         "path": "node_modules/source-map/source-map.js"
       },
       {

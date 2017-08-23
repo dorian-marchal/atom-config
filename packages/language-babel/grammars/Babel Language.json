@@ -11,7 +11,8 @@
     "es",
     "babel",
     "jsx",
-    "flow"
+    "flow",
+    "mjs"
   ],
   "patterns": [
     { "include": "#core" }
@@ -941,8 +942,9 @@
         },
         {
           "comment": "Styled CSS tag functions",
-          "begin": "(?<!\\.)\\s*+(?:(\\bstyled)|((?:[$_\\p{L}\\p{Nl}]|\\\\u\\h{4}|\\\\u{\\h+})(?:[$_\\p{L}\\p{Mn}\\p{Mc}\\p{Nd}\\p{Nl}\\p{Pc}\\x{200C}\\x{200D}]|\\\\u\\h{4}|\\\\u{\\h+})*+)\\s*(\\?)?(\\.)\\s*(withComponent))\\s*(?=((\\((?:(?>[^()]+)|\\g<-1>)*\\))*\\s*`))",
-          "end": "(?<=`)",
+          "begin": "(?<!\\.)\\s*+(?:(\\bstyled)|((?:[$_\\p{L}\\p{Nl}]|\\\\u\\h{4}|\\\\u{\\h+})(?:[$_\\p{L}\\p{Mn}\\p{Mc}\\p{Nd}\\p{Nl}\\p{Pc}\\x{200C}\\x{200D}]|\\\\u\\h{4}|\\\\u{\\h+})*+)\\s*(\\?)?(\\.)\\s*(withComponent))\\s*(?=((\\((?:(?>[^()]+)|\\g<-1>)*\\))*\\s*(`|\\.extend`|$)))",
+          "end": "(?=.)",
+          "applyEndPatternLast": 1,
           "beginCaptures": {
             "1": { "name": "entity.name.function.js" },
             "2": { "name": "variable.other.class.js" },
@@ -968,6 +970,14 @@
               "patterns": [
                 { "include": "source.css.styled" }
               ]
+            },
+            {
+              "comment": "Styled CSS tags",
+              "match": "\\s*(\\.)\\s*(extend)\\s*(?=`)",
+              "captures": {
+                "1": { "name": "keyword.operator.accessor.js" },
+                "2": { "name": "entity.name.tag.styledcss.js" }
+              }
             }
           ]
         },
@@ -1730,12 +1740,6 @@
           "match": "\\s*+((?:\\B[-+])?(?:\\b0[bB][0-1]*|\\b0[oO][0-7]*|\\b0[xX][0-9a-fA-F]*|(\\B\\.[0-9]+|\\b[0-9]+(\\.[0-9]*)?)([eE][-+]?[0-9]+)?))",
           "captures": {
             "1": { "name": "constant.numeric.js" }
-          }
-        },
-        {
-          "match": "\\s*+((?:\\B[-+]|\\b)(Infinity)\\b)",
-          "captures": {
-            "1": { "name": "constant.language.infinity.js" }
           }
         }
       ]

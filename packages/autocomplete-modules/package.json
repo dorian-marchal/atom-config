@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
+        "raw": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
-        "spec": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
+        "rawSpec": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
+        "spec": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117627-13703-jz9mlu.xinvtb7qfr"
+      "/tmp/apm-install-dir-117723-13358-1y1g3oy.baegg5jyvi"
     ]
   ],
-  "_from": "../d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
-  "_id": "autocomplete-modules@1.6.10",
+  "_from": "../d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
+  "_id": "autocomplete-modules@1.7.0",
   "_inCache": true,
   "_location": "/autocomplete-modules",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
+    "raw": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
-    "spec": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
+    "rawSpec": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
+    "spec": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
-  "_shasum": "86b49a8784fd8e0cf6a6b9aefbc63af1d3bed49e",
+  "_resolved": "file:../d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
+  "_shasum": "63d6c71ee55e1fe88a77f7730878bdf7aa550d37",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117627-13703-1p2b10n.o9vfrjxlxr/package.tgz",
-  "_where": "/tmp/apm-install-dir-117627-13703-jz9mlu.xinvtb7qfr",
+  "_spec": "/tmp/d-117723-13358-rzvmk6.1x7irizfr/package.tgz",
+  "_where": "/tmp/apm-install-dir-117723-13358-1y1g3oy.baegg5jyvi",
   "activationHooks": [
     "language-javascript:grammar-used",
     "language-babel:grammar-used",
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "bluebird": "3.5.0",
-    "find-babel-config": "1.0.1",
+    "find-babel-config": "1.1.0",
     "fuzzaldrin": "2.1.0",
     "lodash.escaperegexp": "4.1.2",
     "lodash.get": "4.4.2"
@@ -92,7 +92,7 @@
     "pretest": "eslint src/",
     "test": "exit 0"
   },
-  "version": "1.6.10",
+  "version": "1.7.0",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -103,7 +103,7 @@
       },
       {
         "name": "find-babel-config",
-        "version": "1.0.1",
+        "version": "1.1.0",
         "path": "node_modules/find-babel-config/lib/index.js"
       },
       {
@@ -211,7 +211,7 @@
         ],
         "dependencies": {
           "bluebird": "3.5.0",
-          "find-babel-config": "1.0.1",
+          "find-babel-config": "1.1.0",
           "fuzzaldrin": "2.1.0",
           "lodash.escaperegexp": "4.1.2",
           "lodash.get": "4.4.2"
@@ -223,7 +223,7 @@
           "node_modules/find-babel-config"
         ],
         "dependencies": {
-          "json5": "^0.5.0",
+          "json5": "^0.5.1",
           "path-exists": "^3.0.0"
         }
       }
