@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
+        "raw": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
-        "spec": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
+        "rawSpec": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
+        "spec": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117214-25678-xun0s9"
+      "/tmp/apm-install-dir-117825-30116-4bgdtp.vaywx9a4i"
     ]
   ],
-  "_from": "../d-117214-25678-1h7pz4j/package.tgz",
-  "_id": "file-watcher@1.1.0",
+  "_from": "../d-117825-30116-1q2avne.admzrara4i/package.tgz",
+  "_id": "file-watcher@1.2.6",
   "_inCache": true,
-  "_installable": true,
   "_location": "/file-watcher",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
+    "raw": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
-    "spec": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
+    "rawSpec": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
+    "spec": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117214-25678-1h7pz4j/package.tgz",
-  "_shasum": "1d2b48460d835e0166ea06882a49d4751d943975",
+  "_resolved": "file:../d-117825-30116-1q2avne.admzrara4i/package.tgz",
+  "_shasum": "7e25d1cafd0e2084b632b35b1a6299359ba62e7e",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117214-25678-1h7pz4j/package.tgz",
-  "_where": "/tmp/apm-install-dir-117214-25678-xun0s9",
+  "_spec": "/tmp/d-117825-30116-1q2avne.admzrara4i/package.tgz",
+  "_where": "/tmp/apm-install-dir-117825-30116-4bgdtp.vaywx9a4i",
   "bugs": {
     "url": "https://github.com/lwblackledge/file-watcher/issues"
   },
@@ -56,5 +55,20 @@
     "type": "git",
     "url": "git+https://github.com/lwblackledge/file-watcher.git"
   },
-  "version": "1.1.0"
+  "version": "1.2.6",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/file-watcher.coffee",
+        "lib/init.coffee",
+        "lib/utils.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

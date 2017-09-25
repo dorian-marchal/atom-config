@@ -27,8 +27,7 @@ module.exports =
       workspaceCommands["markdown-writer:new-#{file}"] =
         @registerView("./views/new-#{file}-view", optOutGrammars: true)
 
-    ["open-cheat-sheet", "create-default-keymaps",
-     "create-project-configs"].forEach (command) =>
+    ["open-cheat-sheet", "create-default-keymaps", "create-project-configs"].forEach (command) =>
       workspaceCommands["markdown-writer:#{command}"] =
         @registerCommand("./commands/#{command}", optOutGrammars: true)
 
@@ -41,22 +40,19 @@ module.exports =
       editorCommands["markdown-writer:manage-post-#{attr}"] =
         @registerView("./views/manage-post-#{attr}-view")
 
-    ["link", "footnote", "image", "table"].forEach (media) =>
+    ["link", "footnote", "image-file", "image-clipboard", "table"].forEach (media) =>
       editorCommands["markdown-writer:insert-#{media}"] =
         @registerView("./views/insert-#{media}-view")
 
-    ["code", "codeblock", "bold", "italic",
-     "keystroke", "strikethrough"].forEach (style) =>
+    ["code", "codeblock", "bold", "italic", "strikethrough", "keystroke"].forEach (style) =>
       editorCommands["markdown-writer:toggle-#{style}-text"] =
         @registerCommand("./commands/style-text", args: style)
 
-    ["h1", "h2", "h3", "h4", "h5", "ul", "ol",
-     "task", "taskdone", "blockquote"].forEach (style) =>
+    ["h1", "h2", "h3", "h4", "h5", "ul", "ol", "task", "taskdone", "blockquote"].forEach (style) =>
       editorCommands["markdown-writer:toggle-#{style}"] =
         @registerCommand("./commands/style-line", args: style)
 
-    ["previous-heading", "next-heading", "next-table-cell",
-     "reference-definition"].forEach (command) =>
+    ["previous-heading", "next-heading", "next-table-cell", "reference-definition"].forEach (command) =>
       editorCommands["markdown-writer:jump-to-#{command}"] =
         @registerCommand("./commands/jump-to", args: command)
 
@@ -69,7 +65,7 @@ module.exports =
       editorCommands["markdown-writer:#{command}"] =
         @registerCommand("./commands/format-text", args: command)
 
-    ["publish-draft", "open-link-in-browser"].forEach (command) =>
+    ["publish-draft", "open-link-in-browser", "insert-image"].forEach (command) =>
       editorCommands["markdown-writer:#{command}"] =
         @registerCommand("./commands/#{command}")
 
@@ -80,7 +76,7 @@ module.exports =
       if (options.optOutGrammars || @isMarkdown()) && !@inSkipList(options.skipList)
         @modules[path] ?= require(path)
         moduleInstance = new @modules[path](options.args)
-        moduleInstance.display() unless config.get("_skipAction")?
+        moduleInstance.display(e) unless config.get("_skipAction")?
       else
         e.abortKeyBinding()
 

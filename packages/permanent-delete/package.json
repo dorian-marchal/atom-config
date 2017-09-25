@@ -1,89 +1,215 @@
 {
-  "name": "permanent-delete",
-  "main": "./lib/permanent-delete",
-  "version": "0.1.5",
-  "description": "Bypass the recycle bin",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/olmokramer/atom-permanent-delete.git"
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+        "spec": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-117825-30350-rmyrjf.txeroirudi"
+    ]
+  ],
+  "_from": "../d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+  "_id": "permanent-delete@0.1.6",
+  "_inCache": true,
+  "_location": "/permanent-delete",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+    "spec": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+    "type": "local"
   },
-  "license": "MIT",
-  "engines": {
-    "atom": ">0.50.0"
-  },
-  "dependencies": {
-    "fs-plus": "^2.5.0"
-  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+  "_shasum": "5bd9514afeca1d4b8a6aee608542e5d2401d2032",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-117825-30350-4zrsvn.6qsywx9a4i/package.tgz",
+  "_where": "/tmp/apm-install-dir-117825-30350-rmyrjf.txeroirudi",
   "activationCommands": {
     "atom-workspace": [
       "permanent-delete:delete"
     ]
   },
-  "readme": "# permanent-delete package\n\nPermanently delete, i.e. bypass the recycle bin, files from the tree view.\n\n## Config\n\n| setting | type | default | description |\n|---------|------|---------|-------------|\n| `confirm` | boolean | `true` | Show a confirm dialog before deleting the files. |\n\n## Commands\n\n| command | scope-selector: keybinding | description |\n|---------|----------------------------|-------------|\n| `permanent-delete:delete` | `.tree-view`: <kbd>Shift-Delete</kbd> | Delete the selected entries, either files or directories, from the tree view |\n\n## Issues/suggestions\n\nPlease file issues or suggestions on the [issues page on github](https://github.com/olmokramer/atom-permanent-delete/issues/new), or even better, [submit a pull request](https://github.com/olmokramer/atom-permanent-delete/pulls)\n\n## License\n\n`permanent-delete` is released under the [MIT License](LICENSE.md)<br>\n&copy; 2015 Olmo Kramer",
-  "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/olmokramer/atom-permanent-delete/issues"
   },
+  "dependencies": {
+    "fs-plus": "^2.5.0"
+  },
+  "description": "Bypass the recycle bin",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">0.50.0"
+  },
   "homepage": "https://github.com/olmokramer/atom-permanent-delete#readme",
-  "_id": "permanent-delete@0.1.5",
-  "_shasum": "789078a7c373466a43a051b08d89f8b7b8e0a8c0",
-  "_resolved": "file:../d-116317-16467-s1saq/package.tgz",
-  "_from": "../d-116317-16467-s1saq/package.tgz",
+  "license": "MIT",
+  "main": "./lib/permanent-delete",
+  "name": "permanent-delete",
+  "optionalDependencies": {},
+  "readme": "# permanent-delete package\n\nPermanently delete, i.e. bypass the recycle bin, files from the tree view.\n\n## Config\n\n| setting | type | default | description |\n|---------|------|---------|-------------|\n| `confirm` | boolean | `true` | Show a confirm dialog before deleting the files. |\n\n## Commands\n\n| command | scope-selector: keybinding | description |\n|---------|----------------------------|-------------|\n| `permanent-delete:delete` | `.tree-view`: <kbd>Shift-Delete</kbd> | Delete the selected entries, either files or directories, from the tree view |\n\n## Issues/suggestions\n\nPlease file issues or suggestions on the [issues page on github](https://github.com/olmokramer/atom-permanent-delete/issues/new), or even better, [submit a pull request](https://github.com/olmokramer/atom-permanent-delete/pulls)\n\n## License\n\n`permanent-delete` is released under the [MIT License](LICENSE.md)<br>\n&copy; 2015 Olmo Kramer",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olmokramer/atom-permanent-delete.git"
+  },
+  "version": "0.1.6",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
+        "name": "async",
+        "version": "1.5.2",
+        "path": "node_modules/async/lib/async.js"
+      },
+      {
+        "name": "balanced-match",
+        "version": "1.0.0",
+        "path": "node_modules/balanced-match/index.js"
+      },
+      {
+        "name": "brace-expansion",
+        "version": "1.1.8",
+        "path": "node_modules/brace-expansion/index.js"
+      },
+      {
+        "name": "concat-map",
+        "version": "0.0.1",
+        "path": "node_modules/concat-map/index.js"
+      },
+      {
         "name": "fs-plus",
-        "version": "2.8.2",
+        "version": "2.10.1",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
-        "name": "async",
-        "version": "0.2.10",
-        "path": "node_modules/fs-plus/node_modules/async/lib/async.js"
+        "name": "fs.realpath",
+        "version": "1.0.0",
+        "path": "node_modules/fs.realpath/index.js"
+      },
+      {
+        "name": "glob",
+        "version": "7.1.2",
+        "path": "node_modules/glob/glob.js"
+      },
+      {
+        "name": "inflight",
+        "version": "1.0.6",
+        "path": "node_modules/inflight/inflight.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.3",
+        "path": "node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "minimatch",
+        "version": "3.0.4",
+        "path": "node_modules/minimatch/minimatch.js"
+      },
+      {
+        "name": "minimist",
+        "version": "0.0.8",
+        "path": "node_modules/minimist/index.js"
       },
       {
         "name": "mkdirp",
-        "version": "0.3.5",
-        "path": "node_modules/fs-plus/node_modules/mkdirp/index.js"
+        "version": "0.5.1",
+        "path": "node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "once",
+        "version": "1.4.0",
+        "path": "node_modules/once/once.js"
+      },
+      {
+        "name": "path-is-absolute",
+        "version": "1.0.1",
+        "path": "node_modules/path-is-absolute/index.js"
       },
       {
         "name": "rimraf",
-        "version": "2.2.8",
-        "path": "node_modules/fs-plus/node_modules/rimraf/rimraf.js"
-      },
-      {
-        "name": "underscore-plus",
-        "version": "1.6.6",
-        "path": "node_modules/fs-plus/node_modules/underscore-plus/lib/underscore-plus.js"
+        "version": "2.6.2",
+        "path": "node_modules/rimraf/rimraf.js"
       },
       {
         "name": "underscore",
         "version": "1.6.0",
-        "path": "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+        "path": "node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "wrappy",
+        "version": "1.0.2",
+        "path": "node_modules/wrappy/wrappy.js"
       }
     ],
     "extensions": {
       ".js": [
         "lib/permanent-delete.js",
+        "node_modules/async/dist/async.js",
+        "node_modules/async/dist/async.min.js",
+        "node_modules/async/lib/async.js",
+        "node_modules/balanced-match/index.js",
+        "node_modules/brace-expansion/index.js",
+        "node_modules/concat-map/example/map.js",
+        "node_modules/concat-map/index.js",
         "node_modules/fs-plus/lib/fs-plus.js",
-        "node_modules/fs-plus/node_modules/async/lib/async.js",
-        "node_modules/fs-plus/node_modules/mkdirp/examples/pow.js",
-        "node_modules/fs-plus/node_modules/mkdirp/index.js",
-        "node_modules/fs-plus/node_modules/rimraf/bin.js",
-        "node_modules/fs-plus/node_modules/rimraf/rimraf.js",
-        "node_modules/fs-plus/node_modules/underscore-plus/lib/underscore-plus.js",
-        "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
-        "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+        "node_modules/fs.realpath/index.js",
+        "node_modules/fs.realpath/old.js",
+        "node_modules/glob/common.js",
+        "node_modules/glob/glob.js",
+        "node_modules/glob/sync.js",
+        "node_modules/inflight/inflight.js",
+        "node_modules/inherits/inherits.js",
+        "node_modules/inherits/inherits_browser.js",
+        "node_modules/minimatch/minimatch.js",
+        "node_modules/minimist/example/parse.js",
+        "node_modules/minimist/index.js",
+        "node_modules/mkdirp/bin/cmd.js",
+        "node_modules/mkdirp/examples/pow.js",
+        "node_modules/mkdirp/index.js",
+        "node_modules/once/once.js",
+        "node_modules/path-is-absolute/index.js",
+        "node_modules/rimraf/bin.js",
+        "node_modules/rimraf/rimraf.js",
+        "node_modules/underscore/underscore-min.js",
+        "node_modules/underscore/underscore.js",
+        "node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/wrappy/wrappy.js"
       ],
       ".json": [
-        "node_modules/fs-plus/node_modules/async/component.json",
-        "node_modules/fs-plus/node_modules/async/package.json",
-        "node_modules/fs-plus/node_modules/mkdirp/package.json",
-        "node_modules/fs-plus/node_modules/rimraf/package.json",
-        "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/package.json",
-        "node_modules/fs-plus/node_modules/underscore-plus/package.json",
+        "node_modules/async/package.json",
+        "node_modules/balanced-match/package.json",
+        "node_modules/brace-expansion/package.json",
+        "node_modules/concat-map/package.json",
         "node_modules/fs-plus/package.json",
+        "node_modules/fs.realpath/package.json",
+        "node_modules/glob/package.json",
+        "node_modules/inflight/package.json",
+        "node_modules/inherits/package.json",
+        "node_modules/minimatch/package.json",
+        "node_modules/minimist/package.json",
+        "node_modules/mkdirp/package.json",
+        "node_modules/once/package.json",
+        "node_modules/path-is-absolute/package.json",
+        "node_modules/rimraf/package.json",
+        "node_modules/underscore/package.json",
+        "node_modules/underscore-plus/package.json",
+        "node_modules/wrappy/package.json",
         "package.json"
       ]
     },
@@ -99,20 +225,86 @@
       },
       {
         "paths": [
-          "node_modules/fs-plus/lib",
-          "node_modules/fs-plus"
+          "node_modules/brace-expansion"
         ],
         "dependencies": {
-          "underscore-plus": "1.x",
-          "mkdirp": "~0.3.5",
-          "rimraf": "~2.2.2",
-          "async": "~0.2.9"
+          "balanced-match": "^1.0.0",
+          "concat-map": "0.0.1"
         }
       },
       {
         "paths": [
-          "node_modules/fs-plus/node_modules/underscore-plus/lib",
-          "node_modules/fs-plus/node_modules/underscore-plus"
+          "node_modules/fs-plus/lib",
+          "node_modules/fs-plus"
+        ],
+        "dependencies": {
+          "async": "^1.5.2",
+          "mkdirp": "^0.5.1",
+          "rimraf": "^2.5.2",
+          "underscore-plus": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/glob"
+        ],
+        "dependencies": {
+          "fs.realpath": "^1.0.0",
+          "inflight": "^1.0.4",
+          "inherits": "2",
+          "minimatch": "^3.0.4",
+          "once": "^1.3.0",
+          "path-is-absolute": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/inflight"
+        ],
+        "dependencies": {
+          "once": "^1.3.0",
+          "wrappy": "1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/minimatch"
+        ],
+        "dependencies": {
+          "brace-expansion": "^1.1.7"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/mkdirp/bin",
+          "node_modules/mkdirp/examples",
+          "node_modules/mkdirp",
+          "node_modules/mkdirp/test"
+        ],
+        "dependencies": {
+          "minimist": "0.0.8"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/once"
+        ],
+        "dependencies": {
+          "wrappy": "1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/rimraf"
+        ],
+        "dependencies": {
+          "glob": "^7.0.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/underscore-plus/lib",
+          "node_modules/underscore-plus"
         ],
         "dependencies": {
           "underscore": "~1.6.0"

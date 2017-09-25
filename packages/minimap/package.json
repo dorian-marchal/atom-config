@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
+        "raw": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
-        "spec": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
+        "rawSpec": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
+        "spec": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117718-18569-65iv4p.xkqog8pvi"
+      "/tmp/apm-install-dir-117825-30318-4zytwz.yptuwstt9"
     ]
   ],
-  "_from": "../d-117718-18569-2i0it9.4joov42t9/package.tgz",
-  "_id": "minimap@4.29.6",
+  "_from": "../d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
+  "_id": "minimap@4.29.7",
   "_inCache": true,
   "_location": "/minimap",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
+    "raw": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
-    "spec": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
+    "rawSpec": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
+    "spec": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117718-18569-2i0it9.4joov42t9/package.tgz",
-  "_shasum": "4a0a2f27e91527ac32b7a132707f8d2b01ccac29",
+  "_resolved": "file:../d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
+  "_shasum": "55a8dfc8003d29c8fc895a8583ddf4a80e85191e",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117718-18569-2i0it9.4joov42t9/package.tgz",
-  "_where": "/tmp/apm-install-dir-117718-18569-65iv4p.xkqog8pvi",
+  "_spec": "/tmp/d-117825-30318-1xhxzw7.fbhi4fgvi/package.tgz",
+  "_where": "/tmp/apm-install-dir-117825-30318-4zytwz.yptuwstt9",
   "author": {
     "name": "Fangdun Cai",
     "email": "cfddream@gmail.com"
@@ -255,7 +255,7 @@
       "IntersectionObserver"
     ]
   },
-  "version": "4.29.6",
+  "version": "4.29.7",
   "viewProviders": [
     "minimapViewProvider"
   ],
@@ -314,7 +314,7 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.29",
+        "version": "0.10.30",
         "path": "node_modules/es5-ext/index.js"
       },
       {
@@ -374,12 +374,12 @@
       },
       {
         "name": "grim",
-        "version": "2.0.1",
+        "version": "2.0.2",
         "path": "node_modules/grim/lib/grim.js"
       },
       {
         "name": "event-kit",
-        "version": "2.3.0",
+        "version": "2.4.0",
         "path": "node_modules/grim/node_modules/event-kit/lib/event-kit.js"
       },
       {
@@ -429,7 +429,7 @@
       },
       {
         "name": "rimraf",
-        "version": "2.6.1",
+        "version": "2.6.2",
         "path": "node_modules/rimraf/rimraf.js"
       },
       {

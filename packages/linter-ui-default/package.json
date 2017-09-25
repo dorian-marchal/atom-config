@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+        "raw": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
-        "spec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+        "rawSpec": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
+        "spec": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117718-18546-6twlhc.yu89cc8fr"
+      "/tmp/apm-install-dir-117825-30232-b34xy8.tncps3jtt9"
     ]
   ],
-  "_from": "../d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
-  "_id": "linter-ui-default@1.6.7",
+  "_from": "../d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
+  "_id": "linter-ui-default@1.6.10",
   "_inCache": true,
   "_location": "/linter-ui-default",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+    "raw": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
-    "spec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
+    "rawSpec": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
+    "spec": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
-  "_shasum": "07403d5721893afd753faf415a43345538154ca9",
+  "_resolved": "file:../d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
+  "_shasum": "032008e7df39bb3f54de72c98e58a166f7638d47",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117718-18546-1fztg4d.9o7x03sor/package.tgz",
-  "_where": "/tmp/apm-install-dir-117718-18546-6twlhc.yu89cc8fr",
+  "_spec": "/tmp/d-117825-30232-ttwoib.pz14d0lik9/package.tgz",
+  "_where": "/tmp/apm-install-dir-117825-30232-b34xy8.tncps3jtt9",
   "bugs": {
     "url": "https://github.com/steelbrain/linter-ui-default/issues"
   },
@@ -192,7 +192,7 @@
     "rimraf": "^2.5.4"
   },
   "engines": {
-    "atom": ">=1.17.0 <2.0.0"
+    "atom": ">=1.19.0 <2.0.0"
   },
   "homepage": "https://github.com/steelbrain/linter-ui-default#readme",
   "keywords": [
@@ -228,7 +228,7 @@
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "1.6.7",
+  "version": "1.6.10",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -274,12 +274,12 @@
       },
       {
         "name": "fbjs",
-        "version": "0.8.14",
+        "version": "0.8.15",
         "path": "node_modules/fbjs/index.js"
       },
       {
         "name": "iconv-lite",
-        "version": "0.4.18",
+        "version": "0.4.19",
         "path": "node_modules/iconv-lite/lib/index.js"
       },
       {
@@ -319,7 +319,7 @@
       },
       {
         "name": "node-fetch",
-        "version": "1.7.2",
+        "version": "1.7.3",
         "path": "node_modules/node-fetch/index.js"
       },
       {

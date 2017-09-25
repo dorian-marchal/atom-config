@@ -22,9 +22,9 @@ export function getNodePrefixPath() {
           env: Object.assign(Object.assign({}, process.env), { PATH: getPath() })
         }).output[1].toString().trim()
     } catch (e) {
-      throw new Error(
-        'Unable to execute `npm get prefix`. Please make sure Atom is getting $PATH correctly.'
-      )
+      const errMsg = 'Unable to execute `npm get prefix`. Please make sure ' +
+        'Atom is getting $PATH correctly.'
+      throw new Error(errMsg)
     }
   }
   return Cache.NODE_PREFIX_PATH
@@ -60,7 +60,7 @@ export function findESLintDirectory(modulesDir, config, projectPath) {
     eslintDir = Path.join(config.advancedLocalNodeModules || '', 'eslint')
   } else {
     locationType = 'advanced specified'
-    eslintDir = Path.join(projectPath, config.advancedLocalNodeModules, 'eslint')
+    eslintDir = Path.join(projectPath || '', config.advancedLocalNodeModules, 'eslint')
   }
   if (isDirectory(eslintDir)) {
     return {
@@ -94,6 +94,7 @@ export function refreshModulesPath(modulesDir) {
   if (Cache.LAST_MODULES_PATH !== modulesDir) {
     Cache.LAST_MODULES_PATH = modulesDir
     process.env.NODE_PATH = modulesDir || ''
+    // eslint-disable-next-line no-underscore-dangle
     require('module').Module._initPaths()
   }
 }
@@ -101,7 +102,7 @@ export function refreshModulesPath(modulesDir) {
 export function getESLintInstance(fileDir, config, projectPath) {
   const modulesDir = Path.dirname(findCached(fileDir, 'node_modules/eslint') || '')
   refreshModulesPath(modulesDir)
-  return getESLintFromDirectory(modulesDir, config, projectPath || '')
+  return getESLintFromDirectory(modulesDir, config, projectPath)
 }
 
 export function getConfigPath(fileDir) {
@@ -126,14 +127,22 @@ export function getConfigPath(fileDir) {
   return null
 }
 
-export function getRelativePath(fileDir, filePath, config) {
+export function getRelativePath(fileDir, filePath, config, projectPath) {
   const ignoreFile = config.disableEslintIgnore ? null : findCached(fileDir, '.eslintignore')
 
+  // If we can find an .eslintignore file, we can set cwd there
+  // (because they are expected to be at the project root)
   if (ignoreFile) {
     const ignoreDir = Path.dirname(ignoreFile)
     process.chdir(ignoreDir)
     return Path.relative(ignoreDir, filePath)
   }
+  // Otherwise, we'll set the cwd to the atom project root as long as that exists
+  if (projectPath) {
+    process.chdir(projectPath)
+    return Path.relative(projectPath, filePath)
+  }
+  // If all else fails, use the file location itself
   process.chdir(fileDir)
   return Path.basename(filePath)
 }

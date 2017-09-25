@@ -8,9 +8,10 @@
       end_with_comma: true
       indent_size: 2
     json:
+      brace_style: "collapse-preserve-inline"
       end_with_newline: true
       indent_size: 2
-      jslint_happy: true
+      keep_array_indentation: true
   "atom-css-unit-converter": {}
   "atom-ctags":
     GotoSymbolKey: [
@@ -45,10 +46,10 @@
       "smart-tags"
       "dev-live-reload"
       "github"
-      "remote-sync"
       "react"
       "git-plus"
       "timecop"
+      "remote-sync"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -242,3 +243,6 @@
 ".mustache.source.sql":
   editor:
     tabLength: 4
+".source.sql":
+  editor:
+    tabLength: 2

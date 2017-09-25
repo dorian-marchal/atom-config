@@ -8,6 +8,8 @@ import cryptoRandomString from 'crypto-random-string'
 // eslint-disable-next-line import/no-extraneous-dependencies, import/extensions
 import { Range } from 'atom'
 
+const fixableRules = new Set()
+
 /**
  * Start the worker process if it hasn't already been started
  * @param  {Task} worker The worker process reference to act on
@@ -21,6 +23,7 @@ const startWorker = (worker) => {
   // Send empty arguments as we don't use them in the worker
   worker.start([])
   // NOTE: Modifies the Task of the worker, but it's the only clean way to track this
+  // eslint-disable-next-line no-param-reassign
   worker.started = true
 }
 
@@ -36,14 +39,16 @@ export async function sendJob(worker, config) {
   // Expand the config with a unique ID to emit on
   // NOTE: Jobs _must_ have a unique ID as they are completely async and results
   // can arrive back in any order.
+  // eslint-disable-next-line no-param-reassign
   config.emitKey = cryptoRandomString(10)
 
   return new Promise((resolve, reject) => {
     const errSub = worker.on('task:error', (...err) => {
+      const [msg, stack] = err
       // Re-throw errors from the task
-      const error = new Error(err[0])
+      const error = new Error(msg)
       // Set the stack to the one given to us by the worker
-      error.stack = err[1]
+      error.stack = stack
       reject(error)
     })
     const responseSub = worker.on(config.emitKey, (data) => {
@@ -60,26 +65,13 @@ export async function sendJob(worker, config) {
   })
 }
 
-export function showError(givenMessage, givenDetail = null) {
-  let detail
-  let message
-  if (message instanceof Error) {
-    detail = message.stack
-    message = message.message
-  } else {
-    detail = givenDetail
-    message = givenMessage
-  }
-  atom.notifications.addError(`[Linter-ESLint] ${message}`, {
-    detail,
-    dismissable: true
-  })
+export function getFixableRules() {
+  return Array.from(fixableRules.values())
 }
 
-function validatePoint(textEditor, line, col) {
-  const buffer = textEditor.getBuffer()
+function validatePoint(textBuffer, line, col) {
   // Clip the given point to a valid one, and check if it equals the original
-  if (!buffer.clipPosition([line, col]).isEqual([line, col])) {
+  if (!textBuffer.clipPosition([line, col]).isEqual([line, col])) {
     throw new Error(`${line}:${col} isn't a valid point!`)
   }
 }
@@ -147,10 +139,25 @@ export async function generateDebugString(worker) {
   return details.join('\n')
 }
 
-const generateInvalidTrace = async (
+export function handleError(textEditor, error) {
+  const { stack, message } = error
+  // Only show the first line of the message as the excerpt
+  const excerpt = `Error while running ESLint: ${message.split('\n')[0]}.`
+  return [{
+    severity: 'error',
+    excerpt,
+    description: `<div style="white-space: pre-wrap">${message}\n<hr />${stack}</div>`,
+    location: {
+      file: textEditor.getPath(),
+      position: generateRange(textEditor),
+    },
+  }]
+}
+
+const generateInvalidTrace = async ({
   msgLine, msgCol, msgEndLine, msgEndCol,
   eslintFullRange, filePath, textEditor, ruleId, message, worker
-) => {
+}) => {
   let errMsgRange = `${msgLine + 1}:${msgCol}`
   if (eslintFullRange) {
     errMsgRange += ` - ${msgEndLine + 1}:${msgEndCol + 1}`
@@ -191,14 +198,14 @@ const generateInvalidTrace = async (
 /**
  * Given a raw response from ESLint, this processes the messages into a format
  * compatible with the Linter API.
- * @param  {Object}     response   The raw response from ESLint
+ * @param  {Object}     messages   The messages from ESLint's response
  * @param  {TextEditor} textEditor The Atom::TextEditor of the file the messages belong to
  * @param  {bool}       showRule   Whether to show the rule in the messages
  * @param  {Object}     worker     The current Worker Task to send Debug jobs to
  * @return {Promise}               The messages transformed into Linter messages
  */
-export async function processESLintMessages(response, textEditor, showRule, worker) {
-  return Promise.all(response.map(async ({
+export async function processESLintMessages(messages, textEditor, showRule, worker) {
+  return Promise.all(messages.map(async ({
     fatal, message: originalMessage, line, severity, ruleId, column, fix, endLine, endColumn
   }) => {
     const message = fatal ? originalMessage.split('\n')[0] : originalMessage
@@ -238,27 +245,28 @@ export async function processESLintMessages(response, textEditor, showRule, work
       msgCol = typeof column !== 'undefined' ? column - 1 : column
     }
 
-    let ret
+    let ret = {
+      severity: severity === 1 ? 'warning' : 'error',
+      location: {
+        file: filePath,
+      }
+    }
+
+    if (ruleId) {
+      ret.url = ruleURI(ruleId).url
+    }
+
     let range
     try {
       if (eslintFullRange) {
-        validatePoint(textEditor, msgLine, msgCol)
-        validatePoint(textEditor, msgEndLine, msgEndCol)
+        const buffer = textEditor.getBuffer()
+        validatePoint(buffer, msgLine, msgCol)
+        validatePoint(buffer, msgEndLine, msgEndCol)
         range = [[msgLine, msgCol], [msgEndLine, msgEndCol]]
       } else {
         range = generateRange(textEditor, msgLine, msgCol)
       }
-      ret = {
-        severity: severity === 1 ? 'warning' : 'error',
-        location: {
-          file: filePath,
-          position: range
-        }
-      }
-
-      if (ruleId) {
-        ret.url = ruleURI(ruleId).url
-      }
+      ret.location.position = range
 
       const ruleAppendix = showRule ? ` (${ruleId || 'Fatal'})` : ''
       ret.excerpt = `${message}${ruleAppendix}`
@@ -267,18 +275,36 @@ export async function processESLintMessages(response, textEditor, showRule, work
         ret.solutions = [linterFix]
       }
     } catch (err) {
-      if (!err.message.startsWith('Line number ') &&
-        !err.message.startsWith('Column start ')
-      ) {
-        // This isn't an invalid point error from `generateRange`, re-throw it
-        throw err
-      }
-      ret = await generateInvalidTrace(
-        msgLine, msgCol, msgEndLine, msgEndCol,
-        eslintFullRange, filePath, textEditor, ruleId, message, worker
-      )
+      ret = await generateInvalidTrace({
+        msgLine,
+        msgCol,
+        msgEndLine,
+        msgEndCol,
+        eslintFullRange,
+        filePath,
+        textEditor,
+        ruleId,
+        message,
+        worker
+      })
     }
 
     return ret
   }))
+}
+
+/**
+ * Processes the response from the lint job
+ * @param  {Object}     response   The raw response from the job
+ * @param  {TextEditor} textEditor The Atom::TextEditor of the file the messages belong to
+ * @param  {bool}       showRule   Whether to show the rule in the messages
+ * @param  {Object}     worker     The current Worker Task to send Debug jobs to
+ * @return {Promise}               The messages transformed into Linter messages
+ */
+export async function processJobResponse(response, textEditor, showRule, worker) {
+  if (Object.prototype.hasOwnProperty.call(response, 'fixableRules')) {
+    fixableRules.clear()
+    response.fixableRules.forEach(rule => fixableRules.add(rule))
+  }
+  return processESLintMessages(response.messages, textEditor, showRule, worker)
 }

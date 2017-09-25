@@ -2,39 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+        "raw": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
-        "spec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+        "rawSpec": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
+        "spec": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117723-13398-zz6r49.a0nssdzpvi"
+      "/tmp/apm-install-dir-117825-30135-1yi5yn8.bjf819vn29"
     ]
   ],
-  "_from": "../d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
-  "_id": "language-babel@2.72.0",
+  "_from": "../d-117825-30135-esggq1.343r2dfgvi/package.tgz",
+  "_id": "language-babel@2.74.2",
   "_inCache": true,
   "_location": "/language-babel",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+    "raw": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
-    "spec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
+    "rawSpec": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
+    "spec": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
-  "_shasum": "f095f9d0fed54a74273e23d6d8ca0e090cd728b2",
+  "_resolved": "file:../d-117825-30135-esggq1.343r2dfgvi/package.tgz",
+  "_shasum": "24907633b2d3fb40b7170951825ef0eded64b057",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117723-13398-1bxu9ji.6d1p7dgqfr/package.tgz",
-  "_where": "/tmp/apm-install-dir-117723-13398-zz6r49.a0nssdzpvi",
+  "_spec": "/tmp/d-117825-30135-esggq1.343r2dfgvi/package.tgz",
+  "_where": "/tmp/apm-install-dir-117825-30135-1yi5yn8.bjf819vn29",
   "activationCommands": [],
   "bugs": {
     "url": "https://github.com/gandm/language-babel/issues"
@@ -193,7 +193,7 @@
     "type": "git",
     "url": "git+https://github.com/gandm/language-babel.git"
   },
-  "version": "2.72.0",
+  "version": "2.74.2",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -294,12 +294,12 @@
       },
       {
         "name": "core-js",
-        "version": "2.5.0",
+        "version": "2.5.1",
         "path": "node_modules/core-js/index.js"
       },
       {
         "name": "debug",
-        "version": "2.6.8",
+        "version": "2.6.9",
         "path": "node_modules/debug/src/index.js"
       },
       {
@@ -389,7 +389,7 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.9.1",
+        "version": "3.10.0",
         "path": "node_modules/js-yaml/index.js"
       },
       {
@@ -479,7 +479,7 @@
       },
       {
         "name": "rimraf",
-        "version": "2.6.1",
+        "version": "2.6.2",
         "path": "node_modules/rimraf/rimraf.js"
       },
       {
@@ -494,7 +494,7 @@
       },
       {
         "name": "source-map-support",
-        "version": "0.4.16",
+        "version": "0.4.18",
         "path": "node_modules/source-map-support/source-map-support.js"
       },
       {
@@ -2480,6 +2480,7 @@
         "node_modules/debug/src/browser.js",
         "node_modules/debug/src/debug.js",
         "node_modules/debug/src/index.js",
+        "node_modules/debug/src/inspector-log.js",
         "node_modules/debug/src/node.js",
         "node_modules/detect-indent/index.js",
         "node_modules/escape-string-regexp/index.js",
@@ -3639,10 +3640,8 @@
         "node_modules/source-map/lib/util.js",
         "node_modules/source-map/source-map.js",
         "node_modules/source-map-support/browser-source-map-support.js",
-        "node_modules/source-map-support/build.js",
         "node_modules/source-map-support/register.js",
         "node_modules/source-map-support/source-map-support.js",
-        "node_modules/source-map-support/test.js",
         "node_modules/sprintf-js/dist/angular-sprintf.min.js",
         "node_modules/sprintf-js/dist/sprintf.min.js",
         "node_modules/sprintf-js/gruntfile.js",
