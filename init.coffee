@@ -3,18 +3,6 @@ path = require 'path'
 fs = require 'fs'
 os = require 'os'
 
-# Your init script
-#
-# Atom will evaluate this file each time a new window is opened. It is run
-# after packages are loaded/activated and after the previous editor state
-# has been restored.
-#
-# An example hack to log to the console when each text editor is saved.
-#
-# atom.workspace.observeTextEditors (editor) ->
-#   editor.onDidSave ->
-#     console.log "Saved! #{editor.getPath()}"
-
 # prevent core:copy if and only if there's one selection in
 # the active editor (mini or not) and its length equals 0
 atom.commands.add 'atom-text-editor', 'core:copy', (e) ->
@@ -60,44 +48,6 @@ isSpace = (char) -> char is '' or /\s/.test(char)
 getCharAt = (editor, point) -> editor.getTextInBufferRange(
     [[point.row, point.column], [point.row, point.column + 1]]
 )
-
-# Copy project path with line number
-# atom.commands.add 'atom-text-editor', 'my:copy-path-and-line', ->
-#     editor = atom.workspace.getActiveTextEditor()
-#     file = editor?.buffer.file
-#     filePath = file?.path
-#     console.log atom.project
-#     project = atom.project.getPaths().find((project) => console.log project)
-#     console.log project.path
-
-# Open path under cursor.
-atom.commands.add 'atom-text-editor', 'my:open-path-under-cursor', ->
-    editor = atom.workspace.getActiveTextEditor()
-
-    pathStart = editor.getCursorBufferPosition()
-
-    # Search start of path
-    until isSpace(getCharAt(editor, new Point(pathStart.row, pathStart.column - 1)))
-        pathStart = new Point(pathStart.row, pathStart.column - 1)
-
-    pathEnd = editor.getCursorBufferPosition()
-
-    # Search end of path
-    until isSpace(getCharAt(editor, pathEnd))
-        pathEnd = new Point(pathEnd.row, pathEnd.column + 1)
-
-    path = editor.getTextInBufferRange([pathStart, pathEnd])
-    pathIsValid = (/^[a-zA-Z0-9\/\-:\.]+$/.test path) and (path.indexOf('/') isnt -1)
-
-    console.log path
-
-    if pathIsValid
-
-        # Open file at specific line
-        atom.open {
-            pathsToOpen: ['/data-ssd/jvc-respawn/' + path]
-            newWindow: false
-        }
 
 # Remove char on each side of the selection : '{selection}' -> {selection}.
 atom.commands.add 'atom-text-editor', 'my:unwrap', ->

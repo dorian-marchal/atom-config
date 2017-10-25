@@ -1,0 +1,46 @@
+### Project specific config ###
+environment:
+  COMPOSER_OAUTH_TOKEN: "cc4a091c096e7d3cfe053c3f669fb840be60ab98"
+  PHPCS_VER: "*"
+
+  matrix:
+  - ATOM_CHANNEL: stable
+  - ATOM_CHANNEL: beta
+
+install:
+  # Update Chocolatey
+  - choco upgrade chocolatey -y
+  # Enable Windows Update
+  # This is required for one of the dependencies of the Chocolatey PHP package
+  - sc config wuauserv start= auto
+  - net start wuauserv
+  # The following installs and sets up PHP
+  - cinst -y php
+  - cd C:\tools\php71
+  - copy php.ini-production php.ini
+  - echo date.timezone="UTC" >> php.ini
+  - echo extension_dir=ext >> php.ini
+  - echo extension=php_openssl.dll >> php.ini
+  - SET PATH=C:\tools\php71\;%PATH%
+  # Install Composer
+  - php -r "readfile('https://getcomposer.org/installer');" | php -- --filename=composer
+  - php composer config -g github-oauth.github.com "%COMPOSER_OAUTH_TOKEN%"
+  - SET PATH=%APPDATA%\Composer\vendor\bin;%PATH%
+  # Install PHPCS
+  - php composer global require "squizlabs/php_codesniffer %PHPCS_VER%"
+  - phpcs --version
+
+### Generic setup follows ###
+build_script:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
+
+branches:
+  only:
+    - master
+
+version: "{build}"
+platform: x64
+clone_depth: 10
+skip_tags: true
+test: off
+deploy: off

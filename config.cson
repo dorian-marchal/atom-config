@@ -47,9 +47,8 @@
       "dev-live-reload"
       "github"
       "react"
-      "git-plus"
       "timecop"
-      "remote-sync"
+      "todo-show"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -134,7 +133,6 @@
     disableWhenNoConfig: true
   "linter-ui-default":
     panelHeight: 81
-    showPanel: true
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
@@ -170,6 +168,16 @@
     syncHorizontalScroll: true
   tabs: {}
   "terminal-status": {}
+  "todo-show":
+    findUsingRegex: "/\\bFIXME\\b/g"
+    ignoreThesePaths: [
+      "node_modules"
+      "vendor"
+      "bower_components"
+      "dev-log"
+    ]
+    sortBy: "Path"
+    statusBarIndicator: true
   "toggle-quotes":
     quoteCharacters: "'\"`"
   "travis-ci-status": {}

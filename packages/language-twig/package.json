@@ -1,0 +1,69 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+        "spec": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-11792-12504-5trc0s.ief2ocg14i"
+    ]
+  ],
+  "_from": "../d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+  "_id": "language-twig@1.6.3",
+  "_inCache": true,
+  "_location": "/language-twig",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+    "spec": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+  "_shasum": "4a186e81967bab2f52954dbb55f8454e545dd605",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-11792-12504-1prl5p7.wp3he8w7b9/package.tgz",
+  "_where": "/tmp/apm-install-dir-11792-12504-5trc0s.ief2ocg14i",
+  "bugs": {
+    "url": "https://github.com/ener-getick/php-twig/issues"
+  },
+  "dependencies": {},
+  "description": "Twig support for Atom. Several languages supported.",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">0.10.0"
+  },
+  "homepage": "https://github.com/ener-getick/php-twig#readme",
+  "license": "MIT",
+  "name": "language-twig",
+  "optionalDependencies": {},
+  "private": true,
+  "readme": "# PHP-twig for atom\n\nTwig syntax highlighting for atom.\n\nLanguages supported :\n* HTML\n* CSS\n* Javascript\n* JSON\n* XML\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ener-getick/php-twig.git"
+  },
+  "version": "1.6.3",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
