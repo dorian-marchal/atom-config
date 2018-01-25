@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+- Add Subversion support
+- Add Mecurial support
+
 ## 0.10.2
 * Hide tooltips on scroll
 * Fix error when quickly opened and closed

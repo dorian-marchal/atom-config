@@ -19,7 +19,7 @@ function getClientPath(path, options) {
 
     var moduleRootPkg = lassoPackageRoot.getRootPackage(normalizedPath);
     if (!moduleRootPkg) {
-        throw new Error('Unable to find the root package.json for the following path: ' + path);
+        return '$/' + nodePath.relative(process.cwd(), path);
     }
     name = moduleRootPkg.name;
     version = moduleRootPkg.version || '0';

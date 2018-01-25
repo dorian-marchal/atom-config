@@ -1,4 +1,4 @@
-"use babel"
+'use babel'
 
 import { CompositeDisposable } from 'atom'
 import BlameGutterView from './blame-gutter-view'
@@ -30,10 +30,22 @@ export default {
       default: 250,
       minimum: 50,
       maximum: 500
+    },
+    ignoreWhitespace: {
+      type: 'boolean',
+      default: true
+    },
+    detectMoved: {
+      type: 'boolean',
+      default: true
+    },
+    detectCopy: {
+      type: 'boolean',
+      default: true
     }
   },
 
-  activate(state = {}) {
+  activate (state = {}) {
     this.state = state
     this.gutters = new Map()
     this.disposables = new CompositeDisposable()
@@ -43,8 +55,7 @@ export default {
     }))
   },
 
-  toggleBlameGutter() {
-
+  toggleBlameGutter () {
     const editor = atom.workspace.getActiveTextEditor()
     if (!editor) { return }
 
@@ -58,11 +69,11 @@ export default {
     }
   },
 
-  deactivate() {
+  deactivate () {
     this.disposables.dispose()
   },
 
-  serialize() {
+  serialize () {
     return this.state
   }
 }

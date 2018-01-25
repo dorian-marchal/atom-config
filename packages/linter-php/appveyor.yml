@@ -1,0 +1,35 @@
+### Project specific config ###
+install:
+  # Update Chocolatey
+  - choco upgrade chocolatey -y
+  # Enable Windows Update
+  # This is required for one of the dependencies of the Chocolatey PHP package
+  - sc config wuauserv start= auto
+  - net start wuauserv
+  # The following installs and sets up PHP
+  - cinst -y php
+  - cd C:\tools\php71
+  - copy php.ini-production php.ini
+  - echo date.timezone="UTC" >> php.ini
+  - echo extension_dir=ext >> php.ini
+  - SET PATH=C:\tools\php71\;%PATH%
+
+environment:
+  matrix:
+  - ATOM_CHANNEL: stable
+  - ATOM_CHANNEL: beta
+
+### Generic setup follows ###
+build_script:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
+
+branches:
+  only:
+    - master
+
+version: "{build}"
+platform: x64
+clone_depth: 10
+skip_tags: true
+test: off
+deploy: off

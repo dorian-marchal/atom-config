@@ -23,7 +23,7 @@ atom-text-editor {
       overflow-x: hidden;
       width: 100%;
       text-align: left;
-      
+
       transition: 0.3s background;
 
       &.blame-odd {
@@ -35,13 +35,20 @@ atom-text-editor {
       }
 
       &:hover {
-        padding-right: calc(~"12px + 2em");
+        &.action-count-2 {
+          padding-right: calc(~"12px + 2em");
+        }
+
+        &.action-count-1 {
+          padding-right: calc(~"6px + 1em");
+        }
+
         .icon {
           display: block;
         }
       }
-      
-      &.hihlight {
+
+      &.highlight {
         background-color: rgba(128, 128, 128, 0.15);
       }
 
@@ -63,8 +70,12 @@ atom-text-editor {
 
       .icon-copy {
         .octicon(clippy, @size: 1em);
-        right: calc(~"1em + 2px");
+        right: 0;
         &:hover { color: @text-color-info; }
+      }
+
+      &.action-count-2 .icon-copy {
+        right: calc(~"1em + 2px");
       }
 
       .icon-link {
@@ -90,11 +101,25 @@ atom-text-editor {
     position: relative;
 
     .avatar {
-      width: 40px;
-      height: 40px;
       position: absolute;
       left: 0;
       top: 0;
+
+      width: 40px;
+      height: 40px;
+
+      border-radius: 2px;
+    }
+
+    .commiter-avatar {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+
+      width: 20px;
+      height: 20px;
+
+      border-radius: 2px;
     }
 
     .subject {

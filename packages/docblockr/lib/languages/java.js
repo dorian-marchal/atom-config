@@ -1,5 +1,5 @@
-var DocsParser = require("../docsparser");
-var xregexp = require('../xregexp').XRegExp;
+var DocsParser = require('../docsparser');
+var xregexp = require('xregexp');
 var escape = require('../utils').escape;
 var util = require('util');
 
@@ -12,6 +12,7 @@ JavaParser.prototype = Object.create(DocsParser.prototype);
 JavaParser.prototype.setup_settings = function() {
     var identifier = '[a-zA-Z_$][a-zA-Z_$0-9]*';
     this.settings = {
+        'commentType': 'block',
         'curlyTypes': false,
         'typeInfo': false,
         'typeTag': 'type',
@@ -30,14 +31,14 @@ JavaParser.prototype.parse_function = function(line) {
         // Modifiers
         '(?:(public|protected|private|static|abstract|final|transient|synchronized|native|strictfp)\\s+)*' +
         // Return value
-        '(?P<retval>[a-zA-Z_$][\\<\\>\\., a-zA-Z_$0-9\\[\\]]+)\\s+' +
+        '(?:(?P<retval>[a-zA-Z_$][\\<\\>\\., a-zA-Z_$0-9\\[\\]]+)\\s+)?' +
         // Method name
         '(?P<name>' + this.settings.fnIdentifier + ')\\s*' +
         // Params
         '\\((?P<args>.*?)\\)\\s*' +
         // # Throws ,
         '(?:throws\\s*(?P<throwed>[a-zA-Z_$0-9\\.,\\s]*))?'
-        );
+    );
 
     var matches = xregexp.exec(line, regex);
     if(matches === null)

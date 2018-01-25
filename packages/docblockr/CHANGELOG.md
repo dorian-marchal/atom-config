@@ -1,5 +1,39 @@
+# 0.13.6 (15 Jan 2018)
+* Java constructors no longer get `@return` annotations (#301, #243)
+
+# 0.13.5 (6 Jan 2018)
+* TypeScript function `@params` no longer have include types (#300)
+* TypeScript and JS constructor functions no longer have `@return` annotations (#300)
+* TypeScript constructor function argument parser now strips `public` and `private` keywords (#300)
+* TypeScript var blocks no longer include `@type` (#300)
+
+# 0.13.4 (12 Dec 2017)
+* Fixed issue with the 'lower_primitives' setting for JS booleans (#299)
+
+# 0.13.3 (6 Dec 2017)
+* Fixed issue with new PHP array syntax in default parameters (#280)
+
+# 0.13.2 (8 Nov 2017)
+* Added support for classes in JS (#267)
+* Prevent `Uncaught TypeError: Cannot read property 'name' of null` errors while parsing arguments (#257)
+
+# 0.13.1 (7 Nov 2017)
+* Handle ES2015 generators in function shorthands (#292)
+
+# 0.12.3 (7 Nov 2017)
+* Fixed last release
+
+# 0.12.2 (7 Nov 2017)
+* Fixed a wrong undefined check, that could lead to an uncaught exception (#262)
+
+# 0.12.1 (1 Nov 2017)
+* Fixed language detection (all languages were considered to be JS) (#291)
+
+# 0.12.0 (31 Oct 2017) 🎃
+* Added support for SCSS (#290)
+
 # 0.11.0 (16 Jul 2017)
-* Add support for Processing (#275)
+* Added support for Processing (#275)
 
 # 0.10.6 (16 Jul 2017)
 * Fixed a subtle bug related to text inputs in Atom's docks (#278)

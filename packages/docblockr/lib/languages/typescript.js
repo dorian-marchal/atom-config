@@ -1,5 +1,5 @@
-var DocsParser = require("../docsparser");
-var xregexp = require('../xregexp').XRegExp;
+var DocsParser = require('../docsparser');
+var xregexp = require('xregexp');
 var util = require('util');
 
 function TypescriptParser(settings) {
@@ -13,9 +13,10 @@ TypescriptParser.prototype.setup_settings = function() {
     var base_type_identifier = util.format('%s(\\.%s)*(\\[\\])?', identifier, identifier);
     var parametric_type_identifier = util.format('%s(\\s*<\\s*%s(\\s*,\\s*%s\\s*)*>)?', base_type_identifier, base_type_identifier, base_type_identifier);
     this.settings = {
+        'commentType': 'block',
         // curly brackets around the type information
         'curlyTypes': true,
-        'typeInfo': true,
+        'typeInfo': false,
         'typeTag': 'type',
         // technically, they can contain all sorts of unicode, but w/e
         'varIdentifier': identifier,
@@ -62,6 +63,9 @@ TypescriptParser.prototype.get_arg_name = function(arg) {
     if(arg.indexOf(':') > -1)
         arg = arg.split(':')[0];
 
+    var pubPrivPattern = /\b(public|private)\s+|/g;
+    arg = arg.replace(pubPrivPattern, '');
+
     var regex = /[ \?]/g;
     return arg.replace(regex, '');
 };
@@ -79,6 +83,9 @@ TypescriptParser.prototype.parse_var = function(line) {
 };
 
 TypescriptParser.prototype.get_function_return_type = function(name, retval) {
+    if(name === 'constructor') {
+        return null;
+    }
     return ((retval != 'void') ? retval : null);
 };
 
@@ -101,7 +108,7 @@ TypescriptParser.prototype.guess_type_from_value = function(val) {
     if(val.slice(0,4) == 'new ') {
         regex = new RegExp(
             'new (' + this.settings.fnIdentifier + ')'
-            );
+        );
         var matches = regex.exec(val);
         return (matches[0] && matches[1]) || null;
     }

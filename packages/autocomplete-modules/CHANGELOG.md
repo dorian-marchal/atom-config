@@ -1,3 +1,12 @@
+## v1.10.0
+ * Added activation support for package [language-typescript](https://atom.io/packages/language-typescript)
+ 
+## v1.9.0
+ * Added support for looking up Webpack aliases
+
+## v1.8.0
+ * Added support for autocomplete by exports
+
 ## v1.6.1
  * Fix babel-plugin-module-alias support. Fixed #43.
 

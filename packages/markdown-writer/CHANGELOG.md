@@ -1,3 +1,11 @@
+## 2.7.3
+
+* Fix indent list that spans multiple lines
+
+## 2.7.2
+
+* Fix abort insert image from clipboard (when no image in the clipboard)
+
 ## 2.7.1
 
 * Support insert image from clipboard

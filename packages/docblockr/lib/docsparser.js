@@ -16,7 +16,7 @@ DocsParser.prototype.init = function(viewSettings) {
 };
 
 DocsParser.prototype.is_existing_comment = function(line) {
-    return ((line.search(/^\s*\*/) >=0) ? true : false);
+    return /^\s*\*/.test(line);
 };
 
 DocsParser.prototype.is_numeric = function(val) {
@@ -40,11 +40,12 @@ DocsParser.prototype.format_class = function(name) {
 };
 
 DocsParser.prototype.parse = function(line) {
-    if(this.editor_settings.simple_mode === true) {
+    if(this.editor_settings.simple_mode || !line) {
         return null;
     }
+
     var out;
-    out = this.parse_class && this.parse_class(line);  // (name)
+    out = this.parse_class && this.parse_class(line);  // (name, extends)
     if (out) {
         return this.format_class.apply(this, out);
     }
@@ -86,9 +87,12 @@ DocsParser.prototype.format_var = function(name, val, valType) {
     else {
         temp = util.format('${1:[%s description]}', escape(name));
         out.push(temp);
-        temp = util.format('@%s %s${1:%s}%s',
-                                this.settings.typeTag, brace_open, valType, brace_close);
-        out.push(temp);
+
+        if (this.settings.typeInfo) {
+            temp = util.format('@%s %s${1:%s}%s',
+                                    this.settings.typeTag, brace_open, valType, brace_close);
+            out.push(temp);
+        }
     }
     return out;
 };
@@ -147,16 +151,23 @@ DocsParser.prototype.format_function = function(name, args, retval, options) {
         // remove comments inside the argument list.
         args = args.replace(/\/\*.*?\*\//,'');
         var parsed_args = this.parse_args(args);
-        for (i = 0; len = parsed_args.length,i < len; i++) {
+        for (i = 0; len = parsed_args.length, i < len; i++) {
             var arg_type = parsed_args[i][0];
             var arg_name = parsed_args[i][1];
 
-            type_info = this.get_type_info(arg_type, arg_name);
-            format_str = '@param %s%s';
+            format_str = '@param %s';
+            if(this.settings.typeInfo) {
+                type_info = this.get_type_info(arg_type, arg_name);
+                format_str += '%s';
+            }
             if(this.editor_settings.param_description) {
                 format_str += ' ${1:[description]}';
             }
-            out.push(util.format(format_str, type_info, escape(arg_name)));
+            if(this.settings.typeInfo) {
+                out.push(util.format(format_str, type_info, escape(arg_name)));
+            } else {
+                out.push(util.format(format_str, escape(arg_name)));
+            }
         }
     }
 
@@ -249,7 +260,9 @@ DocsParser.prototype.parse_args = function(args) {
     var inside_quotes = false;
     var next_is_literal = false;
     var blocks = [];
-
+    // This flag indicates if current character position is following an
+    // opening `[`
+    var in_array = 0;
     var i, len;
     for (i = 0; len = args.length,i < len; i++) {
         var character = args.charAt(i);
@@ -266,12 +279,19 @@ DocsParser.prototype.parse_args = function(args) {
                 inside_quotes = false;
         }
         else {
-            if(character == ',') {
+            if(character == ',' && !in_array) {
                 blocks.push(current.trim());
                 current = '';
             }
             else {
-                current+= character;
+                // Following a `[` character indicate that the proceeding
+                // characters are array values
+                if(character === '[') {
+                    in_array++;
+                } else if (character === ']') {
+                    in_array--;
+                }
+                current += character;
                 var quote_index = open_quotes.indexOf(character);
                 if(quote_index > -1) {
                     matching_quote = close_quotes[quote_index];
@@ -280,11 +300,16 @@ DocsParser.prototype.parse_args = function(args) {
             }
         }
     }
+
     blocks.push(current.trim());
 
     for (i = 0; len = blocks.length,i < len; i++) {
         var arg = blocks[i];
-        out.push([this.get_arg_type(arg), this.get_arg_name(arg)]);
+        var name = this.get_arg_name(arg);
+        var type = this.get_arg_type(arg);
+        if (name) {
+            out.push([type, name]);
+        }
     }
     return out;
 };

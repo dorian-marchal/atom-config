@@ -1,19 +1,16 @@
-"use babel"
+'use babel'
 
 import gravatar from 'gravatar'
 import open from 'open'
 import moment from 'moment'
 import { CompositeDisposable } from 'atom'
-import blame from './utils/blame'
-import getCommit from './utils/get-commit'
-import getCommitLink from './utils/get-commit-link'
+import providerFactory from './provider/factory'
+import createElement from './utils/create-element'
 import throttle from './utils/throttle'
 import Rainbow from 'color-rainbow'
 
 class BlameGutterView {
-
-  constructor(state, editor) {
-
+  constructor (state, editor) {
     this.state = state
     this.editor = editor
     this.listeners = {}
@@ -21,7 +18,8 @@ class BlameGutterView {
     this.state.width = atom.config.get('blame.defaultWidth')
     this.setGutterWidth(this.state.width)
 
-    this.colors = {}
+    this.provider = providerFactory(this.editor.getPath())
+
     this.gutter = this.editor.addGutter({ name: 'blame' })
     this.markers = []
 
@@ -30,11 +28,15 @@ class BlameGutterView {
     this.setVisible(true)
   }
 
-  toggleVisible() {
+  toggleVisible () {
     this.setVisible(!this.visible)
   }
 
-  setVisible(visible) {
+  setVisible (visible) {
+    if (!this.provider) {
+      visible = false
+    }
+
     this.visible = visible
 
     if (this.editor.isModified()) { this.visible = false }
@@ -50,7 +52,6 @@ class BlameGutterView {
       this.scrollListener = this.editorElement.onDidChangeScrollTop(
         throttle(() => this.hideTooltips(), 500)
       )
-
     } else {
       if (this.scrollListener) { this.scrollListener.dispose() }
       this.gutter.hide()
@@ -61,13 +62,13 @@ class BlameGutterView {
     }
   }
 
-  hideTooltips() {
+  hideTooltips () {
     // Trigger resize event on window to hide tooltips
-    window.dispatchEvent(new Event('resize'))
+    window.dispatchEvent(new window.Event('resize'))
   }
 
-  update() {
-    blame(this.editor.getPath(), (result) => {
+  update () {
+    this.provider.blame((result) => {
       if (!this.visible) {
         return
       }
@@ -78,7 +79,7 @@ class BlameGutterView {
       let commitCount = 0
 
       if (!result) { return }
-      
+
       const hashes = Object.keys(result)
         .reduce((hashes, key) => {
           const line = result[key]
@@ -89,36 +90,36 @@ class BlameGutterView {
           }
           return hashes
         }, [])
-      
+
       const rainbow = new Rainbow(hashes.length)
       const hashColors = hashes.reduce((colors, hash) => {
         colors[hash] = `rgba(${rainbow.next().values.rgb.join(',')}, 0.4)`
         return colors
       }, {})
 
-      Object.keys(result).forEach(key => {
-        const line = result[key]
+      Object.keys(result).forEach((lineNumber) => {
+        const line = result[lineNumber]
 
         let lineStr, rowCls
         const hash = line.rev.replace(/\s.*/, '')
 
         if (lastHash !== hash) {
-          lineStr = this.formatTooltip(hash, line, hashColors[hash])
+          lineStr = this.formatGutter(hash, line, hashColors[hash])
           rowCls = `blame-${(commitCount++ % 2 === 0) ? 'even' : 'odd'}`
         } else {
-          lineStr= ''
+          lineStr = ''
         }
 
         lastHash = hash
 
-        this.addMarker(Number(key) - 1, hash, rowCls, lineStr, hashColors[hash])
+        this.addMarker(Number(lineNumber) - 1, hash, rowCls, lineStr, hashColors[hash])
       })
     })
   }
 
-  formatTooltip(hash, line, color) {
+  formatGutter (hash, line, color) {
     const dateFormat = atom.config.get('blame.dateFormat')
-    const dateStr = moment(line.date, 'YYYY-MM-DD HH:mm:ss')
+    const dateStr = moment(line.date)
       .format(dateFormat)
 
     if (this.isCommited(hash)) {
@@ -126,47 +127,44 @@ class BlameGutterView {
         .replace('{hash}', `<span class="hash">${hash.substr(0, 8)}</span>`)
         .replace('{long-hash}', `<span class="hash">${hash}</span>`)
         .replace('{date}', `<span class="date">${dateStr}</span>`)
-        .replace('{author}', `<span class="author">${line.author}</span>`)
+        .replace('{author}', `<span class="author">${line.author.name}</span>`)
     }
 
     return `${line.author}`
   }
 
-  linkClicked(hash) {
-    getCommitLink(this.editor.getPath(), hash.replace(/^[\^]/, ''), (link) => {
+  linkClicked (hash) {
+    this.provider.getCommitLink(hash.replace(/^[\^]/, ''), (link) => {
       if (link) {
         return open(link)
       }
-      atom.notifications.addInfo("Unknown url.")
+      atom.notifications.addInfo('Unknown url.')
     })
   }
 
-  copyClicked(hash) {
+  copyClicked (hash) {
     atom.clipboard.write(hash)
   }
 
-  formateDate(date) {
-    date = new Date(date)
-    const yyyy = date.getFullYear()
-    let mm = date.getMonth() + 1
-    if (mm < 10) { mm = `0${mm}` }
-
-    let dd = date.getDate()
-    if (dd < 10) { dd = `0${dd}` }
-
-    return `${yyyy}-${mm}-${dd}`
-  }
-
-  addMarker(lineNo, hash, rowCls, lineStr, color) {
+  addMarker (lineNo, hash, rowCls, lineStr, color) {
     const item = this.markerInnerDiv(rowCls, hash, color)
 
     // no need to create objects and events on blank lines
     if (lineStr.length > 0) {
+      let actionsCount = 0
       if (this.isCommited(hash)) {
-        item.appendChild(this.copySpan(hash))
-        item.appendChild(this.linkSpan(hash))
+        if (this.provider.supports('copy')) {
+          item.appendChild(this.copySpan(hash))
+          actionsCount++
+        }
+        if (this.provider.supports('link')) {
+          item.appendChild(this.linkSpan(hash))
+          actionsCount++
+        }
       }
+
       item.appendChild(this.lineSpan(lineStr, hash))
+      item.classList.add(`action-count-${actionsCount}`)
 
       if (this.isCommited(hash)) {
         this.addTooltip(item, hash)
@@ -185,71 +183,68 @@ class BlameGutterView {
     this.markers.push(marker)
   }
 
-  markerInnerDiv(rowCls, hash, color) {
-    const item = document.createElement('div')
+  markerInnerDiv (rowCls, hash, color) {
+    const item = createElement('div', {
+      classes: [ 'blame-gutter-inner', rowCls ],
+      events: {
+        mouseover: () => this.highlight(hash),
+        mouseout: () => this.highlight()
+      }
+    })
+
     item.style.borderLeft = `6px solid ${color}`
-    item.classList.add('blame-gutter-inner')
-    if (rowCls) { item.classList.add(rowCls) }
-    
     item.dataset.hash = hash
-    
-    item.addEventListener('mouseover', () => this.hilight(hash))
-    item.addEventListener('mouseout', () => this.hilight())
-    
+
     return item
   }
-  
-  hilight(hash = null) {
+
+  highlight (hash = null) {
     [...document.getElementsByClassName('blame-gutter-inner')].forEach((item) => {
       if (item.dataset.hash === hash) {
-        item.classList.add('hihlight')
+        item.classList.add('highlight')
       } else {
-        item.classList.remove('hihlight')
+        item.classList.remove('highlight')
       }
     })
   }
 
-  resizeHandleDiv() {
-    const resizeHandle = document.createElement('div')
-    resizeHandle.addEventListener('mousedown', this.resizeStarted.bind(this))
-    resizeHandle.classList.add('blame-gutter-handle')
-    return resizeHandle
+  resizeHandleDiv () {
+    return createElement('div', {
+      classes: [ 'blame-gutter-handle' ],
+      events: { mousedown: this.resizeStarted.bind(this) }
+    })
   }
 
-  lineSpan(str, hash) {
-    const span = document.createElement('span')
-    span.innerHTML = str
-    return span
+  lineSpan (str, hash) {
+    return createElement('span', { inner: str })
   }
 
-  copySpan(hash) {
+  copySpan (hash) {
     return this.iconSpan(hash, 'copy', () => {
       this.copyClicked(hash)
     })
   }
 
-  linkSpan(hash) {
+  linkSpan (hash) {
     return this.iconSpan(hash, 'link', () => {
       this.linkClicked(hash)
     })
   }
 
-  iconSpan(hash, key, listener) {
-    const span = document.createElement('span')
-    span.setAttribute('data-hash', hash)
-    span.classList.add('icon')
-    span.classList.add(`icon-${key}`)
-    span.addEventListener('click', listener)
-
-    return span
+  iconSpan (hash, key, listener) {
+    return createElement('span', {
+      classes: [ 'icon', `icon-${key}` ],
+      attributes: { 'data-hash': hash },
+      events: { click: listener }
+    })
   }
 
-  removeAllMarkers() {
+  removeAllMarkers () {
     this.markers.forEach(marker => marker.destroy())
     this.markers = []
   }
 
-  resizeStarted(e) {
+  resizeStarted (e) {
     this.bind('mousemove', this.resizeMove)
     this.bind('mouseup', this.resizeStopped)
 
@@ -257,7 +252,7 @@ class BlameGutterView {
     this.resizeWidth = this.state.width
   }
 
-  resizeStopped(e) {
+  resizeStopped (e) {
     this.unbind('mousemove')
     this.unbind('mouseup')
 
@@ -265,35 +260,36 @@ class BlameGutterView {
     e.preventDefault()
   }
 
-  bind(event, listener) {
+  bind (event, listener) {
     this.unbind(event)
     this.listeners[event] = listener.bind(this)
     document.addEventListener(event, this.listeners[event])
   }
 
-  unbind(event) {
+  unbind (event) {
     if (this.listeners[event]) {
       document.removeEventListener(event, this.listeners[event])
       this.listeners[event] = false
     }
   }
 
-  resizeMove(e) {
-    diff = e.pageX - this.resizeStartedAtX
+  resizeMove (e) {
+    const diff = e.pageX - this.resizeStartedAtX
     this.setGutterWidth(this.resizeWidth + diff)
 
     e.stopPropagation()
     e.preventDefault()
   }
 
-  gutterStyle() {
+  gutterStyle () {
     const sheet = document.createElement('style')
     sheet.type = 'text/css'
     sheet.id = 'blame-gutter-style'
+
     return sheet
   }
 
-  setGutterWidth(width) {
+  setGutterWidth (width) {
     this.state.width = Math.max(50, Math.min(width, 500))
 
     let sheet = document.getElementById('blame-gutter-style')
@@ -309,28 +305,41 @@ class BlameGutterView {
     `
   }
 
-  isCommited(hash) {
+  isCommited (hash) {
     return !/^[0]+$/.test(hash)
   }
 
-  addTooltip(item, hash) {
-
+  addTooltip (item, hash) {
     if (!item.getAttribute('data-has-tooltip')) {
       item.setAttribute('data-has-tooltip', true)
 
-      getCommit(this.editor.getPath(), hash.replace(/^[\^]/, ''), (msg) => {
+      this.provider.getCommit(hash.replace(/^[\^]/, ''), (msg) => {
         if (!this.visible) {
           return
         }
+        const avatar = gravatar.url(msg.author.email, { s: 80 })
+        let avatarCommiterStr
 
-        const avatar = gravatar.url(msg.email, { s: 80 })
+        let authorStr = msg.author.name
+
+        if (msg.commiter) {
+          if (msg.author.name !== msg.commiter.name) {
+            authorStr += ` | Commiter: ${msg.commiter.name}`
+          }
+
+          if (msg.author.email !== msg.commiter.email) {
+            avatarCommiterStr = `<img class="commiter-avatar" src="http:${gravatar.url(msg.commiter.email, { s: 40 })}"/>`
+          }
+        }
+
         this.disposables.add(atom.tooltips.add(item, {
           title: `
             <div class="blame-tooltip">
               <div class="head">
                 <img class="avatar" src="http:${avatar}"/>
+                ${avatarCommiterStr}
                 <div class="subject">${msg.subject}</div>
-                <div class="author">${msg.author}</div>
+                <div class="author">${authorStr}</div>
               </div>
               <div class="body">${msg.message.replace('\n', '<br>')}</div>
             </div>
@@ -340,7 +349,7 @@ class BlameGutterView {
     }
   }
 
-  dispose() {
+  dispose () {
     this.setVisible(false)
     this.gutter.destroy()
     if (this.disposables) { this.disposables.dispose() }

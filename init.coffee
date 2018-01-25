@@ -260,3 +260,36 @@ atom.workspace.observeTextEditors((editor) ->
 )
 atom.commands.add 'atom-text-editor', 'my:fix-sql-case', () ->
     fixSqlCase(atom.workspace.getActiveTextEditor())
+
+`
+function findItemInPane(nonFirstPaneItem) {
+  return function(firstPaneItem) {
+    // check that both items are standard editor items (e.g. not SettingsView)
+    if (
+      Object.getPrototypeOf(firstPaneItem).constructor.name === "TextEditor" &&
+      Object.getPrototypeOf(nonFirstPaneItem).constructor.name === "TextEditor"
+    ) {
+      return firstPaneItem.getPath() === nonFirstPaneItem.getPath()
+    } else {
+      return firstPaneItem.uri === nonFirstPaneItem.uri
+    }
+  }
+}
+
+atom.commands.add("atom-workspace", "custom:merge-panes", () => {
+  const panes = atom.workspace.getCenter().getPanes()
+  const firstPane = panes.shift()
+
+  // loop through all panes except for the first pane
+  for (pane of panes) {
+    for (item of pane.getItems()) {
+      // if item is already in first pane, delete it, otherwise move it to first pane
+      if (firstPane.getItems().find(findItemInPane(item))) {
+        pane.destroyItem(item)
+      } else {
+        pane.moveItemToPane(item, firstPane)
+      }
+    }
+  }
+})
+`

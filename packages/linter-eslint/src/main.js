@@ -62,6 +62,20 @@ module.exports = {
     this.subscriptions = new CompositeDisposable()
     this.worker = null
 
+    /**
+     * FIXME: Deprecated eslintRulesDir{String} option in favor of
+     * eslintRulesDirs{Array<String>}. Remove in the next major release,
+     * in v8.5.0, or after 2018-04.
+     */
+    const oldRulesdir = atom.config.get('linter-eslint.eslintRulesDir')
+    if (oldRulesdir) {
+      const rulesDirs = atom.config.get('linter-eslint.eslintRulesDirs')
+      if (rulesDirs.length === 0) {
+        atom.config.set('linter-eslint.eslintRulesDirs', [oldRulesdir])
+      }
+      atom.config.unset('linter-eslint.eslintRulesDir')
+    }
+
     const embeddedScope = 'source.js.embedded.html'
     this.subscriptions.add(atom.config.observe(
       'linter-eslint.lintHtmlFiles',
@@ -188,11 +202,28 @@ module.exports = {
       scope: 'file',
       lintsOnChange: true,
       lint: async (textEditor) => {
-        const text = textEditor.getText()
-        if (text.length === 0) {
-          return []
+        if (!atom.workspace.isTextEditor(textEditor)) {
+          // If we somehow get fed an invalid TextEditor just immediately return
+          return null
         }
+
         const filePath = textEditor.getPath()
+        if (!filePath) {
+          // The editor currently has no path, we can't report messages back to
+          // Linter so just return null
+          return null
+        }
+
+        if (filePath.includes('://')) {
+          // If the path is a URL (Nuclide remote file) return a message
+          // telling the user we are unable to work on remote files.
+          return helpers.generateUserMessage(textEditor, {
+            severity: 'warning',
+            excerpt: 'Remote file open, linter-eslint is disabled for this file.',
+          })
+        }
+
+        const text = textEditor.getText()
 
         if (!helpers) {
           helpers = require('./helpers')

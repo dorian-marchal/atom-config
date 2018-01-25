@@ -1,4 +1,5 @@
 # :lipstick: [atom-beautify](https://github.com/Glavin001/atom-beautify)
+[![apm](https://img.shields.io/apm/dm/atom-beautify.svg)](https://atom.io/packages/atom-beautify)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Glavin001/atom-beautify.svg)](https://greenkeeper.io/)
 [![GitHub issues](https://img.shields.io/github/issues/Glavin001/atom-beautify.svg?style=flat-square)](https://github.com/Glavin001/atom-beautify/issues)
 [![GitHub stars](https://img.shields.io/github/stars/Glavin001/atom-beautify.svg?style=flat-square)](https://github.com/Glavin001/atom-beautify/stargazers)
@@ -8,7 +9,7 @@
 
 | Mac OS <img src="https://cloud.githubusercontent.com/assets/1885333/17059766/2530c9d8-4ffd-11e6-9529-3fa47dbff616.png" width="50px"> and <img src="https://cloud.githubusercontent.com/assets/1885333/17059750/11c4474e-4ffd-11e6-89e1-2486ca5b3234.png" width="100px"> | <img src="https://cloud.githubusercontent.com/assets/1885333/17059763/206a7d4a-4ffd-11e6-859e-7856902fb300.png" width="100px"> |
 | --- | --- |
-| [Travis CI: ![Travis branch](https://img.shields.io/travis/Glavin001/atom-beautify/master.svg?style=flat-square)](https://travis-ci.org/Glavin001/atom-beautify) | [AppVeyor: ![AppVeyor branch](https://img.shields.io/appveyor/ci/Glavin001/atom-beautify/master.svg?style=flat-square)](https://ci.appveyor.com/project/Glavin001/atom-beautify) |
+| [Travis CI: ![Build Status](https://travis-ci.org/Glavin001/atom-beautify.svg?branch=master)](https://travis-ci.org/Glavin001/atom-beautify) | [AppVeyor: ![Build status](https://ci.appveyor.com/api/projects/status/himnq7tjxl2fdc8u/branch/master?svg=true)](https://ci.appveyor.com/project/Glavin001/atom-beautify/branch/master) |
 
 [![Throughput Graph](https://graphs.waffle.io/Glavin001/atom-beautify/throughput.svg)](https://waffle.io/Glavin001/atom-beautify/metrics)
 
@@ -45,7 +46,7 @@ Atom Package: https://atom.io/packages/atom-beautify
 apm install atom-beautify
 ```
 
-Or Settings/Preferences ➔ Packages ➔ Search for `atom-beautify`
+Or Settings/Preferences ➔ Install ➔ Search for `atom-beautify`
 
 ### Important Notice: Analytics
 
@@ -111,6 +112,7 @@ Some of the supported beautifiers are developed for Node.js and are automaticall
 | SassConvert | :warning: 1 executable | :white_check_mark: :100:% of executables | :whale: With [Docker](https://www.docker.com/):<br/>1. Install [SassConvert (`sass-convert`)](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#syntax) with `docker pull unibeautify/sass-convert`<br/><br/>:bookmark_tabs: Manually:<br/>1. Install [SassConvert (`sass-convert`)](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#syntax) by following http://sass-lang.com/documentation/file.SASS_REFERENCE.html#syntax<br/> |
 | sqlformat | :warning: Manual installation | :construction: Not an executable | :page_facing_up: Go to https://github.com/andialbrecht/sqlparse and follow the instructions. |
 | stylish-haskell | :warning: Manual installation | :construction: Not an executable | :page_facing_up: Go to https://github.com/jaspervdj/stylish-haskell and follow the instructions. |
+| terraformfmt | :warning: 1 executable | :white_check_mark: :100:% of executables | :whale: With [Docker](https://www.docker.com/):<br/>1. Install [Terraform (`terraform`)](https://www.terraform.io) with `docker pull hashicorp/terraform`<br/><br/>:bookmark_tabs: Manually:<br/>1. Install [Terraform (`terraform`)](https://www.terraform.io) by following https://www.terraform.io<br/> |
 | Tidy Markdown | :white_check_mark: | :ok_hand: Not necessary | :smiley: Nothing! |
 | TypeScript Formatter | :white_check_mark: | :ok_hand: Not necessary | :smiley: Nothing! |
 | Uncrustify | :warning: 1 executable | :white_check_mark: :100:% of executables | :whale: With [Docker](https://www.docker.com/):<br/>1. Install [Uncrustify (`uncrustify`)](http://uncrustify.sourceforge.net/) with `docker pull unibeautify/uncrustify`<br/><br/>:bookmark_tabs: Manually:<br/>1. Install [Uncrustify (`uncrustify`)](http://uncrustify.sourceforge.net/) by following https://github.com/uncrustify/uncrustify<br/> |
@@ -155,7 +157,7 @@ See [all supported options in the documentation at  `docs/options.md`](docs/opti
 | JSX | `JSX`, `JavaScript (JSX)`, `Babel ES6 JavaScript`, `JavaScript with JSX` |`.jsx`, `.js` | **[`Pretty Diff`](https://github.com/prettydiff/prettydiff)**, [`JS Beautify`](https://github.com/beautify-web/js-beautify) |
 | LaTeX | `BibTeX`, `LaTeX`, `TeX` |`.bib`, `.tex`, `.sty`, `.cls`, `.dtx`, `.ins`, `.bbx`, `.cbx` | **[`Latex Beautify`](https://github.com/cmhughes/latexindent.pl)** |
 | LESS | `LESS` |`.less` | **[`Pretty Diff`](https://github.com/prettydiff/prettydiff)**, [`CSScomb`](https://github.com/csscomb/csscomb.js) |
-| Lua | `Lua` |`.lua` | **[`Lua beautifier`](https://github.com/Glavin001/atom-beautify/blob/master/src/beautifiers/lua-beautifier/beautifier.coffee)** |
+| Lua | `Lua` |`.lua`, `.ttslua` | **[`Lua beautifier`](https://github.com/Glavin001/atom-beautify/blob/master/src/beautifiers/lua-beautifier/beautifier.coffee)** |
 | Markdown | `GitHub Markdown` |`.markdown`, `.md` | **[`Tidy Markdown`](https://github.com/slang800/tidy-markdown)**, [`Remark`](https://github.com/wooorm/remark) |
 | Marko | `Marko` |`.marko` | **[`Marko Beautifier`](https://github.com/marko-js/marko-prettyprint)** |
 | Mustache | `HTML (Mustache)` |`.mustache` | **[`JS Beautify`](https://github.com/beautify-web/js-beautify)**, [`Pretty Diff`](https://github.com/prettydiff/prettydiff) |
@@ -178,6 +180,7 @@ See [all supported options in the documentation at  `docs/options.md`](docs/opti
 | SQL | `SQL (Rails)`, `SQL` |`.sql` | **[`sqlformat`](https://github.com/andialbrecht/sqlparse)** |
 | SVG | `SVG` |`.svg` | **[`Pretty Diff`](https://github.com/prettydiff/prettydiff)** |
 | Swig | `HTML (Swig)`, `SWIG` |`.swig` | **[`Pretty Diff`](https://github.com/prettydiff/prettydiff)** |
+| Terraform | `Terraform` |`.tf` | **[`terraformfmt`](https://www.terraform.io/docs/commands/fmt.html)** |
 | TSS | `TSS` |`.tss` | **[`Pretty Diff`](https://github.com/prettydiff/prettydiff)** |
 | Twig | `HTML (Twig)` |`.twig` | **[`Pretty Diff`](https://github.com/prettydiff/prettydiff)** |
 | TypeScript | `TypeScript` |`.ts` | **[`TypeScript Formatter`](https://github.com/vvakame/typescript-formatter)** |
@@ -315,6 +318,8 @@ See [examples/nested-jsbeautifyrc/.jsbeautifyrc](examples/nested-jsbeautifyrc/.j
 See [`docs/troubleshooting.md`](docs/troubleshooting.md).
 
 ## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 [See all contributors on GitHub](../../graphs/contributors).
 

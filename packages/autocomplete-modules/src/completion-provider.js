@@ -8,23 +8,23 @@ const escapeRegExp = require('lodash.escaperegexp');
 const get = require('lodash.get');
 const findBabelConfig = require('find-babel-config');
 const internalModules = require('./utils/internal-modules');
+const { getRealExportPrefix, getImportModule, getExports } = require('./utils/export-module-completion');
 
-const LINE_REGEXP = /require|import|export\s+(?:\*|{[a-zA-Z0-9_$,\s]+})+\s+from|}\s*from\s*['"]/;
+const LINE_REGEXP = /(?:^|\s)require\(['"]|^import\s.+from\s+["']|^import\s+["']|export\s+(?:\*|{[a-zA-Z0-9_$,\s]+})+\s+from|}\s*from\s*['"]/;
+
 const SELECTOR = [
-  '.source.js .string.quoted',
-
-  // for babel-language plugin
-  '.source.js .punctuation.definition.string.end',
-  '.source.js .punctuation.definition.string.begin',
-
-  '.source.ts .string.quoted',
-  '.source.coffee .string.quoted'
+  '.source.js',
+  '.source.ts',
+  '.source.tsx',
+  '.source.coffee'
 ];
 const SELECTOR_DISABLE = [
   '.source.js .comment',
   '.source.js .keyword',
   '.source.ts .comment',
-  '.source.ts .keyword'
+  '.source.ts .keyword',
+  '.source.tsx .comment',
+  '.source.tsx .keyword'
 ];
 
 class CompletionProvider {
@@ -35,46 +35,70 @@ class CompletionProvider {
   }
 
   getSuggestions({editor, bufferPosition, prefix}) {
-    const line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]);
+    const line = editor.buffer.lineForRow(bufferPosition.row);
     if (!LINE_REGEXP.test(line)) {
       return [];
     }
 
-    const realPrefix = this.getRealPrefix(prefix, line);
-    if (!realPrefix) {
+    const activePaneFile = atom.workspace.getActivePaneItem().buffer.file;
+    // in case user editing unsaved file
+    if (!activePaneFile) {
       return [];
     }
 
-    if (realPrefix[0] === '.') {
-      return this.lookupLocal(realPrefix, path.dirname(editor.getPath()));
+    const prefixLine = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]);
+    const realImportPrefix = this.getRealImportPrefix(prefix, prefixLine);
+    if (realImportPrefix !== false) {
+      if (realImportPrefix[0] === '.') {
+        return this.lookupLocal(realImportPrefix, path.dirname(editor.getPath()));
+      }
+
+      const vendors = atom.config.get('autocomplete-modules.vendors');
+
+      const promises = vendors.map(
+        (vendor) => this.lookupGlobal(realImportPrefix, activePaneFile.path, vendor)
+      );
+
+      const webpack = atom.config.get('autocomplete-modules.webpack');
+      if (webpack) {
+        promises.push(this.lookupWebpack(realImportPrefix, activePaneFile.path));
+      }
+
+      const babelPluginModuleResolver = atom.config.get('autocomplete-modules.babelPluginModuleResolver');
+      if (babelPluginModuleResolver) {
+        promises.push(this.lookupbabelPluginModuleResolver(realImportPrefix, activePaneFile.path));
+      }
+
+      return Promise.all(promises).then(
+        (suggestions) => [].concat(...suggestions)
+      );
     }
 
-    const vendors = atom.config.get('autocomplete-modules.vendors');
-    const activePanePath = atom.workspace.getActivePaneItem().buffer.file.path;
+    const realExportPrefix = getRealExportPrefix(prefix, prefixLine);
+    if (realExportPrefix !== false) {
+      const importModule = getImportModule(line);
+      if (importModule === false) {
+        return [];
+      }
 
-    const promises = vendors.map(
-      (vendor) => this.lookupGlobal(realPrefix, activePanePath, vendor)
-    );
-
-    const webpack = atom.config.get('autocomplete-modules.webpack');
-    if (webpack) {
-      promises.push(this.lookupWebpack(realPrefix, activePanePath));
+      return getExports(activePaneFile.path, realExportPrefix, importModule)
+      .then((suggestions) => suggestions.map((exportname) => (
+          {
+              text: exportname,
+              displayText: exportname,
+              type: 'import'
+          })))
+      .then((suggestions) => this.filterSuggestions(prefix, suggestions));
     }
 
-    const babelPluginModuleResolver = atom.config.get('autocomplete-modules.babelPluginModuleResolver');
-    if (babelPluginModuleResolver) {
-      promises.push(this.lookupbabelPluginModuleResolver(realPrefix, activePanePath));
-    }
-
-    return Promise.all(promises).then(
-      (suggestions) => [].concat(...suggestions)
-    );
+    return [];
   }
 
-  getRealPrefix(prefix, line) {
+  getRealImportPrefix(prefix, line) {
     try {
-      const realPrefixRegExp = new RegExp(`['"]((?:.+?)*${escapeRegExp(prefix)})`);
-      const realPrefixMathes = realPrefixRegExp.exec(line);
+      const cjsRealPrefixRegExp = new RegExp(`require\\(['"]((?:.+?)*${escapeRegExp(prefix)})`);
+      const es6RealPrefixRegExp = new RegExp(`(?:from|import)\\s+['"]((?:.+?)*${escapeRegExp(prefix)})`);
+      const realPrefixMathes = cjsRealPrefixRegExp.exec(line) || es6RealPrefixRegExp.exec(line);
       if (!realPrefixMathes) {
         return false;
       }
@@ -168,6 +192,7 @@ class CompletionProvider {
 
     // Webpack v2
     const webpackModules = get(webpackConfig, 'resolve.modules', []);
+    const webpackAliases = get(webpackConfig, 'resolve.alias', {});
 
     // Webpack v1
     const webpackRoot = get(webpackConfig, 'resolve.root', '');
@@ -181,9 +206,51 @@ class CompletionProvider {
         prefix,
         path.isAbsolute(searchPath) ? searchPath : path.join(projectPath, searchPath)
       )
+    ).concat(
+      this.lookupAliases(prefix, projectPath, Object.keys(webpackAliases).map(exp => ({
+        expose: exp,
+        src: webpackAliases[exp]
+      })))
     )).then(
       (suggestions) => [].concat(...suggestions)
     );
+  }
+
+  lookupAliases(prefix, projectPath, aliases = {}) {
+    // determine the right prefix for the alias config
+    // `realPrefix` is the prefix we want to use to find the right file/suggestions
+    // when the prefix is a sub module (eg. module/subfile),
+    // `modulePrefix` will be "module", and `realPrefix` will be "subfile"
+    const prefixSplit = prefix.split('/');
+    const modulePrefix = prefixSplit[0];
+    const realPrefix = prefixSplit.pop();
+    const moduleSearchPath = prefixSplit.join('/');
+
+    return Promise.all(aliases
+      .filter(alias => alias.expose.startsWith(modulePrefix))
+      .map(
+      (alias) => {
+        // The search path is the source directory specified in .babelrc
+        // then we append the `moduleSearchPath` (without the alias)
+        // to get the real search path
+        const searchPath = path.join(
+          path.resolve(projectPath, alias.src),
+          moduleSearchPath.replace(alias.expose, '')
+        );
+
+        return this.lookupLocal(realPrefix, searchPath);
+      }
+    )).then(
+      (suggestions) => [].concat(...suggestions)
+    ).then(suggestions => {
+      // make sure the suggestions are from the compatible alias
+      if (prefix === realPrefix && aliases.length) {
+        return suggestions.filter(sugg =>
+          aliases.find(a => a.expose === sugg.text)
+        );
+      }
+      return suggestions;
+    });
   }
 
   fetchWebpackConfig(rootPath) {
@@ -242,11 +309,12 @@ class CompletionProvider {
 
           return Promise.all(rootPromises.concat(aliasConfig.map(
             (alias) => {
-              // The search path is the parent directory of the source directory specified in .babelrc
-              // then we append the `moduleSearchPath` to get the real search path
+              // The search path is the source directory specified in .babelrc
+              // then we append the `moduleSearchPath` (without the alias)
+              // to get the real search path
               const searchPath = path.join(
-                path.dirname(path.resolve(projectPath, alias.src)),
-                moduleSearchPath
+                path.resolve(projectPath, alias.src),
+                moduleSearchPath.replace(alias.expose, '')
               );
 
               return this.lookupLocal(realPrefix, searchPath);

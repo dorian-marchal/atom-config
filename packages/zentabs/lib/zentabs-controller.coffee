@@ -63,8 +63,9 @@ class ZentabsController extends View
     neverCloseNew = atom.config.get 'zentabs.neverCloseNew'
 
     tmpItems = @items.slice 0
+    itemAmount = @items.length
     tmpItems.forEach (olderItem) =>
-      if @items.length > maxTabs
+      if itemAmount > maxTabs
         # Check tab saved status
         preventBecauseUnsaved = olderItem.buffer?.isModified() && neverCloseUnsaved
         preventBecauseDirty = false
@@ -78,9 +79,10 @@ class ZentabsController extends View
 
         unless preventBecauseUnsaved || preventBecauseDirty || preventBecauseNew || newItem == olderItem
           @pane.destroyItem olderItem
+          itemAmount -= 1
 
   pinTab: () =>
-    tab = $('.tab.right-clicked, .tab.active').first()
+    tab = $('.tab.right-clicked').first()
     return if tab.size() is 0
 
     view = atom.views.getView tab
@@ -94,7 +96,7 @@ class ZentabsController extends View
     # tab.find('.title').addClass 'icon icon-lock' if atom.config.get 'zentabs.showPinnedIcon'
 
   unpinTab: (event) =>
-    tab = $('.tab.right-clicked, .tab.active').first()
+    tab = $('.tab.right-clicked').first()
     return if tab.size() is 0
 
     view = atom.views.getView tab

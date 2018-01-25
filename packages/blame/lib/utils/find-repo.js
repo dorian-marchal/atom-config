@@ -1,9 +1,9 @@
-"use babel"
+'use babel'
 
 import path from 'path'
 import fs from 'fs'
 
-function findRepo(currentPath) {
+function findRepo (currentPath) {
   let lastPath
   while (currentPath && lastPath !== currentPath) {
     lastPath = currentPath

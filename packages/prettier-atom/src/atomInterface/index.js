@@ -19,6 +19,8 @@ const isLinterEslintAutofixEnabled = () =>
 
 const shouldUseEslint = () => getConfigOption('useEslint');
 
+const shouldUseStylelint = () => getConfigOption('useStylelint');
+
 const shouldUseEditorConfig = () => getConfigOption('useEditorConfig');
 
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
@@ -40,13 +42,20 @@ const getJsonScopes = () => getConfigOption('formatOnSaveOptions.jsonScopes');
 
 const getGraphQlScopes = () => getConfigOption('formatOnSaveOptions.graphQlScopes');
 
-const getAllScopes = () => [
-  ...getJavascriptScopes(),
-  ...getTypescriptScopes(),
-  ...getCssScopes(),
-  ...getJsonScopes(),
-  ...getGraphQlScopes(),
-];
+const getMarkdownScopes = () => getConfigOption('formatOnSaveOptions.markdownScopes');
+
+const getVueScopes = () => getConfigOption('formatOnSaveOptions.vueScopes');
+
+const getAllScopes = () =>
+  [
+    getJavascriptScopes(),
+    getTypescriptScopes(),
+    getCssScopes(),
+    getJsonScopes(),
+    getGraphQlScopes(),
+    getMarkdownScopes(),
+    getVueScopes(),
+  ].reduce((acc, els) => acc.concat(els));
 
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
 
@@ -106,6 +115,8 @@ module.exports = {
   getCssScopes,
   getJsonScopes,
   getGraphQlScopes,
+  getMarkdownScopes,
+  getVueScopes,
   getAllScopes,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,
@@ -116,6 +127,7 @@ module.exports = {
   shouldRespectEslintignore,
   shouldUseEditorConfig,
   shouldUseEslint,
+  shouldUseStylelint,
   toggleFormatOnSave,
   attemptWithErrorNotification,
 };

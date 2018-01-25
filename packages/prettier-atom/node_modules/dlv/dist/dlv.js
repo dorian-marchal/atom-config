@@ -1,1 +1,2 @@
-function dlv(l,t,o,d){for(d=0,t=t.split?t.split("."):t;l&&d<t.length;)l=l[t[d++]];return void 0===l?o:l}module.exports=dlv;
+function t(t,o,e,i){for(i=0,o=o.split?o.split("."):o;t&&i<o.length;)t=t[o[i++]];return void 0===t?e:t}module.exports=t;
+//# sourceMappingURL=dlv.js.map

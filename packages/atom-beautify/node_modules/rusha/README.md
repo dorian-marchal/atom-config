@@ -1,60 +1,113 @@
-# Rusha [![Build Status](https://travis-ci.org/srijs/rusha.png?branch=master)](https://travis-ci.org/srijs/rusha)
+# Rusha
+
 *A high-performance pure-javascript SHA1 implementation suitable for large binary data.*
 
-[![NPM](https://nodei.co/npm/rusha.png?downloads=true&downloadRank=true)](https://nodei.co/npm/rusha/)
-
-## Prologue: The Sad State of Javascript SHA1 implementations
-
-When we started experimenting with alternative upload technologies at [doctape](http://doctape.com) that required creating SHA1 hashes of the data locally on the client, it quickly became obvious that there were no performant pure-js implementations of SHA1 that worked correctly on binary data.
-
-Jeff Mott's [CryptoJS](http://code.google.com/p/crypto-js/) and Brian Turek's [jsSHA](http://caligatio.github.com/jsSHA/) were both hash functions that worked correctly on ASCII strings of a small size, but didn't scale to large data and/or didn't work correctly with binary data.
-
-(On a sidenode, as of now Tim Caswell's [Cifre](http://github.com/openpeer/cifre) actually works with large binary data, as opposed to previously statet.)
-
-By modifying Paul Johnston's [sha1.js](http://pajhome.org.uk/crypt/md5/sha1.html) slightly, it worked correctly on binary data but was unfortunately very slow, especially on V8. So a few days were invested on my side to implement a Johnston-inspired SHA1 hashing function with a heavy focus on performance.
-
-The result of this process is Rusha, a SHA1 hash function that works flawlessly on large amounts binary data, such as binary strings or ArrayBuffers returned by the HTML5 File API, and leverages the soon-to-be-landed-in-firefox [asm.js](http://asmjs.org/spec/latest/) with whose support its within *half of native speed*!
+[![npm](https://img.shields.io/npm/v/rusha.svg)](https://www.npmjs.com/package/rusha) [![npm](https://img.shields.io/npm/dm/rusha.svg)](https://www.npmjs.com/package/rusha) [![Build Status](https://travis-ci.org/srijs/rusha.svg?branch=master)](https://travis-ci.org/srijs/rusha)
 
 ## Installing
 
-### Node.JS
+### NPM
 
-There is really no point in doing this, since Node.JS already has a wonderful `crypto` module that is leveraging low-level hardware instructions to perform really nice. Your can see the comparison below in the benchmarks.
+Rusha is available via [npm](http://npmjs.org/):
 
-Rusha is available on [npm](http://npmjs.org/) via `npm install rusha`.
+```
+npm install rusha
+```
 
-If you still want to do this, anyhow, just `require()` the `rusha.js` file, follow the instructions on _Using the Rusha Object_.
+### Bower
 
-### Browser
+Rusha is available via [bower](http://twitter.github.com/bower/):
 
-Rusha is available on [bower](http://twitter.github.com/bower/) via `bower install rusha`.
-
-It is highly recommended to run CPU-intensive tasks in a [Web Worker](http://developer.mozilla.org/en-US/docs/DOM/Using_web_workers). To do so, just start a worker with `var worker = new Worker('rusha.js')` and start sending it jobs. Follow the instructions on _Using the Rusha Worker_.
-
-If you can't, for any reason, use Web Workers, include the `rusha.js` file in a `<script>` tag and follow the instructions on _Using the Rusha Object_.
+```
+bower install rusha
+```
 
 ## Usage
 
-### Normal usage
+It is highly recommended to run CPU-intensive tasks in a [Web Worker](http://developer.mozilla.org/en-US/docs/DOM/Using_web_workers). To do so, just follow the instructions on [_Using the Rusha Worker_](#using-the-rusha-worker).
+
+If you have a good reason not to use Web Workers, follow the instructions on [_Using the Rusha Hash API_](#using-the-rusha-hash-api) instead.
+
+### Using the Rusha Worker
+
+#### Spawning workers
+
+You can create a new worker in two ways. The preferred way is using `Rusha.createWorker()`, which spawns a webworker containing the hashing logic, and returns back a `Worker` object:
 
 ```js
-var rusha = new Rusha();
-var hexHash = rusha.digest('I am Rusha'); 
+const worker = Rusha.createWorker();
 ```
 
-### Incremental usage
+If for some reason this does not work for you, you can also just point the `Worker` constructor
+at `rusha.js` or `rusha.min.js`, like so:
 
 ```js
-var rusha = new Rusha();
+const worker = new Worker("dist/rusha.min.js");
+```
+
+_**Note**: In order to make the latter work, Rusha will by default subscribe to incoming messages
+when it finds itself inside a worker context. This can lead to problems when you would like to use Rusha as a library inside a web worker, but still have control over the messaging. To disable this behaviour, you can call `Rusha.disableWorkerBehaviour()` from within the worker._
+
+#### Communicating with the worker
+
+You can send your instance of the web worker messages in the format `{id: jobid, data: dataobject}`. The worker then sends back a message in the format `{id: jobid, hash: hash}`, were jobid is the id of the job previously received and hash is the hash of the data-object you passed, be it a `Blob`, `Array`, `Buffer`, `ArrayBuffer` or `String`
+
+### Using the Rusha Hash API
+
+The Rusha `Hash` API is inspired by the [Node.js `Hash` API](https://nodejs.org/api/crypto.html#crypto_class_hash).
+
+#### Examples
+
+##### Simple usage
+
+```js
+const hexHash = Rusha.createHash().update('I am Rusha').digest('hex'); 
+```
+
+##### Incremental usage
+
+```js
+const hash = Rusha.createHash(); 
+hash.update('I am');
+hash.update(' Rusha');
+const hexHash = rusha.digest('hex');
+```
+
+#### Reference
+
+You instantiate a new Hash object by calling `Rusha.createHash`. When created, it provides the following methods:
+
+- `Hash#update(data)`: Update the hash state with the given `data`, which can be a binary `String`, `Buffer`, `Array`, `ArrayBuffer` or `Blob`.
+- `Hash#digest([encoding])`: Calculates the digest of all of the data passed to be hashed. The `encoding` can be `'hex'` or undefined. If `encoding` is provided a string will be returned; otherwise an `ArrayBuffer` is returned.
+
+### Using the Rusha Object (DEPRECATED)
+
+The Rusha Object API is deprecated, and is only documented here for older code bases that might still be using it.
+
+You should be using the `Hash` API instead, which is documented above.
+
+#### Examples
+
+##### Normal usage
+
+```js
+const rusha = new Rusha();
+const hexHash = rusha.digest('I am Rusha'); 
+```
+
+##### Incremental usage
+
+```js
+const rusha = new Rusha();
 rusha.resetState();
 rusha.append('I am');
 rusha.append(' Rusha');
-var hexHash = rusha.end();
+const hexHash = rusha.end();
 ```
 
-## Using the Rusha Object
+#### Reference
 
-Your instantiate a new Rusha object by doing `var r = new Rusha(optionalSizeHint)`. When created, it provides the following methods:
+Your instantiate a new Rusha object by doing `new Rusha()`. When created, it provides the following methods:
 
 - `Rusha#digest(d)`: Create a hex digest from data of the three kinds mentioned below, or throw and error if the type is unsupported.
 - `Rusha#digestFromString(s)`: Create a hex digest from a binary `String`. A binary string is expected to only contain characters whose charCode < 256.
@@ -68,15 +121,10 @@ Your instantiate a new Rusha object by doing `var r = new Rusha(optionalSizeHint
 - `Rusha#end()`: Finishes the computation of the sha, returning a hex digest.
 - `Rusha#rawEnd()`: Behaves just like #end(), except that it returns the digest as an Int32Array of size 5.
 
-
-## Using the Rusha Worker
-
-You can send your instance of the web worker messages in the format `{id: jobid, data: dataobject}`. The worker then sends back a message in the format `{id: jobid, hash: hash}`, were jobid is the id of the job previously received and hash is the hash of the data-object you passed, be it a `Blob`, `Array`, `Buffer`, `ArrayBuffer` or `String`.
-
 ## Development
 
 * Download npm dependencies with `npm install`
-* Source file to be edited is `rusha.sweet.js`
+* Make changes to the files in `src/`
 * Build with `npm run build`
 * Run tests with `npm test`
 

@@ -2,6 +2,10 @@
   achievements: {}
   "atom-autocomplete-php": {}
   "atom-beautify":
+    executables:
+      php: {}
+      phpcbf:
+        path: "/home/dorian/repos/jvc-respawn/vendor/squizlabs/php_codesniffer/scripts/phpcbf"
     general:
       _analyticsUserId: "f55c1d04-4515-46e5-bdbd-95ab842e2fb7"
     js:
@@ -12,6 +16,10 @@
       end_with_newline: true
       indent_size: 2
       keep_array_indentation: true
+    php:
+      default_beautifier: "PHPCBF"
+      phpcbf_version: 3
+      standard: "/home/dorian/repos/jvc-respawn/tools/phpcs/jv_ruleset.xml"
   "atom-css-unit-converter": {}
   "atom-ctags":
     GotoSymbolKey: [
@@ -20,6 +28,7 @@
     ]
   "atom-import-sort":
     sortOnSave: true
+  "atom-slack-snippets": {}
   "autocomplete-modules": {}
   "autocomplete-plus": {}
   blame: {}
@@ -45,10 +54,11 @@
       "xml-formatter"
       "smart-tags"
       "dev-live-reload"
-      "github"
-      "react"
       "timecop"
-      "todo-show"
+      "markdown-scroll-sync"
+      "markdown-writer"
+      "minimap-git-diff"
+      "minimap-highlight-selected"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -63,6 +73,7 @@
     ]
     packagesWithKeymapsDisabled: [
       "data-atom"
+      "github"
     ]
     themes: [
       "atom-dark-ui"
@@ -73,13 +84,12 @@
     deep_indent: true
     extend_double_slash: false
     per_section_indent: true
-    return_tag: "@returns"
+    spacer_between_sections: "true"
   editor:
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
     showInvisibles: true
-    tabLength: 4
     zoomFontWhenCtrlScrolling: false
   emmet: {}
   "exception-reporting":
@@ -108,9 +118,7 @@
     lintOnOpen: false
     lintPreviewTabs: false
     statusBar: "Show all errors"
-  "linter-eslint":
-    disableEslintIgnore: true
-    useGlobalEslint: true
+  "linter-eslint": {}
   "linter-jscs":
     onlyConfig: true
     preset: "google"
@@ -124,7 +132,15 @@
   "linter-pep8": {}
   "linter-php": {}
   "linter-phpcs":
-    disableWhenNoConfigFile: true
+    autoConfigSearch: false
+    autoExecutableSearch: false
+    codeStandardOrConfigFile: "/home/dorian/repos/jvc-respawn/tools/phpcs/jv_ruleset.xml"
+    executablePath: "/home/dorian/repos/jvc-respawn/vendor/squizlabs/php_codesniffer/scripts/phpcs"
+    ignorePatterns: [
+      "**/*.blade.php"
+      "**/*.twig.php"
+      "**/vendor/**/*.php"
+    ]
     warningSeverity: 0
   "linter-pylint": {}
   "linter-python-pep8":
@@ -140,21 +156,30 @@
   "merge-conflicts": {}
   minimap:
     plugins:
-      "git-diff": true
+      "git-diff": false
       "git-diffDecorationsZIndex": 0
       "highlight-selected": true
       "highlight-selectedDecorationsZIndex": 0
   navigate: {}
   "one-dark-ui": {}
+  "php-cs-fixer":
+    executablePath: "/home/dorian/repos/jvc-respawn/app/vendor/bin/php-cs-fixer"
   "php-getters-setters": {}
   pigments:
+    autocompleteSuggestionsFromValue: true
     extendAutocompleteToVariables: false
+  "prettier-atom":
+    formatOnSaveOptions:
+      enabled: true
+      isDisabledIfNoConfigFile: true
+      isDisabledIfNotInPackageJson: true
   "project-manager": {}
   "recent-files-fuzzy-finder": {}
   "remote-edit":
     rememberLastOpenDirectory: true
   "remote-sync":
     foldLogPanel: true
+    monitorFileAnimation: false
   "seti-syntax":
     dynamicColor: false
     themeColor: "Steel"
@@ -179,7 +204,7 @@
     sortBy: "Path"
     statusBarIndicator: true
   "toggle-quotes":
-    quoteCharacters: "'\"`"
+    quoteCharacters: "'\""
   "travis-ci-status": {}
   "tree-ignore":
     enabled: false
@@ -193,6 +218,7 @@
     maximumOpenedTabs: 6
     neverCloseDirty: true
     neverCloseUnsaved: true
+    showPinnedIcon: false
 ".attribute-values.js.jsx.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
@@ -201,6 +227,9 @@
     nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?-…"
     tabLength: 4
 ".css.source.styled":
+  editor:
+    nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?-…"
+".css.source.twig":
   editor:
     nonWordCharacters: "/\\()\"':.,;<>~!@$%^&*|+=[]{}`?-…"
 ".diff":
@@ -230,7 +259,6 @@
 ".js.jsx.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
-    tabLength: 2
 ".js.regexp.replacement.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
@@ -244,8 +272,10 @@
 ".js.source":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
-    tabLength: 2
 ".js.source.subtlegradient":
+  editor:
+    nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
+".js.source.twig":
   editor:
     nonWordCharacters: "/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-…"
 ".mustache.source.sql":

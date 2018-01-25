@@ -1,7 +1,5 @@
 'use strict';
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 // constants
 var LINTER_LINT_COMMAND = 'linter:lint';
 
@@ -27,6 +25,10 @@ var isLinterEslintAutofixEnabled = function isLinterEslintAutofixEnabled() {
 
 var shouldUseEslint = function shouldUseEslint() {
   return getConfigOption('useEslint');
+};
+
+var shouldUseStylelint = function shouldUseStylelint() {
+  return getConfigOption('useStylelint');
 };
 
 var shouldUseEditorConfig = function shouldUseEditorConfig() {
@@ -69,8 +71,18 @@ var getGraphQlScopes = function getGraphQlScopes() {
   return getConfigOption('formatOnSaveOptions.graphQlScopes');
 };
 
+var getMarkdownScopes = function getMarkdownScopes() {
+  return getConfigOption('formatOnSaveOptions.markdownScopes');
+};
+
+var getVueScopes = function getVueScopes() {
+  return getConfigOption('formatOnSaveOptions.vueScopes');
+};
+
 var getAllScopes = function getAllScopes() {
-  return [].concat(_toConsumableArray(getJavascriptScopes()), _toConsumableArray(getTypescriptScopes()), _toConsumableArray(getCssScopes()), _toConsumableArray(getJsonScopes()), _toConsumableArray(getGraphQlScopes()));
+  return [getJavascriptScopes(), getTypescriptScopes(), getCssScopes(), getJsonScopes(), getGraphQlScopes(), getMarkdownScopes(), getVueScopes()].reduce(function (acc, els) {
+    return acc.concat(els);
+  });
 };
 
 var getWhitelistedGlobs = function getWhitelistedGlobs() {
@@ -154,6 +166,8 @@ module.exports = {
   getCssScopes: getCssScopes,
   getJsonScopes: getJsonScopes,
   getGraphQlScopes: getGraphQlScopes,
+  getMarkdownScopes: getMarkdownScopes,
+  getVueScopes: getVueScopes,
   getAllScopes: getAllScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
   isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,
@@ -164,6 +178,7 @@ module.exports = {
   shouldRespectEslintignore: shouldRespectEslintignore,
   shouldUseEditorConfig: shouldUseEditorConfig,
   shouldUseEslint: shouldUseEslint,
+  shouldUseStylelint: shouldUseStylelint,
   toggleFormatOnSave: toggleFormatOnSave,
   attemptWithErrorNotification: attemptWithErrorNotification
 };

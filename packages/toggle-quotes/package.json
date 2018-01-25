@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-11728-7160-5zovhv/package.tgz",
+        "raw": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-11728-7160-5zovhv/package.tgz",
-        "spec": "/tmp/d-11728-7160-5zovhv/package.tgz",
+        "rawSpec": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
+        "spec": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-11728-7160-17nh1j3"
+      "/tmp/apm-install-dir-11808-19322-dt8yuw.bdwtkv5cdi"
     ]
   ],
-  "_from": "../d-11728-7160-5zovhv/package.tgz",
-  "_id": "toggle-quotes@1.0.1",
+  "_from": "../d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
+  "_id": "toggle-quotes@1.1.0",
   "_inCache": true,
-  "_installable": true,
   "_location": "/toggle-quotes",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-11728-7160-5zovhv/package.tgz",
+    "raw": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-11728-7160-5zovhv/package.tgz",
-    "spec": "/tmp/d-11728-7160-5zovhv/package.tgz",
+    "rawSpec": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
+    "spec": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-11728-7160-5zovhv/package.tgz",
-  "_shasum": "56b41a357dec8dd99ca82ce6eb8eaafd1cb29b02",
+  "_resolved": "file:../d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
+  "_shasum": "047bacb1618e73f2d7938b2b6059b49f8eca2420",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-11728-7160-5zovhv/package.tgz",
-  "_where": "/tmp/apm-install-dir-11728-7160-17nh1j3",
+  "_spec": "/tmp/d-11808-19322-52sj13.qw4f4rt3xr/package.tgz",
+  "_where": "/tmp/apm-install-dir-11808-19322-dt8yuw.bdwtkv5cdi",
   "activationCommands": {
     "atom-text-editor": [
       "toggle-quotes:toggle"
@@ -57,7 +56,7 @@
   "main": "./lib/main",
   "name": "toggle-quotes",
   "optionalDependencies": {},
-  "readme": "# Toggle Quotes\n\n[![Build Status](https://travis-ci.org/atom/toggle-quotes.svg?branch=master)](https://travis-ci.org/atom/toggle-quotes)\n[![Dependency Status](https://david-dm.org/atom/toggle-quotes.svg)](https://david-dm.org/atom/toggle-quotes)\n\nToggle a single-quoted string to a double-quoted string, and vice versa.\n\n(NOTE: Currently unsupported on tab-indented lines. See https://github.com/atom/toggle-quotes/issues/27 for more information.)\n\n![toggle-quotes-demo](https://cloud.githubusercontent.com/assets/823545/9016150/aa73ab62-379c-11e5-8622-8dbb492ff4f1.gif)\n\nThis is a package for [Atom](https://atom.io), a hackable text editor for the 21st Century.\n\n## Usage\n\nPlace the cursor within a string and execute the `Toggle Quotes: Toggle` command to toggle that string between single and double quotes. Only available when using a grammar that supports single-quoted and double-quoted strings, or any other configured string character (e.g. JavaScript, Python, Ruby, etc.).\n\n### Commands\n\nCommand                | Description\n-----------------------|--------------\n`toggle-quotes:toggle` | Toggles the quote characters used for quoted strings between the configured `Quote Characters` (`'` and `\"` by default).\n\n### Keybindings\n\nCommand            | Linux  | OS X  | Windows\n-------------------|--------|-------|----------\n`toggle-quotes:toggle` | <kbd>Ctrl-\"</kbd> | <kbd>Cmd-\"</kbd> | <kbd>Ctrl-\"</kbd>\n\nCustom keybindings can be added by referencing the above commands.  To learn more, visit the [Using Atom: Basic Customization](https://atom.io/docs/latest/using-atom-basic-customization#customizing-key-bindings) or [Behind Atom: Keymaps In-Depth](https://atom.io/docs/latest/behind-atom-keymaps-in-depth) sections in the flight manual.\n\n### Configuration\n\nConfiguration Key Path      | Type | Default | Description\n----------------------------|------|---------|------------\n`toggle-quotes.quoteCharacters` | `string` | `'\"` | The characters `toggle-quotes:toggle` toggles between. No whitespace.\n\n## Contributing\n\nAlways feel free to help out!  Whether it's filing bugs and feature requests\nor working on some of the open issues, Atom's [contributing guide](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)\nwill help get you started while the [guide for contributing to packages](https://github.com/atom/atom/blob/master/docs/contributing-to-packages.md)\nhas some extra information.\n\n## License\n\n[MIT License](http://opensource.org/licenses/MIT) - see the [LICENSE](https://github.com/atom/toggle-quotes/blob/master/LICENSE.md) for more details.\n",
+  "readme": "# Toggle Quotes\n\n[![Build Status](https://travis-ci.org/atom/toggle-quotes.svg?branch=master)](https://travis-ci.org/atom/toggle-quotes)\n[![Dependency Status](https://david-dm.org/atom/toggle-quotes.svg)](https://david-dm.org/atom/toggle-quotes)\n\nToggle a single-quoted string to a double-quoted string, and vice versa.\n\n(NOTE: Currently unsupported on tab-indented lines. See https://github.com/atom/toggle-quotes/issues/27 for more information.)\n\n![toggle-quotes-demo](https://cloud.githubusercontent.com/assets/823545/9016150/aa73ab62-379c-11e5-8622-8dbb492ff4f1.gif)\n\nThis is a package for [Atom](https://atom.io), a hackable text editor for the 21st Century.\n\n## Usage\n\nPlace the cursor within a string and execute the `Toggle Quotes: Toggle` command to toggle that string between single and double quotes. Only available when using a grammar that supports single-quoted and double-quoted strings, or any other configured string character (e.g. JavaScript, Python, Ruby, etc.).\n\n### Commands\n\nCommand                | Description\n-----------------------|--------------\n`toggle-quotes:toggle` | Toggles the quote characters used for quoted strings between the configured `Quote Characters` (`'` and `\"` by default).\n\n### Keybindings\n\nCommand            | Linux  | OS X  | Windows\n-------------------|--------|-------|----------\n`toggle-quotes:toggle` | <kbd>Ctrl-\"</kbd> | <kbd>Cmd-\"</kbd> | <kbd>Ctrl-\"</kbd>\n\nCustom keybindings can be added by referencing the above commands.  To learn more, visit the [Using Atom: Basic Customization](https://atom.io/docs/latest/using-atom-basic-customization#customizing-key-bindings) or [Behind Atom: Keymaps In-Depth](https://atom.io/docs/latest/behind-atom-keymaps-in-depth) sections in the flight manual.\n\n### Configuration\n\nConfiguration Key Path      | Type | Default | Description\n----------------------------|------|---------|------------\n`toggle-quotes.quoteCharacters` | `string` | `'\"` | The characters `toggle-quotes:toggle` toggles between. No whitespace.\n\nYou can add [language-specific settings](http://flight-manual.atom.io/using-atom/sections/basic-customization/#language-specific-configuration-settings) for languages with more exotic string delimiters. For example, this setting in your `config.cson` will add backticks in JavaScript files, but not in other kinds of files:\n\n```cson\n\".js.source\":\n  \"toggle-quotes\":\n    quoteCharacters: \"\\\"'`\"\n```\n\n## Contributing\n\nAlways feel free to help out!  Whether it's filing bugs and feature requests\nor working on some of the open issues, Atom's [contributing guide](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)\nwill help get you started while the [guide for contributing to packages](https://github.com/atom/atom/blob/master/docs/contributing-to-packages.md)\nhas some extra information.\n\n## License\n\n[MIT License](http://opensource.org/licenses/MIT) - see the [LICENSE](https://github.com/atom/toggle-quotes/blob/master/LICENSE.md) for more details.\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
@@ -79,5 +78,5 @@
       "waitsForPromise"
     ]
   },
-  "version": "1.0.1"
+  "version": "1.1.0"
 }

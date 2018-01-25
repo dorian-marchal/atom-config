@@ -2,13 +2,15 @@
 
 > Safely get a dot-notated path within a nested object, with ability to return a default if the full key path does not exist or the value is undefined
 
+
 ### Why?
 
-Smallest possible implementation: only **165 bytes.**
+Smallest possible implementation: only **126 bytes.**
 
 You could write this yourself, but then you'd have to write [tests].
 
 Supports ES Modules, CommonJS and globals.
+
 
 ### Installation
 
@@ -58,9 +60,15 @@ delve(undefined, 'a.b.c', 'foo') === 'foo';
 delve(obj, undefined, 'foo') === 'foo';
 ```
 
+
+### Setter Counterpart
+
+[bury](https://github.com/kalmbach/bury) by [@kalmbach](https://github.com/kalmbach) does the opposite of `dlv` and is implemented in a very similar manner.
+
+
 ### License
 
-MIT
+[MIT](https://oss.ninja/mit/developit/)
 
 
 [preact]: https://github.com/developit/preact

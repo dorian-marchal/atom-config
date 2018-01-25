@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-11717-21153-1lcardb/package.tgz",
+        "raw": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-11717-21153-1lcardb/package.tgz",
-        "spec": "/tmp/d-11717-21153-1lcardb/package.tgz",
+        "rawSpec": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
+        "spec": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-11717-21153-3qqh18"
+      "/tmp/apm-install-dir-1171017-2291-c45n6g.8tevz08uxr"
     ]
   ],
-  "_from": "../d-11717-21153-1lcardb/package.tgz",
-  "_id": "zentabs@0.8.8",
+  "_from": "../d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
+  "_id": "zentabs@0.8.9",
   "_inCache": true,
-  "_installable": true,
   "_location": "/zentabs",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-11717-21153-1lcardb/package.tgz",
+    "raw": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-11717-21153-1lcardb/package.tgz",
-    "spec": "/tmp/d-11717-21153-1lcardb/package.tgz",
+    "rawSpec": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
+    "spec": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-11717-21153-1lcardb/package.tgz",
-  "_shasum": "b889b6d05eca699d7b695951c75aec44eb98d8a6",
+  "_resolved": "file:../d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
+  "_shasum": "1a1cd36cfa46e64588a92d1a9f155e3d3602d339",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-11717-21153-1lcardb/package.tgz",
-  "_where": "/tmp/apm-install-dir-11717-21153-3qqh18",
+  "_spec": "/tmp/d-1171017-2291-12aahbl.v7sao47vi/package.tgz",
+  "_where": "/tmp/apm-install-dir-1171017-2291-c45n6g.8tevz08uxr",
   "bugs": {
     "url": "https://github.com/ArnaudRinquin/atom-zentabs/issues"
   },
@@ -91,5 +90,5 @@
     "type": "git",
     "url": "git+https://github.com/ArnaudRinquin/atom-zentabs.git"
   },
-  "version": "0.8.8"
+  "version": "0.8.9"
 }

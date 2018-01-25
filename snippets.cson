@@ -61,12 +61,22 @@
       this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
     '''
+  'bem':
+    'prefix': 'bem'
+    'body': 'className={classes(${2:\'$1\'})} '
 
 # CSS
-'.source.css':
+'.source.css.scss':
   'var':
     'prefix': 'v'
     'body': 'var($1);'
+  'mq':
+    'prefix': 'mq'
+    'body': '''
+    @media #{$breakpoint-${1:s}} {
+      ${2}
+    }
+    '''
 
 # PHP
 '.source.php':
