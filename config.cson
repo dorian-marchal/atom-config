@@ -55,10 +55,10 @@
       "smart-tags"
       "dev-live-reload"
       "timecop"
-      "markdown-scroll-sync"
-      "markdown-writer"
       "minimap-git-diff"
       "minimap-highlight-selected"
+      "pigments"
+      "markdown-scroll-sync"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -103,7 +103,8 @@
   fonts:
     fontFamily: "Hasklig"
     preview: "test -> => != >= <= <> !! ++ Ceci est un test ! function"
-  "fuzzy-finder": {}
+  "fuzzy-finder":
+    searchAllPanes: true
   "git-blame": {}
   "git-plus":
     wordDiff: false

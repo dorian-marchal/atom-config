@@ -181,3 +181,12 @@
   'Checkbox':
     'prefix': '-'
     'body': '- [ ] '
+
+# SQL
+'.source.sql':
+  'join':
+    'prefix': 'join'
+    'body': '''
+      JOIN ${1} ON
+        ${1}.${2:id_$3} = ${5:$2}.${4:id_$3}
+    '''
