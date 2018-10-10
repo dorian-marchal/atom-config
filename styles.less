@@ -9,11 +9,20 @@
  */
 
 .tree-view {
-    font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
-    // font-size: 1.1em !important;
+    //font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
+    font-size: 1.2em !important;
 
     .list-tree .list-item {
         line-height: 22px;
+
+        // Make ignored files more visible.
+        &.status-ignored {
+            color: #777;
+
+            &.selected {
+                color: #aaa;
+            }
+        }
     }
 
     &.list-tree.has-collapsable-children .list-nested-item > .list-tree > li,
@@ -50,7 +59,7 @@ atom-text-editor {
     // -webkit-font-feature-settings: "liga" on, "calt" on;
     // font-feature-settings: "liga" on, "calt" on;
     -webkit-font-smoothing: antialiased;
-    font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
+    //font-family: 'Hasklig Medium', 'Droid Sans Mono' !important;
     // font-size: 1.2em;
     font-weight: 400;
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
