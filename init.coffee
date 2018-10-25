@@ -214,7 +214,7 @@ fixSqlCase = (editor) ->
         [/\bint\b/gi, 'integer'],
         [/\bbool\b/gi, 'boolean'],
         # Keywords.
-        [/\b(?:select( exists)?|nulls last|delete|(cross )?join|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|primary key|foreign key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|set|stable|table|then|trigger|true|update|using|values|when|where)\b/gi, uppercase],
+        [/\b(?:select( exists)?|nulls last|delete|(cross )?join|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|primary key|foreign key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|stable|table|then|trigger|true|update|using|values|when|where|rollback)\b/gi, uppercase],
         [/\bwith(?: recursive)? ?\(/gi, uppercase]
     ]
 

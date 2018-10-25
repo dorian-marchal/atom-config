@@ -59,6 +59,7 @@
       "minimap-highlight-selected"
       "pigments"
       "markdown-scroll-sync"
+      "platformio-ide-terminal"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [
@@ -149,7 +150,7 @@
   "linter-stylelint":
     disableWhenNoConfig: true
   "linter-ui-default":
-    panelHeight: 81
+    panelHeight: 366
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
@@ -169,6 +170,19 @@
   pigments:
     autocompleteSuggestionsFromValue: true
     extendAutocompleteToVariables: false
+  "platformio-ide-terminal":
+    ansiColors:
+      normal:
+        blue: "#2b6c98"
+      zBright:
+        brightBlue: "#216db9"
+    core:
+      autoRunCommand: "wq-respawn"
+    style:
+      animationSpeed: 0
+    toggles:
+      autoClose: true
+      selectToCopy: false
   "prettier-atom":
     formatOnSaveOptions:
       enabled: true
@@ -193,6 +207,18 @@
     scrollSyncType: "Vertical + Horizontal"
     syncHorizontalScroll: true
   tabs: {}
+  "terminal-plus":
+    ansiColors:
+      normal:
+        blue: "#4e69b5"
+      zBright:
+        brightBlue: "#4e69b5"
+    core:
+      autoRunCommand: "wq-respawn"
+    iconColors:
+      blue: "#4e69b5"
+    style:
+      animationSpeed: 0
   "terminal-status": {}
   "todo-show":
     findUsingRegex: "/\\bFIXME\\b/g"
