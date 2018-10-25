@@ -54,12 +54,8 @@
       "xml-formatter"
       "smart-tags"
       "dev-live-reload"
+      "github"
       "timecop"
-      "minimap-git-diff"
-      "minimap-highlight-selected"
-      "pigments"
-      "markdown-scroll-sync"
-      "platformio-ide-terminal"
     ]
     excludeVcsIgnoredPaths: false
     ignoredNames: [

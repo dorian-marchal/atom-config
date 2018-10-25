@@ -1,38 +1,39 @@
 "use strict";
 
-const Storage        = require("./storage.js");
-const Options        = require("./options.js");
-const UI             = require("./ui.js");
-const Consumers      = require("./consumers/all.js");
-const AutoCompiler   = require("./icons/auto-compiler.js");
-const IconService    = require("./service/icon-service.js");
-
-
-module.exports = {
+const FileIcons = {
+	get storage (){ return require("./storage.js"); },
+	get options (){ return require("./options.js"); },
+	get ui      (){ return require("./ui.js");      },
+	get service (){ return require("./service/icon-service.js");},
 
 	activate(state){
-		Storage.init(state);
-		Options.init();
-		UI.init();
-		Consumers.init();
-		UI.observe();
-		AutoCompiler.init();
-		IconService.init();
-		require("./debug.js");
+		global._FileIcons = this;
+		this.storage.init(state);
+		this.options.init();
+		this.ui.init();
+		this.ui.observe();
+		this.service.init();
 	},
-	
+
 	deactivate(){
-		Storage.lock();
-		Consumers.reset();
-		IconService.reset();
-		AutoCompiler.reset();
-		UI.reset();
-		Options.reset();
+		this.storage.lock();
+		this.service.reset();
+		this.ui.reset();
+		this.options.reset();
+		delete global._FileIcons;
 	},
 
-	serialize(){ return Storage.data; },
+	serialize(){
+		return this.storage.serialize();
+	},
 
-	provideService(){ return IconService.addIconToElement; },
-	
-	suppressFOUC(){ return IconService.suppressFOUC(); }
+	provideService(){
+		return this.service.addIconToElement;
+	},
+
+	suppressFOUC(){
+		return this.service.suppressFOUC();
+	},
 };
+
+module.exports = FileIcons;

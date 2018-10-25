@@ -1,8 +1,8 @@
 "use strict";
 
 const path = require("path");
-const {CompositeDisposable, Disposable} = require("atom");
-const {escapeRegExp} = require("alhadis.utils");
+const {CompositeDisposable} = require("atom");
+const {escapeRegExp} = require("../../utils.js");
 const IconTables = require("../../icons/icon-tables.js");
 const Strategy = require("../strategy.js");
 

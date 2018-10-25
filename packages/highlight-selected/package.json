@@ -1,59 +1,51 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "/tmp/d-117228-5470-10by1sx/package.tgz",
-        "scope": null,
-        "escapedName": null,
-        "name": null,
-        "rawSpec": "/tmp/d-117228-5470-10by1sx/package.tgz",
-        "spec": "/tmp/d-117228-5470-10by1sx/package.tgz",
-        "type": "local"
-      },
-      "/tmp/apm-install-dir-117228-5470-cs1s8g"
-    ]
-  ],
-  "_from": "../d-117228-5470-10by1sx/package.tgz",
-  "_id": "highlight-selected@0.13.1",
-  "_inCache": true,
-  "_installable": true,
+  "_from": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
+  "_id": "highlight-selected@0.14.0",
+  "_inBundle": false,
+  "_integrity": "sha512-QAByVgzyjBze/7LylzrSFzDNmjTdlTEpH1UYgmtanHz5GqLauCTkeMAhlX2Aa/DfuaVg5XK3O0fkb2qTksw5hA==",
   "_location": "/highlight-selected",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117228-5470-10by1sx/package.tgz",
-    "scope": null,
-    "escapedName": null,
-    "name": null,
-    "rawSpec": "/tmp/d-117228-5470-10by1sx/package.tgz",
-    "spec": "/tmp/d-117228-5470-10by1sx/package.tgz",
-    "type": "local"
+    "type": "remote",
+    "raw": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
-  "_resolved": "file:../d-117228-5470-10by1sx/package.tgz",
-  "_shasum": "8b6ce153f680dfd60ab003835e666266c4420e5f",
-  "_shrinkwrap": null,
-  "_spec": "/tmp/d-117228-5470-10by1sx/package.tgz",
-  "_where": "/tmp/apm-install-dir-117228-5470-cs1s8g",
+  "_resolved": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
+  "_shasum": "3c8c2c838b70beec0a4b108a5f7356bd70bb8b24",
+  "_spec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
+  "_where": "/tmp/apm-install-dir-118925-29117-s0cb8b.z3ebk",
   "bugs": {
     "url": "https://github.com/richrace/highlight-selected/issues"
   },
+  "bundleDependencies": false,
   "consumedServices": {
     "status-bar": {
       "versions": {
         "^1.0.0": "consumeStatusBar"
       }
+    },
+    "scroll-marker": {
+      "versions": {
+        "0.1.0": "consumeScrollMarker"
+      }
     }
   },
   "dependencies": {
+    "atom-package-deps": "^4.6.2",
     "grim": "^2.0.1"
   },
+  "deprecated": false,
   "description": "Highlights the current word selected when double clicking",
   "devDependencies": {
-    "coffee-script": "1.9.0",
-    "coffeelint": "1.8.1",
-    "coffeelint-jasmine": "0.0.2"
+    "coffeelint": "^2.1.0",
+    "coffeelint-jasmine": "0.0.2",
+    "coffeescript": "^2.3.1"
   },
   "dist": {
     "shasum": "7c9da46b1412aceb069f8ca2ca54d014986ad408"
@@ -62,10 +54,17 @@
     "atom": ">=1.13.0 <2.0.0"
   },
   "homepage": "https://github.com/richrace/highlight-selected",
+  "keywords": [
+    "highlight selected",
+    "highlight selection",
+    "highlight occurrences"
+  ],
   "license": "MIT",
   "main": "./lib/highlight-selected",
   "name": "highlight-selected",
-  "optionalDependencies": {},
+  "package-deps": [
+    "scroll-marker"
+  ],
   "providedServices": {
     "highlightSelected": {
       "description": "Exposes Highlight Selected Events",
@@ -75,11 +74,9 @@
       }
     }
   },
-  "readme": "# Highlight Selected\n\nDouble click on a word to highlight it throughout the open file.\n\nThis is something hacky I've put together as I missed the functionality that Sublime gave. As such, it's doesn't work 100% but is good enough to start!\n\nSome code and has been take from Atom's find and replace package ([link](https://github.com/atom/find-and-replace))\n\nPlease log any issues and pull requests are more than welcome!\n\n![Gif in action](http://i.imgur.com/C5FnzzQ.gif)\n\n# Issues and Todo\n\n- Some double click events are not triggered\n- Refactor and tidy up the code\n- Add specs to test it\n",
-  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/richrace/highlight-selected.git"
   },
-  "version": "0.13.1"
+  "version": "0.14.0"
 }

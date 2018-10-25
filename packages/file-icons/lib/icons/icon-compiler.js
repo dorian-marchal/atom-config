@@ -1,7 +1,7 @@
 "use strict";
 
 const IconDefinition = require("./icon-definition.js");
-const {isString, isRegExp, escapeRegExp} = require("alhadis.utils");
+const {isString, isRegExp, escapeRegExp} = require("../utils.js");
 
 
 /**
@@ -22,7 +22,7 @@ class IconCompiler{
 		const fs = require("fs");
 		const CoffeeScript = require("coffee-script");
 		const config = fs.readFileSync(configPath).toString();
-		const source = CoffeeScript.eval(config);
+		CoffeeScript.eval(config);
 		const output = this.compileConfigData(config);
 		fs.writeFileSync(outputPath, output);
 	}
@@ -181,7 +181,7 @@ class IconCompiler{
 		if(!fixSeparators)
 			return new RegExp(escapeRegExp(input) + "$", "i");
 		
-		input = input.split(/[\\\/]+/).map(s => escapeRegExp(s)).join("[\\\\\\/]");
+		input = input.split(/[\\/]+/).map(s => escapeRegExp(s)).join("[\\\\\\/]");
 		return new RegExp(input + "$", "i");
 	}
 	
@@ -193,10 +193,10 @@ class IconCompiler{
 	 * @return {Boolean}
 	 */
 	canMergeDefinitions(a, b){
-		if(a.icon        !=  b.icon)        return false;
+		if(a.icon        !== b.icon)        return false;
 		if(a.colour[0]   !== b.colour[0])   return false;
 		if(a.colour[1]   !== b.colour[1])   return false;
-		if(a.priority    !=  b.priority)    return false;
+		if(a.priority    !== b.priority)    return false;
 		if(a.match.flags !== b.match.flags) return false;
 		if(!!a.matchPath !== !!b.matchPath) return false;
 		
