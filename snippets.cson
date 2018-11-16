@@ -190,3 +190,11 @@
       JOIN ${1} ON
         ${1}.${2:id_$3} = ${5:$2}.${4:id_$3}
     '''
+  'ss':
+    'prefix': 'ss'
+    'body': '''
+      SELECT count(*) FROM ${1}
+    '''
+  'cc':
+    'prefix': 'cc'
+    'body': 'count(*)'

@@ -80,7 +80,11 @@ selectParagraphUnderCursor = ->
         end: { row: endRow, column: 0 },
     })
 
-createQueryPart = (addExplainAnalyze = false, addCount = false) ->
+selectWordUnderCursor = ->
+    editor = atom.workspace.getActiveTextEditor()
+    editor.selectWordsContainingCursors()
+
+createQueryPart = (addExplainAnalyze = false, addCount = false, showTable = false) ->
     editor = atom.workspace.getActiveTextEditor()
     filePath = atom.workspace.getActivePaneItem().buffer.file?.path
 
@@ -98,7 +102,10 @@ createQueryPart = (addExplainAnalyze = false, addCount = false) ->
     selectedText = editor.getSelectedText()
 
     if selectedText is ''
-        selectParagraphUnderCursor()
+        if showTable
+            selectWordUnderCursor()
+        else
+            selectParagraphUnderCursor()
         selectedText = editor.getSelectedText()
 
     # Extracts and prepends extracted psql headers to query part.
@@ -119,10 +126,10 @@ createQueryPart = (addExplainAnalyze = false, addCount = false) ->
         headers = ['\\x off', headers].join '\n'
 
     sqlPart = [
+        headers,
         if addExplainAnalyze then 'explain analyze\n' else undefined,
         if addCount then 'select count(*) from (\n' else undefined,
-        headers,
-        selectedText,
+        ((if showTable then '\\d ' else '') + selectedText),
         if addCount then ') as __to_be_counted__\n' else undefined,
         '\n',
     ].join ''
@@ -139,6 +146,9 @@ atom.commands.add 'atom-text-editor', 'my:create-query-part', ->
 # Moves the selected text in /tmp/atom-query-part.sql.
 atom.commands.add 'atom-text-editor', 'my:create-count-query-part', ->
     createQueryPart(false, true)
+
+atom.commands.add 'atom-text-editor', 'my:create-show-table-query-part', ->
+    createQueryPart(false, false, true)
 
 # Moves the selected text (appended to "explain analyze") in /tmp/atom-query-part.sql.
 atom.commands.add 'atom-text-editor', 'my:create-explain-query-part', ->
@@ -209,12 +219,12 @@ fixSqlCase = (editor) ->
 
     patternTransformPairs = [
         # Placeholders.
-        [/__\w+__/gi, uppercase],
+        [/\b__\w+__\b/gi, uppercase],
         # Placeholders.
         [/\bint\b/gi, 'integer'],
         [/\bbool\b/gi, 'boolean'],
         # Keywords.
-        [/\b(?:select( exists)?|nulls last|delete|(cross )?join|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|foreign|from|function|group|having|if|immutable|in|index|insert|into|is|primary key|foreign key|language|left|limit|not|null|on|or|order|primary|procedure|query|raise|references|return|returns|row|security|stable|table|then|trigger|true|update|using|values|when|where|rollback)\b/gi, uppercase],
+        [/\b(?:select( exists)?|nulls last|delete|(cross )?join|exists \(|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|from|function|group|having|if|immutable|in|index|insert|into|is|primary key|foreign key|language|left|limit|unique| set|drop|not|null|default|on|concurrently|exists|or|order|primary|procedure|query|raise|references|return|returns|row|security|stable|table|then|trigger|true|update|using|values|when|where|rollback)\b/gi, uppercase],
         [/\bwith(?: recursive)? ?\(/gi, uppercase]
     ]
 
@@ -251,9 +261,9 @@ fixSqlCase = (editor) ->
     editor.setSelectedBufferRanges(selectionRanges)
 
 
-# Binds the execution of `fixSqlCase` on change for all SQL buffers.
+# Binds the execution of `fixSqlCase` on all SQL buffers.
 atom.workspace.observeTextEditors((editor) ->
-    editor.onDidStopChanging(->
+    editor.getBuffer().onWillSave(->
         if (editor.getGrammar().scopeName is 'source.sql')
             fixSqlCase(editor)
     )
