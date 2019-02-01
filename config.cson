@@ -306,4 +306,4 @@
     tabLength: 4
 ".source.sql":
   editor:
-    tabLength: 2
+    tabLength: 4

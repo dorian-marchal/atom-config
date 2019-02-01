@@ -195,6 +195,13 @@
     'body': '''
       SELECT count(*) FROM ${1}
     '''
+  'scontenu':
+    'prefix': 'scontenu'
+    'body': '''
+      SELECT *
+      FROM contenu
+      WHERE id_contenu IN (${1})
+    '''
   'cc':
     'prefix': 'cc'
     'body': 'count(*)'
