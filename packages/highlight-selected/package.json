@@ -1,25 +1,25 @@
 {
-  "_from": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
-  "_id": "highlight-selected@0.14.0",
+  "_from": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball",
+  "_id": "highlight-selected@0.16.0",
   "_inBundle": false,
-  "_integrity": "sha512-QAByVgzyjBze/7LylzrSFzDNmjTdlTEpH1UYgmtanHz5GqLauCTkeMAhlX2Aa/DfuaVg5XK3O0fkb2qTksw5hA==",
+  "_integrity": "sha512-74X20kMqyb/dErMfl+1OxmNYGA7El+G1TfMTlzfV0t98Sgk/aRXT20HcVqeRCvZe56bHpf36yZQvITnPHWe+EA==",
   "_location": "/highlight-selected",
   "_phantomChildren": {},
   "_requested": {
     "type": "remote",
-    "raw": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
-    "rawSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
-    "saveSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
-    "fetchSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball"
+    "raw": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
-  "_shasum": "3c8c2c838b70beec0a4b108a5f7356bd70bb8b24",
-  "_spec": "https://www.atom.io/api/packages/highlight-selected/versions/0.14.0/tarball",
-  "_where": "/tmp/apm-install-dir-118925-29117-s0cb8b.z3ebk",
+  "_resolved": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball",
+  "_shasum": "a7008573e744577d6e54091ba08c7f408aeccd2d",
+  "_spec": "https://www.atom.io/api/packages/highlight-selected/versions/0.16.0/tarball",
+  "_where": "/tmp/apm-install-dir-1191020-30228-16kloh3.h30b",
   "bugs": {
     "url": "https://github.com/richrace/highlight-selected/issues"
   },
@@ -37,15 +37,20 @@
     }
   },
   "dependencies": {
-    "atom-package-deps": "^4.6.2",
-    "grim": "^2.0.1"
+    "atom-package-deps": "^5.0.0",
+    "debounce": "^1.2.0",
+    "grim": "^2.0.2"
   },
   "deprecated": false,
   "description": "Highlights the current word selected when double clicking",
   "devDependencies": {
-    "coffeelint": "^2.1.0",
-    "coffeelint-jasmine": "0.0.2",
-    "coffeescript": "^2.3.1"
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.3"
   },
   "dist": {
     "shasum": "7c9da46b1412aceb069f8ca2ca54d014986ad408"
@@ -60,7 +65,7 @@
     "highlight occurrences"
   ],
   "license": "MIT",
-  "main": "./lib/highlight-selected",
+  "main": "./lib/main",
   "name": "highlight-selected",
   "package-deps": [
     "scroll-marker"
@@ -78,5 +83,5 @@
     "type": "git",
     "url": "git+https://github.com/richrace/highlight-selected.git"
   },
-  "version": "0.14.0"
+  "version": "0.16.0"
 }

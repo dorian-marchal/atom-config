@@ -216,6 +216,7 @@ fixSqlCase = (editor) ->
     selectionRanges = editor.getSelectedBufferRanges()
 
     uppercase = (text) -> text.toUpperCase()
+    lowercase = (text) -> text.toLowerCase()
 
     patternTransformPairs = [
         # Placeholders.
@@ -224,8 +225,9 @@ fixSqlCase = (editor) ->
         [/\bint\b/gi, 'integer'],
         [/\bbool\b/gi, 'boolean'],
         # Keywords.
-        [/\b(?:select( exists)?|nulls last|delete|(cross )?join|exists \(|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|from|function|group|having|if|immutable|in|index|insert|into|is|primary key|foreign key|language|left|limit|unique| set|drop|not|null|default|on|concurrently|exists|or|order|primary|procedure|query|raise|references|return|returns|row|security|stable|table|then|trigger|true|update|using|values|when|where|rollback)\b/gi, uppercase],
-        [/\bwith(?: recursive)? ?\(/gi, uppercase]
+        [/\b(?:select( exists)?|nulls last|delete|(cross )?join|exists \(|lateral|over|partition|add|after|alter|and|as|asc|begin|by|case|check|column|constraint|create|declare|definer|desc|distinct|each|else|end|execute|false|for|from|function|group|having|if|immutable|in|index|insert|into|is|primary key|foreign key|language|left|limit|unique|union all|union|except all|except| set|drop|not|null|default|on|concurrently|exists|or|order|primary|procedure|query|raise|references|return|returns|row|security|stable|table|temporary table|then|trigger|true|update|using|values|when|where|rollback)\b/gi, uppercase],
+        [/\bwith(?: recursive)? /gi, uppercase]
+        [/\bwith timezone\b/gi, lowercase]
     ]
 
     tokenizedSql = sqlTokenizer.tokenize text

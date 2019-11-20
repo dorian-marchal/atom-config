@@ -1,25 +1,25 @@
 {
-  "_from": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball",
-  "_id": "toggle-quotes@1.1.1",
+  "_from": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball",
+  "_id": "toggle-quotes@1.1.4",
   "_inBundle": false,
-  "_integrity": "sha512-4A5AKqwWzdloWNPMJMLN8vXjmN6eD1n51i8x1rphwo/40VeG7cC3ZsP/xfWwUbprzXm896rUm7IpIdVZEqgbIg==",
+  "_integrity": "sha512-DuflZt+AuPIXrVCxR7cNV0T5rLVfMUQa3ki+KpnIYYTFakjeB5E+8wwicvaR4agdlz0SDhMNrMsEBCJCQG9STg==",
   "_location": "/toggle-quotes",
   "_phantomChildren": {},
   "_requested": {
     "type": "remote",
-    "raw": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball",
-    "rawSpec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball",
-    "saveSpec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball",
-    "fetchSpec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball"
+    "raw": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball",
-  "_shasum": "5298af7eaafd720e157b416d3233b0e4ae6a8ab2",
-  "_spec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.1/tarball",
-  "_where": "/tmp/apm-install-dir-118925-29574-1wkls28.zrx3",
+  "_resolved": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball",
+  "_shasum": "134ed1be54c7618e6958596bf1871db7e7ec02a1",
+  "_spec": "https://www.atom.io/api/packages/toggle-quotes/versions/1.1.4/tarball",
+  "_where": "/tmp/apm-install-dir-1191020-30381-1bgqv1s.jn8l",
   "activationCommands": {
     "atom-text-editor": [
       "toggle-quotes:toggle"
@@ -61,5 +61,5 @@
       "waitsForPromise"
     ]
   },
-  "version": "1.1.1"
+  "version": "1.1.4"
 }

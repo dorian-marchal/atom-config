@@ -14,3 +14,4 @@ nohup.out
 /git-time-machine
 /split-diff/split-diff*
 /data-atom-connections.cson
+/.atom-socket-secret-*
