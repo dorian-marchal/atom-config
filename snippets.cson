@@ -202,6 +202,20 @@
       FROM contenu
       WHERE id_contenu IN (${1})
     '''
+  'stype':
+    'prefix': 'stype'
+    'body': '''
+      SELECT *
+      FROM type
+      WHERE id_type IN (${1})
+    '''
+  'stag':
+    'prefix': 'stag'
+    'body': '''
+      SELECT *
+      FROM tag
+      WHERE id_tag IN (${1})
+    '''
   'cc':
     'prefix': 'cc'
     'body': 'count(*)'

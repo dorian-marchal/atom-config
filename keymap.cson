@@ -52,7 +52,7 @@
   'ctrl-k ctrl-h': 'git-time-machine:toggle'
   'ctrl-f2': 'bookmarks:toggle-bookmark'
   'ctrl-e': 'my:create-query-part'
-  'ctrl-shift-e': 'my:create-explain-query-part'
+  'ctrl-shift-x': 'my:create-explain-query-part'
   'ctrl-*': 'my:create-count-query-part'
   'ctrl-shift-d': 'my:create-show-table-query-part'
   'ctrl-b': 'blame:toggle'
@@ -72,6 +72,7 @@
   'ctrl-+': 'editor:unfold-current-row'
   'ctrl--': 'editor:fold-current-row'
   'ctrl-/': 'tree-view:reveal-active-file'
+  'ctrl-shift-e': 'tree-view:toggle'
 
 'body':
   'ctrl-q': 'unset!'

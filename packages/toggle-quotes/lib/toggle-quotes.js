@@ -19,8 +19,18 @@ const getNextQuoteCharacter = (quoteCharacter, allQuoteCharacters) => {
   }
 }
 
-const quoted = ({text}) =>
-  (text.startsWith('"') || text.startsWith("'")) && text.endsWith(text[0])
+const escapePattern = (s) => {
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+}
+
+// Using the quote characters configured by the user, build a pattern that can
+// be used to filter the syntax nodes in tree-sitter mode.
+const makePredicate = (quoteChars) => {
+  // We want text that begins and ends with the same quote character (and
+  // _might_ start with one of Python's string format prefixes).
+  let pattern = new RegExp(`^[uUr]?([${escapePattern(quoteChars)}])[\\s\\S]*(\\1)$`, 'g')
+  return ({ text }) => pattern.test(text)
+}
 
 const toggleQuoteAtPosition = (editor, position) => {
   let quoteChars = atom.config.get('toggle-quotes.quoteCharacters', {
@@ -28,7 +38,7 @@ const toggleQuoteAtPosition = (editor, position) => {
   })
   let range
   if (editor.languageMode.getSyntaxNodeAtPosition) {
-    const node = editor.languageMode.getSyntaxNodeAtPosition(position, quoted)
+    const node = editor.languageMode.getSyntaxNodeAtPosition(position, makePredicate(quoteChars))
     range = node && node.range
   } else {
     range = editor.bufferRangeForScopeAtPosition('.string.quoted', position)
@@ -70,13 +80,16 @@ const toggleQuoteAtPosition = (editor, position) => {
     return
   }
 
-  // let quoteRegex = new RegExp(quoteCharacter, 'g')
-  let escapedQuoteRegex = new RegExp(`\\\\${quoteCharacter}`, 'g')
-  let nextQuoteRegex = new RegExp(nextQuoteCharacter, 'g')
+  const locateEscapesAndQuotesRegex = new RegExp(`\\\\.|${escapePattern(nextQuoteCharacter)}`, 'g')
 
   let newText = text
-    .replace(nextQuoteRegex, `\\${nextQuoteCharacter}`)
-    .replace(escapedQuoteRegex, quoteCharacter)
+    .replace(locateEscapesAndQuotesRegex, m => {
+      if (m[0] === nextQuoteCharacter) {
+        return '\\' + nextQuoteCharacter
+      } else {
+        return m[1] === quoteCharacter ? quoteCharacter : m
+      }
+    })
 
   newText = prefix + nextQuoteCharacter + newText.slice(1 + prefix.length, -1) + nextQuoteCharacter
 

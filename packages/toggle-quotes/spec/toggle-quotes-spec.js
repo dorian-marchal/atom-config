@@ -28,7 +28,9 @@ describe('ToggleQuotes', () => {
           console.log('Hello World')
           console.log("Hello 'World'")
           console.log('Hello "World"')
-          console.log('')`
+          console.log('')
+          console.log("boom")
+          console.log(\`backticks\`)`
         )
         editor.setGrammar(atom.grammars.selectGrammar('test.js'))
       })
@@ -60,6 +62,17 @@ describe('ToggleQuotes', () => {
       })
     })
 
+    describe('when the cursor is barely inside a double quoted string', () => {
+      describe('when using default config', () => {
+        it('switches the double quotes to single quotes', () => {
+          editor.setCursorBufferPosition([5, 13])
+          toggleQuotes(editor)
+          expect(editor.lineTextForBufferRow(5)).toBe(`console.log('boom')`)
+          expect(editor.getCursorBufferPosition()).toEqual([5, 13])
+        })
+      })
+    })
+
     describe('when using custom config of backticks', () => {
       it('switches the double quotes to backticks', () => {
         atom.config.set('toggle-quotes.quoteCharacters', '\'"`')
@@ -67,6 +80,14 @@ describe('ToggleQuotes', () => {
         toggleQuotes(editor)
         expect(editor.lineTextForBufferRow(0)).toBe('console.log(`Hello World`)')
         expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+      })
+
+      it('switches backticks to single quotes', () => {
+        atom.config.set('toggle-quotes.quoteCharacters', '\'"`')
+        editor.setCursorBufferPosition([6, 18])
+        toggleQuotes(editor)
+        expect(editor.lineTextForBufferRow(6)).toBe('console.log(\'backticks\')')
+        expect(editor.getCursorBufferPosition()).toEqual([6, 18])
       })
     })
 
@@ -161,6 +182,41 @@ describe('ToggleQuotes', () => {
           toggleQuotes(editor)
           expect(editor.getText()).toBe('{invalid: true}')
         })
+      })
+    })
+
+    describe('when handling escaped characters', () => {
+      it('ignores them if they do not match the previous quote character', () => {
+        editor.setText(`'\\\\ \\" \\a'`)
+        editor.setCursorBufferPosition([0, 2])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\ \\" \\a"`)
+      })
+
+      it('unescapes any escaped previous quote characters', () => {
+        editor.setText(`'don\\'t can\\'t'`)
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"don't can't"`)
+      })
+
+      it('escapes any unescaped next quote characters', () => {
+        editor.setText(`'"Hello world"'`)
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\"Hello world\\""`)
+      })
+
+      it('counts escapes correctly', () => {
+        editor.setText(`'\\\\\\''`) // escaped \ + escaped '
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\'"`)
+
+        editor.setText(`'\\\\"'`) // escaped \ + regular "
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\\\""`)
       })
     })
   })

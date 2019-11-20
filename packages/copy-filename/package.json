@@ -1,51 +1,36 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-        "scope": null,
-        "escapedName": null,
-        "name": null,
-        "rawSpec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-        "spec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-        "type": "local"
-      },
-      "/tmp/apm-install-dir-117431-17400-xga7xj.i0e5dhd7vi"
-    ]
-  ],
-  "_from": "../d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-  "_id": "copy-filename@1.1.0",
-  "_inCache": true,
-  "_installable": true,
+  "_from": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball",
+  "_id": "copy-filename@1.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-gnTNnmTJRRpmpkGg/QFAMFkMVRzG12WUswPNgItduJOxN1jqbJi15Wt8y+NPCQPJalkxM8DTfeQPwDOCWjW6tw==",
   "_location": "/copy-filename",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-    "scope": null,
-    "escapedName": null,
-    "name": null,
-    "rawSpec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-    "spec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-    "type": "local"
+    "type": "remote",
+    "raw": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
-  "_resolved": "file:../d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-  "_shasum": "a4e262c6b1ad0e4a2492f9cb8bfb3a986344260c",
-  "_shrinkwrap": null,
-  "_spec": "/tmp/d-117431-17400-vsh1id.ylnf7axlxr/package.tgz",
-  "_where": "/tmp/apm-install-dir-117431-17400-xga7xj.i0e5dhd7vi",
+  "_resolved": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball",
+  "_shasum": "a742a482f2cc79745c7a2961da8236d0b43f7019",
+  "_spec": "https://www.atom.io/api/packages/copy-filename/versions/1.2.0/tarball",
+  "_where": "/tmp/apm-install-dir-1191020-31561-bp8xy4.a9yxl",
   "bugs": {
     "url": "https://github.com/mariusrumpf/copy-filename/issues"
   },
-  "dependencies": {},
+  "bundleDependencies": false,
+  "deprecated": false,
   "description": "Add a copy name option to the tree view and a command to copy filename of current file",
   "devDependencies": {
-    "eslint": "^0.21.2"
+    "eslint": "^5.13.0"
   },
   "engines": {
-    "atom": ">=1.17.0 <2.0.0"
+    "atom": ">=1.34.0 <2.0.0"
   },
   "homepage": "https://github.com/mariusrumpf/copy-filename",
   "keywords": [
@@ -58,10 +43,7 @@
   "license": "MIT",
   "main": "lib/copy-filename",
   "name": "copy-filename",
-  "optionalDependencies": {},
   "private": true,
-  "readme": "# Copy filename\n\n> Add a copy name option to the tree view and a command to copy filename of current file\n\n![Demo Animation](https://cloud.githubusercontent.com/assets/2364426/7766926/838267ce-006e-11e5-83bc-2c7df47fb361.gif)\n\n![Screenshot 2](https://cloud.githubusercontent.com/assets/2364426/3539810/9a61c0a4-083d-11e4-9bcf-ebbed164d541.png)\n\n[Atom package](https://atom.io/packages/copy-filename)\n\n## Install\nSettings ➔ Install (Package) ➔ Search for `copy-filename`\n\n_or_\n\n```bash\n$ apm install copy-filename\n```\n\n## Shortcut\n| Keypress  | Command |\n| ------------- | ------------- |\n| ⌥⌃⇧F | Copy filename of current file  |\n\n## License\n\n[MIT](http://opensource.org/licenses/MIT) © [Marius Rumpf](http://mariusrumpf.de)\n",
-  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mariusrumpf/copy-filename.git"
@@ -70,18 +52,5 @@
     "lint": "eslint .",
     "test": "npm run lint"
   },
-  "version": "1.1.0",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [],
-    "extensions": {
-      ".js": [
-        "lib/copy-filename.js"
-      ],
-      ".json": [
-        "package.json"
-      ]
-    },
-    "folders": []
-  }
+  "version": "1.2.0"
 }
